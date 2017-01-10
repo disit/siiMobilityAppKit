@@ -1,0 +1,131 @@
+{
+  "connectionError": {
+    "message": "No hay conexión a internet. Revise si la conexión wi-fi o el intercambio de datos están activos.",
+    "title": "Revise La Conexión",
+    "buttonName": ""
+  },
+  "servicesCategoryNotSelected": {
+    "message": "No se ha seleccionado ningún elemento de búsqueda.",
+    "title": "Servicios No Seleccionados",
+    "buttonName": ""
+  },
+  "servicesServerError": {
+    "message": "No ha sido posible recuperar la información solicitada. Inténtelo de nuevo.",
+    "title": "Información No Disponible",
+    "buttonName": ""
+  },
+  "noFullTextResults": {
+    "message": "No se han encontrado servicios. Intente una búsqueda diferente.",
+    "title": "No Se Han Encontrado Servicios",
+    "buttonName": ""
+  },
+  "noTextToSearch": {
+    "message": "No se ha introducido ningún texto de búsqueda.",
+    "title": "Ningún Texto",
+    "buttonName": ""
+  },
+  "positionWarning": {
+    "message": "No es posible encontrar la ubicación actual. La búsqueda de la ubicación parece activa, revise si está conectado a internet para encontrar su ubicación a través de la red. Finalmente, intente reiniciar la aplicación.",
+    "title": "No Se Encuentra La Ubicación",
+    "buttonName": ""
+  },
+  "manualPosition": {
+    "message": "Pinche en cualquier punto del mapa para buscar en un punto determinado.",
+    "title": "Ubicación Manual",
+    "buttonName": ""
+  },
+  "overMaxDistance": {
+    "message": "No es posible buscar en un área más grande que la visualizada.",
+    "title": "Máxima Distancia Alcanzada",
+    "buttonName": ""
+  },
+  "chooseGpsManualSearchCenter": {
+    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
+    "title": "Búsqueda",
+    "buttonName": [ "GPS", "Ubicación Manual" ]
+  },
+  "chooseGpsServiceSearchCenter": {
+    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
+    "title": "Búsqueda",
+    "buttonName": [ "GPS", "Último servicio" ]
+  },
+  "chooseManualServiceSearchCenter": {
+    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
+    "title": "Búsqueda",
+    "buttonName": [ "Ubicación Manual", "Último servicio" ]
+  },
+  "addCalendarSuccess": {
+    "message": "El evento se ha añadido al calendario.",
+    "title": "Introducido",
+    "buttonName": ""
+  },
+  "addCalendarError": {
+    "message": "No es posible añadir el evento en el calendario.",
+    "title": "No Introducido",
+    "buttonName": ""
+  },
+  "addFavourite": {
+    "message": "Servicio añadido a favoritos",
+    "title": "Añadido",
+    "buttonName": ""
+  },
+  "removeFavourite": {
+    "message": "Servicio removido de favoritos",
+    "title": "Removido",
+    "buttonName": ""
+  },
+  "saveSurveyResultSuccess": {
+    "message": "Los resultados de la encuesta fueron enviados",
+    "title": "Enviados",
+    "buttonName": ""
+  },
+  "saveSurveyResultError": {
+    "message": "No fue posible enviar los resultados de la encuesta",
+    "title": "No Enviados",
+    "buttonName": ""
+  },
+  "navigatorSearcherStart": {
+    "message": "Presionando \"Inicio\" se pasa a navegación. La ubicación se desplazará automáticamente y se llevará a cabo una búsqueda de los servicios seleccionados en el menú, en el área indicada en la configuración.",
+    "title": "Modo Navegación",
+    "buttonName": [ "Cancelar", "Inicio" ]
+  },
+  "photoUpload": {
+    "sendedImages": "Imágenes Enviadas: ",
+    "unsendedImages": "Imágenes No Enviadas: ",
+    "moderator":  "Serán visibles después de su aprobación.",
+    "doneTitle": "Envío Completo",
+    "problemTitle": "Envío Incompleto",
+    "buttonName": [ "Ok", "Reintentar" ]
+  },
+  "shareFacebook": {
+    "message": "Aplicación de Facebook no instalada.",
+    "title": "No Instalada",
+    "buttonName": ""
+  },
+  "sendStarsDone": {
+    "message": "El voto para este servicio ha sido guardado correctamente.",
+    "title": "Voto Introducido",
+    "buttonName": ""
+  },
+  "sendStarsError": {
+    "message": "Intente votar de nuevo el servicio porque el voto no se ha guardado.",
+    "title": "Voto No Introducido",
+    "buttonName": ""
+  },
+  "sendCommentDone": {
+    "message": "El comentario para este servicio se ha memorizado correctamente. Será visible después de su aprobación.",
+    "title": "Comentario Introducido",
+    "buttonName": ""
+  },
+  "sendCommentError": {
+    "message": "Intente comentar de nuevo el servicio porque el comentario no se guardó correctamente.",
+    "title": "Comentario No Introducido",
+    "buttonName": ""
+  },
+  "webPositionDenied": {
+    "message": "Es necesario habilitar los permisos de geolocalización en los ajustes del dispositivo.",
+    "title": "Permiso Denegado",
+    "buttonName": ""
+  }
+}
+

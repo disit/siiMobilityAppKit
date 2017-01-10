@@ -1,0 +1,74 @@
+<style>
+    #categorySearchGoButton {
+        color: white;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        height: 32px;
+        padding: 3px 0px;
+        text-align: center;
+        font-size: 20px;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+
+    #categorySearchLastResultsButton {
+        color: white;
+        display:none;
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        width: 50%;
+        height: 32px;
+        padding: 3px 0px;
+        text-align: center;
+        font-size: 20px;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+    }
+</style>
+<div class="panel panel-default" style="border-radius: 0px;">
+    <div class="panel-heading">
+        <div class="input-group" >
+            <input name="search" class="form-control" onkeypress="return CategorySearcher.onKeyEnter(event);" onkeyup="CategorySearcher.filterMenu();">
+            <span class="input-group-btn">
+                <button id="btnResetSearch" class="btn btn-default" onclick="CategorySearcher.resetFilterMenu()"><i class="glyphicon glyphicon-trash"></i></button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<a class="pull-right" onclick="CategorySearcher.selectAll();">
+    <i class="glyphicon glyphicon-check"
+       style="color: #777; position: absolute; top: 48px; left: 24%; font-size: 20px;"></i>
+</a>
+ <a class="pull-right"
+   onclick="CategorySearcher.deselectAll();">
+    <i class="glyphicon glyphicon-unchecked"
+       style="color: #777; position: absolute; top: 48px; left: 49%; font-size: 20px;"></i>
+</a>
+<a class="pull-right" onclick="CategorySearcher.resetMenu();">
+    <i class="glyphicon glyphicon-repeat"
+       style="color: #777; position: absolute; top: 48px; left: 74%; font-size: 20px;"></i>
+</a>
+
+<div class="ui-panel-inner" style="top:72px;">
+    <div id="categorySearchFancyTreeComplete" style="display:none"></div>
+    <div id="categorySearchFancyTree"></div>
+</div>
+
+<button id="categorySearchGoButton" type="button" class="btn btn-success" style="border-radius: 0px"
+        onclick="SearchManager.search('categories');CategorySearcher.hide();">
+    <script>
+        $("#categorySearchGoButton").html(
+				Globalization.labels.categorySearchMenu.goButton)
+    </script>
+</button>
+
+<button id="categorySearchLastResultsButton" type="button" class="btn btn-primary" style="border-radius: 0px"
+        onclick="CategorySearcher.lastResults(); CategorySearcher.hide();">
+    <script>
+        $("#categorySearchLastResultsButton").html(
+				Globalization.labels.categorySearchMenu.lastResultsButton)
+    </script>
+</button>

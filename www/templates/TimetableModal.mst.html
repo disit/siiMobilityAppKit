@@ -1,0 +1,82 @@
+<style>
+
+    table#timetableModaltimetable {
+	width: 100%;
+	text-align: center;
+    border: none;
+    table-layout: fixed;
+}
+
+table#timetableModaltimetable th {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+}
+
+table#timetableModaltimetable td {
+	border: 1px solid #ddd;
+    padding: 3px;
+}
+
+table#timetableModaltimetable td.Anticipo {
+	color: green;
+}
+
+table#timetableModaltimetable td.Ritardo {
+	color: red;
+}
+</style>
+<div class="modal-dialog">
+    <div class="modal-content" style="margin: 0px 2px">
+        <div id="timetableModalBody" class="modal-body" style="padding: 6px; padding-bottom: 0px;">
+            <!-- {{#timetable}}{{#results}} -->
+            <table id="timetableModaltimetable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th id="timetableModalBusStopTime">
+                            <script>
+                                $("#timetableModalBusStopTime").html(
+				Globalization.labels.busStop.time)
+                            </script>
+                        </th>
+                        <th id="timetableModalBusStopNumber">
+                            <script>
+                                $("#timetableModalBusStopNumber").html(
+				Globalization.labels.busStop.number)
+                            </script>
+                        </th>
+                        <th id="timetableModalBusStopDirection">
+                            <script>
+                                $("#timetableModalBusStopDirection").html(
+								Globalization.labels.busStop.direction)
+                            </script>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--{{#bindings}} -->
+                    <tr>
+                        <td>{{departureTime.value}} {{date.value}}</td>
+                        <td>{{#lineName}}{{#value}}<a onclick="InfoManager.hideTimetableModal(); BusRoutesSearcher.getRoutesForLineToBusStop('{{value}}','{{#BusStop}}{{#features.0}}{{#properties}}{{agencyUri}}{{/properties}}{{/features.0}}{{/BusStop}}','{{#busLines}}{{#head}}{{busStopEscaped}}{{/head}}{{/busLines}}')">{{value}}</a>{{/value}}{{^value}}{{#lineDesc}}{{#value}}{{value}}{{/value}}{{/lineDesc}}{{/value}}{{/lineName}}</td>
+                        <td>{{#routeName.value}}<a onclick="InfoManager.hideTimetableModal(); BusRoutesSearcher.drawRoute('{{trip.value}}');">{{routeName.value}}</a>{{/routeName.value}}{{^routeName.value}}{{#lineDesc.value}}<a onclick="BusRoutesSearcher.drawRoute('{{trip.value}}');">{{lineDesc.value}}</a>{{/lineDesc.value}}{{/routeName.value}}</td>
+                    </tr>
+                    <!-- {{/bindings}} -->
+                </tbody>
+
+            </table>
+            <!-- {{/results}}{{/timetable}} -->	
+        </div>
+        <div class="modal-footer" style="padding: 0px; border-bottom: 0px">
+            <button id="timetableModalFooterButton" type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" style="width:100%;border-top-left-radius:0px; border-top-right-radius:0px; border-left: 0px;border-right: 0px;border-bottom: 0px;" onclick="InfoManager.hideTimetableModal();">
+                <script>
+                    $("#timetableModalFooterButton").html(
+                                       Globalization.labels.busRoutesInfoModal.closeButton)
+                </script>
+            </button>
+        </div>
+    </div>
+</div>
+

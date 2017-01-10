@@ -1,0 +1,259 @@
+{
+  "Settings": {
+    "label": "Configuración",
+    "groups": [
+      {
+        "label": "Búsqueda",
+        "key": "research",
+        "items": [
+          {
+            "key": "maxDistance",
+            "label": "Máxima distancia (Metros)",
+            "options": [
+              {
+                "key": "0.2",
+                "label": "20",
+                "selected": ""
+              },
+              {
+                "key": "0.05",
+                "label": "50",
+                "selected": ""
+              },
+              {
+                "key": "0.1",
+                "label": "100",
+                "selected": ""
+              },
+              {
+                "key": "0.2",
+                "label": "200",
+                "selected": ""
+              },
+              {
+                "key": "0.3",
+                "label": "300",
+                "selected": ""
+              },
+              {
+                "key": "0.5",
+                "label": "500",
+                "selected": ""
+              },
+              {
+                "key": "1",
+                "label": "1000",
+                "selected": ""
+              },
+              {
+                "key": "2",
+                "label": "2000",
+                "selected": ""
+              },
+              {
+                "key": "5",
+                "label": "5000",
+                "selected": ""
+              },
+              {
+                "key": "10",
+                "label": "10000",
+                "selected": ""
+              },
+              {
+                "key": "15",
+                "label": "15000",
+                "selected": ""
+              },
+              {
+                "key": "20",
+                "label": "20000",
+                "selected": ""
+              }
+            ]
+          },
+          {
+            "key": "numberOfItems",
+            "label": "Número de elementos",
+            "options": [
+              {
+                "key": "10",
+                "label": "10",
+                "selected": ""
+              },
+              {
+                "key": "20",
+                "label": "20",
+                "selected": ""
+              },
+              {
+                "key": "50",
+                "label": "50",
+                "selected": ""
+              },
+              {
+                "key": "100",
+                "label": "100",
+                "selected": ""
+              },
+              {
+                "key": "200",
+                "label": "200",
+                "selected": ""
+              },
+              {
+                "key": "500",
+                "label": "500",
+                "selected": ""
+              },
+              {
+                "key": "1000",
+                "label": "1000",
+                "selected": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "General",
+        "key": "general",
+        "items": [
+          {
+            "key": "language",
+            "label": "Idioma",
+            "options": [
+              {
+                "key": "eng",
+                "label": "Inglese",
+                "selected": ""
+              },
+              {
+                "key": "ita",
+                "label": "Italiano",
+                "selected": ""
+              },
+              {
+                "key": "fra",
+                "label": "Francés",
+                "selected": ""
+              },
+              {
+                "key": "deu",
+                "label": "Alemán",
+                "selected": ""
+              },
+              {
+                "key": "esp",
+                "label": "Español",
+                "selected": ""
+              }
+            ]
+          },
+          {
+            "key": "textSize",
+            "label": "Tamaño Texto Menú",
+            "options": [
+              {
+                "key": "16",
+                "label": "Muy pequeño",
+                "selected": ""
+              },
+              {
+                "key": "18",
+                "label": "Pequeño",
+                "selected": ""
+              },
+              {
+                "key": "20",
+                "label": "Normal",
+                "selected": ""
+              },
+              {
+                "key": "22",
+                "label": "Medio",
+                "selected": ""
+              },
+              {
+                "key": "24",
+                "label": "Grande",
+                "selected": ""
+              },
+              {
+                "key": "26",
+                "label": "Muy Grande",
+                "selected": ""
+              }
+            ]
+          },
+          {
+            "key": "profile",
+            "label": "Perfil",
+            "options": [
+              {
+                "key": "citizen",
+                "label": "Ciudadano",
+                "selected": ""
+              },
+              {
+                "key": "disabled",
+                "label": "Discapacitados",
+                "selected": ""
+              },
+              {
+                "key": "operator",
+                "label": "Operador",
+                "selected": ""
+              },
+              {
+                "key": "commuter",
+                "label": "Viajero",
+                "selected": ""
+              },
+              {
+                "key": "tourist",
+                "label": "Turista",
+                "selected": ""
+              },
+              {
+                "key": "student",
+                "label": "Estudiante",
+                "selected": ""
+              },
+              {
+                "key": "all",
+                "label": "Todos Los Servicios",
+                "selected": ""
+              }
+            ]
+          },
+          {
+            "key": "gpsPosition",
+            "label": "Posición GPS",
+            "options": [
+              {
+                "key": "true",
+                "label": "Sí",
+                "selected": ""
+              },
+              {
+                "key": "false",
+                "label": "No",
+                "selected": ""
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "defaultButton": {
+      "label": "Valor Por Defecto"
+    },
+    "cancelButton": {
+      "label": "Cancelar"
+    },
+    "saveButton": {
+      "label": "Guardar"
+    }
+  }
+}

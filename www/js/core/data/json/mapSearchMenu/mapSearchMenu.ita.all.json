@@ -1,0 +1,552 @@
+[
+{"title": "Agricoltura e Allevamento", "key": "AgricultureAndLivestock", "folder": "true", "icon": "ita/AgricultureAndLivestock.png", "children": [
+{"title": "Caccia Cattura E Servizi", "key": "Hunting_trapping_and_services", "icon": "ita/AgricultureAndLivestock_Hunting_trapping_and_services.png"}
+,{"title": "Pesca E Acquicoltura", "key": "Fishing_and_aquaculture", "icon": "ita/AgricultureAndLivestock_Fishing_and_aquaculture.png"}
+,{"title": "Produz Anim., Veg. E Caccia", "key": "Crop_animal_production_hunting", "icon": "ita/AgricultureAndLivestock_Crop_animal_production_hunting.png"}
+,{"title": "Produzione Animali", "key": "Animal_production", "icon": "ita/AgricultureAndLivestock_Animal_production.png"}
+,{"title": "Produzione Vegetali", "key": "Crop_production", "icon": "ita/AgricultureAndLivestock_Crop_production.png"}
+,{"title": "Supporto Produz. Animali", "key": "Support_animal_production", "icon": "ita/AgricultureAndLivestock_Support_animal_production.png"}
+,{"title": "Veterinari", "key": "Veterinary", "icon": "ita/AgricultureAndLivestock_Veterinary.png"}
+ ]},
+{"title": "Alloggi", "key": "Accommodation", "folder": "true", "icon": "ita/Accommodation.png", "children": [
+{"title": "Affittacamere", "key": "Boarding_house", "icon": "ita/Accommodation_Boarding_house.png"}
+,{"title": "Agriturismo", "key": "Agritourism", "icon": "ita/Accommodation_Agritourism.png"}
+,{"title": "Altre Sistemazioni", "key": "Other_accommodation", "icon": "ita/Accommodation_Other_accommodation.png"}
+,{"title": "Bed And Breakfast", "key": "Bed_and_breakfast", "icon": "ita/Accommodation_Bed_and_breakfast.png"}
+,{"title": "Campeggi", "key": "Camping", "icon": "ita/Accommodation_Camping.png"}
+,{"title": "Casa Di Riposo", "key": "Rest_home", "icon": "ita/Accommodation_Rest_home.png"}
+,{"title": "Casa Per Ferie", "key": "Religiuos_guest_house", "icon": "ita/Accommodation_Religious_guest_house.png"}
+,{"title": "Casa Per Vacanze", "key": "Summer_residence", "icon": "ita/Accommodation_Summer_residence.png"}
+,{"title": "Centri Accogl. E Case Allogg.", "key": "Day_care_centre", "icon": "ita/Accommodation_Day_care_centre.png"}
+,{"title": "Colonie Per Ragazzi", "key": "Summer_camp", "icon": "ita/Accommodation_Summer_camp.png"}
+,{"title": "Hotel", "key": "Hotel", "icon": "ita/Accommodation_Hotel.png"}
+,{"title": "Ostelli", "key": "Hostel", "icon": "ita/Accommodation_Hostel.png"}
+,{"title": "Residence Di Villeggiatura", "key": "Vacation_resort", "icon": "ita/Accommodation_Vacation_resort.png"}
+,{"title": "Residenza Turistica Albergh.", "key": "Farm_house", "icon": "ita/Accommodation_Farm_house.png"}
+,{"title": "Residenze Epoca", "key": "Historic_residence", "icon": "ita/Accommodation_Historic_residence.png"}
+,{"title": "Rifugi Di Montagna", "key": "Mountain_shelter", "icon": "ita/Accommodation_Mountain_shelter.png"}
+,{"title": "Stabilimento Balneari", "key": "Beach_resort", "icon": "ita/Accommodation_Beach_resort.png"}
+,{"title": "Villaggi Turistici", "key": "Holiday_village", "icon": "ita/Accommodation_Holiday_village.png"}
+ ]},
+{"title": "Ambiente", "key": "Environment", "folder": "true", "icon": "ita/Environment.png", "children": [
+{"title": "Cura Del Paesaggio", "key": "Landscape_care", "icon": "ita/Environment_Landscape_care.png"}
+,{"title": "Geologi", "key": "Geologists", "icon": "ita/Environment_Geologists.png"}
+,{"title": "Impianti Fotovoltaici", "key": "Photovoltaic_system", "icon": "ita/Environment_Photovoltaic_system.png"}
+,{"title": "Pulizia", "key": "Cleaning_activities", "icon": "ita/Environment_Cleaning_activities.png"}
+,{"title": "Pulizia Aree Pubb. E Strade", "key": "Street_sweeping", "icon": "ita/Environment_Street_sweeping.png"}
+,{"title": "Pulizia E Disinfestazione", "key": "Disinfecting_and_exterminating_activities", "icon": "ita/Environment_Disinfecting_and_exterminating_activities.png"}
+,{"title": "Pulizia Edif. E Impian. Indus.", "key": "Building_and_industrial_cleaning_activities", "icon": "ita/Environment_Building_and_industrial_cleaning_activities.png"}
+,{"title": "Raccolta Trattamento Rifiuti", "key": "Waste_collection_and_treatment", "icon": "ita/Environment_Waste_collection_and_treatment.png"}
+,{"title": "Recupero Materiali", "key": "Materials_recovery", "icon": "ita/Environment_Materials_recovery.png"}
+,{"title": "Rete Fognaria", "key": "Sewerage", "icon": "ita/Environment_Sewerage.png"}
+,{"title": "Sensori Meteo", "key": "Weather_sensor", "icon": "ita/Environment_Weather_sensor.png"}
+,{"title": "Silvicoltura", "key": "Forestry", "icon": "ita/Environment_Forestry.png"}
+ ]},
+{"title": "Assistenza Sanitaria", "key": "HealthCare", "folder": "true", "icon": "ita/HealthCare.png", "children": [
+{"title": "Ambulatorio Medico", "key": "Doctor_office", "icon": "ita/HealthCare_Doctor_office.png"}
+,{"title": "Asl", "key": "Local_health_authority", "icon": "ita/HealthCare_Local_health_authority.png"}
+,{"title": "Assistenza Minori", "key": "Youth_assistance", "icon": "ita/HealthCare_Youth_assistance.png"}
+,{"title": "Assistenza Residenziale", "key": "Residential_care_activities", "icon": "ita/HealthCare_Residential_care_activities.png"}
+,{"title": "Assistenza Sanitaria", "key": "Human_health_activities", "icon": "ita/HealthCare_Human_health_activities.png"}
+,{"title": "Assistenza Sociale", "key": "Social_work", "icon": "ita/HealthCare_Social_work.png"}
+,{"title": "Attività Paramediche", "key": "Paramedical_activities", "icon": "ita/HealthCare_Paramedical_activities.png"}
+,{"title": "Centri Assistenza", "key": "Healthcare_centre", "icon": "ita/HealthCare_Healthcare_centre.png"}
+,{"title": "Centri Di Riabilitazione", "key": "Physical_therapy_centre", "icon": "ita/HealthCare_Physical_therapy_centre.png"}
+,{"title": "Centri Di Salute Mentale", "key": "Mental_health_centre", "icon": "ita/HealthCare_Mental_health_centre.png"}
+,{"title": "Centri Diurni", "key": "Community_centre", "icon": "ita/HealthCare_Community_centre.png"}
+,{"title": "Centri Tricologici", "key": "Haircare_centres", "icon": "ita/HealthCare_Haircare_centres.png"}
+,{"title": "Centro Antiveleni", "key": "Poison_control_centre", "icon": "ita/HealthCare_Poison_control_centre.png"}
+,{"title": "Centro Unico Di Pren. (CUP)", "key": "Health_reservations_centre", "icon": "ita/HealthCare_Health_reservations_centre.png"}
+,{"title": "Clinica Privata", "key": "Private_clinic", "icon": "ita/HealthCare_Private_clinic.png"}
+,{"title": "Comunità", "key": "Addiction_recovery_centre", "icon": "ita/HealthCare_Addiction_recovery_centre.png"}
+,{"title": "Consultori", "key": "Family_counselling", "icon": "ita/HealthCare_Family_counselling.png"}
+,{"title": "Croce Rossa", "key": "Red_cross", "icon": "ita/HealthCare_Red_cross.png"}
+,{"title": "Dentista", "key": "Dentist", "icon": "ita/HealthCare_Dentist.png"}
+,{"title": "Distretto Sanitario", "key": "Health_district", "icon": "ita/HealthCare_Health_district.png"}
+,{"title": "Laboratori Analisi Mediche", "key": "Medical_analysis_laboratories", "icon": "ita/HealthCare_Medical_analysis_laboratories.png"}
+,{"title": "Ospedale Pubblico", "key": "Public_hospital", "icon": "ita/HealthCare_Public_hospital.png"}
+,{"title": "Poliambulatorio", "key": "Group_practice", "icon": "ita/HealthCare_Group_practice.png"}
+,{"title": "Psicologi", "key": "Psychologists", "icon": "ita/HealthCare_Psychologists.png"}
+,{"title": "Ricoveri", "key": "Senior_centre", "icon": "ita/HealthCare_Senior_centre.png"}
+ ]},
+{"title": "Attività Culturali", "key": "CulturalActivity", "folder": "true", "icon": "ita/CulturalActivity.png", "children": [
+{"title": "Agenzie Di Stampa", "key": "News_agency", "icon": "ita/CulturalActivity_News_agency.png"}
+,{"title": "Altre Emittenti", "key": "Other_broadcasting", "icon": "ita/CulturalActivity_Other_broadcasting.png"}
+,{"title": "Arte E Spettacoli", "key": "Theatre", "icon": "ita/CulturalActivity_Theatre.png"}
+,{"title": "Attività Culturali", "key": "Cultural_sites", "icon": "ita/CulturalActivity_Cultural_sites.png"}
+,{"title": "Auditorium", "key": "Auditorium", "icon": "ita/CulturalActivity_Auditorium.png"}
+,{"title": "Biblioteca", "key": "Library", "icon": "ita/CulturalActivity_Library.png"}
+,{"title": "Centro Scientifico Culturale", "key": "Cultural_centre", "icon": "ita/CulturalActivity_Cultural_centre.png"}
+,{"title": "Chiese", "key": "Churches", "icon": "ita/CulturalActivity_Churches.png"}
+,{"title": "Cinema E Tv Prod. E Distr.", "key": "Motion_picture_and_television_programme_activities", "icon": "ita/CulturalActivity_Motion_picture_and_television_programme_activities.png"}
+,{"title": "Concessione Brevetti", "key": "Leasing_of_intellectual_property", "icon": "ita/CulturalActivity_Leasing_of_intellectual_property.png"}
+,{"title": "Editoria", "key": "Publishing_activities", "icon": "ita/CulturalActivity_Publishing_activities.png"}
+,{"title": "Emittenti Radio", "key": "Radio_broadcasting", "icon": "ita/CulturalActivity_Radio_broadcasting.png"}
+,{"title": "Emittenti Televisive", "key": "Television_broadcasting", "icon": "ita/CulturalActivity_Television_broadcasting.png"}
+,{"title": "Fotografia E Studi Fotografici", "key": "Photographic_activities", "icon": "ita/CulturalActivity_Photographic_activities.png"}
+,{"title": "Giardini Botanici E Zoologici", "key": "Botanical_and_zoological_gardens", "icon": "ita/CulturalActivity_Botanical_and_zoological_gardens.png"}
+,{"title": "Giornalisti Indipendenti", "key": "Journalist", "icon": "ita/CulturalActivity_Journalist.png"}
+,{"title": "Monumenti", "key": "Monument_location", "icon": "ita/CulturalActivity_Monument_location.png"}
+,{"title": "Museo", "key": "Museum", "icon": "ita/CulturalActivity_Museum.png"}
+,{"title": "Palazzi", "key": "Historical_buildings", "icon": "ita/CulturalActivity_Historical_buildings.png"}
+,{"title": "Piazze", "key": "Squares", "icon": "ita/CulturalActivity_Squares.png"}
+,{"title": "Registr. Sonora E Edit. Music.", "key": "Sound_recording_and_music_publishing", "icon": "ita/CulturalActivity_Sound_recording_and_music_publishing.png"}
+,{"title": "Riproduz. Supporti Registrati", "key": "Reproduction_recorded_media", "icon": "ita/CulturalActivity_Reproduction_recorded_media.png"}
+,{"title": "Sito Archeologico", "key": "Archaeological_site", "icon": "ita/CulturalActivity_Archaeological_site.png"}
+,{"title": "Stampa E Servizi", "key": "Printing_and_services", "icon": "ita/CulturalActivity_Printing_and_services.png"}
+,{"title": "Stampa E Supporti Registrati", "key": "Printing_and_recorded_media", "icon": "ita/CulturalActivity_Printing_and_recorded_media.png"}
+,{"title": "Traduttori E Interpreti", "key": "Translation_and_interpreting", "icon": "ita/CulturalActivity_Translation_and_interpreting.png"}
+ ]},
+{"title": "Attività estrattive", "key": "MiningAndQuarrying", "folder": "true", "icon": "ita/MiningAndQuarrying.png", "children": [
+{"title": "Estr. Minerali Metalliferi", "key": "Mining_of_metal_ores", "icon": "ita/MiningAndQuarrying_Mining_of_metal_ores.png"}
+,{"title": "Estraz. Petrolio E Gas Natur.", "key": "Petroleum_and_natural_gas_extraction", "icon": "ita/MiningAndQuarrying_Petroleum_and_natural_gas_extraction.png"}
+,{"title": "Estraz. Pietra, Sab. E Argilla", "key": "Quarrying_of_stone_sand_and_clay", "icon": "ita/MiningAndQuarrying_Quarrying_of_stone_sand_and_clay.png"}
+,{"title": "Estrazione Di Altri Minerali", "key": "Other_mining_and_quarrying", "icon": "ita/MiningAndQuarrying_Other_mining_and_quarrying.png"}
+,{"title": "Estrazione Di Sale", "key": "Extraction_of_salt", "icon": "ita/MiningAndQuarrying_Extraction_of_salt.png"}
+ ]},
+{"title": "Emergenza", "key": "Emergency", "folder": "true", "icon": "ita/Emergency.png", "children": [
+{"title": "Carabinieri", "key": "Carabinieri", "icon": "ita/Emergency_Carabinieri.png"}
+,{"title": "Commis. Di Pubb.Sicurezza", "key": "Commissariat_of_public_safety", "icon": "ita/Emergency_Commissariat_of_public_safety.png"}
+,{"title": "Corpo Forestale Dello Stato", "key": "Corps_of_forest_rangers", "icon": "ita/Emergency_Corps_of_forest_rangers.png"}
+,{"title": "Guardia Cost. Capit. Di Porto", "key": "Coast_guard_harbormaster", "icon": "ita/Emergency_Coast_guard_harbormaster.png"}
+,{"title": "Guardia Di Finanza", "key": "Italian_finance_police", "icon": "ita/Emergency_Italian_finance_police.png"}
+,{"title": "Guardia Medica", "key": "Emergency_medical_care", "icon": "ita/Emergency_Emergency_medical_care.png"}
+,{"title": "Numeri Utili", "key": "Useful_numbers", "icon": "ita/Emergency_Useful_numbers.png"}
+,{"title": "Polizia Municipale", "key": "Local_police", "icon": "ita/Emergency_Local_police.png"}
+,{"title": "Polizia Stradale", "key": "Traffic_corps", "icon": "ita/Emergency_Traffic_corps.png"}
+,{"title": "Pronto Soccorso", "key": "First_aid", "icon": "ita/Emergency_First_aid.png"}
+,{"title": "Protezione Civile", "key": "Civil_protection", "icon": "ita/Emergency_Civil_protection.png"}
+,{"title": "Soccorso Stradale", "key": "Emergency_services", "icon": "ita/Emergency_Emergency_services.png"}
+,{"title": "Traino E Soccorso Stradale", "key": "Towing_and_roadside_assistance", "icon": "ita/Emergency_Towing_and_roadside_assistance.png"}
+,{"title": "Vigili Del Fuoco", "key": "Fire_brigade", "icon": "ita/Emergency_Fire_brigade.png"}
+ ]},
+{"title": "Enogastronomia", "key": "WineAndFood", "folder": "true", "icon": "ita/WineAndFood.png", "children": [
+{"title": "Autogrill", "key": "Highway_stop", "icon": "ita/WineAndFood_Highway_stop.png"}
+,{"title": "Bar", "key": "Bar", "icon": "ita/WineAndFood_Bar.png"}
+,{"title": "Bottega", "key": "Small_shop", "icon": "ita/WineAndFood_Small_shop.png"}
+,{"title": "Caffè Letterario", "key": "Literary_cafe", "icon": "ita/WineAndFood_Literary_cafe.png"}
+,{"title": "Catering", "key": "Catering", "icon": "ita/WineAndFood_Catering.png"}
+,{"title": "Enoteche E Wine Bar", "key": "Wine_shop_and_wine_bar", "icon": "ita/WineAndFood_Wine_shop_and_wine_bar.png"}
+,{"title": "Fontanelle", "key": "Drinking_fountain", "icon": "ita/WineAndFood_Drinking_fountain.png"}
+,{"title": "Gelaterie", "key": "Ice_cream_parlour", "icon": "ita/WineAndFood_Ice_cream_parlour.png"}
+,{"title": "Mense", "key": "Dining_hall", "icon": "ita/WineAndFood_Dining_hall.png"}
+,{"title": "Mense E Servizi Di Ristoraz.", "key": "Canteens_and_food_service", "icon": "ita/WineAndFood_Canteens_and_food_service.png"}
+,{"title": "Panetterie", "key": "Bakery", "icon": "ita/WineAndFood_Bakery.png"}
+,{"title": "Paninoteche Pubs", "key": "Sandwich_shop_pub", "icon": "ita/WineAndFood_Sandwich_shop_pub.png"}
+,{"title": "Pasticceria", "key": "Pastry_shop", "icon": "ita/WineAndFood_Pastry_shop.png"}
+,{"title": "Pizzeria", "key": "Pizzeria", "icon": "ita/WineAndFood_Pizzeria.png"}
+,{"title": "Ristorante", "key": "Restaurant", "icon": "ita/WineAndFood_Restaurant.png"}
+,{"title": "Ristoraz. E Gelat. Ambulanti", "key": "Food_and_ice_cream_truck", "icon": "ita/WineAndFood_Food_and_ice_cream_truck.png"}
+,{"title": "Rivendite Di Alimenti", "key": "Food_trade", "icon": "ita/WineAndFood_Food_trade.png"}
+,{"title": "Rosticceria", "key": "Grill", "icon": "ita/WineAndFood_Grill.png"}
+,{"title": "Sushi Bar", "key": "Sushi_bar", "icon": "ita/WineAndFood_Sushi_bar.png"}
+,{"title": "Take Away", "key": "Take_away", "icon": "ita/WineAndFood_Take_away.png"}
+,{"title": "Trattoria", "key": "Trattoria", "icon": "ita/WineAndFood_Trattoria.png"}
+ ]},
+{"title": "Industria e Manifattura", "key": "IndustryAndManufacturing", "folder": "true", "icon": "ita/IndustryAndManufacturing.png", "children": [
+{"title": "Altre Industrie Manifat.", "key": "Other_manufacturing", "icon": "ita/IndustryAndManufacturing_Other_manufacturing.png"}
+,{"title": "Attività Metallurgiche", "key": "Manufacture_of_basic_metals", "icon": "ita/IndustryAndManufacturing_Manufacture_of_basic_metals.png"}
+,{"title": "Certific. E Controllo Qualità", "key": "Quality_control_and_certification", "icon": "ita/IndustryAndManufacturing_Quality_control_and_certification.png"}
+,{"title": "Coke E Petroliferi Derivati", "key": "Coke_and_petroleum_derivatives", "icon": "ita/IndustryAndManufacturing_Coke_and_petroleum_derivatives.png"}
+,{"title": "Collaudi Tecnici", "key": "Technical_testing", "icon": "ita/IndustryAndManufacturing_Technical_testing.png"}
+,{"title": "Conceria", "key": "Tannery", "icon": "ita/IndustryAndManufacturing_Tannery.png"}
+,{"title": "Confezione Abbigliamento", "key": "Manufacture_of_wearing_apparel", "icon": "ita/IndustryAndManufacturing_Manufacture_of_wearing_apparel.png"}
+,{"title": "Editoria Software", "key": "Software_publishing", "icon": "ita/IndustryAndManufacturing_Software_publishing.png"}
+,{"title": "Elaborazione Dati", "key": "Computer_data_processing", "icon": "ita/IndustryAndManufacturing_Computer_data_processing.png"}
+,{"title": "Grafici E Disegnatori", "key": "Specialized_design", "icon": "ita/IndustryAndManufacturing_Specialized_design.png"}
+,{"title": "Industria Del Legno", "key": "Manufacture_of_wood", "icon": "ita/IndustryAndManufacturing_Manufacture_of_wood.png"}
+,{"title": "Industria Del Tabacco", "key": "Tobacco_industry", "icon": "ita/IndustryAndManufacturing_Tobacco_industry.png"}
+,{"title": "Industria Della Carta", "key": "Manufacture_of_paper", "icon": "ita/IndustryAndManufacturing_Manufacture_of_paper.png"}
+,{"title": "Industrie Tessile", "key": "Manufacture_of_textiles", "icon": "ita/IndustryAndManufacturing_Manufacture_of_textiles.png"}
+,{"title": "Instal. Macchinari Industriali", "key": "Installation_of_industrial_machinery", "icon": "ita/IndustryAndManufacturing_Installation_of_industrial_machinery.png"}
+,{"title": "Lavorazione Pietra", "key": "Stone_processing", "icon": "ita/IndustryAndManufacturing_Stone_processing.png"}
+,{"title": "Prod. Ceramica E Terracotta", "key": "Manufacture_of_clay_and_ceramic", "icon": "ita/IndustryAndManufacturing_Manufacture_of_clay_and_ceramic.png"}
+,{"title": "Produz. Apparec. Elettriche", "key": "Manufacture_of_electrical_equipment", "icon": "ita/IndustryAndManufacturing_Manufacture_of_electrical_equipment.png"}
+,{"title": "Produz. Articoli Da Viaggio", "key": "Manufacture_of_travel_articles", "icon": "ita/IndustryAndManufacturing_Manufacture_of_travel_articles.png"}
+,{"title": "Produz. E Lavorazione Vetro", "key": "Manufacture_of_glass", "icon": "ita/IndustryAndManufacturing_Manufacture_of_glass.png"}
+,{"title": "Produz. Gioielleria Bigiot.", "key": "Manufacture_of_jewellery_bijouterie", "icon": "ita/IndustryAndManufacturing_Manufacture_of_jewellery_bijouterie.png"}
+,{"title": "Produz. Macchinari E Utensili", "key": "Manufacture_of_machinery_and_equipment", "icon": "ita/IndustryAndManufacturing_Manufacture_of_machinery_and_equipment.png"}
+,{"title": "Produz. Mezzi Di Trasporto", "key": "Manufacture_of_transport_equipment", "icon": "ita/IndustryAndManufacturing_Manufacture_of_transport_equipment.png"}
+,{"title": "Produz. Prod. Gomma E Plas.", "key": "Manufacture_of_rubber_and_plastics_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_rubber_and_plastics_products.png"}
+,{"title": "Produz. Prod. Min. No Metal.", "key": "Manufacture_of_non_metallic_mineral_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_non_metallic_mineral_products.png"}
+,{"title": "Produz. Prodot. Farmaceutici", "key": "Manufacture_of_pharmaceutical_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_pharmaceutical_products.png"}
+,{"title": "Produz. Prodotti Di Gomma", "key": "Manufacture_of_rubber_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_rubber_products.png"}
+,{"title": "Produz. Prodotti Di Plastica", "key": "Manufacture_of_plastics_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_plastics_products.png"}
+,{"title": "Produz. Prodotti Elettronici", "key": "Manufacture_of_electronic_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_electronic_products.png"}
+,{"title": "Produz. Prodotti In Legno", "key": "Manufacture_of_wood_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_wood_products.png"}
+,{"title": "Produz. Prodotti In Metallo", "key": "Manufacture_of_structural_metal_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_structural_metal_products.png"}
+,{"title": "Produz. Prodotti Petrol. Raff.", "key": "Manufacture_of_refined_petroleum_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_refined_petroleum_products.png"}
+,{"title": "Produz. Prodotti Refrattari", "key": "Manufacture_of_refractory_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_refractory_products.png"}
+,{"title": "Produz. Strumenti Musicali", "key": "Manufacture_of_musical_instruments", "icon": "ita/IndustryAndManufacturing_Manufacture_of_musical_instruments.png"}
+,{"title": "Produzione A Maglia", "key": "Knitted_manufacture", "icon": "ita/IndustryAndManufacturing_Knitted_manufacture.png"}
+,{"title": "Produzione Alimentare", "key": "Food_manufacture", "icon": "ita/IndustryAndManufacturing_Food_manufacture.png"}
+,{"title": "Produzione Articoli Sportivi", "key": "Manufacture_of_sports_goods", "icon": "ita/IndustryAndManufacturing_Manufacture_of_sports_goods.png"}
+,{"title": "Produzione Autoveicoli", "key": "Manufacture_of_motor_vehicles", "icon": "ita/IndustryAndManufacturing_Manufacture_of_motor_vehicles.png"}
+,{"title": "Produzione Bevande", "key": "Beverage_manufacture", "icon": "ita/IndustryAndManufacturing_Beverage_manufacture.png"}
+,{"title": "Produzione Calzature", "key": "Footwear_manufacture", "icon": "ita/IndustryAndManufacturing_Footwear_manufacture.png"}
+,{"title": "Produzione Gioattoli Giochi", "key": "Manufacture_of_toys_and_game", "icon": "ita/IndustryAndManufacturing_Manufacture_of_toys_and_game.png"}
+,{"title": "Produzione In Pelle", "key": "Leather_manufacture", "icon": "ita/IndustryAndManufacturing_Leather_manufacture.png"}
+,{"title": "Produzione Mangimi", "key": "Animal_feeds_manufacture", "icon": "ita/IndustryAndManufacturing_Animal_feeds_manufacture.png"}
+,{"title": "Produzione Materiali Edili", "key": "Building_materials_manufacture", "icon": "ita/IndustryAndManufacturing_Building_materials_manufacture.png"}
+,{"title": "Produzione Mobili", "key": "Manufacture_of_furniture", "icon": "ita/IndustryAndManufacturing_Manufacture_of_furniture.png"}
+,{"title": "Produzione Prodotti Chimici", "key": "Manufacture_of_chemicals_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_chemicals_products.png"}
+,{"title": "Produzione Prodotti Di Carta", "key": "Manufacture_of_paper_products", "icon": "ita/IndustryAndManufacturing_Manufacture_of_paper_products.png"}
+,{"title": "Produzione Tessile", "key": "Textile_manufacturing", "icon": "ita/IndustryAndManufacturing_Textile_manufacturing.png"}
+,{"title": "Program. E Consul. Comput.", "key": "Computer_programming_and_consultancy", "icon": "ita/IndustryAndManufacturing_Computer_programming_and_consultancy.png"}
+,{"title": "Riparaz. Manut. Mac. Utensili", "key": "Machinery_repair_and_installation", "icon": "ita/IndustryAndManufacturing_Machinery_repair_and_installation.png"}
+,{"title": "Segherie", "key": "Sawmilling", "icon": "ita/IndustryAndManufacturing_Sawmilling.png"}
+,{"title": "Servizi ICT", "key": "Ict_service", "icon": "ita/IndustryAndManufacturing_ICT_service.png"}
+,{"title": "Servizi Industria Mineraria", "key": "Mining_support_services", "icon": "ita/IndustryAndManufacturing_Mining_support_services.png"}
+,{"title": "Web E Internet Provider", "key": "Web_and_internet_provider", "icon": "ita/IndustryAndManufacturing_Web_and_internet_provider.png"}
+ ]},
+{"title": "Ingegneria Civile ed Edile", "key": "CivilAndEdilEngineering", "folder": "true", "icon": "ita/CivilAndEdilEngineering.png", "children": [
+{"title": "Altri Lavori Costr. Specializ.", "key": "Other_specialized_construction", "icon": "ita/CivilAndEdilEngineering_Other_specialized_construction.png"}
+,{"title": "Cartografi", "key": "Cartographers", "icon": "ita/CivilAndEdilEngineering_Cartographers.png"}
+,{"title": "Costruzione Edifici", "key": "Building_construction", "icon": "ita/CivilAndEdilEngineering_Building_construction.png"}
+,{"title": "Geometri", "key": "Surveyor", "icon": "ita/CivilAndEdilEngineering_Surveyor.png"}
+,{"title": "Ingegneria Civile", "key": "Civil_engineering", "icon": "ita/CivilAndEdilEngineering_Civil_engineering.png"}
+,{"title": "Lavori Costruzione Specializ.", "key": "Specialized_construction", "icon": "ita/CivilAndEdilEngineering_Specialized_construction.png"}
+,{"title": "Studi Di Architettura", "key": "Architectural_consulting", "icon": "ita/CivilAndEdilEngineering_Architectural_consulting.png"}
+,{"title": "Studi Di Ingegneria", "key": "Engineering_consulting", "icon": "ita/CivilAndEdilEngineering_Engineering_consulting.png"}
+,{"title": "Studi Tecnici", "key": "Technical_consultants", "icon": "ita/CivilAndEdilEngineering_Technical_consultants.png"}
+ ]},
+{"title": "Intrattenimento", "key": "Entertainment", "folder": "true", "icon": "ita/Entertainment.png", "children": [
+{"title": "Acquario", "key": "Aquarium", "icon": "ita/Entertainment_Aquarium.png"}
+,{"title": "Alpinismo", "key": "Climbing", "icon": "ita/Entertainment_Climbing.png"}
+,{"title": "Aree Verdi", "key": "Green_areas", "icon": "ita/Entertainment_Green_areas.png"}
+,{"title": "Attività Ricreative", "key": "Amusement_activities", "icon": "ita/Entertainment_Amusement_activities.png"}
+,{"title": "Boxoffice", "key": "Boxoffice", "icon": "ita/Entertainment_Boxoffice.png"}
+,{"title": "Centro Sociale", "key": "Social_centre", "icon": "ita/Entertainment_Social_centre.png"}
+,{"title": "Cinema", "key": "Cinema", "icon": "ita/Entertainment_Cinema.png"}
+,{"title": "Discoteca", "key": "Discotheque", "icon": "ita/Entertainment_Discotheque.png"}
+,{"title": "Giardini", "key": "Gardens", "icon": "ita/Entertainment_Gardens.png"}
+,{"title": "Golf", "key": "Golf", "icon": "ita/Entertainment_Golf.png"}
+,{"title": "Impianti Sciistici", "key": "Skiing_facility", "icon": "ita/Entertainment_Skiing_facility.png"}
+,{"title": "Impianti Sportivi", "key": "Sports_facility", "icon": "ita/Entertainment_Sports_facility.png"}
+,{"title": "Ippodromo", "key": "Hippodrome", "icon": "ita/Entertainment_Hippodrome.png"}
+,{"title": "Lotterie E Scommesse", "key": "Gambling_and_betting", "icon": "ita/Entertainment_Gambling_and_betting.png"}
+,{"title": "Ludoteca E Biliardi", "key": "Game_room", "icon": "ita/Entertainment_Game_room.png"}
+,{"title": "Maneggi", "key": "Riding_stables", "icon": "ita/Entertainment_Riding_stables.png"}
+,{"title": "Organizzaz. Eventi Sportivi", "key": "Sport_event_promoters", "icon": "ita/Entertainment_Sport_event_promoters.png"}
+,{"title": "Palestra Fitness", "key": "Gym_fitness", "icon": "ita/Entertainment_Gym_fitness.png"}
+,{"title": "Parchi Divertim. E Tematici", "key": "Amusement_and_theme_parks", "icon": "ita/Entertainment_Amusement_and_theme_parks.png"}
+,{"title": "Parco Naturale", "key": "Game_reserve", "icon": "ita/Entertainment_Game_reserve.png"}
+,{"title": "Piscina", "key": "Pool", "icon": "ita/Entertainment_Pool.png"}
+,{"title": "Rafting Canoa E Kayak", "key": "Rafting_kayak", "icon": "ita/Entertainment_Rafting_kayak.png"}
+,{"title": "Ricevitorie", "key": "Betting_shops", "icon": "ita/Entertainment_Betting_shops.png"}
+,{"title": "Riserve Di Pesca", "key": "Fishing_reserve", "icon": "ita/Entertainment_Fishing_reserve.png"}
+,{"title": "Sala Gioco", "key": "Recreation_room", "icon": "ita/Entertainment_Recreation_room.png"}
+,{"title": "Slot Machines", "key": "Operation_of_casinos", "icon": "ita/Entertainment_Operation_of_casinos.png"}
+,{"title": "Società Sportive", "key": "Sports_clubs", "icon": "ita/Entertainment_Sports_clubs.png"}
+ ]},
+{"title": "Istruzione e Ricerca", "key": "EducationAndResearch", "folder": "true", "icon": "ita/EducationAndResearch.png", "children": [
+{"title": "Altri Servizi All'Istruzione", "key": "Educational_support_activities", "icon": "ita/EducationAndResearch_Educational_support_activities.png"}
+,{"title": "Autosc., Scuole Pilot. E Naut.", "key": "Automobile_driving_and_flying_schools", "icon": "ita/EducationAndResearch_Automobile_driving_and_flying_schools.png"}
+,{"title": "Conservatori Di Musica", "key": "Conservatory", "icon": "ita/EducationAndResearch_Conservatory.png"}
+,{"title": "Conservatori E Accademie", "key": "Performing_arts_schools", "icon": "ita/EducationAndResearch_Performing_arts_schools.png"}
+,{"title": "Corsi Di Lingue", "key": "Language_courses", "icon": "ita/EducationAndResearch_Language_courses.png"}
+,{"title": "Corsi Sportivi E Ricreativi", "key": "Sports_and_recreation_education", "icon": "ita/EducationAndResearch_Sports_and_recreation_education.png"}
+,{"title": "Formaz. E Aggiorn. Profes.", "key": "Training_school", "icon": "ita/EducationAndResearch_Training_school.png"}
+,{"title": "Formazione Culturale", "key": "Cultural_education", "icon": "ita/EducationAndResearch_Cultural_education.png"}
+,{"title": "Istituti Magistrali", "key": "Training_school_for_teachers", "icon": "ita/EducationAndResearch_Training_school_for_teachers.png"}
+,{"title": "Istituti Professionali Privati", "key": "Private_professional_institute", "icon": "ita/EducationAndResearch_Private_professional_institute.png"}
+,{"title": "Istituti Professionali Pubblici", "key": "Public_professional_institute", "icon": "ita/EducationAndResearch_Public_professional_institute.png"}
+,{"title": "Istituti Tecnici Privati", "key": "Private_polytechnic_school", "icon": "ita/EducationAndResearch_Private_polytechnic_school.png"}
+,{"title": "Istituti Tecnici Pubblici", "key": "Public_polytechnic_school", "icon": "ita/EducationAndResearch_Public_polytechnic_school.png"}
+,{"title": "Istr. Form. Tecn. Sup.(IFTS)", "key": "Post_secondary_education", "icon": "ita/EducationAndResearch_Post_secondary_education.png"}
+,{"title": "Licei Privati", "key": "Private_high_school", "icon": "ita/EducationAndResearch_Private_high_school.png"}
+,{"title": "Licei Pubblici", "key": "Public_high_school", "icon": "ita/EducationAndResearch_Public_high_school.png"}
+,{"title": "Nidi Privati", "key": "Private_preschool", "icon": "ita/EducationAndResearch_Private_preschool.png"}
+,{"title": "Ricerca E Sviluppo", "key": "Research_and_development", "icon": "ita/EducationAndResearch_Research_and_development.png"}
+,{"title": "Scuola Di Sci", "key": "Ski_school", "icon": "ita/EducationAndResearch_Ski_school.png"}
+,{"title": "Scuola Di Sub", "key": "Diving_school", "icon": "ita/EducationAndResearch_Diving_school.png"}
+,{"title": "Scuola Di Vela", "key": "Sailing_school", "icon": "ita/EducationAndResearch_Sailing_school.png"}
+,{"title": "Scuole Dell'Infanzia", "key": "Pre_primary_education", "icon": "ita/EducationAndResearch_Pre_primary_education.png"}
+,{"title": "Scuole Di Danza", "key": "Dance_schools", "icon": "ita/EducationAndResearch_Dance_schools.png"}
+,{"title": "Scuole Elementari", "key": "Primary_education", "icon": "ita/EducationAndResearch_Primary_education.png"}
+,{"title": "Scuole Elementari Private", "key": "Private_junior_school", "icon": "ita/EducationAndResearch_Private_junior_school.png"}
+,{"title": "Scuole Elementari Pubbliche", "key": "Public_junior_school", "icon": "ita/EducationAndResearch_Public_junior_school.png"}
+,{"title": "Scuole Materne Private", "key": "Private_infant_school", "icon": "ita/EducationAndResearch_Private_infant_school.png"}
+,{"title": "Scuole Materne Pubbliche", "key": "Public_infant_school", "icon": "ita/EducationAndResearch_Public_infant_school.png"}
+,{"title": "Scuole Med., Lic. E Ist. Tecn.", "key": "Secondary_education", "icon": "ita/EducationAndResearch_Secondary_education.png"}
+,{"title": "Scuole Medie Private", "key": "Private_junior_high_school", "icon": "ita/EducationAndResearch_Private_junior_high_school.png"}
+,{"title": "Scuole Medie Pubbliche", "key": "Public_junior_high_school", "icon": "ita/EducationAndResearch_Public_junior_high_school.png"}
+,{"title": "Università", "key": "Higher_education", "icon": "ita/EducationAndResearch_Higher_education.png"}
+,{"title": "Universita Pubbliche", "key": "Public_university", "icon": "ita/EducationAndResearch_Public_university.png"}
+ ]},
+{"title": "Pubblicità", "key": "Advertising", "folder": "true", "icon": "ita/Advertising.png", "children": [
+{"title": "Pubblicità E Concessionarie", "key": "Advertising_and_promotion", "icon": "ita/Advertising_Advertising_and_promotion.png"}
+,{"title": "Ricerche Di Mercato", "key": "Market_polling", "icon": "ita/Advertising_Market_polling.png"}
+ ]},
+{"title": "Servizi Finanziari", "key": "FinancialService", "folder": "true", "icon": "ita/FinancialService.png", "children": [
+{"title": "Assicurazione", "key": "Insurance", "icon": "ita/FinancialService_Insurance.png"}
+,{"title": "Assicurazione E Finanziario", "key": "Insurance_and_financial", "icon": "ita/FinancialService_Insurance_and_financial.png"}
+,{"title": "Banca", "key": "Bank", "icon": "ita/FinancialService_Bank.png"}
+,{"title": "Centri Assist. Fiscale (CAF)", "key": "Tax_advice", "icon": "ita/FinancialService_Tax_advice.png"}
+,{"title": "Commercialisti", "key": "Accountants", "icon": "ita/FinancialService_Accountants.png"}
+,{"title": "Consulenti Del Lavoro", "key": "Labour_consultant", "icon": "ita/FinancialService_Labour_consultant.png"}
+,{"title": "Istituto Monetario", "key": "Financial_institute", "icon": "ita/FinancialService_Financial_institute.png"}
+,{"title": "Revisione E Certific. Bilanci", "key": "Auditing_activities", "icon": "ita/FinancialService_Auditing_activities.png"}
+,{"title": "Studi Legali", "key": "Legal_office", "icon": "ita/FinancialService_Legal_office.png"}
+ ]},
+{"title": "Servizi Trasferim. e Noleggio", "key": "TransferServiceAndRenting", "folder": "true", "icon": "ita/TransferServiceAndRenting.png", "children": [
+{"title": "Aeroporto Civile", "key": "Civil_airport", "icon": "ita/TransferServiceAndRenting_Civil_airport.png"}
+,{"title": "Attività Di Logistica", "key": "Logistics_activities", "icon": "ita/TransferServiceAndRenting_Logistics_activities.png"}
+,{"title": "Attività Di Supp. Ai Trasporti", "key": "Support_activities_for_transportation", "icon": "ita/TransferServiceAndRenting_Support_activities_for_transportation.png"}
+,{"title": "Autobus Urbani", "key": "Urban_bus", "icon": "ita/TransferServiceAndRenting_Urban_bus.png"}
+,{"title": "Aviosuperfici", "key": "Airfields", "icon": "ita/TransferServiceAndRenting_Airfields.png"}
+,{"title": "Ciclopercorsi", "key": "Cycle_paths", "icon": "ita/TransferServiceAndRenting_Cycle_paths.png"}
+,{"title": "Colonnina Ricarica", "key": "Charging_stations", "icon": "ita/TransferServiceAndRenting_Charging_stations.png"}
+,{"title": "Compagnie Di Charter", "key": "Charter_airlines", "icon": "ita/TransferServiceAndRenting_Charter_airlines.png"}
+,{"title": "Compagnie Di Volo", "key": "Flight_companies", "icon": "ita/TransferServiceAndRenting_Flight_companies.png"}
+,{"title": "Corriere Espresso", "key": "Courier", "icon": "ita/TransferServiceAndRenting_Courier.png"}
+,{"title": "Distributori Carburante", "key": "Fuel_station", "icon": "ita/TransferServiceAndRenting_Fuel_station.png"}
+,{"title": "Elisuperfici", "key": "Helipads", "icon": "ita/TransferServiceAndRenting_Helipads.png"}
+,{"title": "Fermata Bus", "key": "BusStop", "icon": "ita/TransferServiceAndRenting_BusStop.png"}
+,{"title": "Fermate Tram", "key": "Tram_stops", "icon": "ita/TransferServiceAndRenting_Tram_stops.png"}
+,{"title": "Magazzini E Custodia", "key": "Warehousing_and_storage", "icon": "ita/TransferServiceAndRenting_Warehousing_and_storage.png"}
+,{"title": "Movimentazione Merci", "key": "Cargo_handling", "icon": "ita/TransferServiceAndRenting_Cargo_handling.png"}
+,{"title": "Noleg. Altri Mezzi Tras. Terr.", "key": "Land_transport_rental", "icon": "ita/TransferServiceAndRenting_Land_transport_rental.png"}
+,{"title": "Noleg. Attrez. Sollev. Movim.", "key": "Lifting_and_handling_equipment_rental", "icon": "ita/TransferServiceAndRenting_Lifting_and_handling_equipment_rental.png"}
+,{"title": "Noleg. Auto Con Conducente", "key": "Car_rental_with_driver", "icon": "ita/TransferServiceAndRenting_Car_rental_with_driver.png"}
+,{"title": "Noleggio Aerei", "key": "Airplanes_rental", "icon": "ita/TransferServiceAndRenting_Airplanes_rental.png"}
+,{"title": "Noleggio Autovecoli", "key": "Vehicle_rental", "icon": "ita/TransferServiceAndRenting_Vehicle_rental.png"}
+,{"title": "Noleggio Barche", "key": "Boats_and_ships_rental", "icon": "ita/TransferServiceAndRenting_Boats_and_ships_rental.png"}
+,{"title": "Parcheggio Auto", "key": "Car_park", "icon": "ita/TransferServiceAndRenting_Car_park.png"}
+,{"title": "Poste E Corrieri", "key": "Postal_and_courier_activities", "icon": "ita/TransferServiceAndRenting_Postal_and_courier_activities.png"}
+,{"title": "Punto Noleggio Bici", "key": "Bike_rental", "icon": "ita/TransferServiceAndRenting_Bike_rental.png"}
+,{"title": "Rastrelliera", "key": "Bike_rack", "icon": "ita/TransferServiceAndRenting_Bike_rack.png"}
+,{"title": "Rivendita Biglietti Autobus", "key": "Bus_tickets_retail", "icon": "ita/TransferServiceAndRenting_Bus_tickets_retail.png"}
+,{"title": "Rtzgate", "key": "RTZgate", "icon": "ita/TransferServiceAndRenting_RTZgate.png"}
+,{"title": "Sensori", "key": "SensorSite", "icon": "ita/TransferServiceAndRenting_SensorSite.png"}
+,{"title": "Stazione Ferroviaria", "key": "Train_station", "icon": "ita/TransferServiceAndRenting_Train_station.png"}
+,{"title": "Taxi", "key": "Taxi_company", "icon": "ita/TransferServiceAndRenting_Taxi_company.png"}
+,{"title": "Area Sosta Taxi", "key": "Taxi_park", "icon": "ita/TransferServiceAndRenting_Taxi_park.png"}
+,{"title": "Tracciato Tram", "key": "Tramline", "icon": "ita/TransferServiceAndRenting_Tramline.png"}
+,{"title": "Trasporti Terrestri", "key": "Land_transport", "icon": "ita/TransferServiceAndRenting_Land_transport.png"}
+,{"title": "Trasporto Aereo", "key": "Passenger_air_transport", "icon": "ita/TransferServiceAndRenting_Passenger_air_transport.png"}
+,{"title": "Trasporto Marit. E Fluviali", "key": "Water_transport", "icon": "ita/TransferServiceAndRenting_Water_transport.png"}
+,{"title": "Trasporto Merci E Traslochi", "key": "Freight_transport_and_furniture_removal", "icon": "ita/TransferServiceAndRenting_Freight_transport_and_furniture_removal.png"}
+,{"title": "Varco ZTL", "key": "SensorSite", "icon": "ita/TransferServiceAndRenting_SensorSite.png"}
+,{"title": "Zona A Sosta Controllata", "key": "Controlled_parking_zone", "icon": "ita/TransferServiceAndRenting_Controlled_parking_zone.png"}
+ ]},
+{"title": "Servizi Turistici", "key": "TourismService", "folder": "true", "icon": "ita/TourismService.png", "children": [
+{"title": "Agenzie Di Viaggio ", "key": "Travel_agency", "icon": "ita/TourismService_Travel_agency.png"}
+,{"title": "Area Pedonale", "key": "Pedestrian_zone", "icon": "ita/TourismService_Pedestrian_zone.png"}
+,{"title": "Assistenza Turistica", "key": "Travel_information", "icon": "ita/TourismService_Travel_information.png"}
+,{"title": "Bagni", "key": "Toilet", "icon": "ita/TourismService_Toilet.png"}
+,{"title": "Beacon", "key": "Beacon", "icon": "ita/TourismService_Beacon.png"}
+,{"title": "Camper Service", "key": "Camper_service", "icon": "ita/TourismService_Camper_service.png"}
+,{"title": "Guide Turistiche", "key": "Tourist_guides", "icon": "ita/TourismService_Tourist_guides.png"}
+,{"title": "Itinerario Turistico", "key": "Tourist_trail", "icon": "ita/TourismService_Tourist_trail.png"}
+,{"title": "Posti Freschi", "key": "Fresh_place", "icon": "ita/TourismService_Fresh_place.png"}
+,{"title": "Rivendita Biglietti", "key": "Ticket_sale", "icon": "ita/TourismService_Ticket_sale.png"}
+,{"title": "Tour Operator", "key": "Tour_operator", "icon": "ita/TourismService_Tour_operator.png"}
+,{"title": "Ufficio Informaz. Turistiche", "key": "Tourist_information_office", "icon": "ita/TourismService_Tourist_information_office.png"}
+,{"title": "Ufficio Reclami Turistici", "key": "Tourist_complaints_office", "icon": "ita/TourismService_Tourist_complaints_office.png"}
+,{"title": "Ufficio Visite Guidate", "key": "Travel_bureau", "icon": "ita/TourismService_Travel_bureau.png"}
+,{"title": "Wifi", "key": "Wifi", "icon": "ita/TourismService_Wifi.png"}
+ ]},
+{"title": "Shopping e Servizi", "key": "ShoppingAndService", "folder": "true", "icon": "ita/ShoppingAndService.png", "children": [
+{"title": "Abbigliamento", "key": "Clothing", "icon": "ita/ShoppingAndService_Clothing.png"}
+,{"title": "Abbigliamento Bambino", "key": "Clothing_children_and_infants", "icon": "ita/ShoppingAndService_Clothing_children_and_infants.png"}
+,{"title": "Abbigliamento E Biancheria", "key": "Clothing_and_linen", "icon": "ita/ShoppingAndService_Clothing_and_linen.png"}
+,{"title": "Abbigliamento Uomo Donna", "key": "Adult_clothing", "icon": "ita/ShoppingAndService_Adult_clothing.png"}
+,{"title": "Accessori Abbigliamento", "key": "Clothing_accessories", "icon": "ita/ShoppingAndService_Clothing_accessories.png"}
+,{"title": "Agenzie Immobiliari", "key": "Estate_activities", "icon": "ita/ShoppingAndService_Estate_activities.png"}
+,{"title": "Agenzie Matrimoniali", "key": "Dating_service", "icon": "ita/ShoppingAndService_Dating_service.png"}
+,{"title": "Alimentari E Tabaccherie", "key": "Food_and_tobacconist", "icon": "ita/ShoppingAndService_Food_and_tobacconist.png"}
+,{"title": "Allarmi E Sistemi Di Sicurezza", "key": "Security_systems", "icon": "ita/ShoppingAndService_Security_systems.png"}
+,{"title": "Altri Esercizi", "key": "Other_retail_sale", "icon": "ita/ShoppingAndService_Other_retail_sale.png"}
+,{"title": "Altri Prodotti Non Alimentari", "key": "Non_food_products", "icon": "ita/ShoppingAndService_Non_food_products.png"}
+,{"title": "Antichità", "key": "Antiques", "icon": "ita/ShoppingAndService_Antiques.png"}
+,{"title": "Armi E Munizioni", "key": "Weapons_and_ammunition", "icon": "ita/ShoppingAndService_Weapons_and_ammunition.png"}
+,{"title": "Art. Da Regalo E Per Fumat.", "key": "Gifts_and_smoking_articles", "icon": "ita/ShoppingAndService_Gifts_and_smoking_articles.png"}
+,{"title": "Articoli Belle Arti", "key": "Fine_arts_articles", "icon": "ita/ShoppingAndService_Fine_arts_articles.png"}
+,{"title": "Articoli Culturali E Ricreativi", "key": "Cultural_and_recreation_goods", "icon": "ita/ShoppingAndService_Cultural_and_recreation_goods.png"}
+,{"title": "Articoli Da Viaggio", "key": "Travel_goods", "icon": "ita/ShoppingAndService_Travel_goods.png"}
+,{"title": "Articoli Funerari E Cimiteriali", "key": "Funeral_and_cemetery_articles", "icon": "ita/ShoppingAndService_Funeral_and_cemetery_articles.png"}
+,{"title": "Articoli Igienico-Sanitari", "key": "Sanitary_equipment", "icon": "ita/ShoppingAndService_Sanitary_equipment.png"}
+,{"title": "Articoli Medicali E Ortopedici", "key": "Medical_and_orthopaedic_goods", "icon": "ita/ShoppingAndService_Medical_and_orthopaedic_goods.png"}
+,{"title": "Articoli Per La Casa", "key": "Household_articles", "icon": "ita/ShoppingAndService_Household_articles.png"}
+,{"title": "Articoli Per Natanti", "key": "Boat_equipment", "icon": "ita/ShoppingAndService_Boat_equipment.png"}
+,{"title": "Articoli Sportivi", "key": "Sporting_equipment", "icon": "ita/ShoppingAndService_Sporting_equipment.png"}
+,{"title": "Articoli Usati", "key": "Second_hand_goods", "icon": "ita/ShoppingAndService_Second_hand_goods.png"}
+,{"title": "Articoli Vari", "key": "Other_goods", "icon": "ita/ShoppingAndService_Other_goods.png"}
+,{"title": "Audio E Video", "key": "Audio_and_video", "icon": "ita/ShoppingAndService_Audio_and_video.png"}
+,{"title": "Barbieri E Parrucchiere", "key": "Hairdressing", "icon": "ita/ShoppingAndService_Hairdressing.png"}
+,{"title": "Biancheria Maglieria Camicie", "key": "Underwear_knitwear_and_shirts", "icon": "ita/ShoppingAndService_Underwear_knitwear_and_shirts.png"}
+,{"title": "Bigiotteria", "key": "Trinkets", "icon": "ita/ShoppingAndService_Trinkets.png"}
+,{"title": "Bomboniere", "key": "Wedding_favors", "icon": "ita/ShoppingAndService_Wedding_favors.png"}
+,{"title": "Calzature", "key": "Footwear_and_accessories", "icon": "ita/ShoppingAndService_Footwear_and_accessories.png"}
+,{"title": "Calzature E Articoli In Pelle", "key": "Footwear_and_leather_goods", "icon": "ita/ShoppingAndService_Footwear_and_leather_goods.png"}
+,{"title": "Carne E Pollame", "key": "Meat_and_poultry", "icon": "ita/ShoppingAndService_Meat_and_poultry.png"}
+,{"title": "Carta Parati Rivest. Pavimen.", "key": "Wallpaper_and_floor_coverings", "icon": "ita/ShoppingAndService_Wallpaper_and_floor_coverings.png"}
+,{"title": "Case D'Asta", "key": "Auctioning_houses", "icon": "ita/ShoppingAndService_Auctioning_houses.png"}
+,{"title": "Centri Benessere", "key": "Wellness_centre", "icon": "ita/ShoppingAndService_Wellness_centre.png"}
+,{"title": "Centri Commerciali", "key": "Shopping_centre", "icon": "ita/ShoppingAndService_Shopping_centre.png"}
+,{"title": "Combustibile Uso Domestico", "key": "Household_fuel", "icon": "ita/ShoppingAndService_Household_fuel.png"}
+,{"title": "Corde, Funi E Sacchi", "key": "Rope_cord_and_twine", "icon": "ita/ShoppingAndService_Rope_cord_and_twine.png"}
+,{"title": "Discount", "key": "Discount", "icon": "ita/ShoppingAndService_Discount.png"}
+,{"title": "Distributori Automatici", "key": "Vending_machines", "icon": "ita/ShoppingAndService_Vending_machines.png"}
+,{"title": "Edicole E Cartolerie", "key": "Newspapers_and_stationery", "icon": "ita/ShoppingAndService_Newspapers_and_stationery.png"}
+,{"title": "Elettrodomestici", "key": "Household_appliances_shop", "icon": "ita/ShoppingAndService_Household_appliances_shop.png"}
+,{"title": "Erboristerie", "key": "Herbalists_shop", "icon": "ita/ShoppingAndService_Herbalists_shop.png"}
+,{"title": "Falegnamerie", "key": "Carpentry", "icon": "ita/ShoppingAndService_Carpentry.png"}
+,{"title": "Farmacie", "key": "Pharmacy", "icon": "ita/ShoppingAndService_Pharmacy.png"}
+,{"title": "Ferram. Elettric. Termoidr.", "key": "Hardware_electrical_plumbing_and_heating", "icon": "ita/ShoppingAndService_Hardware_electrical_plumbing_and_heating.png"}
+,{"title": "Ferramenta Vernici Vetro", "key": "Hardware_paints_and_glass", "icon": "ita/ShoppingAndService_Hardware_paints_and_glass.png"}
+,{"title": "Filatelia E Numismatica", "key": "Stamps_and_coins", "icon": "ita/ShoppingAndService_Stamps_and_coins.png"}
+,{"title": "Filati", "key": "Haberdashery", "icon": "ita/ShoppingAndService_Haberdashery.png"}
+,{"title": "Fiori E Piante", "key": "Flower_shop", "icon": "ita/ShoppingAndService_Flower_shop.png"}
+,{"title": "Frutta E Verdura", "key": "Fruit_and_vegetables", "icon": "ita/ShoppingAndService_Fruit_and_vegetables.png"}
+,{"title": "Gallerie Arte", "key": "Art_galleries", "icon": "ita/ShoppingAndService_Art_galleries.png"}
+,{"title": "Giardinaggio E Agricultura", "key": "Garden_and_agriculture", "icon": "ita/ShoppingAndService_Garden_and_agriculture.png"}
+,{"title": "Giochi E Giocattoli", "key": "Games_and_toys", "icon": "ita/ShoppingAndService_Games_and_toys.png"}
+,{"title": "Gioielleria", "key": "Jewellery", "icon": "ita/ShoppingAndService_Jewellery.png"}
+,{"title": "Grande Distr. Non Alimen.", "key": "Non_food_large_retailers", "icon": "ita/ShoppingAndService_Non_food_large_retailers.png"}
+,{"title": "Illuminazione", "key": "Lighting", "icon": "ita/ShoppingAndService_Lighting.png"}
+,{"title": "Informatica", "key": "Computer_systems", "icon": "ita/ShoppingAndService_Computer_systems.png"}
+,{"title": "Ipermercati", "key": "Hypermarket", "icon": "ita/ShoppingAndService_Hypermarket.png"}
+,{"title": "Istituti Di Bellezza", "key": "Beauty_centre", "icon": "ita/ShoppingAndService_Beauty_centre.png"}
+,{"title": "Latte E Latticini", "key": "Dairy_products", "icon": "ita/ShoppingAndService_Dairy_products.png"}
+,{"title": "Lavaggio Auto", "key": "Car_washing", "icon": "ita/ShoppingAndService_Car_washing.png"}
+,{"title": "Lavanderie Industriali", "key": "Industrial_laundries", "icon": "ita/ShoppingAndService_Industrial_laundries.png"}
+,{"title": "Lavenderie E Tintorie", "key": "Laundries_and_dry_cleaners", "icon": "ita/ShoppingAndService_Laundries_and_dry_cleaners.png"}
+,{"title": "Libreria", "key": "Bookshop", "icon": "ita/ShoppingAndService_Bookshop.png"}
+,{"title": "Libri Usati", "key": "Second_hand_books", "icon": "ita/ShoppingAndService_Second_hand_books.png"}
+,{"title": "Manicure E Pedicure", "key": "Manicure_and_pedicure", "icon": "ita/ShoppingAndService_Manicure_and_pedicure.png"}
+,{"title": "Manutenz. Riparaz. Autoveic.", "key": "Maintenance_repair_of_motor_vehicles", "icon": "ita/ShoppingAndService_Maintenance_repair_of_motor_vehicles.png"}
+,{"title": "Manutenz. Riparaz. Motocicli", "key": "Maintenance_repair_of_motorcycles", "icon": "ita/ShoppingAndService_Maintenance_repair_of_motorcycles.png"}
+,{"title": "Materiali Edili", "key": "Building_material", "icon": "ita/ShoppingAndService_Building_material.png"}
+,{"title": "Minimarket", "key": "Minimarket", "icon": "ita/ShoppingAndService_Minimarket.png"}
+,{"title": "Mobili Per La Casa", "key": "Household_furniture", "icon": "ita/ShoppingAndService_Household_furniture.png"}
+,{"title": "Mobili Per Ufficio", "key": "Office_furniture", "icon": "ita/ShoppingAndService_Office_furniture.png"}
+,{"title": "Negozi Monomarca", "key": "Single_brand_store", "icon": "ita/ShoppingAndService_Single_brand_store.png"}
+,{"title": "Negozio Artigiano", "key": "Artisan_shop", "icon": "ita/ShoppingAndService_Artisan_shop.png"}
+,{"title": "Negozio Di Animali", "key": "Pet_shop", "icon": "ita/ShoppingAndService_Pet_shop.png"}
+,{"title": "Officina", "key": "Mechanic_workshop", "icon": "ita/ShoppingAndService_Mechanic_workshop.png"}
+,{"title": "Organiz. Feste E Cerimonie", "key": "Parties_and_ceremonies", "icon": "ita/ShoppingAndService_Parties_and_ceremonies.png"}
+,{"title": "Ottica E Fotografia", "key": "Optics_and_photography", "icon": "ita/ShoppingAndService_Optics_and_photography.png"}
+,{"title": "Parruc. E Trattam. Bellezza", "key": "Hairdressing_and_beauty_treatment", "icon": "ita/ShoppingAndService_Hairdressing_and_beauty_treatment.png"}
+,{"title": "Pellicce Abbigliamento Pelle", "key": "Fur_and_leather_clothing", "icon": "ita/ShoppingAndService_Fur_and_leather_clothing.png"}
+,{"title": "Pescherie", "key": "Fish_and_seafood", "icon": "ita/ShoppingAndService_Fish_and_seafood.png"}
+,{"title": "Piccoli Elettrodomestici", "key": "Small_household_appliances", "icon": "ita/ShoppingAndService_Small_household_appliances.png"}
+,{"title": "Pompe Funebri", "key": "Funeral", "icon": "ita/ShoppingAndService_Funeral.png"}
+,{"title": "Prodotti Dietetici", "key": "Diet_products", "icon": "ita/ShoppingAndService_Diet_products.png"}
+,{"title": "Prodotti Farmaceutici", "key": "Pharmaceuticals", "icon": "ita/ShoppingAndService_Pharmaceuticals.png"}
+,{"title": "Prodotti Per La Casa", "key": "Household_utensils", "icon": "ita/ShoppingAndService_Household_utensils.png"}
+,{"title": "Prodotti Pulizia", "key": "Cleaning_materials", "icon": "ita/ShoppingAndService_Cleaning_materials.png"}
+,{"title": "Prodotti Tessili", "key": "Textiles_products", "icon": "ita/ShoppingAndService_Textiles_products.png"}
+,{"title": "Prodotti Uso Domestico", "key": "Household_products", "icon": "ita/ShoppingAndService_Household_products.png"}
+,{"title": "Profumeria Cosmetica", "key": "Perfumery_and_cosmetic_articles", "icon": "ita/ShoppingAndService_Perfumery_and_cosmetic_articles.png"}
+,{"title": "Registraz. Musicali E Video", "key": "Music_and_video_recordings", "icon": "ita/ShoppingAndService_Music_and_video_recordings.png"}
+,{"title": "Restauratori", "key": "Restorers", "icon": "ita/ShoppingAndService_Restorers.png"}
+,{"title": "Rip. Artic. Sport. Campeggio", "key": "Repair_of_sporting_goods", "icon": "ita/ShoppingAndService_Repair_of_sporting_goods.png"}
+,{"title": "Rip. Articoli Per La Casa", "key": "Repair_of_home_equipment", "icon": "ita/ShoppingAndService_Repair_of_home_equipment.png"}
+,{"title": "Riparaz. Articoli Giardinaggio", "key": "Repair_of_garden_equipment", "icon": "ita/ShoppingAndService_Repair_of_garden_equipment.png"}
+,{"title": "Rip. Calz. E Art. Da Viagg.", "key": "Repair_of_footwear_and_leather_goods", "icon": "ita/ShoppingAndService_Repair_of_footwear_and_leather_goods.png"}
+,{"title": "Riparaz. Computer E Perif.", "key": "Computer_technician", "icon": "ita/ShoppingAndService_Computer_technician.png"}
+,{"title": "Riparaz. Strumenti Musicali", "key": "Repair_musical_instruments", "icon": "ita/ShoppingAndService_Repair_musical_instruments.png"}
+,{"title": "Riparaz. Telefoni, Cell., Fax", "key": "Repair_of_communication_equipment", "icon": "ita/ShoppingAndService_Repair_of_communication_equipment.png"}
+,{"title": "Riparaz. Tv, Video E Audio", "key": "Repair_of_consumer_electronics", "icon": "ita/ShoppingAndService_Repair_of_consumer_electronics.png"}
+,{"title": "Riparazione Elettrodomestici", "key": "Repair_of_household_appliances", "icon": "ita/ShoppingAndService_Repair_of_household_appliances.png"}
+,{"title": "Riparazione Orologi E Gioielli", "key": "Jeweller", "icon": "ita/ShoppingAndService_Jeweller.png"}
+,{"title": "Riparazioni", "key": "Repair", "icon": "ita/ShoppingAndService_Repair.png"}
+,{"title": "Rivendita Autoveicoli", "key": "Vehicle_trade", "icon": "ita/ShoppingAndService_Vehicle_trade.png"}
+,{"title": "Servizi Alla Persona", "key": "Personal_service_activities", "icon": "ita/ShoppingAndService_Personal_service_activities.png"}
+,{"title": "Sexy Shop", "key": "Sexy_shop", "icon": "ita/ShoppingAndService_Sexy_shop.png"}
+,{"title": "Sgomb. Cant., Solai E Gar.", "key": "Vacating_service", "icon": "ita/ShoppingAndService_Vacating_service.png"}
+,{"title": "Souvenir Artig. E Art. Relig.", "key": "Souvenirs_craftwork_and_religious_articles", "icon": "ita/ShoppingAndService_Souvenirs_craftwork_and_religious_articles.png"}
+,{"title": "Spacci Outlet Abbigliamento", "key": "Clothing_factory_outlet", "icon": "ita/ShoppingAndService_Clothing_factory_outlet.png"}
+,{"title": "Spacci Outlet Calzature", "key": "Footwear_factory_outlet", "icon": "ita/ShoppingAndService_Footwear_factory_outlet.png"}
+,{"title": "Strumenti Musicali", "key": "Musical_instruments_and_scores", "icon": "ita/ShoppingAndService_Musical_instruments_and_scores.png"}
+,{"title": "Supermercato", "key": "Supermarket", "icon": "ita/ShoppingAndService_Supermarket.png"}
+,{"title": "Tabaccherie", "key": "Tobacco_shop", "icon": "ita/ShoppingAndService_Tobacco_shop.png"}
+,{"title": "Tappeti", "key": "Carpets", "icon": "ita/ShoppingAndService_Carpets.png"}
+,{"title": "Tappeti E Tende", "key": "Carpets_and_curtains", "icon": "ita/ShoppingAndService_Carpets_and_curtains.png"}
+,{"title": "Tappezzerie", "key": "Upholsterer", "icon": "ita/ShoppingAndService_Upholsterer.png"}
+,{"title": "Tatuaggio E Piercing", "key": "Tattoo_and_piercing", "icon": "ita/ShoppingAndService_Tattoo_and_piercing.png"}
+,{"title": "Telefonia E Telecomunicaz.", "key": "Telecommunications", "icon": "ita/ShoppingAndService_Telecommunications.png"}
+,{"title": "Tende E Tendine", "key": "Curtains_and_net_curtains", "icon": "ita/ShoppingAndService_Curtains_and_net_curtains.png"}
+,{"title": "Toilette Animali", "key": "Pet_care_services", "icon": "ita/ShoppingAndService_Pet_care_services.png"}
+,{"title": "Torrefazioni", "key": "Coffee_rosters", "icon": "ita/ShoppingAndService_Coffee_rosters.png"}
+,{"title": "Vend. Ambul. Abbig. E Calz.", "key": "Stalls_and_markets_of_clothing_and_footwear", "icon": "ita/ShoppingAndService_Stalls_and_markets_of_clothing_and_footwear.png"}
+,{"title": "Vend. Autoveicoli Motocicli", "key": "Sale_of_motor_vehicles_and_motorcycles", "icon": "ita/ShoppingAndService_Sale_of_motor_vehicles_and_motorcycles.png"}
+,{"title": "Vend. Dett. Eserc. Non Spec.", "key": "Retail_sale_non_specialized_stores", "icon": "ita/ShoppingAndService_Retail_sale_non_specialized_stores.png"}
+,{"title": "Vend. Dett. Ricambi Autov.", "key": "Retail_motor_vehicles_parts", "icon": "ita/ShoppingAndService_Retail_motor_vehicles_parts.png"}
+,{"title": "Vend. Ingr. Dett. Ric. Moto", "key": "Motorcycles_parts_wholesale_and_retail", "icon": "ita/ShoppingAndService_Motorcycles_parts_wholesale_and_retail.png"}
+,{"title": "Vend. Motocicli Ingros. Dett.", "key": "Motorcycles_wholesale_and_retail", "icon": "ita/ShoppingAndService_Motorcycles_wholesale_and_retail.png"}
+,{"title": "Vend. Per Corrisp. O Internet", "key": "Sale_via_mail_order_houses_or_via_internet", "icon": "ita/ShoppingAndService_Sale_via_mail_order_houses_or_via_internet.png"}
+,{"title": "Vendita Ambul. Alimentari", "key": "Stalls_and_markets_of_food", "icon": "ita/ShoppingAndService_Stalls_and_markets_of_food.png"}
+,{"title": "Vendita Ambul. Altri Prodot.", "key": "Stalls_and_markets_other_goods", "icon": "ita/ShoppingAndService_Stalls_and_markets_other_goods.png"}
+,{"title": "Vendita Ambulante", "key": "Stalls_and_markets", "icon": "ita/ShoppingAndService_Stalls_and_markets.png"}
+,{"title": "Vendita Autoveicoli", "key": "Sale_of_motor_vehicles", "icon": "ita/ShoppingAndService_Sale_of_motor_vehicles.png"}
+,{"title": "Vend. Autov. Ingros. Dett.", "key": "Motor_vehicles_wholesale_and_retail", "icon": "ita/ShoppingAndService_Motor_vehicles_wholesale_and_retail.png"}
+,{"title": "Vendita Dettaglio", "key": "Retail_trade", "icon": "ita/ShoppingAndService_Retail_trade.png"}
+,{"title": "Vendita Motocicli", "key": "Sale_of_motorcycles", "icon": "ita/ShoppingAndService_Sale_of_motorcycles.png"}
+,{"title": "Vendita Porta A Porta", "key": "Door_to_door", "icon": "ita/ShoppingAndService_Door_to_door.png"}
+,{"title": "Vendita Ricambi Autoveicoli", "key": "Sale_motor_vehicles_parts", "icon": "ita/ShoppingAndService_Sale_motor_vehicles_parts.png"}
+,{"title": "Vendita Surgelati", "key": "Frozen_food", "icon": "ita/ShoppingAndService_Frozen_food.png"}
+ ]},
+{"title": "Uffici Pubblici", "key": "GovernmentOffice", "folder": "true", "icon": "ita/GovernmentOffice.png", "children": [
+{"title": "Agenzia Delle Entrate", "key": "Income_revenue_authority", "icon": "ita/GovernmentOffice_Income_revenue_authority.png"}
+,{"title": "Altri Uffici", "key": "Other_office", "icon": "ita/GovernmentOffice_Other_office.png"}
+,{"title": "Anagrafe", "key": "Civil_registry", "icon": "ita/GovernmentOffice_Civil_registry.png"}
+,{"title": "Assistenti Sociali Uffici", "key": "Welfare_worker_office", "icon": "ita/GovernmentOffice_Welfare_worker_office.png"}
+,{"title": "Centro Per L Impiego", "key": "Employment_exchange", "icon": "ita/GovernmentOffice_Employment_exchange.png"}
+,{"title": "Consolato", "key": "Consulate", "icon": "ita/GovernmentOffice_Consulate.png"}
+,{"title": "Informa Giovani", "key": "Youth_information_centre", "icon": "ita/GovernmentOffice_Youth_information_centre.png"}
+,{"title": "Motorizzazione Civile", "key": "Department_of_motor_vehicles", "icon": "ita/GovernmentOffice_Department_of_motor_vehicles.png"}
+,{"title": "Prefettura", "key": "Prefecture", "icon": "ita/GovernmentOffice_Prefecture.png"}
+,{"title": "Quartiere", "key": "District", "icon": "ita/GovernmentOffice_District.png"}
+,{"title": "Questura", "key": "Police_headquarters", "icon": "ita/GovernmentOffice_Police_headquarters.png"}
+,{"title": "Uff. Ogg. Smarriti Aeroporto", "key": "Airport_lost_property_office", "icon": "ita/GovernmentOffice_Airport_lost_property_office.png"}
+,{"title": "Uff. Ogg. Smar. Staz. Treno", "key": "Train_lost_property_office", "icon": "ita/GovernmentOffice_Train_lost_property_office.png"}
+,{"title": "Ufficio Inps", "key": "Social_security_service_office", "icon": "ita/GovernmentOffice_Social_security_service_office.png"}
+,{"title": "Ufficio Postale", "key": "Postal_office", "icon": "ita/GovernmentOffice_Postal_office.png"}
+ ]},
+{"title": "Utilità e Fornitori", "key": "UtilitiesAndSupply", "folder": "true", "icon": "ita/UtilitiesAndSupply.png", "children": [
+{"title": "Agenti E Procuratori", "key": "Agents", "icon": "ita/UtilitiesAndSupply_Agents.png"}
+,{"title": "Agenzie Di Info. Commerciali", "key": "Reporting_agencies", "icon": "ita/UtilitiesAndSupply_Reporting_agencies.png"}
+,{"title": "Agenzie Interinali", "key": "Temp_agency", "icon": "ita/UtilitiesAndSupply_Temp_agency.png"}
+,{"title": "Agenzie Recupero Crediti", "key": "Credit_collection_agencies", "icon": "ita/UtilitiesAndSupply_Credit_collection_agencies.png"}
+,{"title": "Associazioni", "key": "Associations", "icon": "ita/UtilitiesAndSupply_Associations.png"}
+,{"title": "Call Centre", "key": "Call_center", "icon": "ita/UtilitiesAndSupply_Call_center.png"}
+,{"title": "Cons. Imprend. E Gestionale", "key": "Management_consultancy", "icon": "ita/UtilitiesAndSupply_Management_consultancy.png"}
+,{"title": "Estrazione Gas Naturale", "key": "Extraction_of_natural_gas", "icon": "ita/UtilitiesAndSupply_Extraction_of_natural_gas.png"}
+,{"title": "Fornitura Produzione Energia", "key": "Energy_supply", "icon": "ita/UtilitiesAndSupply_Energy_supply.png"}
+,{"title": "Imballaggio E Confezion.", "key": "Packaging_activities", "icon": "ita/UtilitiesAndSupply_Packaging_activities.png"}
+,{"title": "Internet Point", "key": "Internet_point_and_public_telephone", "icon": "ita/UtilitiesAndSupply_Internet_point_and_public_telephone.png"}
+,{"title": "Nol. Container Allog. O Uff.", "key": "Accommodation_or_office_containers_rental", "icon": "ita/UtilitiesAndSupply_Accommodation_or_office_containers_rental.png"}
+,{"title": "Noleg. Attrez. Sport. E Ricr.", "key": "Recreational_and_sports_goods_rental", "icon": "ita/UtilitiesAndSupply_Recreational_and_sports_goods_rental.png"}
+,{"title": "Noleg. Attrez. Manif. E Spet.", "key": "Equipment_for_events_and_shows_rental", "icon": "ita/UtilitiesAndSupply_Equipment_for_events_and_shows_rental.png"}
+,{"title": "Noleg. Beni Pers. E Per Casa", "key": "Personal_and_household_goods_rental", "icon": "ita/UtilitiesAndSupply_Personal_and_household_goods_rental.png"}
+,{"title": "Noleg. Macchinari E Attrez.", "key": "Machinery_and_equipment_rental", "icon": "ita/UtilitiesAndSupply_Machinery_and_equipment_rental.png"}
+,{"title": "Noleggio Audiovisi", "key": "Video_tapes_disks_rental", "icon": "ita/UtilitiesAndSupply_Video_tapes_disks_rental.png"}
+,{"title": "Organiz. Di Convegni E Fiere", "key": "Organization_of_conventions_and_trade_shows", "icon": "ita/UtilitiesAndSupply_Organization_of_conventions_and_trade_shows.png"}
+,{"title": "Raccol. Forn. Trattam. Acqua", "key": "Water_collection_treatment_and_supply", "icon": "ita/UtilitiesAndSupply_Water_collection_treatment_and_supply.png"}
+,{"title": "Ricerca E Selez. Personale", "key": "Recruitment", "icon": "ita/UtilitiesAndSupply_Recruitment.png"}
+,{"title": "Servizi Di Acces. Ad Internet", "key": "Internet_service_provider", "icon": "ita/UtilitiesAndSupply_Internet_service_provider.png"}
+,{"title": "Servizi Di Consulenza", "key": "Consulting_services", "icon": "ita/UtilitiesAndSupply_Consulting_services.png"}
+,{"title": "Servizi Di Telecomunicazione", "key": "Other_telecommunications_activities", "icon": "ita/UtilitiesAndSupply_Other_telecommunications_activities.png"}
+,{"title": "Servizi Integrati Gest. Edifici", "key": "Combined_facilities_support_activities", "icon": "ita/UtilitiesAndSupply_Combined_facilities_support_activities.png"}
+,{"title": "Servizi Investigativi Privati", "key": "Investigation_activities", "icon": "ita/UtilitiesAndSupply_Investigation_activities.png"}
+,{"title": "Sistemi Di Sicurezza", "key": "Security_systems_service", "icon": "ita/UtilitiesAndSupply_Security_systems_service.png"}
+,{"title": "Sostegno Alle Imprese", "key": "Business_support", "icon": "ita/UtilitiesAndSupply_Business_support.png"}
+,{"title": "Supporto Di Segreteria", "key": "Secretarial_support_services", "icon": "ita/UtilitiesAndSupply_Secretarial_support_services.png"}
+,{"title": "Supporto Funzioni D'Ufficio", "key": "Office_administrative_and_support_activities", "icon": "ita/UtilitiesAndSupply_Office_administrative_and_support_activities.png"}
+,{"title": "Vigilanza Privata", "key": "Private_security", "icon": "ita/UtilitiesAndSupply_Private_security.png"}
+ ]},
+{"title": "Vendita all'Ingrosso", "key": "Wholesale", "folder": "true", "icon": "ita/Wholesale.png", "children": [
+{"title": "Commercio Ingrosso", "key": "Wholesale_trade", "icon": "ita/Wholesale_Wholesale_trade.png"}
+,{"title": "Ingr. Mat. Prime Agr. E Anim.", "key": "Wholesale_agricultural_raw_materials_live_animals", "icon": "ita/Wholesale_Wholesale_agricultural_raw_materials_live_animals.png"}
+,{"title": "Ingros. Alim. Bev. Tabacco", "key": "Wholesale_food_beverages_tobacco", "icon": "ita/Wholesale_Wholesale_food_beverages_tobacco.png"}
+,{"title": "Ingros. Apparec. Mac. Forn.", "key": "Wholesale_machinery_equipmentent_supplies", "icon": "ita/Wholesale_Wholesale_machinery_equipmentent_supplies.png"}
+,{"title": "Ingrosso Apparec. ICT", "key": "Wholesale_ict_equipment", "icon": "ita/Wholesale_Wholesale_ict_equipment.png"}
+,{"title": "Ingrosso Beni Cosumo", "key": "Wholesale_household_goods", "icon": "ita/Wholesale_Wholesale_household_goods.png"}
+,{"title": "Ingrosso Non Specializzato", "key": "Non_specialized_wholesale_trade", "icon": "ita/Wholesale_Non_specialized_wholesale_trade.png"}
+,{"title": "Ingrosso Specializzato", "key": "Other_specialized_wholesale", "icon": "ita/Wholesale_Other_specialized_wholesale.png"}
+,{"title": "Interm.Commercio Ingrosso", "key": "Wholesale_commission_trade", "icon": "ita/Wholesale_Wholesale_commission_trade.png"}
+,{"title": "Vend. Ingr. Ricam. Auto", "key": "Wholesale_motor_vehicles_parts", "icon": "ita/Wholesale_Wholesale_motor_vehicles_parts.png"}
+ ]}]

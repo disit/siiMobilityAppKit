@@ -1,0 +1,37 @@
+{
+  "profiles": [
+    {
+      "key": "citizen",
+      "label": "Ciudadano",
+       "icon":  "<i class=\"icon ion-ios-home\"></i>",
+      "backgroundColor":  "#FF6600"
+    },
+    {
+      "key": "student",
+      "label": "Estudiante",
+      "icon": "<i class=\"icon ion-university\"></i>",
+      "backgroundColor":  "#FFCC00"
+    },
+    {
+      "key": "tourist",
+      "label": "Turista",
+      "icon": "<i class=\"icon ion-earth\"></i>",
+      "backgroundColor":  "#339933"
+    },
+    {
+      "key": "commuter",
+      "label": "Viajero",
+       "icon": "<i class=\"icon ion-android-subway\"></i>",
+      "backgroundColor":  "#0066FF"
+    },
+    {
+      "key": "all",
+      "label": "Todos los Servicios",
+      "backgroundColor":  "#CC00FF"
+    }
+  ]
+}
+
+
+
+

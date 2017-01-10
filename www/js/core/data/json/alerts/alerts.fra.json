@@ -1,0 +1,131 @@
+{
+  "connectionError": {
+    "message": "Aucune connexion internet active. Contrôlez si la connexion wi-fi ou la connexion données sont actives.",
+    "title": "Contrôlez La Connexion",
+    "buttonName": ""
+  },
+  "servicesCategoryNotSelected": {
+    "message": "Aucun service à rechercher n'a été sélectionné.",
+    "title": "Services Non Sélectionnés",
+    "buttonName": ""
+  },
+  "servicesServerError": {
+    "message": "Il n'a pas été possible de récupérer les informations requises. Essayez d'effectuer la demande à nouveau.",
+    "title": "Informations Non Disponibles",
+    "buttonName": ""
+  },
+  "noFullTextResults": {
+    "message": "La recherche n'a pas trouvé de services. Essayez avec une recherche différente.",
+    "title": "Aucun Service Trouvé",
+    "buttonName": ""
+  },
+  "noTextToSearch": {
+    "message": "Vous n'avez inséré aucun texte à rechercher.",
+    "title": "Aucun Texte",
+    "buttonName": ""
+  },
+  "positionWarning": {
+    "message": "Il n'est pas possible de trouver la position actuelle. La recherche de la position semble active, contrôlez si vous êtes connecté à internet pour trouver la position à travers le réseau. Enfin, essayez de redémarrer l'app.",
+    "title": "Position Non Trouvée",
+    "buttonName": ""
+  },
+  "manualPosition": {
+    "message": "Touchez un point quelconque du plan pour rechercher dans un point déterminé.",
+    "title": "Position Manuelle",
+    "buttonName": ""
+  },
+  "overMaxDistance": {
+    "message": "Il est impossible de chercher sur une zone plus grande que celle affichée.",
+    "title": "Distance Maximale Atteinte",
+    "buttonName": ""
+  },
+  "chooseGpsManualSearchCenter": {
+    "message": "Choisissez le centre de la zone de recherche des services ou la position à partir de laquelle on souhaite connaître la météo.",
+    "title": "Recherche",
+    "buttonName": [ "GPS", "Position Manuelle" ]
+  },
+  "chooseGpsServiceSearchCenter": {
+    "message": "Choisissez le centre de la zone de recherche des services ou la position à partir de laquelle on souhaite connaître la météo.",
+    "title": "Recherche",
+    "buttonName": [ "GPS", "Dernier Service" ]
+  },
+  "chooseManualServiceSearchCenter": {
+    "message": "Choisissez le centre de la zone de recherche des services ou la position à partir de laquelle on souhaite connaître la météo.",
+    "title": "Recherche",
+    "buttonName": [ "Position Manuelle", "Dernier Service" ]
+  },
+  "addCalendarSuccess": {
+    "message": "L'événement a été ajouté au calendrier.",
+    "title": "Inséré",
+    "buttonName": ""
+  },
+  "addCalendarError": {
+    "message": "Il n'a pas été possible d'insérer l'événement dans le calendrier.",
+    "title": "Non Inséré",
+    "buttonName": ""
+  },
+  "addFavourite": {
+    "message": "Service ajouté aux favoris",
+    "title": "Ajouté",
+    "buttonName": ""
+  },
+  "removeFavourite": {
+    "message": "Service supprimé des favoris",
+    "title": "Supprimé",
+    "buttonName": ""
+  },
+  "saveSurveyResultSuccess": {
+    "message": "Les résultats du sondage ont été envoyés",
+    "title": "Envoyés",
+    "buttonName": ""
+  },
+  "saveSurveyResultError": {
+    "message": "Il n'a pas été possible d'envoyer les résultats de l'enquête",
+    "title": "Non Envoyées",
+    "buttonName": ""
+  },
+  "navigatorSearcherStart": {
+    "message": "En frappant sur \"Commence\" passe en Navigation. La position se déplacera automatiquement et effectuera une recherche des services sélectionnés dans le menu, dans la zone indiquée dans les paramétrages.",
+    "title": "Navigation",
+    "buttonName": [ "Annule", "Commence" ]
+  },
+  "photoUpload": {
+    "sendedImages": "Images Envoyées: ",
+    "unsendedImages": "Images Non Envoyées: ",
+    "moderator":  "Seront visibles après l'approbation.",
+    "doneTitle": "Envoi Complet",
+    "problemTitle": "Envoi Incomplet",
+    "buttonName": [ "Ok", "Réessayer" ]
+  },
+  "shareFacebook": {
+    "message": "Application de Facebook non installée.",
+    "title": "Non Installée",
+    "buttonName": ""
+  },
+  "sendStarsDone": {
+    "message": "La note pour ce service a été mémorisée correctement.",
+    "title": "Note Insérée",
+    "buttonName": ""
+  },
+  "sendStarsError": {
+    "message": "Réessayer de noter le service parce que la note n'a pas été mémorisée.",
+    "title": "Note Non Insérée",
+    "buttonName": ""
+  },
+  "sendCommentDone": {
+    "message": "Le commentaire pour ce service a été mémorisé correctement. Il sera visible après l'approbation.",
+    "title": "Commentaire Inséré",
+    "buttonName": ""
+  },
+  "sendCommentError": {
+    "message": "Réessayer de commenter le service parce que le commentaire n'a pas été mémorisé.",
+    "title": "Commentaire Non Inséré",
+    "buttonName": ""
+  },
+  "webPositionDenied": {
+    "message": "Il est nécessaire d'activer les permissions de géolocalisation dans le paramètres du navigateur.",
+    "title": "Autorisation Refusée",
+    "buttonName": ""
+  }
+}
+

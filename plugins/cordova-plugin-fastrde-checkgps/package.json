@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-fastrde-checkgps",
+  "version": "1.0.0",
+  "description": "check if GPS is enabled on Android and iOS",
+  "cordova": {
+    "id": "cordova-plugin-fastrde-checkgps",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fastrde/cordova-plugin-fastrde-checkgps"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+		"gps",
+		"geolocation",
+		"checkgps"
+  ],
+  "author": "Fabian Strachanski",
+  "license": "MIT"
+}

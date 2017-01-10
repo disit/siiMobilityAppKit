@@ -1,0 +1,18 @@
+{ 
+"language": "ita",
+"textSize": 20,
+"maxDistance": "0.3",
+"maxDistanceRecommender" : "2",
+"numberOfItems": "100",
+"track": "true",
+"scanPeriod": "90000",
+"profile": "all",
+"nightDay": "false",
+"notifyPeriod": "1800000",
+"periodBackgroundNotifier":  "3600000",
+"chronologyMaxSize": "100",
+"gpsPosition": "true",
+  "notifySuggestions": "true",
+  "notifyInfoSoc": "true",
+  "notifyPersonalAssistant": "true"
+}

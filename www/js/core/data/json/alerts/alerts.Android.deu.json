@@ -1,0 +1,13 @@
+{
+  "noPosition": {
+    "message": "Der aktuelle Standort kann nicht gefunden werden. Stellen Sie sicher, dass die Suche nach dem aktuellen Standort aktiviert ist, indem Sie auf die Taste Position ermitteln klicken. Wenn Sie die Positionserfassung nicht aktivieren möchten, wählen Sie den gesuchten Standort, indem Sie auf Position Manuell und auf einen Punkt auf der Karte tippen, ansonsten ist ein Suchvorgang nicht möglich.",
+    "title": "Lage Nicht Gefunden",
+    "buttonName": [ "Schließen", "Position Manuelle", "Standortsuche Zulassen" ]
+  },
+  "chooseThreeSearchCenter": {
+    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
+    "title": "Suche",
+    "buttonName": [ "GPS", "Position Manuelle", "Letzte Anfrage" ]
+  }
+}
+

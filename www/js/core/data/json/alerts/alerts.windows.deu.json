@@ -1,0 +1,12 @@
+{
+  "noPosition": {
+    "message": "Der aktuelle Standort kann nicht gefunden werden. Stellen Sie sicher, dass die Suche nach der aktuellen Position im Menü Position in den Einstellungen aktiviert ist. Wenn Sie die Positionserfassung nicht aktivieren möchten, wählen Sie den gesuchten Standort, indem Sie auf Position wählen und auf einen Punkt auf der Karte tippen, ansonsten ist ein Suchvorgang nicht möglich.",
+    "title": "Lage Nicht Gefunden",
+    "buttonName": [ "Nicht wählen", "Position wählen" ]
+  },
+  "chooseThreeSearchCenter": {
+    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
+    "title": "Suche",
+    "buttonName": [ "Position Manuelle", "Letzte Anfrage" ]
+  }
+}

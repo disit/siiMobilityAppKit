@@ -1,0 +1,160 @@
+
+.fra.Accommodation.header, .fra.Accommodation.btn{
+    background: #33FF33;
+}
+
+.fra.Advertising.header, .fra.Advertising.btn {
+    background: #336633;
+}
+
+.fra.AgricultureAndLivestock.header, .fra.AgricultureAndLivestock.btn{
+    background: #990000;
+}
+
+.fra.CivilAndEdilEngineering.header, .fra.CivilAndEdilEngineering.btn{
+    background: #FF9900;
+}
+
+.fra.CulturalActivity.header, .fra.CulturalActivity.btn{
+    background: #330000;
+}
+
+.fra.EducationAndResearch.header, .fra.EducationAndResearch.btn{
+    background: #FFCC00;
+}
+
+.fra.Emergency.header, .fra.Emergency.btn{
+    background: #6600FF;
+}
+
+.fra.Entertainment.header, .fra.Entertainment.btn{
+    background: #33CC33;
+}
+
+.fra.Environment.header, .fra.Environment.btn {
+    background: #FF0000;
+}
+
+.fra.FinancialService.header, .fra.FinancialService.btn {
+    background: #0066FF;
+}
+
+.fra.GovernmentOffice.header, .fra.GovernmentOffice.btn{
+    background: #0099FF;
+}
+
+.fra.HealthCare.header, .fra.HealthCare.btn{
+    background: #9900FF;
+}
+
+.fra.IndustryAndManufacturing.header, .fra.IndustryAndManufacturing.btn {
+    background: #FF6600;
+}
+
+.fra.MiningAndQuarrying.header, .fra.MiningAndQuarrying.btn{
+    background: #660000;
+}
+
+.fra.ShoppingAndService.header, .fra.ShoppingAndService.btn {
+    background: #CC00FF;
+}
+
+.fra.TourismService.header, .fra.TourismService.btn {
+    background: #FF00FF;
+}
+
+.fra.TransferServiceAndRenting.header, .fra.TransferServiceAndRenting.btn {
+    background: #0000FF;
+}
+
+.fra.UtilitiesAndSupply.header, .fra.UtilitiesAndSupply.btn {
+    background: #00CCFF;
+}
+
+.fra.Wholesale.header, .fra.Wholesale.btn {
+    background: #CC0000;
+}
+
+.fra.WineAndFood.header, .fra.WineAndFood.btn {
+    background: #339933;
+}
+
+.fra.Accommodation.icon {
+    color: #33FF33;
+}
+
+.fra.Advertising.icon {
+    color: #336633;
+}
+
+.fra.AgricultureAndLivestock.icon {
+    color: #990000;
+}
+
+.fra.CivilAndEdilEngineering.icon {
+    color: #FF9900;
+}
+
+.fra.CulturalActivity.icon {
+    color: #330000;
+}
+
+.fra.EducationAndResearch.icon {
+    color: #FFCC00;
+}
+
+.fra.Emergency.icon {
+    color: #6600FF;
+}
+
+.fra.Entertainment.icon {
+    color: #33CC33;
+}
+
+.fra.Environment.icon {
+    color: #FF0000;
+}
+
+.fra.FinancialService.icon {
+    color: #0066FF;
+}
+
+.fra.GovernmentOffice.icon {
+    color: #0099FF;
+}
+
+.fra.HealthCare.icon {
+    color: #9900FF;
+}
+
+.fra.IndustryAndManufacturing.icon {
+    color: #FF6600;
+}
+
+.fra.MiningAndQuarrying.icon {
+    color: #660000;
+}
+
+.fra.ShoppingAndService.icon {
+    color: #CC00FF;
+}
+
+.fra.TourismService.icon {
+    color: #FF00FF;
+}
+
+.fra.TransferServiceAndRenting.icon {
+    color: #0000FF;
+}
+
+.fra.UtilitiesAndSupply.icon {
+    color: #00CCFF;
+}
+
+.fra.Wholesale.icon {
+    color: #CC0000;
+}
+
+.fra.WineAndFood.icon {
+    color: #339933;
+}

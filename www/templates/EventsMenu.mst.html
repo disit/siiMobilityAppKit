@@ -1,0 +1,74 @@
+<div id="eventsMenuHeader" class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
+    <div id="eventsMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal"></div>
+    </div>
+    <div class="panel-heading" style="padding: 0px 10px;height: 52px; border: none;">
+        <a class="pull-right" onclick="EventsSearcher.hide();">
+            <i class="glyphicon glyphicon-remove"
+               style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="expandEventsMenu" class="pull-left" onclick="EventsSearcher.expandEventsMenu();">
+            <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="collapseEventsMenu" class="pull-left" onclick="EventsSearcher.collapseEventsMenu();">
+            <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <b id="eventsHeaderTitle" style="line-height: 52px;color: #333;">
+            <script>
+            $("#eventsHeaderTitle").html(
+                    Globalization.labels.eventsMenu.headerTitle)
+            </script>
+        </b>
+    </div>
+</div>
+<!-- {{#Event}} -->
+<div id="eventsMenuInner" class="commonHalfMenuInnerWithButtons">
+    <!-- {{#features}} {{#properties}}-->
+    <div  class="panel panel-default" style="margin: 0px 5px 10px 5px;color: #000; text-decoration: none;" onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{nameEscaped}}','{{civic}}','{{busLines}}','{{agency}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}},null);">
+        <div class="panel-body card-2">
+            {{#properties}}
+            {{#imageThumb}}<img id="eventsMenuImage{{identifier}}" src="{{imageThumb}}"
+                                style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
+            <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
+            <b style="text-align: center;text-transform:capitalize;">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
+            {{#categoryIT}}<br><b id="categoryIT{{identifier}}">
+            <script>$("#categoryIT{{identifier}}").html(Globalization.labels.infoMenu.type)</script></b>{{categoryIT}}{{/categoryIT}}
+            {{#startDate}}<br><b id="serviceStartDate{{identifier}}">
+            <script>$("#serviceStartDate{{identifier}}").html(Globalization.labels.infoMenu.startDate)</script></b>{{#changeFormatEventsDate}}{{startDate}}{{/changeFormatEventsDate}}{{/startDate}}
+            {{#endDate}}<br><b id="serviceEndDate{{identifier}}">
+            <script>$("#serviceEndDate{{identifier}}").html(Globalization.labels.infoMenu.endDate)</script></b>{{#changeFormatEventsDate}}{{endDate}}{{/changeFormatEventsDate}}{{/endDate}}
+            {{#date}}<br><b id="serviceDate{{identifier}}">
+            <script>$("#serviceDate{{identifier}}").html(Globalization.labels.infoMenu.date)</script></b>{{#changeFormatEventsDate}}{{date}}{{/changeFormatEventsDate}}{{/date}}
+            {{#distanceFromSearchCenter}}<br><b id="eventsDistanceFromSearchCenter{{identifier}}">
+            <script>$("#eventsDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromSearchCenter)</script></b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+            {{#distanceFromGPS}}<br><b id="eventsDistanceFromGPS{{identifier}}">
+            <script>$("#eventsDistanceFromGPS{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromGPS)</script></b>{{distanceFromGPS}} m{{/distanceFromGPS}}{{/properties}}
+        </div>
+    </div>
+    <!-- {{/features}} -->
+</div>
+<!-- {{/Event}} -->
+<button id="eventsButtonDay" class="btn btn-primary"
+        style="position: absolute; bottom: 0px; left: 0px; width: 33%; height: 25px; padding: 0px 0px; text-align: center; font-size: 18px; border-radius: 0px;"
+        onclick="EventsSearcher.search('day');">
+    <script>
+                    $("#eventsButtonDay").html(
+                            Globalization.labels.eventsMenu.dayButton)
+    </script>
+</button>
+<button id="eventsButtonWeek" class="btn btn-primary"
+        style="position: absolute; bottom: 0px; left: 33%; width: 34%; height: 25px; padding: 0px 0px; text-align: center; font-size: 18px; border-radius: 0px;"
+        onclick="EventsSearcher.search('week');">
+    <script>
+                    $("#eventsButtonWeek").html(
+                            Globalization.labels.eventsMenu.weekButton)
+    </script>
+</button>
+<button id="eventsButtonMonth" class="btn btn-primary"
+        style="position: absolute; bottom: 0px; left: 67%; width: 33%; height: 25px; padding: 0px 0px; text-align: center; font-size: 18px; border-radius: 0px;"
+        onclick="EventsSearcher.search('month');">
+    <script>
+                    $("#eventsButtonMonth").html(
+                            Globalization.labels.eventsMenu.monthButton)
+    </script>
+</button>

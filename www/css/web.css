@@ -1,0 +1,78 @@
+div#textSearchMenu {
+  top: 54px;
+  right: 0px;
+  
+}
+
+div#textSearchMenu .ui-panel-inner .panel-body
+{
+	padding:2px;
+	cursor:pointer;
+	
+}
+
+div#textSearchMenu .ui-panel-inner .panel-body b
+{
+	text-trasform:capitalize;
+}
+
+div#textSearchMenu .ui-panel-inner .panel-body i.glyphicon.glyphicon-info-sign {
+  float: right;
+}
+
+div#categorySearchMenu{
+	top: 54px;
+}
+
+#infoMenu .header p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 900px){
+#categorySearchMenu.ui-panel {
+  width: 30%;
+}
+}
+
+@media (max-width:899px)
+{
+	div#categorySearchFancyTree * {
+  	font-size: 16px;
+	}
+}
+
+a.navbar-brand:visited
+{
+	color: #777;
+}
+
+
+.ui-dialog
+{
+	background: #eee url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") 50% top repeat-x !important;
+}
+.navbar-brand >img
+{
+	display:inline;
+}
+
+.gpsButton {
+    bottom: 72px;
+    left: 5px;
+}
+
+.manualButton {
+    bottom: 109px;
+    left: 5px;
+}
+.eventsButton {
+    bottom: 146px;
+    left: 5px;
+}
+
+.weatherButton {
+    bottom: 183px;
+    left: 5px;
+}

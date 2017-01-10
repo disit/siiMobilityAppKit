@@ -1,0 +1,114 @@
+<style>
+.header {
+	background: #000000;
+	padding-left: 10px;
+	height: 55px;
+	line-height: 55px;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+}
+
+#dayforecast {
+    display: inline-block;
+    background-color: white;
+    border-radius: 2px;
+    margin: 5px;
+    width: 16%;
+    text-align: center;
+    font-size: 11px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#mintemp {
+	color: blue;
+}
+
+#maxtemp {
+	color: red;
+}
+
+#instantTime {
+	position: relative;
+	margin: 2% 0px;
+	text-align: center;
+	border-radius: 6px;
+	background-color: #ffffff;
+	font-weight: bold;
+	color: black;
+	line-height: 2;
+}
+</style>
+<div class="weather">
+    <div id="infoMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal"></div>
+    </div>
+	<div id="infoMenuHeader" class=header style="position: absolute;right: 0px;left: 0px;">
+        
+        <a class="pull-right"
+			onclick="InfoManager.hideInfoAboutOneMarker(SearchManager.searchCenter[0],SearchManager.searchCenter[1]);"><i
+			class="glyphicon glyphicon-remove"
+			style="color: white; padding-right: 10px"></i></a> <a id="expandInfoMenu"
+			class="pull-left" onclick="InfoManager.expandInfoAboutOneMarker();"><i
+			class="glyphicon glyphicon-plus"
+			style="color: white; padding-right: 5px"></i></a> <a
+			id="collapseInfoMenu" class="pull-left"
+			onclick="InfoManager.collapseInfoAboutOneMarker();"><i
+			class="glyphicon glyphicon-minus"
+			style="color: white; padding-right: 5px"></i></a>
+		<!-- {{#head}} -->
+		{{location}}
+		<!-- {{/head}} -->
+		<!-- {{#ERROR}} -->
+		<div id="noWeatherAvailable">
+			<script>
+				$("#noWeatherAvailable").html(
+						Globalization.labels.weather.noWeatherAvailable)
+			</script>
+		</div>
+		<!-- {{/ERROR}} -->
+	</div>
+
+
+	<div id="infoMenuInner">
+
+		<!-- {{#results}}{{^bindings}} -->
+		<div id="instantTime" style="text-align: center">
+			<h4>
+				<b id="weatherNoForecast"><script>
+					$("#weatherNoForecast").html(
+							Globalization.labels.weather.noForecast)
+				</script></b>
+			</h4>
+		</div>
+		<!-- {{/bindings}}{{/results}} -->
+
+		<!-- {{#ERROR}} -->
+		<div id="instantTime" style="text-align: center">
+			<h4>
+				<i id="weatherNoForecast"><script>
+					$("#weatherNoForecast").html(
+							Globalization.labels.weather.noForecast)
+				</script></i>
+			</h4>
+		</div>
+		<!-- {{/ERROR}} -->
+
+		<!-- {{#results}}{{#bindings.0}}{{#instantDateTime}} -->
+		<div id="instantTime">{{value}}</div>
+		<!-- {{/instantDateTime}}{{/bindings.0}} {{/results}} -->
+        <div style="text-align: center">
+		<!-- {{#results}}{{#bindings}} -->
+		<div id="dayforecast">
+			<span class="day">{{#day}}{{value}}{{/day}}</span>
+			<br> 
+			<img class="image" src="img/weather/{{#description}}{{value}}{{/description}}.png" width="100%" style="max-width: 100px">
+			<br> 
+			{{#maxTemp}}<span id="maxtemp">{{#value}}{{value}}{{/value}}{{^value}}-{{/value}} &deg;C</span>{{/maxTemp}}
+            <br>
+            {{#minTemp}}<span id="mintemp">{{#value}}{{value}}{{/value}}{{^value}}-{{/value}} &deg;C</span>{{/minTemp}}
+		</div>
+		<!-- {{/bindings}} {{/results}} -->
+            </div>
+	</div>
+</div>

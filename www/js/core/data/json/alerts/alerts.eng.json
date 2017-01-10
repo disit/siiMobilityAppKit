@@ -1,0 +1,135 @@
+{
+  "connectionError": {
+    "message": "No active internet connection. Check if the wi-fi connection or the internet data connection are active.",
+    "title": "Check Connection",
+    "buttonName": ""
+  },
+  "servicesCategoryNotSelected": {
+    "message": "It is not selected any service to research.",
+    "title": "Services Not Selected",
+    "buttonName": ""
+  },
+  "servicesServerError": {
+    "message": "It is not possible to retrieve requested information. Try again to perform the request.",
+    "title": "Unavailable Information",
+    "buttonName": ""
+  },
+  "noFullTextResults": {
+    "message": "The research found no services. Try a different research.",
+    "title": "Service Not Found",
+    "buttonName": ""
+  },
+  "noTextToSearch": {
+    "message": "It is not entered any text to research.",
+    "title": "No Text",
+    "buttonName": ""
+  },
+  "positionWarning": {
+    "message": "It is not possible to find current position. Location lookup seems active, check if you are connected to the Internet to find the location through the network. Finally, try to restart the app.",
+    "title": "Position Not Found",
+    "buttonName": ""
+  },
+  "manualPosition": {
+    "message": "Tap anywhere on the map to search at a particular point.",
+    "title": "Manual Position",
+    "buttonName": ""
+  },
+  "overMaxDistance": {
+    "message": "It is not possible to search on an area larger than the one displayed.",
+    "title": "Maximum Distance Reached",
+    "buttonName": ""
+  },
+  "chooseGpsManualSearchCenter": {
+    "message": "Select the center of the search area of services or the location where you want to know the weather.",
+    "title": "Search",
+    "buttonName": [ "GPS", "Manual Position" ]
+  },
+  "chooseGpsServiceSearchCenter": {
+    "message": "Select the center of the search area of services or the location where you want to know the weather.",
+    "title": "Search",
+    "buttonName": [ "GPS", "Last Service" ]
+  },
+  "chooseManualServiceSearchCenter": {
+    "message": "Select the center of the search area of services or the location where you want to know the weather.",
+    "title": "Search",
+    "buttonName": [ "Manual Position", "Last Service" ]
+  },
+  "addCalendarSuccess": {
+    "message": "The event has been added to calendar.",
+    "title": "Inserted",
+    "buttonName": ""
+  },
+  "addCalendarError": {
+    "message": "It was not possible to add the event in the calendar.",
+    "title": "Not Inserted",
+    "buttonName": ""
+  },
+  "addFavourite": {
+    "message": "Service added to favourites",
+    "title": "Added",
+    "buttonName": ""
+  },
+  "removeFavourite": {
+    "message": "Service removed from favourites",
+    "title": "Removed",
+    "buttonName": ""
+  },
+  "saveSurveyResultSuccess": {
+    "message": "The survey results were sent",
+    "title": "Sent",
+    "buttonName": ""
+  },
+  "saveSurveyResultError": {
+    "message": "It was not possible to send the results of the survey",
+    "title": "Not Sent",
+    "buttonName": ""
+  },
+  "navigatorSearcherStart": {
+    "message": "Pressing \"Start\" switches to navigation. The position will move automatically and will perform a search of the selected services in the menu, in the area indicated in the settings.",
+    "title": "Navigation Mode",
+    "buttonName": [ "Cancel", "Start" ]
+  },
+  "photoUpload": {
+    "sendedImages": "Sended Images: ",
+    "unsendedImages": "Images Not Sended: ",
+    "moderator":  "They will be visible after approval.",
+    "doneTitle": "Complete Upload",
+    "problemTitle": "Incomplete Upload",
+    "buttonName": [ "Ok", "Retry" ]
+  },
+  "shareFacebook": {
+    "message": "Facebook application not installed",
+    "title": "Not Installed",
+    "buttonName": ""
+  },
+  "sendStarsDone": {
+    "message": "The vote for this service is stored correctly.",
+    "title": "Vote Inserted",
+    "buttonName": ""
+  },
+  "sendStarsError": {
+    "message": "Try again to vote the service because the vote was not stored.",
+    "title": "Vote Not Inserted",
+    "buttonName": ""
+  },
+  "sendCommentDone": {
+    "message": "The comment for this service is stored correctly. It will be visible after approval.",
+    "title": "Comment Inserted",
+    "buttonName": ""
+  },
+  "sendCommentError": {
+    "message": "Try again to comment the service because the comment was not stored.",
+    "title": "Comment Not Inserted",
+    "buttonName": ""
+  },
+  "webPositionDenied": {
+    "message": "Please enable the geolocalizion permissions in settings of your browser.",
+    "title": "Position Denied",
+    "buttonName": ""
+  },
+  "notSupported3D": {
+    "message": "This device does not support the 3D mode of the map.",
+    "title": "3D Mode Not Supported",
+    "buttonName": ""
+  }
+}

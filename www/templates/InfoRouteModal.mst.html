@@ -1,0 +1,39 @@
+<div class="modal-dialog" style="width: 95%;">
+    <div class="modal-content" style="text-align: center; margin: 60px 10px">
+        {{#BusRoutes.0}}
+        <div class="modal-header" style="border-bottom: none;">
+            <h4 class="modal-title"><span id="infoRouteModalHeader"><script>
+                $("#infoRouteModalHeader").html(
+                            Globalization.labels.busRoutesInfoModal.headerTitle)
+</script></span>{{line}}</h4>
+        </div>
+        {{/BusRoutes.0}}
+        <div id="infoRouteModalBody" class="modal-body">
+            {{#BusRoutes}}
+            <div class="panel panel-default"
+                 style="margin: 0px 5px 10px 5px; text-align: center">
+                <div class="panel-body card-2" onclick="BusRoutesSearcher.drawRoute('{{route}}');">
+                   {{#routeName}}<b>{{routeName}}: </b>{{/routeName}}{{firstBusStop}} <i class="glyphicon glyphicon-arrow-right"></i> {{lastBusStop}}
+                </div>
+            </div>
+            {{/BusRoutes}}
+            {{^BusRoutes}}
+            <h3>
+                <i id="noBusRoutes" style="padding-bottom: 10px">
+                    <script>
+                        $("#noBusRoutes").html(
+				Globalization.labels.busRoutesInfoModal.noBusRoutes)
+                    </script>
+                </i>
+            </h3>
+            {{/BusRoutes}}
+        </div>
+        <div class="modal-footer" style="padding: 0px; border-bottom: 0px">
+            <button id="infoRouteModalFooterButton" type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" style="width:100%;border-top-left-radius:0px; border-top-right-radius:0px; border-left: 0px;border-right: 0px;border-bottom: 0px;" onclick="BusRoutesSearcher.hideInfoRouteModal();"><script>
+                $("#infoRouteModalFooterButton").html(
+                                       Globalization.labels.busRoutesInfoModal.closeButton)
+                </script></button>
+        </div>
+    </div>
+</div>
+

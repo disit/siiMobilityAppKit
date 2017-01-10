@@ -1,0 +1,12 @@
+{
+  "noPosition": {
+    "message": "Der aktuelle Standort kann nicht gefunden werden. Stellen Sie sicher, dass die Suche nach der aktuellen Position im Menü Privatsphäre in den Einstellungen aktiviert ist. Falls sie aktiviert ist, kontrollieren Sie, ob bei dieser App die Positionsverwendung zugelassen ist. Wenn Sie die Positionserfassung nicht aktivieren möchten, wählen Sie den gesuchten Standort, indem Sie auf Position wählen und auf einen Punkt auf der Karte tippen, ansonsten ist ein Suchvorgang nicht möglich.",
+    "title": "Lage nicht gefunden",
+    "buttonName": ["Nicht wählen", "Position suchen"]
+  },
+  "chooseThreeSearchCenter": {
+    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
+    "title": "Suche",
+    "buttonName": ["Manual Position","Last Service"]
+  }
+}

@@ -1,0 +1,697 @@
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+html, div[data-role="page"], div[data-role="content"] {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    touch-action: none;
+}
+
+.imgPreview{
+    padding: 20px;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+}
+
+.grippyContainer-horizontal{
+    width: 80%;
+    height: 60px;
+    display: block;
+    position: absolute;
+    top: -10px;
+    left: 10%;
+    z-index: 5;
+}
+
+.grippy-horizontal{
+    display: inline-block;
+    width: 50px;
+    height: 15px;
+    line-height: 5px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #aaa;
+    text-shadow: 1px 0 1px black;
+    background: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.grippy-horizontal::after{
+    content: "....... .......";
+}
+
+.grippyContainer-vertical{
+    text-align: center;
+    width: 50px;
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: -25px;
+    z-index: 5;
+}
+
+.grippy-vertical{
+    display: inline-block;
+    width: 15px;
+    height: 48px;
+    line-height: 6px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #aaa;
+    text-shadow: 1px 0 1px black;
+    background: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.grippy-vertical::after{
+    content: ".. .. .. .. .. .. ..";
+}
+
+#infoSOCModalBody{
+    font-size: 14px;
+}
+
+#infoSOCModalBody img{
+    width: 25%;
+    min-width: 200px;
+    padding-bottom: 30px;
+}
+
+#infoSOCModalBody th{
+    text-align: center;
+}
+
+#infoSOCModalBody td{
+    white-space: normal;
+}
+
+#infoSOCModalBody td,#infoSOCModalBody th, #infoSOCModalBody table{
+    border: 1px solid black;
+}
+
+.gpsButton {
+    bottom: 72px;
+    left: 5px;
+}
+
+.manualButton {
+    bottom: 109px;
+    left: 5px;
+}
+
+.navigationSearchButton {
+    bottom: 146px;
+    left: 5px;
+}
+
+.ticketButton {
+    bottom: 183px;
+    left: 5px;
+}
+
+
+.weatherButton {
+    bottom: 220px;
+    left: 5px;
+}
+
+.sharingButton {
+    bottom: 234px;
+    right: 5px;
+}
+
+.eventsButton {
+    bottom: 197px;
+    right: 5px;
+}
+
+ .greenAreasButton {
+    bottom: 160px;
+    right: 5px;
+}
+
+ .cyclePathsButton {
+    bottom: 123px;
+    right: 5px;
+}
+
+ .carParkButton {
+    bottom: 86px;
+    right: 5px;
+}
+
+.busStopButton{
+    bottom: 49px;
+    right: 5px;
+}
+
+.infoSOCButton{
+    bottom: 12px;
+    right: 5px;
+}
+
+
+.photoAlbum{
+    display:inline;
+    max-width: 18%; 
+    max-height: 100%; 
+    border: 1px solid #aaa;
+}
+
+.weathericon {
+    font-size: 18px;
+}
+
+.testProdAlert {
+    display: none;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    background-color: #f00;
+    color: white;
+    position: absolute;
+    bottom: 40px;
+    text-align: center;
+    font-size: 22px;
+}
+
+
+#servicesFounded {
+    position: absolute;
+    z-index: 998;
+    top: 60px;
+    left: 20%;
+    text-align: center;
+    width: 60%;
+    display:none;
+}
+
+#servicesFoundedInner {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    display: inline-block;
+    padding: 2px;
+    border-radius: 2px;
+    background-color: white;
+    text-decoration: none;
+    color: #777;
+    font-size: 14px;
+}
+
+#profileShower {
+    position: absolute;
+    top: 58px;
+    left: 20%;
+    text-align: center;
+    width: 60%;
+    display:none;
+}
+
+#profileShowerInner {
+    box-shadow: 5px 5px 10px rgba(0,0,0,.5);
+    display: inline-block;
+    padding: 2px;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+}
+
+.commonHalfMenu{
+    position: absolute;
+    bottom: -100%;
+    height: 35%;
+    background-color: #bbb;
+    width: 100%;
+    z-index: 1001;
+}
+
+.commonHalfMenuInnerWithButtons{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 54px;
+    bottom: 25px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.commonHalfMenuInner{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 54px;
+    bottom: 0px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.commonMenu {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #bbb;
+    width: 100%;
+    display: none;
+    z-index: 9999;
+}
+
+.commonMenuInner {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 60px;
+    bottom: 0px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+div#resultsMenu #resultsMenuInner .panel-body b {
+   text-transform: capitalize;
+}
+
+div#textSearchMenu #textSearchMenuInner .panel-body b {
+   text-transform: capitalize;
+}
+
+#principalMenu {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #bbb;
+    width: 100%;
+    display: none;
+    z-index: 10001;
+    line-height: 1;
+}
+
+#principalMenuInner {
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top:60px;
+    bottom: 0px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#infoMenuInner {
+    position: absolute;
+    width: 100%;
+    top: 56px;
+    bottom: 0px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#infoMenu .header p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+#carPark .header p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+#settingsMenuInner {
+    position: absolute;
+    left: 0px;
+    right: 00px;
+    top: 60px;
+    bottom: 25px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+div#settingsMenuInner.Web div#suggestions #notify, div#settingsMenuInner.Web #periodBackgroundNotifier,div#settingsMenuInner.Web #notifyPeriod,
+div#settingsMenuInner.Win32NT div#suggestions #notify , div#settingsMenuInner.Win32NT #notifyPeriod, div#settingsMenuInner.Win32NT #periodBackgroundNotifier, 
+div#settingsMenuInner.windows #periodBackgroundNotifier,
+div#settingsMenuInner.iOS #periodBackgroundNotifier, div#settingsMenuInner.iOS #gpsPosition, div#settingsMenuInner.Web #gpsPosition,
+div#settingsMenuInner.Android #gpsPosition{
+    display: none;
+}
+
+#chronologyMenuInner {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 60px;
+    bottom: 25px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#log {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #fff;
+    width: 100%;
+    display: none;
+    z-index: 10000;
+}
+
+#logRecommender {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #fff;
+    width: 100%;
+    display: none;
+    z-index: 10000;
+}
+
+#logInner {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 60px;
+    bottom: 0px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#survey {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #fff;
+    width: 100%;
+    display: none;
+    z-index: 10000;
+}
+
+
+#surveyInner {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 60px;
+    bottom: 0px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#startInformation {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #fff;
+    width: 100%;
+    display: none;
+    z-index: 10003;
+}
+
+#startInformationInner {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 60px;
+    bottom: 40px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#chooseLanguage {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #000;
+    width: 100%;
+    display: none;
+    z-index: 10002;
+}
+
+#chooseLanguageImage {
+    position: absolute;
+    width: 100%;
+    height: 44%;
+    width: 100%;
+    top: 3%;
+    bottom: 3%;
+}
+
+#chooseLanguageInner {
+    position: relative;
+    width: 80%;
+    height: 45%;
+    top: 55%;
+    left:10%;
+    bottom: 0px;
+    overflow: auto;
+    text-align: center;
+    -webkit-overflow-scrolling: touch;
+}
+
+#chooseProfile {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background-color: #000;
+    width: 100%;
+    display: none;
+    z-index: 10002;
+}
+
+
+#chooseProfileImage {
+    position: absolute;
+    width: 100%;
+    height: 24%;
+    width: 100%;
+    top: 3%;
+    bottom: 3%;
+}
+
+
+#chooseProfileTitle {
+    position: absolute;
+    width: 100%;
+    height: 13%;
+    top: 30%;
+    bottom: 0px;
+    overflow: auto;
+    text-align: center;
+    color: white;
+    -webkit-overflow-scrolling: touch;
+}
+
+#chooseProfileInner {
+    position: absolute;
+    width: 100%;
+    top: 46%;
+    height: 200px;
+    overflow: auto;
+    text-align: center;
+    -webkit-overflow-scrolling: touch;
+}
+
+#chooseProfileDisclaimer{
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    bottom: 0px;
+    color:white;
+    text-shadow: none;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+}
+
+#loadingImage {
+    display: none;
+    position: absolute;
+    top: 2px;
+    left: 48%;
+    height: 46px;
+    width: 46px;
+    z-index: 9999;
+}
+
+#autoSearchLoadingImage {
+    display: none;
+    position: absolute;
+    top: 2px;
+    left: 48%;
+    height: 46px;
+    width: 46px;
+    z-index: 9998;
+}
+
+#settingsLoadingImage {
+    display: none;
+    position: absolute;
+    top: 2px;
+    left: 48%;
+    height: 46px;
+    width: 46px;
+    z-index: 10000;
+}
+
+#navbarNavigation {
+    display: none;
+}
+
+.card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.card-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.card-4 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+body {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;
+    /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;
+    /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color: #000;
+    /*background-image: linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image: -webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image: -ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #A7A7A7), color-stop(0.51, #E4E4E4));*/
+    background-attachment: fixed;
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+/* Portrait layout (default) */
+.app {
+    background: url(../img/logo.png) no-repeat center top;
+    /* 170px x 200px */
+    position: absolute; /* position in the center of the screen */
+    left: 50%;
+    top: 50%;
+    height: 50px; /* text area height */
+    width: 225px; /* text area width */
+    text-align: center;
+    padding: 180px 0px 0px 0px;
+    /* image height is 200px (bottom 20px are overlapped with text) */
+    margin: -115px 0px 0px -112px;
+    /* offset vertical: half of image height and text area height */
+    /* offset horizontal: half of text area width */
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+        background-position: left center;
+        padding: 75px 0px 75px 170px;
+        /* padding-top + padding-bottom + text area = image height */
+        margin: -90px 0px 0px -198px;
+        /* offset vertical: half of image height */
+        /* offset horizontal: half of image width and text area width */
+    }
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0px;
+    overflow: visible;
+    padding: 0px;
+    text-align: center;
+}
+
+.event {
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #FFFFFF;
+    font-size: 12px;
+    margin: 0px 30px;
+    padding: 2px 0px;
+}
+
+    .event.listening {
+        background-color: #333333;
+        display: block;
+    }
+
+    .event.received {
+        background-color: #4B946A;
+        display: none;
+    }
+
+@ keyframes fade {
+    from {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1.0;
+    }
+}
+
+@ -webkit-keyframes fade {
+    from {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0 .4;
+    }
+
+    to {
+        opacity: 1.0;
+    }
+}
+
+.blink {
+    animation: fade 3000ms infinite;
+    -webkit-animation: fade 3000ms infinite;
+}

@@ -1,0 +1,15 @@
+{
+  "noPosition": {
+    "message": "Il n'est pas possible de trouver la position actuelle. Si vous ne voulez pas activer la recherche de la position, choisissez le point de recherche en cliquant sur Position Manuelle et en touchant un point de la carte, sinon il ne sera pas possible d'effectuer de recherches.",
+    "title": "Position Non Trouvée",
+    "buttonName": [ "Ne Pas Choisir", "Choisir Position" ]
+  },
+  "chooseThreeSearchCenter": {
+    "message": "Choisissez le centre de la zone de recherche des services ou la position dont on souhaite connaître la météo.",
+    "title": "Recherche",
+    "buttonName": [ "GPS", "Posit. Manuelle", "Dernier Service" ]
+  }
+}
+
+	
+

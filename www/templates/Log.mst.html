@@ -1,0 +1,13 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<div class="panel panel-default">
+	<div class="panel-heading"
+		style="height: 55px; ">
+		<a class="pull-right" onclick="Log.hide(); LogRecommender.hide();"><i
+			class="glyphicon glyphicon-remove" style="color: #777;float: right; padding-top: 14px;"></i></a> <b
+			id="logHeaderTitle" style="float: left; padding-top: 10px;"><i class="glyphicon glyphicon-list-alt"></i> Log</b>
+	</div>
+</div>
+<div id="logInner">
+	{{#lines}} {{line}}<br> {{/lines}}
+</div>

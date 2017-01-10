@@ -1,0 +1,28 @@
+<div id="chooseProfileImage">
+	<img src="img/icon512.png" height="100%" style="display: block;margin: auto;" >
+</div>
+<div id="chooseProfileTitle">
+	<h3><b id="chooseProfileWelcome"><script>
+				$("#chooseProfileWelcome").html(
+						Globalization.labels.chooseProfile.welcome)
+			</script></b></h3>
+</div>
+<div id="chooseProfileInner">
+<!-- {{#profiles}} -->
+	<button type="button" class="btn btn-default" style="font-size: 20px;margin-bottom: 5px; width: 220px;padding:1px; color: {{backgroundColor}}; border: 2px solid {{backgroundColor}}; font-weight: bolder"
+		onclick="localStorage.setItem('profile', '{{key}}');ChooseProfile.hide();"><span>{{label}}  {{{icon}}}</span>
+    </button>
+	<br>
+<!-- 	{{/profiles}} -->
+</div>
+<div id="chooseProfileDisclaimer">
+    <span id="chooseProfileDisclaimerText"><script>
+        $("#chooseProfileDisclaimerText").html(
+						Globalization.labels.chooseProfile.disclaimerText)
+</script></span><br />
+    <a id="chooseProfileDisclaimerLink" onclick="StartInformation.show();"><script>
+        $("#chooseProfileDisclaimerLink").html(
+						Globalization.labels.chooseProfile.disclaimerLink)
+</script></a>
+</div>
+

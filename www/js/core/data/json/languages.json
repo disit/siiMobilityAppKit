@@ -1,0 +1,24 @@
+{
+  "languages": [
+    {
+      "label": "English",
+      "key": "eng"
+    },
+    {
+      "label": "Italiano",
+      "key": "ita"
+    },
+    {
+      "label": "Deutsch",
+      "key": "deu"
+    },
+    {
+      "label": "Francais",
+      "key": "fra"
+    },
+    {
+      "label": "Espanol",
+      "key": "esp"
+    }
+  ]
+}

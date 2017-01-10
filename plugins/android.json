@@ -1,0 +1,109 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com-badrit-macaddress": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "com.pylonproducts.wifiwizard": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "com.red_folder.phonegap.plugin.backgroundservice": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-backbutton": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-badge": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-ble-central": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-calendar": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-fastrde-checkgps": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-imagepicker": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-insomnia": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-legacy-whitelist": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-sms-plugin": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "de.appplant.cordova.plugin.local-notification": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "org.disit.siiMobile.backgroundService": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "org.disit.siiMobilityAppKit"
+        }
+    }
+}

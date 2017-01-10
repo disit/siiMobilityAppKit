@@ -1,0 +1,352 @@
+<style>
+.header {
+	background: #000000;
+	padding-left: 10px;
+	height: 55px;
+	line-height: 55px;
+	font-size: 20px;
+	color: white;
+}
+
+table#realtime {
+	width: 100%;
+	text-align: center;
+	table-layout: fixed;
+    border: none;
+}
+
+table#realtime th {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+}
+
+table#realtime td {
+	border: 1px solid #ddd;
+}
+
+table#realtime td.Anticipo {
+	color: green;
+}
+
+table#realtime td.Ritardo {
+	color: red;
+}
+
+table#timetable {
+	width: 100%;
+	text-align: center;
+	table-layout: fixed;
+    border: none;
+}
+
+table#timetable th {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	text-align: center;
+	font-weight: bold;
+	color: black;
+}
+
+table#timetable td {
+	border: 1px solid #ddd;
+}
+
+table#timetable td.Anticipo {
+	color: green;
+}
+
+table#timetable td.Ritardo {
+	color: red;
+}
+
+ul#linee-list {
+	margin: 1% 0px;
+	padding-left: 0px;
+	text-align: center;
+}
+
+ul#linee-list li {
+	display: inline-block;
+	border: 2px solid #000000;
+	padding: 0px 4px;
+    min-width: 32px;
+	height: 32px;
+	border-radius: 6px;
+	background-color: #fff;
+	font-weight: bold;
+	text-align: center;
+	color: black;
+	line-height: 2;
+}
+
+#noRealTime {
+	position: relative;
+	margin: 2% 0px;
+	text-align: center;
+	background-color: #ffffff;
+	font-weight: bold;
+	color: black;
+	line-height: 2;
+}
+</style>
+<div class=fermata>
+    <div id="infoMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal"></div>
+    </div>
+	<!-- {{#BusStop}}{{#features.0}} -->
+	<div id="infoMenuHeader" class="header {{#properties}}{{currentLanguage}} {{category}}{{/properties}}" style="position: absolute;right: 0px;left: 0px;">
+        <img src="{{#properties}}{{imgsrc}}{{/properties}}">
+        <a class="pull-right"
+			onclick="InfoManager.hideInfoAboutOneMarker({{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});"><i
+			class="glyphicon glyphicon-remove"
+			style="color: white; padding-right: 10px"></i></a>
+			<a id="expandInfoMenu" class="pull-left" onclick="InfoManager.expandInfoAboutOneMarker();"><i
+			class="glyphicon glyphicon-plus" style="color: white; padding-right: 5px"></i></a>
+			<a id="collapseInfoMenu" class="pull-left" onclick="InfoManager.collapseInfoAboutOneMarker();"><i
+			class="glyphicon glyphicon-minus" style="color: white; padding-right: 5px"></i></a>
+			<!-- {{/features.0}}{{/BusStop}} -->
+		<!-- {{#busLines}}{{#head}} -->
+		{{busStop}}
+		<!-- {{/head}}{{/busLines}} -->
+	</div>
+
+
+	<div id="infoMenuInner">
+	<div id="linee">
+			<div class="linee-inner">
+				<ul id="linee-list">
+					<!-- {{#busLines}}{{#results}}{{#bindings}}{{#busLine}}{{#value}} -->
+					<li onclick="BusRoutesSearcher.getRoutesForLineToBusStop('{{value}}','{{#BusStop}}{{#features.0}}{{#properties}}{{agencyUri}}{{/properties}}{{/features.0}}{{/BusStop}}','{{#head}}{{busStopEscaped}}{{/head}}')">{{value}}</li>
+					<!-- {{/value}}{{/busLine}}{{/bindings}}{{/results}}{{/busLines}} -->
+				</ul>
+			</div>
+		</div>
+	<!-- {{#BusStop}}{{#features.0}}{{#properties}} -->
+	<ul class="list-group" style="margin-bottom: 0px">
+        <li class="list-group-item" style="padding-top: 8px;padding-bottom: 0px;text-align: center;">
+            <!-- {{^web}} -->
+            <!-- {{^wp8}} -->
+            <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n', '{{nameEscaped}}', '{{#carouselContent.0}}{{photo}}{{/carouselContent.0}}', 'http://www.km4city.org/', 'infoMenu')"><i style="font-size:25px;padding-left:15px;" class="icon ion-android-share-alt {{currentLanguage}} {{category}}"></i></a>
+            <!--{{/wp8}}-->
+            <!--{{#wp8}}-->
+            <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n http://www.km4city.org/', '{{nameEscaped}}', null, null, 'infoMenu')"><i style="font-size:25px;padding-left:15px;" class="icon ion-android-share-alt {{currentLanguage}} {{category}}"></i></a>
+            <!-- {{/wp8}} -->
+            
+            <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();PictureManager.pickPhotoFromAlbum('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;" class="icon ion-images {{currentLanguage}} {{category}}"></i></a>
+            <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();PictureManager.takePhoto('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;" class="icon ion-camera {{currentLanguage}} {{category}}"></i></a>
+            <!--{{/web}}-->
+            <!-- {{#web}}-->
+            <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();FeedbackManager.showModal('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;" class="icon ion-images {{currentLanguage}} {{category}}"></i></a>
+            <!-- {{/web}}-->
+            <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();FeedbackManager.showModal('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;" class="icon ion-chatbox {{currentLanguage}} {{category}}"></i></a>
+
+        </li>
+        <li class="list-group-item" style="padding: 0px">
+            <!-- {{#timetable}}{{#results}} -->
+            <table id="timetable">
+                <colgroup>
+                    <col style="width: 90px">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th id="busStopTime">
+                            <script>
+		$("#busStopTime").html(
+				Globalization.labels.busStop.time)
+                            </script>
+                        </th>
+                        <th id="busStopNumber">
+                            <script>
+		$("#busStopNumber").html(
+				Globalization.labels.busStop.number)
+                            </script>
+                        </th>
+                        <th id="busStopDirection">
+                            <script>
+						$("#busStopDirection").html(
+								Globalization.labels.busStop.direction)
+                            </script>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--{{#bindingsReduced}} -->
+                    <tr>
+                        <td>{{departureTime.value}} {{date.value}}</td>
+                        <td>{{#lineName}}{{#value}}<a onclick="InfoManager.hideTimetableModal(); BusRoutesSearcher.getRoutesForLineToBusStop('{{value}}','{{#BusStop}}{{#features.0}}{{#properties}}{{agencyUri}}{{/properties}}{{/features.0}}{{/BusStop}}','{{#busLines}}{{#head}}{{busStopEscaped}}{{/head}}{{/busLines}}')">{{value}}</a>{{/value}}{{^value}}{{#lineDesc}}{{#value}}{{value}}{{/value}}{{/lineDesc}}{{/value}}{{/lineName}}</td>
+                        <td>{{#routeName.value}}<a onclick="InfoManager.hideTimetableModal();BusRoutesSearcher.drawRoute('{{trip.value}}');">{{routeName.value}}</a>{{/routeName.value}}{{^routeName.value}}{{#lineDesc.value}}<a onclick="BusRoutesSearcher.drawRoute('{{trip.value}}');">{{lineDesc.value}}</a>{{/lineDesc.value}}{{/routeName.value}}</td>
+                    </tr>
+                    <!-- {{/bindingsReduced}} -->
+                </tbody>
+
+            </table>
+            <div style="text-align: center">
+                <button id="updateTimetableButton" type="button" class="btn {{#properties}}{{currentLanguage}} {{category}}{{/properties}}" style="font-weight: bolder;color: white;width: 47%;margin: 5px 1%;" onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});">
+                    <script>$("#updateTimetableButton").html(Globalization.labels.infoMenu.updateTimetable)</script>
+                </button>
+                <button id="seeAllTimetableButton" type="button" class="btn {{#properties}}{{currentLanguage}} {{category}}{{/properties}}" style="font-weight: bolder;color: white;width: 47%;margin: 5px 1%;" onclick="InfoManager.showTimetableModal();">
+                    <script>$("#seeAllTimetableButton").html(Globalization.labels.infoMenu.seeAllTimetable)</script>
+                </button>
+            </div>
+            <!-- {{/results}}{{/timetable}} -->	
+           
+        </li>
+
+	{{#typeLabel}}<li class="list-group-item"><b id="serviceType"><script>$("#serviceType").html(Globalization.labels.infoMenu.type)</script></b>{{#removeUnderscore}}{{typeLabel}}{{/removeUnderscore}}</li>{{/typeLabel}}
+        {{#carouselThumb}}
+        <li class="list-group-item">
+            <div id="serviceCarouselPhotos" class="carousel slide" style="width:100%; margin-left: auto;margin-right: auto;">
+                <!-- Indicators -->
+                <!--{{^onlyOneThumbImage}}<ol class="carousel-indicators">{{#carouselThumbContent}}
+                <li data-target="#serviceCarouselPhotos" data-slide-to="{{index}}" class="{{active}}"></li>
+            {{/carouselThumbContent}}</ol>{{/onlyOneThumbImage}}-->
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox" style="text-align: center;">
+                    {{#carouselThumbContent}}
+                    <div class="item {{active}}" style="left: 15%; width: 70%;height:{{carouselThumbHeight}}px">
+                        <img src="{{photo}}" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; max-height: {{carouselThumbHeight}}px" onclick="InfoManager.showImageModal('{{photoModal}}');">
+                    </div>
+                    {{/carouselThumbContent}}
+                </div>
+                <!-- Controls -->
+                {{^onlyOneThumbImage}}
+                <a class="left carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="prev" style="background-image: none; background-color: white; opacity: 1;">
+                    <span class="glyphicon glyphicon-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="next" style="background-image: none; background-color: white; opacity: 1;">
+                    <span class="glyphicon glyphicon-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                {{/onlyOneThumbImage}}
+            </div>
+        </li>
+        {{/carouselThumb}}
+	
+        {{#address}}<li class="list-group-item"><b id="serviceStreetAddress"><script>$("#serviceStreetAddress").html(Globalization.labels.infoMenu.address)</script></b>
+					{{#web}}{{address}}{{/web}}
+					{{#ios}}<a href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}}</a>{{/ios}}
+					{{#wp8}}<a href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}}</a>{{/wp8}}
+					{{#android}}<a href="#" class="extern" onclick="window.open('geo:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}', '_system');">{{address}}</a>
+								<a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=w', '_system');"><i style="font-size:18px;padding-left:10px"class="icon ion-android-walk {{currentLanguage}} {{category}}"></i></a>
+								<a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=d', '_system');"><i style="font-size:18px;padding-left:10px"class="icon ion-android-car {{currentLanguage}} {{category}}"></i></a>
+								<a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=r', '_system');"><i style="font-size:18px;padding-left:10px"class="icon ion-android-bus {{currentLanguage}} {{category}}"></i></a>{{/android}}</li>{{/address}}
+			{{^address}}<li class="list-group-item"><b id="serviceStreetAddress"><script>$("#serviceStreetAddress").html(Globalization.labels.infoMenu.address)</script></b>
+					{{#ios}}<a href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:18px;padding-left:10px"class="icon ion-navigate {{currentLanguage}} {{category}}"></i></a>{{/ios}}
+					{{#wp8}}<a href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:18px;padding-left:10px"class="icon ion-navigate {{currentLanguage}} {{category}}"></i></a>{{/wp8}}
+					{{#android}}<a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=w', '_system');"><i style="font-size:18px;padding-left:10px"class="icon ion-android-walk {{currentLanguage}} {{category}}"></i></a>
+								<a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=d', '_system');"><i style="font-size:18px;padding-left:10px"class="icon ion-android-car {{currentLanguage}} {{category}}"></i></a>
+								<a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=r', '_system');"><i style="font-size:18px;padding-left:10px"class="icon ion-android-bus {{currentLanguage}} {{category}}"></i></a>{{/android}}</li>{{/address}}
+        
+{{#carouselComment}}
+<li class="list-group-item">
+    <div id="serviceCarouselComments" class="carousel slide" style="width:100%; margin-left: auto;margin-right: auto;">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            {{#carouselCommentContent}}
+            <div class="item {{active}}" style="left: 15%; width: 70%;">
+                <div class="carousel-caption" style="position:static;text-shadow: none; color: black;">
+                    <p>{{comment}}</p>
+                    <p style="font-size: 12px">{{time}}</p>
+                </div>
+            </div>
+            {{/carouselCommentContent}}
+        </div>
+        <!-- Controls -->
+        {{^onlyOneComment}}
+        <a class="left carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselComments" role="button" data-slide="prev" style="background-image: none; background-color: white; opacity: 1;">
+            <span class="glyphicon glyphicon-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselComments" role="button" data-slide="next" style="background-image: none; background-color: white; opacity: 1;">
+            <span class="glyphicon glyphicon-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        {{/onlyOneComment}}
+    </div>
+</li>
+{{/carouselComment}}
+        {{#avgStars}}
+        <li class="list-group-item">
+            <b id="serviceStarsAverageLabel">
+                <script>$("#serviceStarsAverageLabel").html(Globalization.labels.infoMenu.avgStars)</script>
+            </b>
+            <input value="{{avgStars}}" id="serviceStarsAverage">
+            <script>$("#serviceStarsAverage").rating({min: 0,max: 5,step: 1,size: 'xs',showClear: false, defaultCaption: "{rating}", starCaptions: {}, readonly: true, display: 'inline'});</script>
+            <b id="serviceStarsLabel" style="margin-left: 10px;">
+                <script>$("#serviceStarsLabel").html(Globalization.labels.infoMenu.starsCount)</script>
+            </b> {{starsCount}}
+            <script>$(".rating-disabled").css("display", "inline");</script>
+        </li>
+        {{/avgStars}}
+        {{#userStars}}
+        <li class="list-group-item">
+            <b id="serviceUserStarsLabel">
+                <script>$("#serviceUserStarsLabel").html(Globalization.labels.infoMenu.userStars)</script>
+            </b>
+            <input id="serviceUserStars" value="{{userStars}}">
+            <script>$("#serviceUserStars").rating({min: 0,max: 5,step: 1,size: 'xs',showClear: false,defaultCaption: "{rating}",starCaptions: {},readonly: true});</script>
+            <script>$(".rating-disabled").css("display", "inline");</script>
+            <button id="starsNewVoteButton" type="button" class="btn btn-default btn-sm" style="margin-left: 10px;margin-bottom: 8px;width: 70px;" onclick="InfoManager.collapseInfoAboutOneMarker();FeedbackManager.showModal('{{serviceUri}}');">
+                <script>$("#starsNewVoteButton").html(Globalization.labels.feedbackModal.rate);</script>
+            </button>
+        </li>
+        {{/userStars}}
+	
+    </ul>
+			<!-- {{/properties}}{{/features.0}}{{/BusStop}} -->
+		
+		<!-- {{#realtime}}{{^results}} -->
+		<div id="noRealTime" style="text-align: center">
+			<h4>
+				<i id="busStopNoRealTime"><script>
+		$("#busStopNoRealTime").html(
+				Globalization.labels.busStop.noRealTime)
+	</script></i>
+			</h4>
+		</div>
+		<!-- {{/results}}{{/realtime}} -->
+
+		<!-- {{#realtime}}{{#results}} -->		
+		<table id="realtime">
+			<thead>
+				<tr>
+					<th id="busStopTime"><script>
+		$("#busStopTime").html(
+				Globalization.labels.busStop.time)
+	</script></th>
+					<th id="busStopNumber"><script>
+		$("#busStopNumber").html(
+				Globalization.labels.busStop.number)
+	</script></th>
+					<th id="busStopStatus"><script>
+		$("#busStopStatus").html(
+				Globalization.labels.busStop.status)
+	</script></th>
+					<th id="busStopDirection"><script>
+						$("#busStopDirection").html(
+								Globalization.labels.busStop.direction)
+					</script></th>
+				</tr>
+			</thead>
+			<tbody>
+
+			<!--{{#bindings}} -->
+			<tr>
+		    <td>{{arrivalTime.value}}</td>
+		    <td>{{busLine.value}}</td>
+		    <td class='{{status.value}}'>{{status.value}}</td>
+		    <td>{{#BusStop}}{{#features.0}}{{#properties}}{{#unescapeHtml}}{{direction.value}}{{/unescapeHtml}}{{/properties}}{{/features.0}}{{/BusStop}}</td>
+		    </tr>
+			<!-- {{/bindings}} -->
+			</tbody>
+
+		</table>
+<!-- {{/results}}{{/realtime}} -->		
+	</div>
+</div>

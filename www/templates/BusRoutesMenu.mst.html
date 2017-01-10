@@ -1,0 +1,67 @@
+<div id="busRoutesMenuHeader" class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
+    <div id="busRoutesMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal"></div>
+    </div>
+    <div class="panel-heading" style="padding: 0px 10px; height: 52px; border: none;">
+        <a class="pull-right" onclick="BusRoutesSearcher.hide();">
+            <i class="glyphicon glyphicon-remove"
+               style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="expandBusRoutesMenu" class="pull-left" onclick="BusRoutesSearcher.expandBusRoutesMenu();">
+            <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="collapseBusRoutesMenu" class="pull-left" onclick="BusRoutesSearcher.collapseBusRoutesMenu();">
+            <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <b id="busRoutesHeaderTitle" style="line-height: 52px; color: #333;">
+            <script>
+                $("#busRoutesHeaderTitle").html(
+						Globalization.labels.busRoutesMenu.headerTitle)</script>
+        </b>
+    </div>
+</div>
+<div id="busRoutesMenuInner" class="commonHalfMenuInner">
+    <div class="panel panel-default" style="margin-bottom: 5px;color: #000; text-decoration: none; border: 4px solid #7800aa">
+        <div class="panel-body">
+            {{#lineNumber}}<b>{{lineNumber}}: </b>{{/lineNumber}}{{firstBusStop}} <i class='glyphicon glyphicon-arrow-right'></i> {{lastBusStop}}
+        </div>
+    </div>
+
+
+    <!-- {{#features}} {{#properties}}-->
+    <div class="panel panel-default" style="margin: 0px 5px 10px 5px;color: #000; text-decoration: none; {{#thisIsLastStop}}border: 4px solid #ff0000{{/thisIsLastStop}}{{^thisIsLastStop}}{{^closerGPS}}{{#closerSearchCenter}}border: 4px solid #FFCC00{{/closerSearchCenter}}{{/closerGPS}}{{#closerGPS}}{{#closerSearchCenter}}border: 4px solid #339933{{/closerSearchCenter}}{{^closerSearchCenter}}border: 4px solid #0066FF{{/closerSearchCenter}}{{/closerGPS}}{{/thisIsLastStop}} " onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{nameEscaped}}','{{civic}}','{{busLines}}','{{agency}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}}, '{{#properties}}{{alternativeIcon}}{{/properties}}');">
+        {{#properties}}
+        <div class="panel-body card-2">
+            
+            <span class="pull-right " style="text-align: right;">
+                {{#thisIsLastStop}}
+                <span id="busStopsTerminal{{identifier}}" style="color: #ff0000; font-size: 10px"><script>
+                    $("#busStopsTerminal{{identifier}}").html(
+						Globalization.labels.busRoutesMenu.terminal)</script></span>
+                {{/thisIsLastStop}}
+                {{^thisIsLastStop}}{{^closerSearchCenter}}{{^closerGPS}}
+                <i class="glyphicon glyphicon-arrow-down" style="color: #7800aa;font-size: 22px;"></i>
+                {{/closerGPS}}
+                {{/closerSearchCenter}}
+                {{/thisIsLastStop}}
+                {{#closerGPS}}{{#thisIsLastStop}}<br />{{/thisIsLastStop}}
+                <span id="busStopsCloserGPS"  style="font-size:10px;color: {{^closerSearchCenter}}#0066FF{{/closerSearchCenter}}{{#closerSearchCenter}}#339933{{/closerSearchCenter}}"><script> $("#busStopsCloserGPS").html(
+						Globalization.labels.busRoutesMenu.closerAt)</script></span><i class="glyphicon glyphicon-record" style="font-size:10px;color: {{^closerSearchCenter}}#0066FF{{/closerSearchCenter}}{{#closerSearchCenter}}#339933{{/closerSearchCenter}}"></i>{{/closerGPS}}{{#closerSearchCenter}}{{#closerGPS}}<br />{{/closerGPS}}{{^closerGPS}}{{#thisIsLastStop}}<br />{{/thisIsLastStop}}{{/closerGPS}}<span id="busStopsCloserSearchCenter" style="font-size:10px;color: {{^closerGPS}}#FFCC00{{/closerGPS}}{{#closerGPS}}#339933{{/closerGPS}}">
+                    <script>
+                        $("#busStopsCloserSearchCenter").html(
+						Globalization.labels.busRoutesMenu.closerAt)</script>
+                </span><i class="glyphicon  glyphicon-map-marker" style="font-size:10px;color:{{^closerGPS}}#FFCC00{{/closerGPS}}{{#closerGPS}}#339933{{/closerGPS}}"></i>{{/closerSearchCenter}}
+            </span>
+            <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
+            <b style="text-align: center;text-transform:capitalize;">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
+            {{#distanceFromSearchCenter}}<br><b id="busRoutesDistanceFromSearchCenter{{identifier}}">
+                <script>$("#busRoutesDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.busRoutesMenu.distanceFromSearchCenter)</script>
+            </b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+            {{#distanceFromGPS}}<br><b id="busRoutesDistanceFromGPS{{identifier}}">
+                <script>$("#busRoutesDistanceFromGPS{{identifier}}").html(Globalization.labels.busRoutesMenu.distanceFromGPS)</script>
+            </b>{{distanceFromGPS}} m{{/distanceFromGPS}}
+        </div>
+        {{/properties}}
+    </div>
+    <!-- {{/features}} -->
+</div>

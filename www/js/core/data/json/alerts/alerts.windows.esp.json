@@ -1,0 +1,12 @@
+{
+  "noPosition": {
+    "message": "No es posible encontrar la ubicación actual. Asegúrese de que la búsqueda de la ubicación actual está habilitada en el menú Ubicación de la Configuración. Si no quiere habilitar la búsqueda de la ubicación, elija el punto de búsqueda pulsando Elegir Ubicación y tocando un punto del mapa, si no, no será posible realizar la búsqueda.",
+    "title": "No se encuentra la ubicación",
+    "buttonName": ["No elegir","Elegir ubicación"]
+  },
+  "chooseThreeSearchCenter": {
+    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
+    "title": "Buscar",
+    "buttonName": ["Ubicación manual","Último servicio"]
+  }
+}

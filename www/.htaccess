@@ -1,0 +1,2 @@
+#Set the CORS enabled for Cross Domain Access
+Header set Access-Control-Allow-Origin "*"

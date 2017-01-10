@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<!-- 
+  Visual Studio global web project settings.
+-->
+<VisualWebDeveloper>
+
+  <Globals>
+    
+  
+    <UserProperties js_4core_4data_4json_4labels_4labels_1esp_1json__JSONSchema="..\..\..\controller\TextSearcher.js"/>
+  </Globals>
+</VisualWebDeveloper>

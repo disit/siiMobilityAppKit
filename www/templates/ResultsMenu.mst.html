@@ -1,0 +1,76 @@
+<div id="resultsMenuHeader" class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
+    <div id="resultsMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal"></div>
+    </div>
+    <div class="panel-heading" style="padding: 0px 10px;height: 52px; border: none;">
+        <a class="pull-right" onclick="CategorySearcher.hideResultsMenu();">
+            <i class="glyphicon glyphicon-remove"
+               style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="expandResultsMenu" class="pull-left" onclick="CategorySearcher.expandResultsMenu();">
+            <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="collapseResultsMenu" class="pull-left" onclick="CategorySearcher.collapseResultsMenu();">
+            <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <b id="resultsMenuHeaderTitle" style="line-height: 52px;color: #333;">
+            <script>
+                $("#resultsMenuHeaderTitle").html(
+                    Globalization.labels.categorySearchMenu.results)
+            </script>
+        </b>
+
+    </div>
+</div>
+{{#tplSearch}}
+<div class="input-group" style="position: absolute; top: 56px">
+    <input name="filterTplResults" class="form-control" onkeypress="return CategorySearcher.onFilterEnter(event);">
+    <span class="input-group-btn">
+        <button id="btnResetFilterTplResults" class="btn btn-default" onclick="CategorySearcher.resetFilterTplResults()"><i class="glyphicon glyphicon-trash"></i></button>
+        <button class="btn btn-success"
+                onclick="CategorySearcher.filterTplResults();">
+            <b style="padding-left: 5px;font-size: 12px" id="textFilterButtonTpl">
+                <script>
+                        $("#textFilterButtonTpl").html(Globalization.labels.categorySearchMenu.filterButtonTpl)
+                </script>
+            </b>
+        </button>
+    </span>
+</div>
+{{/tplSearch}}
+<div id="resultsMenuInner" class="commonHalfMenuInner">
+    
+    <!-- {{#features}} {{#properties}}-->
+    <div class="panel panel-default" style="margin: 0px 5px 10px 5px; color: #000; text-decoration: none;" onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{nameEscaped}}','{{civic}}','{{busLines}}','{{agency}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}}, '{{#properties}}{{alternativeIcon}}{{/properties}}');">
+        <div class="panel-body card-2">
+            {{#properties}}
+            {{#imageThumb}}<img id="resultsMenuImage{{identifier}}" src="{{imageThumb}}"
+                           style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
+            <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
+            <b style="text-align: center">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
+            {{#civic}}<br>
+            <b id="resultsMenuCivicNumber{{identifier}}">
+                <script>
+                    $("#resultsMenuCivicNumber{{identifier}}").html(Globalization.labels.textSearchMenu.civic)
+                </script>
+            </b> {{civic}}{{/civic}}
+            {{#typeLabel}}<br><b id="resultsMenuTypeLabel{{identifier}}">
+                <script>$("#resultsMenuTypeLabel{{identifier}}").html(Globalization.labels.infoMenu.type)</script>
+            </b>{{typeLabel}}{{/typeLabel}}
+
+            {{#busLines}}<br>
+            <b id="resultsMenuTypeLabelBusStopLines{{identifier}}">
+                <script>
+                    $("#resultsMenuTypeLabelBusStopLines{{identifier}}").html(Globalization.labels.textSearchMenu.lines)
+                </script>
+            </b> {{busLines}}{{/busLines}}
+            {{#distanceFromSearchCenter}}<br><b id="resultsMenuTextSearchDistanceFromSearchCenter{{identifier}}">
+                <script>$("#resultsMenuTextSearchDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromSearchCenter)</script>
+            </b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+            {{#distanceFromGPS}}<br><b id="resultsMenuTextSearchDistanceFromGPS{{identifier}}">
+                <script>$("#resultsMenuTextSearchDistanceFromGPS{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromGPS)</script>
+            </b>{{distanceFromGPS}} m{{/distanceFromGPS}}{{/properties}}
+        </div>
+    </div>
+    <!-- {{/features}} -->
+</div>

@@ -1,0 +1,13 @@
+{
+  "noPosition": {
+    "message": "Non è possibile trovare la posizione corrente. Assicurati che sia abilitata la ricerca della posizione attuale nel menù Privacy delle Impostazioni. Se è abilitata controlla che questa app abbia il permesso di usare la posizione. Se non vuoi abilitare la ricerca della posizione, scegli il punto di ricerca cliccando su Scegli Posizione e toccando un punto della mappa, altrimenti non sarà possibile effettuare ricerche.",
+    "title": "Posizione Non Trovata",
+    "buttonName": ["Non Scegliere", "Scegli Posizione" ]
+  },
+  "chooseThreeSearchCenter": {
+    "message": "Scegli il centro dell'area di ricerca dei servizi o la posizione della quale si desidera sapere il meteo.",
+    "title": "Ricerca",
+    "buttonName": ["Posizione Manuale", "Ultimo Servizio"]
+  }
+}
+

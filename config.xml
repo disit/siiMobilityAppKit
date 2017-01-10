@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="org.disit.siiMobilityAppKit" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="windows-target-version" value="10.0" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="Orientation" value="portrait" />
+    <preference name="WindowsToastCapable" value="true" />
+    <allow-navigation href="*" />
+    <access origin="*" />
+    <name>siiMobilityAppKit</name>
+    <description>
+        A sample Apache Cordova application to service on Tuscany
+    </description>
+    <author email="info@www.disit.org" href="http://www.disit.org">
+       Disit Lab Team - University of Florence
+    </author>
+    <content src="index.html" />
+</widget>

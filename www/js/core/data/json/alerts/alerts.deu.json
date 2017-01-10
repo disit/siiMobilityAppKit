@@ -1,0 +1,131 @@
+{
+  "connectionError": {
+    "message": "Keine Internetverbindung Stellen Sie sicher, dass Wlan und die Datenverbindung aktiviert sind.",
+    "title": "Überprüfen Sie Die Verbindung",
+    "buttonName": ""
+  },
+  "servicesCategoryNotSelected": {
+    "message": "Es wurde keine Suchanfrage ausgewählt.",
+    "title": "Keine Anfrage Ausgewählt",
+    "buttonName": ""
+  },
+  "servicesServerError": {
+    "message": "Die erwünschten Informationen können nicht gefunden werden. Starten Sie die Suchanfrage neu.",
+    "title": "Informationen Nicht Verfügbar",
+    "buttonName": ""
+  },
+  "noFullTextResults": {
+    "message": "Keine Ergebnisse gefunden. Versuchen Sie es erneut mit einem anderen Suchbegriff.",
+    "title": "Keine Ergebnisse Gefunden",
+    "buttonName": ""
+  },
+  "noTextToSearch": {
+    "message": "Kein Suchtext eingegeben.",
+    "title": "Kein Text",
+    "buttonName": ""
+  },
+  "positionWarning": {
+    "message": "Der aktuelle Standort kann nicht gefunden werden. Die Positionssuche scheint aktiviert zu sein. Stellen Sie sicher, dass Sie mit dem Internet verbunden sind, um Ihre Position über das Netz zu ermitteln. Starten Sie die App neu.",
+    "title": "Lage Nicht Gefunden",
+    "buttonName": ""
+  },
+  "manualPosition": {
+    "message": "Klicken Sie auf eine beliebige Stelle in der Karte, um einen bestimmten Punkt zu suchen.",
+    "title": "Manuelle Position",
+    "buttonName": ""
+  },
+  "overMaxDistance": {
+    "message": "Es ist nicht möglich, auf einem größeren Bereich als dem angezeigten zu suchen.",
+    "title": "Maximale Distanz Erreicht",
+    "buttonName": ""
+  },
+  "chooseGpsManualSearchCenter": {
+    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
+    "title": "Suche",
+    "buttonName": [ "GPS", "Manuelle Position" ]
+  },
+  "chooseGpsServiceSearchCenter": {
+    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
+    "title": "Suche",
+    "buttonName": [ "GPS", "Letzte Anfrage" ]
+  },
+  "chooseManualServiceSearchCenter": {
+    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
+    "title": "Suche",
+    "buttonName": [ "Manuelle Position", "Letzte Anfrage" ]
+  },
+  "addCalendarSuccess": {
+    "message": "Das Ereignis wurde im Kalender eingetragen.",
+    "title": "Eingefügt",
+    "buttonName": ""
+  },
+  "addCalendarError": {
+    "message": "Eintrag des Ereignisses in den Kalender fehlgeschlagen.",
+    "title": "Nicht Eingefügt",
+    "buttonName": ""
+  },
+  "addFavourite": {
+    "message": "Service zu den favoriten hinzugefügt",
+    "title": "Hinzugefügt",
+    "buttonName": ""
+  },
+  "removeFavourite": {
+    "message": "Service aus favoriten entfernen",
+    "title": "Entfernen",
+    "buttonName": ""
+  },
+  "saveSurveyResultSuccess": {
+    "message": "Die ergebnisse der umfrage wurden geschickt",
+    "title": "Gesendete",
+    "buttonName": ""
+  },
+  "saveSurveyResultError": {
+    "message": "Es war nicht möglich, die ergebnisse der uimfrage zu senden",
+    "title": "Nicht Gesendete",
+    "buttonName": ""
+  },
+  "navigatorSearcherStart": {
+    "message": "Drücken Sie \"Start\" und wechseln Sie zur Navigation. Die Position wechselt automatisch, die gewählten Dienste werden im Menü in dem Bereich automatisch durchsucht, der in den Einstellungen angezeigt wird.",
+    "title": "Navigazione",
+    "buttonName": [ "Löschen", "Start" ]
+  },
+  "photoUpload": {
+    "sendedImages": "Gesendete Bilder: ",
+    "unsendedImages": "Nicht Gesendete Bilder: ",
+    "moderator":  "Sie werden nach der Bestätigung sichtbar.",
+    "doneTitle": "Sendevorgang Beendet",
+    "problemTitle": "Sendevorgang Unvollständig",
+    "buttonName": [ "Ok", "Erneut Versuchen" ]
+  },
+  "shareFacebook": {
+    "message": "Facebook nicht installiert.",
+    "title": "Nicht Installiert",
+    "buttonName": ""
+  },
+  "sendStarsDone": {
+    "message": "Die Anfrage wurde ordnungsgemäß gespeichert.",
+    "title": "Anfrage Eingefügt",
+    "buttonName": ""
+  },
+  "sendStarsError": {
+    "message": "Geben Sie die Anfrage erneut ein, da sie nicht gespeichert werden konnte.",
+    "title": "Anfrage Nicht Eingegeben",
+    "buttonName": ""
+  },
+  "sendCommentDone": {
+    "message": "Der Kommentar wurde korrekt gespeichert. Er wird nach der Bestätigung sichtbar.",
+    "title": "Kommentar Eingegeben",
+    "buttonName": ""
+  },
+  "sendCommentError": {
+    "message": "Versuchen Sie erneut, einen Kommentar einzugeben, da er nicht gespeichert werden konnte.",
+    "title": "Kommentar Nicht Erfasst",
+    "buttonName": ""
+  },
+  "webPositionDenied": {
+    "message": "Es ist notwendig, die Lokalisierung in den Einstellungen des Browsers zu aktivieren.",
+    "title": "Aktivierung Fehlgeschlagen",
+    "buttonName": ""
+  }
+}
+

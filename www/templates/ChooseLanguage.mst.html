@@ -1,0 +1,11 @@
+<div id="chooseLanguageImage">
+	<img src="img/icon512.png" height="100%" style="display: block;margin: auto;" >
+</div>
+<div id="chooseLanguageInner">
+<!-- {{#languages}} -->
+	<button type="button" class="btn btn-default" style="max-width: 128px; width: 30%;padding: 0px; background-color: #000;border-color: #000;"
+		onclick="localStorage.setItem('language', '{{key}}');ChooseLanguage.hide();"><img src="img/flags/{{key}}.png" style="width: 100%">
+	</button>
+<!-- 	{{/languages}} -->
+</div>
+
