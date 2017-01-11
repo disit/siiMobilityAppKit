@@ -17,15 +17,14 @@
  1. Installati i requisiti dovrete scaricare questo progetto da github e posizionarlo in una cartella all'interno del PC
  2. Aprite il "Prompt dei comandi" e navigate fino a raggiungere la root del progetto.
  3. Eseguite il comando `cordova build android`
- 4. Risultato building:
-	a. Se tutto è andato a buon fine avrete ricevuto come output (ovviamente i secondi che ha impiegato ad eseguire il build possono cambiare), seguito dal percorso che indica dove è stato creato l'APK di debug (di default %YOUR_FOLDER%/siiMobilityAppKit/platforms/android/build/outputs/apk/android-debug.apk:
+ 4. Risultato building
+	1. Se tutto è andato a buon fine avrete ricevuto come output (ovviamente i secondi che ha impiegato ad eseguire il build possono cambiare), seguito dal percorso che indica dove è stato creato l'APK di debug (di default %YOUR_FOLDER%/siiMobilityAppKit/platforms/android/build/outputs/apk/android-debug.apk:
 	```
-BUILD SUCCESSFUL
-
-Total time: 5.169 secs
-Built the following apk(s):
+	BUILD SUCCESSFUL
+	Total time: 5.169 secs
+	Built the following apk(s)
         ```
- 	b. Se appare un messaggio di errore relativo a licenze non accettate, si deve aprire Android Studio e controllare che sia stato installato l'SDK attraverso l'SDK Manager e installare eventuali aggiornamenti proposti. Durante tali aggiornamenti vi sarà richiesto di accettare alcune licenze e questo sbloccherà l'errore che si presentava durante il build dell'apk. Fatto questo ripartite dal punto 3.
+ 	2. Se appare un messaggio di errore relativo a licenze non accettate, si deve aprire Android Studio e controllare che sia stato installato l'SDK attraverso l'SDK Manager e installare eventuali aggiornamenti proposti. Durante tali aggiornamenti vi sarà richiesto di accettare alcune licenze e questo sbloccherà l'errore che si presentava durante il build dell'apk. Fatto questo ripartite dal punto 3.
 
 ## Bugs and Issues
 
