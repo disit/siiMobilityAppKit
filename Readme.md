@@ -23,7 +23,7 @@
 	BUILD SUCCESSFUL
 	Total time: 5.169 secs
 	Built the following apk(s)
-        ```
+	```
  	2. Se appare un messaggio di errore relativo a licenze non accettate, si deve aprire Android Studio e controllare che sia stato installato l'SDK attraverso l'SDK Manager e installare eventuali aggiornamenti proposti. Durante tali aggiornamenti vi sarà richiesto di accettare alcune licenze e questo sbloccherà l'errore che si presentava durante il build dell'apk. Fatto questo ripartite dal punto 3.
 
 ## Bugs and Issues
