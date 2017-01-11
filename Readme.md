@@ -1,6 +1,6 @@
-# [Sii-Mobility](http://www.sii-mobility.org) Dev Kit [Mobile App](http://www.km4city.org/app/)[Km4city](www.km4city.org)
+# [Sii-Mobility](http://www.sii-mobility.org) Dev Kit [Mobile App](http://www.km4city.org/app/)[Km4city](http://www.km4city.org)
 
-[Sii-Mobility](http://www.sii-mobility.org) Dev Kit [Mobile App](http://www.km4city.org/app/)[Km4city](www.km4city.org) è un kit di sviluppo per creare app ibride (attraverso il framework [Apache Cordova](https://cordova.apache.org) utilizzando l'infastruttura [Km4city](www.km4city.org) creata e mantenuta da [Disit Lab](http://www.disit.org) presso l'[Università degli studi di Firenze](www.unifi.it).
+[Sii-Mobility](http://www.sii-mobility.org) Dev Kit [Mobile App](http://www.km4city.org/app/)[Km4city](http://www.km4city.org) è un kit di sviluppo per creare app ibride (attraverso il framework [Apache Cordova](https://cordova.apache.org) utilizzando l'infastruttura [Km4city](http://www.km4city.org) creata e mantenuta da [Disit Lab](http://www.disit.org) presso l'[Università degli studi di Firenze](http://www.unifi.it).
 
 ## Getting Started
 
@@ -10,7 +10,7 @@
  - [Node.js >= LTS 6.9.4](https://nodejs.org/it/) 
  - Cordova Apache >= 6.4.0 (Si può installare con il comando `npm install -g cordova` dato all'interno del "Prompt dei comandi"
  - [Android Studio >= 2.2.3](https://developer.android.com/studio/index.html)
- - Driver USB relativi al dispositivo sul quale andrete a testare l'app generata (per esempio quelli [SAMSUNG](downloadcenter.samsung.com/content/DR/201602/20160217043054798/SAMSUNG_USB_Driver_for_Mobile_Phones_v1.5.45.00.exe))
+ - Driver USB relativi al dispositivo sul quale andrete a testare l'app generata (per esempio quelli [SAMSUNG](http://downloadcenter.samsung.com/content/DR/201602/20160217043054798/SAMSUNG_USB_Driver_for_Mobile_Phones_v1.5.45.00.exe))
 
 # First Start
 
