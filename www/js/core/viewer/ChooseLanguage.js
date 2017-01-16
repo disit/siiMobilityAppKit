@@ -23,7 +23,10 @@ var ChooseLanguage = {
 
     open: false,
 
-    show: function() {
+    show: function () {
+        if ($("#chooseLanguage").length == 0) {
+            $("#indexPage").append("<div id=\"chooseLanguage\"></div>")
+        }
     	$.ajax({
     	    url: RelativePath.jsonFolder + "languages.json",
             async: false,

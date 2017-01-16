@@ -24,20 +24,34 @@ var LogRecommender = {
     open: false,
     maxRow: Parameters.maxRowLog,
 
-    show: function() {
+    show: function () {
+        if ($("#logRecommender").length == 0) {
+            $("#indexPage").append("<div id=\"logRecommender\"></div>")
+        }
         ViewManager.render(JSON.parse(localStorage.getItem("logRecommender")), '#logRecommender', 'Log');
         $('#logRecommender').show();
         LogRecommender.open = true;
+        application.addingMenuToCheck("LogRecommender");
         application.setBackButtonListener();
     },
 
-    refreshLog: function() {
+    refreshLog: function () {
+        if ($("#logRecommender").length == 0) {
+            $("#indexPage").append("<div id=\"logRecommender\"></div>")
+        }
         ViewManager.render(JSON.parse(localStorage.getItem("logRecommender")), '#logRecommender', 'Log');
     },
 
     hide: function() {
         $('#logRecommender').hide(Parameters.hidePanelGeneralDuration);
         LogRecommender.open = false;
+        application.removingMenuToCheck("LogRecommender");
+    },
+
+    checkForBackButton: function () {
+        if (LogRecommender.open) {
+            LogRecommender.hide();
+        }
     },
 
     write: function(textToWrite) {

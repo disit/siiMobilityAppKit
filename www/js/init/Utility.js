@@ -420,192 +420,56 @@ var Utility = {
         }
     },
 
-    loadInitJS: function () {
-        $.ajax({
-            url: "js/core/manager/SearchManager.js",
-            async: false,
-            dataType: "script"
-        });
+    loadFilesInsideDirectory: function (relativeDirectory, type, substring, recursive, callback) {
+        var promise = new Promise(function (resolve, reject) {
+            window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + relativeDirectory, function (dir) {
+                var reading = 0;
+                function readSome(reader) {
+                    reading++;
+                    reader.readEntries(
+                      function (entries) {
+                          reading--;
+                          if (entries.length > 0) {
+                              entries.forEach(function (entry) {
+                                  if (entry.isDirectory && recursive == true) {
+                                      readSome(entry.createReader());
+                                  } else if (type != null && entry.name.split('.').pop() == type) {
+                                      callback(entry.fullPath.substring(5));
 
-        $.ajax({
-            url: "js/lib/ol.js",
-            async: false,
-            dataType: "script"
+                                  } else if (substring != null && entry.name.indexOf(substring) != -1) {
+                                      callback(entry.fullPath.substring(5));
+                                  }
+                              })
+                          }
+                          if (reading == 0) {
+                              if (type != null) {
+                                  console.log("DONE LOAD " + type + " ON " + relativeDirectory);
+                              }
+                              if (substring != null) {
+                                  console.log("DONE LOAD " + substring + " ON " + relativeDirectory);
+                              }
+                              resolve("SUCCESS LOAD OF " + relativeDirectory);
+                          }
+                      },
+                      function (err) {
+                          console.log(err);
+                      }
+                    );
+                }
+                readSome(dir.createReader());
+            });
         });
-        $.ajax({
-            url: "js/core/manager/MapManagerOL.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/searcher/CategorySearcher.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/manager/InfoManager.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/searcher/TextSearcher.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/searcher/EventsSearcher.js",
-            async: false,
-            dataType: "script"
-        });
+        return promise;
+    },
 
+    loadJS: function (fullPath) {
         $.ajax({
-            url: "js/core/searcher/NavigatorSearcher.js",
+            url: fullPath,
             async: false,
             dataType: "script"
         });
-
-        $.ajax({
-            url: "js/core/utility/APIClient.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/manager/CompassManager.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/core/manager/QueryManager.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/core/viewer/Loading.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/lib/jquery.fancytree-all.min.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/lib/star-rating.min.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/date.format.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/core/viewer/Information.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/viewer/Log.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/viewer/LogRecommender.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/core/searcher/BusRoutesSearcher.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/core/manager/PictureManager.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/core/manager/FeedbackManager.js",
-            async: false,
-            dataType: "script"
-        });
-
-        $.ajax({
-            url: "js/lib/twitter-text.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/es6-promise.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/html2canvas.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/Cesium/Cesium.js",
-            async: false,
-            dataType: "script",
-            success: function () {
-                CESIUM_BASE_URL = "js/Cesium";
-            }
-        });
-        $.ajax({
-            url: "js/lib/ol3cesium.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/jquery.dataTables.min.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/dataTables.bootstrap.min.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/moment.min.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/datetime-moment.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/knockout-min.js",
-            async: false,
-            dataType: "script"
-        }); 
-        $.ajax({
-            url: "js/lib/survey.bootstrap.min.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/bootstrap-filestyle.min.js",
-            async: false,
-            dataType: "script"
-        });
-        $.ajax({
-            url: "js/lib/jquery.ui.touch-punch.min.js",
-            async: false,
-            dataType: "script"
-        });
-
     }
+
+
 }
 

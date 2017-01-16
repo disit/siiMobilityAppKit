@@ -23,7 +23,10 @@ var ChooseProfile = {
 
     open: false,
 
-    show: function() {
+    show: function () {
+        if ($("#chooseProfile").length == 0) {
+            $("#indexPage").append("<div id=\"chooseProfile\"></div>")
+        }
         $.ajax({
             url: RelativePath.profiles + "profiles." + SettingsManager.language + ".json",
             async: false,
@@ -35,6 +38,7 @@ var ChooseProfile = {
 
         $('#chooseProfile').show();
         ChooseProfile.open = true;
+        application.addingMenuToCheck("ChooseProfile");
     },
 
     hide: function() {
@@ -42,6 +46,14 @@ var ChooseProfile = {
         localStorage.setItem("acceptInformation", true);
         localStorage.setItem("appVersion", application.version);
         ChooseProfile.open = false;
+        application.removingMenuToCheck("ChooseProfile");
         application.startingApp();
+    },
+
+    checkForBackButton: function () {
+        if (ChooseProfile.open) {
+            ChooseProfile.hide();
+            ChooseLanguage.show();
+        }
     }
 }

@@ -42,12 +42,20 @@ var BusRoutesSearcher = {
         MapManager.showMenuReduceMap('#busRoutesMenu');
         $('#collapseBusRoutesMenu').hide();
         BusRoutesSearcher.open = true;
+        application.addingMenuToCheck("BusRoutesSearcher");
         application.setBackButtonListener();
     },
 
     hide: function () {
         MapManager.reduceMenuShowMap('#busRoutesMenu');
         BusRoutesSearcher.open = false;
+        application.removingMenuToCheck("BusRoutesSearcher");
+    },
+
+    checkForBackButton: function () {
+        if (BusRoutesSearcher.open) {
+            BusRoutesSearcher.hide();
+        }
     },
 
     expandBusRoutesMenu: function () {
@@ -134,6 +142,9 @@ var BusRoutesSearcher = {
     },
 
     refreshMenu: function () {
+        if ($("#busRoutesMenu").length == 0) {
+            $("#indexPage").append("<div id=\"busRoutesMenu\" class=\"commonHalfMenu\"></div>")
+        }
         ViewManager.render(BusRoutesSearcher.results, "#busRoutesMenu", "BusRoutesMenu");
         Utility.movingPanelWithTouch("#busRoutesMenuExpandHandler", "#busRoutesMenu");
     }

@@ -111,7 +111,7 @@ var SettingsManager = {
     refreshMenu: function() {
 
         $.ajax({
-            url: "js/core/data/json/settingsMenu/settingsMenu." + SettingsManager.language + ".json",
+            url: RelativePath.jsonFolder + "settingsMenu/settingsMenu." + SettingsManager.language + ".json",
             async: false,
             dataType: "json",
             success: function(data) {
@@ -134,7 +134,9 @@ var SettingsManager = {
         }
         
         SettingsManager.menu.Settings.platform = device.platform;
-
+        if ($("#settingsMenu").length == 0) {
+            $("#indexPage").append("<div id=\"settingsMenu\" class=\"commonMenu\"></div>")
+        }
         ViewManager.render(SettingsManager.menu, "#settingsMenu", null);
     },
 
@@ -142,12 +144,14 @@ var SettingsManager = {
         SettingsManager.refreshMenu();
         $('#settingsMenu').show();
         SettingsManager.open = true;
+        application.addingMenuToCheck("SettingsManager");
         application.setBackButtonListener();
     },
 
     hideSettingsMenu: function() {
         $('#settingsMenu').hide(Parameters.hidePanelGeneralDuration);
         SettingsManager.open = false;
+        application.removingMenuToCheck("SettingsManager");
         if (PrincipalMenu.fromPrincipalMenu) {
             PrincipalMenu.show();
         }
@@ -174,6 +178,15 @@ var SettingsManager = {
             $("#profileShower").show(0);
         } else {
             $("#profileShower").hide(0);
+        }
+    },
+
+    checkForBackButton: function () {
+        if (SettingsManager.open) {
+            SettingsManager.hideSettingsMenu();
+            if (PrincipalMenu.fromPrincipalMenu) {
+                PrincipalMenu.show();
+            }
         }
     }
 

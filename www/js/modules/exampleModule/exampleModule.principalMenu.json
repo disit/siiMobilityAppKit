@@ -1,0 +1,24 @@
+﻿[
+  {
+    "callback": "PrincipalMenu.logPrincipalMenuChoices('discoverCity'); PrincipalMenu.hide(); MapManager.centerMapOnGps();ExampleModule.successQuery({})",
+    "iconId": "",
+    "iconClass": "glyphicon glyphicon-asterisk",
+    "iconFontSize": "35px",
+    "iconColor": "#660000",
+    "imgSrc": "",
+    "imgHeight": "",
+    "text": "",
+    "textFontSize": "",
+    "textColor": "",
+    "captionId": "principalMenuExampleMenu",
+    "captionTextId": "moduleExampleMenu",
+    "step": "",
+    "stepId": "",
+    "ribbon": "",
+    "ribbonId": "",
+    "ribbonStyle": "",
+    "ribbonText": "",
+    "removed": false,
+    "index": 0
+  }
+]

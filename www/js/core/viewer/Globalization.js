@@ -33,6 +33,16 @@ var Globalization = {
                 Globalization.labels = data;
             }
         });
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "labels." + SettingsManager.language + ".json", true, Globalization.loadAndAddLabels);
+        $.ajax({
+            url: application.remoteJsonUrl + "labels/labels." + SettingsManager.language + ".json",
+            cache: false,
+            timeout: Parameters.timeoutGettingMenuCategorySearcher,
+            dataType: "json",
+            success: function (data) {
+                Globalization.modifyLabels(data);
+            }
+        });
         $.ajax({
             url: RelativePath.alerts + "alerts." + SettingsManager.language + ".json",
             async: false,
@@ -49,6 +59,73 @@ var Globalization = {
                 $.extend(Globalization.alerts,data);
             }
         });
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts);
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + device.platform + "." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts);
+        $.ajax({
+            url: application.remoteJsonUrl + "alerts/alerts." + SettingsManager.language + ".json",
+            cache: false,
+            timeout: Parameters.timeoutGettingMenuCategorySearcher,
+            dataType: "json",
+            success: function (data) {
+                Globalization.modifyAlerts(data);
+            }
+        });
+        $.ajax({
+            url: application.remoteJsonUrl + "alerts/alerts." + device.platform + "." + SettingsManager.language + ".json",
+            cache: false,
+            timeout: Parameters.timeoutGettingMenuCategorySearcher,
+            dataType: "json",
+            success: function (data) {
+                Globalization.modifyAlerts(data);
+            }
+        });
+    },
+
+    loadAndAddLabels: function (fullPath) {
+        $.ajax({
+            url: fullPath,
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                Globalization.modifyLabels(data);
+            }
+        });
+       
+    },
+
+    loadAndAddAlerts: function (fullPath) {
+        $.ajax({
+            url: fullPath,
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                Globalization.modifyAlerts(data);
+            }
+        });
+    },
+
+    modifyLabels: function (labelsToAdd) {
+        for (var objectName in labelsToAdd) {
+            for (var fieldName in labelsToAdd[objectName]) {
+                if (Globalization.labels[objectName] != null) {
+                    Globalization.labels[objectName][fieldName] = labelsToAdd[objectName][fieldName];
+                } else {
+                    Globalization.labels[objectName]= { [fieldName]: labelsToAdd[objectName][fieldName] };
+                }
+            }
+        }
+    },
+
+    modifyAlerts: function (alertsToAdd) {
+        for (var objectName in alertsToAdd) {
+            for (var fieldName in alertsToAdd[objectName]) {
+                if (Globalization.alerts[objectName] != null) {
+                    Globalization.alerts[objectName][fieldName] = labelsToAdd[objectName][fieldName];
+                } else {
+                    Globalization.alerts[objectName]= { [fieldName]: labelsToAdd[objectName][fieldName] };
+                }
+            }
+        }
     }
 
 }

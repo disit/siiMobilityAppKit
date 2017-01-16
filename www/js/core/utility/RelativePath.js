@@ -21,8 +21,8 @@
 */
 var RelativePath = {
     images: 'img/mapicons/',
-    labels: 'js/core/data/json/labels/',
-    alerts: 'js/core/data/json/alerts/',
-    profiles: 'js/core/data/json/profiles/',
-    jsonFolder: 'js/core/data/json/'
+    labels: 'js/data/json/labels/',
+    alerts: 'js/data/json/alerts/',
+    profiles: 'js/data/json/profiles/',
+    jsonFolder: 'js/data/json/'
 }

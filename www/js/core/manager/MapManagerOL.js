@@ -124,7 +124,7 @@ var MapManager = {
 
     activate3d: function(){
         if (MapManager.map != null && MapManager.map3d == null) {
-            try{
+            try {
                 MapManager.map3d = new olcs.OLCesium({ map: MapManager.map }); // map is the ol.Map instance
                 MapManager.map3d.setEnabled(true);
                 MapManager.map3d.getCamera().setTilt(Math.PI / 3);
@@ -1177,6 +1177,13 @@ var MapManager = {
                 BusRoutesSearcher.expandBusRoutesMenu();
             }
         }
+        if (ExampleModule.open) {
+            MapManager.showMenuReduceMap('#exampleMenu');
+            Utility.checkAxisToDrag("#exampleMenu");
+            if (ExampleModule.expanded) {
+                ExampleModule.expandBusRoutesMenu();
+            }
+        }
     },
 
     resetMapInterface: function () {
@@ -1189,6 +1196,9 @@ var MapManager = {
         }
         if (EventsSearcher.open) {
             EventsSearcher.hide();
+        }
+        if (ExampleModule.open) {
+            ExampleModule.hide();
         }
         if (BusRoutesSearcher.open) {
             BusRoutesSearcher.hide();

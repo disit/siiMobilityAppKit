@@ -1,0 +1,28 @@
+<div id="exampleMenuHeader" class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
+    <div id="exampleMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal"></div>
+    </div>
+    <div class="panel-heading" style="padding: 0px 10px;height: 52px; border: none;">
+        <a class="pull-right" onclick="ExampleModule.hide();">
+            <i class="glyphicon glyphicon-remove"
+               style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="expandExampleMenu" class="pull-left" onclick="ExampleModule.expandExampleModule();">
+            <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="collapseExampleMenu" class="pull-left" onclick="ExampleModule.collapseExampleModule();">
+            <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <b id="exampleMenuHeaderTitle" style="line-height: 52px;color: #333;">
+            <script>
+                $("#exampleMenuHeaderTitle").html(
+                    Globalization.labels.exampleMenu.title)
+            </script>
+        </b>
+
+    </div>
+</div>
+
+<div id="exampleMenuInner" class="commonHalfMenuInner">
+    
+</div>

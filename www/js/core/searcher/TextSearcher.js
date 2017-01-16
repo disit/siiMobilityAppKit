@@ -30,6 +30,9 @@ var TextSearcher = {
     autoSearchStarted: false,
 
     refreshMenu: function () {
+        if ($("#textSearchMenu").length == 0) {
+            $("#indexPage").append("<div id=\"textSearchMenu\" class=\"commonHalfMenu\"></div>")
+        }
         ViewManager.render(TextSearcher.results, "#textSearchMenu", "TextSearchMenu");
         $("#textSearchMenuInput").val(TextSearcher.text);
         Utility.movingPanelWithTouch("#textSearchMenuExpandHandler", "#textSearchMenu");
@@ -96,6 +99,7 @@ var TextSearcher = {
         TextSearcher.expandTextSearchMenu();
         $('#textSearchMenuInput').focus();
         TextSearcher.open = true;
+        application.addingMenuToCheck("TextSearcher");
         application.setBackButtonListener();
     },
 
@@ -103,6 +107,13 @@ var TextSearcher = {
         $('#textSearchMenu').css({ 'z-index': '1001' });
         MapManager.reduceMenuShowMap('#textSearchMenu');
         TextSearcher.open = false;
+        application.removingMenuToCheck("TextSearcher");
+    },
+
+    checkForBackButton: function () {
+        if (TextSearcher.open) {
+            TextSearcher.hide();
+        }
     },
 
     resetSearch: function () {

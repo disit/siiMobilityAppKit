@@ -29,6 +29,7 @@ var PrincipalMenu = {
     draggedButton: null,
     droppedButton: null,
     modifing: false,
+    init: true,
 
 
     createPrincipalMenu: function () {
@@ -45,6 +46,20 @@ var PrincipalMenu = {
                 }
             });
         }
+        if (PrincipalMenu.init) {
+            PrincipalMenu.checkNewButtons();
+        }
+        PrincipalMenu.refreshMenu();
+        $("#principalMenuInner div.principalMenuButton").on("taphold", function (event) { PrincipalMenu.modifyPrincipalMenu(); })
+        if (PrincipalMenu.modifing == true) {
+            PrincipalMenu.modifyPrincipalMenu();
+        }
+    },
+
+    refreshMenu: function () {
+        if ($("#principalMenu").length == 0) {
+            $("#indexPage").append("<div id=\"principalMenu\"></div>")
+        }
         ViewManager.render({ "principalMenuButtons": PrincipalMenu.principalMenuButtons }, '#principalMenu', 'PrincipalMenu');
         for (var i = 0; i < PrincipalMenu.principalMenuButtons.length; i++) {
             if (PrincipalMenu.principalMenuButtons[i] != undefined) {
@@ -52,11 +67,60 @@ var PrincipalMenu = {
                            Globalization.labels.principalMenu[PrincipalMenu.principalMenuButtons[i].captionTextId]);
             }
         }
-        $("#principalMenuInner div.principalMenuButton").on("taphold", function (event) { PrincipalMenu.modifyPrincipalMenu();} )
-        if (PrincipalMenu.modifing == true) {
-            PrincipalMenu.modifyPrincipalMenu();
-        }
+    },
 
+    checkNewButtons: function(){
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "principalMenu.json", true, PrincipalMenu.loadModulesButton).then(function (e) {
+            PrincipalMenu.refreshMenu();
+            localStorage.setItem("principalMenuButtons", JSON.stringify(PrincipalMenu.principalMenuButtons));
+            PrincipalMenu.init = false;
+        });
+
+        $.ajax({
+            url: application.remoteJsonUrl + "principalMenu.json",
+            cache: false,
+            timeout: Parameters.timeoutGettingMenuCategorySearcher,
+            dataType: "json",
+            success: function (data) {
+                PrincipalMenu.checkButtonsToAdd(data);
+                PrincipalMenu.refreshMenu();
+            }
+        });
+
+    },
+
+    loadModulesButton: function (fullPath) {
+        $.ajax({
+            url: fullPath,
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                PrincipalMenu.checkButtonsToAdd(data);
+            }
+        });
+    },
+
+    checkButtonsToAdd: function(buttonsToAdd){
+        for (var i = 0; i < buttonsToAdd.length; i++) {
+            var j = 0;
+            var buttonAlreadyInserted = false;
+            while (j < PrincipalMenu.principalMenuButtons.length && !buttonAlreadyInserted) {
+                if (PrincipalMenu.principalMenuButtons[j].captionId == buttonsToAdd[i].captionId) {
+                    buttonAlreadyInserted = true;
+                }
+                j++;
+            }
+            if (!buttonAlreadyInserted){
+                for (var k = 0; k < PrincipalMenu.principalMenuButtons.length; k++) {
+                    if (PrincipalMenu.principalMenuButtons[k].removed == true) {
+                        PrincipalMenu.principalMenuButtons.splice(k, 0, buttonsToAdd[i]);
+                            break;
+                    }
+                }
+                PrincipalMenu.principalMenuButtons.push(buttonsToAdd[i]);
+            }
+        }
+        PrincipalMenu.refreshIndexOfMenuButton();
     },
 
     resetPrincipalMenu: function(){
@@ -73,6 +137,7 @@ var PrincipalMenu = {
 
     show: function () {
         PrincipalMenu.createPrincipalMenu();
+        $("#splashScreenVideoContainer").remove();
         $('#principalMenu').show();
         MapManager.resetMapInterface();
         MapManager.resetMarker();

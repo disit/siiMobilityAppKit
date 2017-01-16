@@ -23,18 +23,32 @@ var Information = {
 
     open: false,
 
-    show: function() {
+    show: function () {
+        if ($("#information").length == 0) {
+            $("#indexPage").append(" <div id=\"information\" class=\"commonMenu\" style=\"background-color: white\"></div>")
+        }
         ViewManager.render(null, '#information', 'Information');
         $('#information').show();
         Information.open = true;
+        application.addingMenuToCheck("Information");
         application.setBackButtonListener();
     },
 
     hide: function() {
         $('#information').hide(Parameters.hidePanelGeneralDuration);
         Information.open = false;
+        application.removingMenuToCheck("Information");
         if (PrincipalMenu.fromPrincipalMenu) {
             PrincipalMenu.show();
+        }
+    },
+
+    checkForBackButton: function () {
+        if (Information.open) {
+            Information.hide();
+            if (PrincipalMenu.fromPrincipalMenu) {
+                PrincipalMenu.show();
+            }
         }
     }
 }

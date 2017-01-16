@@ -26,7 +26,10 @@ var EventsSearcher = {
     results: null,
     currentTime: null,
 
-    refreshMenu: function() {
+    refreshMenu: function () {
+        if ($("#eventsMenu").length == 0) {
+            $("#indexPage").append("<div id=\"eventsMenu\" class=\"commonHalfMenu\"></div>")
+        }
         ViewManager.render(EventsSearcher.results, "#eventsMenu", "EventsMenu");
         if (EventsSearcher.currentTime != null) {
             $("#eventsButton" + EventsSearcher.currentTime.charAt(0).toUpperCase() + EventsSearcher.currentTime.slice(1)).removeClass("btn-primary").addClass("btn-success");
@@ -47,13 +50,21 @@ var EventsSearcher = {
     	localStorage.setItem("latestEventsClickedTime", (new Date().getTime()));
     	PrincipalMenu.resetEventsBadge();
     	EventsSearcher.open = true;
+    	application.addingMenuToCheck("EventsSearcher");
         application.setBackButtonListener();
     },
 
     hide: function () {
         $('#eventsMenu').css({ 'z-index': '1001' });
         MapManager.reduceMenuShowMap('#eventsMenu');
+        application.removingMenuToCheck("EventsSearcher");
         EventsSearcher.open = false;
+    },
+
+    checkForBackButton: function () {
+        if (EventsSearcher.open) {
+            EventsSearcher.hide();
+        }
     },
 
     expandEventsMenu: function () {

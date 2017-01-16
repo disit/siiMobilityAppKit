@@ -23,14 +23,25 @@ var StartInformation = {
 
     open: false,
 
-    show: function() {
+    show: function () {
+        if ($("#startInformation").length == 0) {
+            $("#indexPage").append("<div id=\"startInformation\"></div>")
+        }
         ViewManager.render(null, '#startInformation', 'StartInformation');
         $('#startInformation').show();
         StartInformation.open = true;
+        application.addingMenuToCheck("StartInformation");
     },
 
     hide: function () {
         $('#startInformation').hide();
         StartInformation.open = false;
+        application.removingMenuToCheck("StartInformation");
+    },
+
+    checkForBackButton: function () {
+        if (StartInformation.open) {
+            StartInformation.hide();
+        }
     }
 }

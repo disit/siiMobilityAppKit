@@ -247,7 +247,7 @@ var CategorySearcher = {
         }
         if (currentMenu == null) {
             $.ajax({
-                url: "js/core/data/json/mapSearchMenu/mapSearchMenu." + SettingsManager.language + "." + profile + ".json",
+                url: RelativePath.jsonFolder + "mapSearchMenu/mapSearchMenu." + SettingsManager.language + "." + profile + ".json",
                 async: false,
                 dataType: "json",
                 success: function (data) {
@@ -409,6 +409,7 @@ var CategorySearcher = {
             }
             localStorage.setItem("firstStart", "false");
             CategorySearcher.newStart = false;
+            application.addingMenuToCheck("CategorySearcher");
             application.setBackButtonListener();
             $('#categorySearchMenu').css('height', $('#content').height() + 'px');
             $("input[name=search]").val(""); 
@@ -424,6 +425,16 @@ var CategorySearcher = {
         $('#categorySearchMenu').panel('close');
         $('#categorySearchMenuImage').removeClass("glyphicon-chevron-right").addClass("glyphicon-th-list");
         CategorySearcher.open = false;
+        application.removingMenuToCheck("CategorySearcher");
+    },
+
+    checkForBackButton: function () {
+        if (CategorySearcher.openResultsMenu && !CategorySearcher.open) {
+            CategorySearcher.hideResultsMenu();
+        }
+        if (CategorySearcher.open) {
+            CategorySearcher.hide();
+        }
     },
 
     expandResultsMenu: function () {
@@ -437,11 +448,15 @@ var CategorySearcher = {
     },
 
     showResultsMenu: function (results) {
+        if ($("#resultsMenu").length == 0) {
+            $("#indexPage").append("<div id=\"resultsMenu\" class=\"commonHalfMenu\"></div>")
+        }
         ViewManager.render(results, "#resultsMenu", "ResultsMenu");
         MapManager.showMenuReduceMap('#resultsMenu');
         $('#collapseResultsMenu').hide();
         Utility.movingPanelWithTouch("#resultsMenuExpandHandler", "#resultsMenu");
         CategorySearcher.openResultsMenu = true;
+        application.addingMenuToCheck("CategorySearcher");
         application.setBackButtonListener();
     },
 
@@ -449,12 +464,16 @@ var CategorySearcher = {
         $('#resultsMenu').css({ 'z-index': '1001' });
         MapManager.reduceMenuShowMap('#resultsMenu');
         CategorySearcher.openResultsMenu = false;
+        application.removingMenuToCheck("CategorySearcher");
         CategorySearcher.tplSearch = false;
     },
 
     resetPanel: function () {
         CategorySearcher.open = false;
         $('#categorySearchMenuImage').toggleClass("glyphicon-chevron-right glyphicon-th-list");
+        if (!CategorySearcher.openResultsMenu) {
+            application.removingMenuToCheck("CategorySearcher");
+        }
         application.resetBackButtonListener();
     },
 

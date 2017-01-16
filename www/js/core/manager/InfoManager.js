@@ -151,7 +151,7 @@ var InfoManager = {
             'right': 'auto',
             'width': '100%',
             'height': '35%',
-            'z-index': '1001'
+            'z-index': '1002'
         });
         $('#infoMenu').empty();
         if (!EventsSearcher.open && !TextSearcher.open && !BusRoutesSearcher.open && !CategorySearcher.openResultsMenu) {
@@ -189,7 +189,28 @@ var InfoManager = {
         MapManager.updateMap();
         MapManager.centerMapOnCoordinates(latitude, longitude);
         InfoManager.open = false;
+        application.removingMenuToCheck("InfoManager");
         InfoManager.expanded = false;
+    },
+
+    checkForBackButton: function () {
+        if (InfoManager.open) {
+            if (PictureManager.sendPhotoModalOpen) {
+                PictureManager.hideSendPhotoModal();
+            } else if (PictureManager.sendPhotoAlbumModalOpen) {
+                PictureManager.hideSendPhotoAlbumModal();
+            } else if (FeedbackManager.modalOpen) {
+                FeedbackManager.hideModal();
+            } else if (InfoManager.modalImageOpen) {
+                InfoManager.hideImageModal();
+            } else if (InfoManager.modalTimetableOpen) {
+                InfoManager.hideTimetableModal();
+            } else if (BusRoutesSearcher.infoRouteModalOpen) {
+                BusRoutesSearcher.hideInfoRouteModal();
+            } else {
+                InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
+            }
+        }
     },
 
     rescaleCarouselHeight: function () {
@@ -204,6 +225,9 @@ var InfoManager = {
 
     //callBack
     successQuery: function (response) {
+        if ($("#infoMenu").length == 0) {
+            $("#indexPage").append("<div id=\"infoMenu\" class=\"commonHalfMenu\" style=\"background-color: white; z-index: 1002;\"></div>")
+        }
         for (var category in response) {
             var wktGeometry = null;
             if (response[category].features != null) {
@@ -325,7 +349,11 @@ var InfoManager = {
                     MapManager.centerMapOnCoordinates(InfoManager.latitude, InfoManager.longitude);
                 }
             }
+            if (InfoManager.open) {
+                application.removingMenuToCheck("InfoManager");
+            }
             InfoManager.open = true;
+            application.addingMenuToCheck("InfoManager");
             Utility.checkAxisToDrag("#infoMenu");
             $("#serviceImagePreview").panzoom({ minScale: 1, contain: 'invert' });
             application.setBackButtonListener();

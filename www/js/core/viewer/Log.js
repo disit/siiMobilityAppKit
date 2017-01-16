@@ -24,7 +24,10 @@ var Log = {
     open: false,
     maxRow: Parameters.maxRowLog,
 
-    showLogTracker: function() {
+    showLogTracker: function () {
+        if ($("#log").length == 0) {
+            $("#indexPage").append("<div id=\"log\"></div>")
+        }
         if (device.platform != "Android"){
             ViewManager.render(JSON.parse(localStorage.getItem("log")), '#log', 'Log');
         } else {
@@ -33,23 +36,38 @@ var Log = {
         
         $('#log').show();
         Log.open = true;
+        application.addingMenuToCheck("Log");
         application.setBackButtonListener();
     },
 
     showLogNotifier: function () {
+        if ($("#log").length == 0) {
+            $("#indexPage").append("<div id=\"log\"></div>")
+        }
         ViewManager.render(JSON.parse(localStorage.getItem("logNotifier")), '#log', 'Log');
         $('#log').show();
         Log.open = true;
+        application.addingMenuToCheck("Log");
         application.setBackButtonListener();
     },
 
-    refreshLog: function() {
+    refreshLog: function () {
+        if ($("#log").length == 0) {
+            $("#indexPage").append("<div id=\"log\"></div>")
+        }
         ViewManager.render(JSON.parse(localStorage.getItem("logTracker")), '#log', 'Log');
     },
 
     hide: function() {
         $('#log').hide(Parameters.hidePanelGeneralDuration);
         Log.open = false;
+        application.removingMenuToCheck("Log");
+    },
+
+    checkForBackButton: function () {
+        if (Log.open) {
+            Log.hide();
+        }
     },
 
     write: function(textToWrite) {

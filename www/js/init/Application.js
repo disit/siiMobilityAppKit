@@ -43,6 +43,8 @@ var application = {
     version: "0.0.1",
     uid: null,
     uid2: null,
+    menuToCheckArray: [],
+    remoteJsonUrl: "http://www.disit.org/km4city/appdevkit/",
 
     initialize: function () {
         application.bindEvents();
@@ -66,47 +68,44 @@ var application = {
 
     onDeviceReady: function () {
         application.receivedEvent('deviceready');
-
         if (device.platform == "Android") {
-            var loadAllTimeout = 5000;
-            setTimeout(function () {
-                $("#splashScreenVideoContainer").remove();
-                screen.unlockOrientation();
-            }, 7000);
+            var loadAllTimeout = 5500;
         } else {
-            $("#splashScreenVideoContainer").remove();
             loadAllTimeout = 0;
-            screen.unlockOrientation();
         }
 
-
-
         setTimeout(function () {
-            Utility.loadInitJS();
-            cordova.getAppVersion.getVersionNumber().then(function (version) {
-                application.version = version;
+            Utility.loadFilesInsideDirectory("www/js/lib/", "js", null, true, Utility.loadJS).then(function (e) {
+                Utility.loadFilesInsideDirectory("www/js/core/", "js", null, true, Utility.loadJS).then(function (e) {
+                    Utility.loadFilesInsideDirectory("www/js/modules/", "js", null, true, Utility.loadJS).then(function (e) {
+                        if (localStorage.getItem("acceptInformation") === null || (localStorage.getItem("profile") == "all" && localStorage.getItem("appVersion") != application.version)) {
+                            ChooseLanguage.show();
+                            $("#splashScreenVideoContainer").remove();
+                            screen.unlockOrientation();
+                        } else {
+                            application.startingApp();
+                        }
+
+                        cordova.getAppVersion.getVersionNumber().then(function (version) {
+                            application.version = version;
+                        });
+
+                        cordova.getAppVersion.getAppName().then(function (appName) {
+                            application.appID = appName.substring(0, 1).toLowerCase() + "dck-" + device.platform.substring(0, 1).toLowerCase();
+                        });
+                        application.uid = forge_sha256(device.uuid);
+                        if (typeof window.MacAddress != "undefined") {
+                            window.MacAddress.getMacAddress(
+                                function (macAddress) {
+                                    application.uid2 = hex_md5(macAddress.toLowerCase().replace(/:/g, "")).substring(0, 24);
+                                    application.uid2 = XXH.h64(application.uid2, 0).toString(16);
+                                },
+                                function (fail) { }
+                            );
+                        }
+                    })
+                })
             });
-
-            cordova.getAppVersion.getAppName().then(function (appName) {
-                application.appID = appName.substring(0, 1).toLowerCase() + "dck-" + device.platform.substring(0, 1).toLowerCase();
-            });
-            application.uid = forge_sha256(device.uuid);
-            if (typeof window.MacAddress != "undefined") {
-                window.MacAddress.getMacAddress(
-                    function (macAddress) {
-                        application.uid2 = hex_md5(macAddress.toLowerCase().replace(/:/g, "")).substring(0, 24);
-                        application.uid2 = XXH.h64(application.uid2, 0).toString(16);
-                    },
-                    function (fail) { }
-                );
-            }
-            if (localStorage.getItem("acceptInformation") === null || (localStorage.getItem("profile") == "all" && localStorage.getItem("appVersion") != application.version)) {
-
-                ChooseLanguage.show();
-            } else {
-                application.startingApp();
-            }
-
         }, loadAllTimeout);
 
 
@@ -115,12 +114,19 @@ var application = {
     startingApp: function () {
         SettingsManager.initializeSettings();
         PrincipalMenu.show();
+        screen.unlockOrientation();
         if (!application.checkConnection()) {
             navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
         }
 
         MapManager.createMap();
-
+        $.ajax({
+            url: "js/Cesium/Cesium.js",
+            dataType: "script",
+            success: function () {
+                CESIUM_BASE_URL = "js/Cesium";
+            }
+        });
         if (device.platform == "Win32NT" || device.platform == "windows") {
             application.resetBackButtonListener();
         }
@@ -152,72 +158,22 @@ var application = {
                 }
             }
         }
-        if (!EventsSearcher.open && !CategorySearcher.open && !TextSearcher.open && !CategorySearcher.openResultsMenu && !InfoManager.open && !SettingsManager.open && !Information.open && !Log.open && !LogRecommender.open && !BusRoutesSearcher.open && !StartInformation.open && !ChooseLanguage.open && !ChooseProfile.open) {
+        //if (!EventsSearcher.open && !CategorySearcher.open && !TextSearcher.open && !CategorySearcher.openResultsMenu && !InfoManager.open && !SettingsManager.open && !Information.open && !Log.open && !LogRecommender.open && !BusRoutesSearcher.open && !StartInformation.open && !ChooseLanguage.open && !ChooseProfile.open) {
+        if (application.menuToCheckArray.length == 0){
             PrincipalMenu.show();
             if (PrincipalMenu.modifing) {
                 PrincipalMenu.savePrincipalMenu();
             } else {
                 application.resetBackButtonListener();
             }
+        } else {
+            window[application.menuToCheckArray[0]]["checkForBackButton"]();
         }
-        if (SettingsManager.open) {
-            SettingsManager.hideSettingsMenu();
-            if (PrincipalMenu.fromPrincipalMenu) {
-                PrincipalMenu.show();
-            }
-        }
-        if (Information.open && !Log.open && !LogRecommender.open) {
-            Information.hide();
-            if (PrincipalMenu.fromPrincipalMenu) {
-                PrincipalMenu.show();
-            }
-        }
-        if (Log.open) {
-            Log.hide();
-        }
-        if (LogRecommender.open) {
-            LogRecommender.hide();
-        }
-        if (EventsSearcher.open && !InfoManager.open && !CategorySearcher.open) {
-            EventsSearcher.hide();
-        }
-        if (BusRoutesSearcher.open && !InfoManager.open) {
-            BusRoutesSearcher.hide();
-        }
-        if (TextSearcher.open && !InfoManager.open && !CategorySearcher.open) {
-            TextSearcher.hide();
-        }
-        if (CategorySearcher.open && !InfoManager.open) {
-            CategorySearcher.hide();
-        }
-        if (CategorySearcher.openResultsMenu && !InfoManager.open) {
-            CategorySearcher.hideResultsMenu();
-        }
-        if (InfoManager.open) {
-            if (PictureManager.sendPhotoModalOpen) {
-                PictureManager.hideSendPhotoModal();
-            } else if (PictureManager.sendPhotoAlbumModalOpen) {
-                PictureManager.hideSendPhotoAlbumModal();
-            } else if (FeedbackManager.modalOpen) {
-                FeedbackManager.hideModal();
-            } else if (InfoManager.modalImageOpen) {
-                InfoManager.hideImageModal();
-            } else if (InfoManager.modalTimetableOpen) {
-                InfoManager.hideTimetableModal();
-            } else if (BusRoutesSearcher.infoRouteModalOpen) {
-                BusRoutesSearcher.hideInfoRouteModal();
-            } else {
-                InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-            }
-        }
-        if (ChooseProfile.open && !StartInformation.open) {
-            ChooseProfile.hide();
-            ChooseLanguage.show();
-        }
-        if (StartInformation.open) {
-            StartInformation.hide();
-        }
-        if (!EventsSearcher.open && !CategorySearcher.open && !TextSearcher.open && !CategorySearcher.openResultsMenu && !InfoManager.open && !SettingsManager.open && !Information.open && !Log.open && !LogRecommender.open && !BusRoutesSearcher.open && !StartInformation.open && !ChooseLanguage.open && !ChooseProfile.open) {
+
+       
+        
+        //if (!EventsSearcher.open && !CategorySearcher.open && !TextSearcher.open && !CategorySearcher.openResultsMenu && !InfoManager.open && !SettingsManager.open && !Information.open && !Log.open && !LogRecommender.open && !BusRoutesSearcher.open && !StartInformation.open && !ChooseLanguage.open && !ChooseProfile.open) {
+        if (application.menuToCheckArray.length == 0) {
             if (!PrincipalMenu.open && device.platform != "Web") {
                 window.plugins.toast.showWithOptions({
                     message: Globalization.labels.principalMenu.returnMenu,
@@ -233,11 +189,15 @@ var application = {
     },
 
     onPause: function (event) {
-        GpsManager.stopWatchingPosition();
+        if (typeof GpsManager != "undefined") {
+            GpsManager.stopWatchingPosition();
+        }
     },
 
     onResume: function (event) {
-        GpsManager.watchingPosition();
+        if (typeof GpsManager != "undefined") {
+            GpsManager.watchingPosition();
+        }
     },
 
     close: function () {
@@ -253,6 +213,17 @@ var application = {
     resetBackButtonListener: function () {
         if (device.platform == "Win32NT" || device.platform == "windows") {
             document.removeEventListener('backbutton', application.onBackKeyDown, false);
+        }
+    },
+
+    addingMenuToCheck: function(menuToCheck){
+        application.menuToCheckArray.unshift(menuToCheck);
+    },
+
+    removingMenuToCheck: function (menuToCheck) {
+        var index = application.menuToCheckArray.indexOf(menuToCheck);
+        if (index != -1) {
+            application.menuToCheckArray.splice(application.menuToCheckArray.indexOf(menuToCheck), 1);
         }
     },
 
