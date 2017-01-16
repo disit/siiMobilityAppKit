@@ -45,31 +45,10 @@ under the License.
     <!-- OPEN LAYERS 3.12-->
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,performance.now|always"></script>
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/lib/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="js/lib/jquery-ui-1.12.1.min.js"></script>
-    <script type="text/javascript" src="js/lib/js.cookie.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/lib/jquery.panzoom.min.js"></script>
+    <script type="text/javascript" src="js/init/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/init/Application.js"></script>
+    <script type="text/javascript" src="js/init/Utility.js"></script>
 
-    <script type="text/javascript" src="js/core/viewer/Mustache.js"></script>
-    <script type="text/javascript" src="js/core/utility/Utility.js"></script>
-    <script type="text/javascript" src="js/core/application/Application.js"></script>
-    <script type="text/javascript" src="js/core/utility/Parameters.js"></script>
-    <script type="text/javascript" src="js/core/viewer/ChooseLanguage.js"></script>
-    <script type="text/javascript" src="js/core/viewer/ChooseProfile.js"></script>
-    <script type="text/javascript" src="js/core/viewer/PrincipalMenu.js"></script>
-    <script type="text/javascript" src="js/core/utility/RelativePath.js"></script>
-    <script type="text/javascript" src="js/core/viewer/ViewManager.js"></script>
-    <script type="text/javascript" src='js/lib/forge-sha256.js'></script>
-    <script type="text/javascript" src="js/lib/md5-min.js"></script>
-    <script type="text/javascript" src="js/lib/xxhash.min.js"></script>
-    <script type="text/javascript" src="js/core/viewer/StartInformation.js"></script>
-    
-    <script type="text/javascript" src="js/core/manager/SettingsManager.js"></script>
-    <script type="text/javascript" src="js/core/viewer/Globalization.js"></script>
-    <script type="text/javascript" src="js/core/manager/GpsManager.js"></script>
-    <script type="text/javascript" src="js/core/utility/BackgroundTracker.js"></script> 
 
 </head>
 <body id="home" style="background-color: #000">
@@ -116,20 +95,7 @@ under the License.
 				float: right;
 				padding-right: 8px;"></p>
         </nav>
-        <div id="chooseLanguage"></div>
-        <div id="chooseProfile"></div>
-        <div id="startInformation"></div>
-        <div id="principalMenu"></div>
-        <div id="settingsMenu" class="commonMenu"></div>
-        <div id="information" class="commonMenu" style="background-color: white"></div>
-        <div id="instigatorMenu" class="commonHalfMenu"></div>
-        <div id="eventsMenu" class="commonHalfMenu"></div>
-        <div id="textSearchMenu" class="commonHalfMenu"></div>
-        <div id="resultsMenu" class="commonHalfMenu"></div>
-        <div id="busRoutesMenu" class="commonHalfMenu"></div>
-        <div id="infoMenu" class="commonHalfMenu" style="background-color: white"></div>
-        <div id="log"></div>
-        <div id="logRecommender"></div>
+
         <div id="gpsPopup"></div>
         <div id="manualPopup"></div>
         <div id="selectedServicePopup"></div>
