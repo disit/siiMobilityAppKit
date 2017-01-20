@@ -24,28 +24,32 @@ var ExampleModule = {
     open: false,
     expanded: false,
     result: null,
+    varName: "ExampleModule",
+    idMenu: "exampleMenu",
 
     refreshMenu: function () {
-        if ($("#exampleMenu").length == 0) {
-            $("#indexPage").append("<div id=\"exampleMenu\" class=\"commonHalfMenu\"></div>")
+        if ($("#" + ExampleModule.idMenu).length == 0) {
+            $("#indexPage").append("<div id=\"" + ExampleModule.idMenu + "\" class=\"commonHalfMenu\"></div>")
         }
-        ViewManager.render(ExampleModule.results, "#exampleMenu", "ExampleMenu");
-        Utility.movingPanelWithTouch("#exampleMenuExpandHandler", "#exampleMenu");
+        ViewManager.render(ExampleModule.results, "#" + ExampleModule.idMenu, "ExampleMenu");
+        Utility.movingPanelWithTouch("#" + ExampleModule.idMenu + "ExpandHandler", "#" + ExampleModule.idMenu);
     },
 
     show: function () {
-        MapManager.resetMapInterface();
-        MapManager.showMenuReduceMap('#exampleMenu');
-        $('#collapseExampleMenu').hide();
+        application.resetInterface();
+        MapManager.showMenuReduceMap("#" + ExampleModule.idMenu);
+        $("#" + ExampleModule.idMenu + "Collapse").hide();
         ExampleModule.open = true;
-        application.addingMenuToCheck("ExampleModule");
+        InfoManager.addingMenuToManage(ExampleModule.varName);
+        application.addingMenuToCheck(ExampleModule.varName);
         application.setBackButtonListener();
     },
 
     hide: function () {
-        $('#exampleMenu').css({ 'z-index': '1001' });
-        MapManager.reduceMenuShowMap('#exampleMenu');
-        application.removingMenuToCheck("ExampleModule");
+        $("#" + ExampleModule.idMenu).css({ 'z-index': '1001' });
+        MapManager.reduceMenuShowMap("#" + ExampleModule.idMenu);
+        InfoManager.removingMenuToManage(ExampleModule.varName);
+        application.removingMenuToCheck(ExampleModule.varName);
         ExampleModule.open = false;
     },
 
@@ -55,28 +59,51 @@ var ExampleModule = {
         }
     },
 
+    refreshMenuPosition: function () {
+        if (ExampleModule.open) {
+            MapManager.showMenuReduceMap("#" + ExampleModule.idMenu);
+            Utility.checkAxisToDrag("#" + ExampleModule.idMenu);
+            if (ExampleModule.expanded) {
+                ExampleModule.expandBusRoutesMenu();
+            }
+        }
+    },
+
+    closeAll: function () {
+        if (ExampleModule.open) {
+            ExampleModule.hide();
+        }
+    },
+
     expandExampleModule: function () {
-        Utility.expandMenu("#exampleMenu", "#expandExampleMenu", "#collapseExampleMenu");
+        Utility.expandMenu("#" + ExampleModule.idMenu, "#" + ExampleModule.idMenu + "Expand", "#" + ExampleModule.idMenu + "Collapse");
         ExampleModule.expanded = true;
     },
 
     collapseExampleModule: function () {
-        Utility.collapseMenu("#exampleMenu", "#expandExampleMenu", "#collapseExampleMenu");
+        Utility.collapseMenu("#" + ExampleModule.idMenu, "#" + ExampleModule.idMenu + "Expand", "#" + ExampleModule.idMenu + "Collapse");
         ExampleModule.expanded = false;
     },
 
     //callBack
-    successQuery: function(response) {
+    successQuery: function (response) {
+        //SearchManager.startAutoSearch(ExampleModule.varName);
         ExampleModule.results = response;
         ExampleModule.refreshMenu();
         ExampleModule.show();
-         
-         MapManager.addGeoJSONLayerWithoutArea(response);
+        MapManager.addGeoJSONLayerWithoutArea(response);
+        //MapManager.addGeoJSONLayer(response);
+        ExampleModule.resetSearch();
     },
 
     //callBack
     errorQuery: function(error) {
         navigator.notification.alert(Globalization.alerts.servicesServerError.message, function() {}, Globalization.alerts.servicesServerError.title);
-    }
+    },
+
+    resetSearch: function () {
+        QueryManager.resetMaxDists();
+        Loading.hideAutoSearchLoading();
+    },
 
 }

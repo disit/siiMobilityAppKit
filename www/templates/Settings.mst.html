@@ -53,7 +53,7 @@
 </button>
 <button id="settingsSaveButton" type="button" class="btn btn-success"
 	style="color: white; position: absolute; bottom: 0px; left: 67%; width: 33%; height: 25px; padding: 0px 0px; text-align: center; font-size: 18px; border-radius: 0px;"
-	onclick="SettingsManager.saveSettings();">
+	onclick="application.resetInterface();MapManager.resetMarker(); SettingsManager.saveSettings();">
 	<script>
 			$("#settingsSaveButton").html(
 					Globalization.labels.settingsMenu.saveButton)

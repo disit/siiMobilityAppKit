@@ -54,6 +54,12 @@ var LogRecommender = {
         }
     },
 
+    closeAll: function () {
+        if (LogRecommender.open) {
+            LogRecommender.hide();
+        }
+    },
+
     write: function(textToWrite) {
         var currentLog = JSON.parse(localStorage.getItem("logRecommender"));
         if (currentLog != null) {

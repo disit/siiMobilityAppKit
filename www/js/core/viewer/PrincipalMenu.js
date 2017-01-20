@@ -34,18 +34,11 @@ var PrincipalMenu = {
 
     createPrincipalMenu: function () {
         if (PrincipalMenu.principalMenuButtons.length == 0) {
-            PrincipalMenu.principalMenuButtons = JSON.parse(localStorage.getItem("principalMenuButtons"));
+            if (JSON.parse(localStorage.getItem("principalMenuButtons")) != null){
+                PrincipalMenu.principalMenuButtons = JSON.parse(localStorage.getItem("principalMenuButtons"));
+            }
         }
-        if (PrincipalMenu.principalMenuButtons == null) {
-            $.ajax({
-                url: RelativePath.jsonFolder + "principalMenu.json",
-                async: false,
-                dataType: "json",
-                success: function (data) {
-                    PrincipalMenu.principalMenuButtons = data
-                }
-            });
-        }
+
         if (PrincipalMenu.init) {
             PrincipalMenu.checkNewButtons();
         }
@@ -69,12 +62,27 @@ var PrincipalMenu = {
         }
     },
 
-    checkNewButtons: function(){
+    checkNewButtons: function () {
+        $.ajax({
+            url: RelativePath.jsonFolder + "principalMenu.json",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                if (PrincipalMenu.principalMenuButtons.length == 0) {
+                    PrincipalMenu.principalMenuButtons = data;
+                } else {
+                    PrincipalMenu.checkButtonsToAdd(data);
+                }
+            }
+        });
+
         Utility.loadFilesInsideDirectory("www/js/modules/", null, "principalMenu.json", true, PrincipalMenu.loadModulesButton).then(function (e) {
             PrincipalMenu.refreshMenu();
             localStorage.setItem("principalMenuButtons", JSON.stringify(PrincipalMenu.principalMenuButtons));
             PrincipalMenu.init = false;
         });
+
+        
 
         $.ajax({
             url: application.remoteJsonUrl + "principalMenu.json",
@@ -107,10 +115,15 @@ var PrincipalMenu = {
             while (j < PrincipalMenu.principalMenuButtons.length && !buttonAlreadyInserted) {
                 if (PrincipalMenu.principalMenuButtons[j].captionId == buttonsToAdd[i].captionId) {
                     buttonAlreadyInserted = true;
+                    if (buttonsToAdd[i].delete != true) {
+                        PrincipalMenu.principalMenuButtons.splice(j, 1, buttonsToAdd[i]);
+                    } else {
+                        PrincipalMenu.principalMenuButtons.splice(j, 1);
+                    }
                 }
                 j++;
             }
-            if (!buttonAlreadyInserted){
+            if (!buttonAlreadyInserted && buttonsToAdd[i].delete != true) {
                 for (var k = 0; k < PrincipalMenu.principalMenuButtons.length; k++) {
                     if (PrincipalMenu.principalMenuButtons[k].removed == true) {
                         PrincipalMenu.principalMenuButtons.splice(k, 0, buttonsToAdd[i]);
@@ -139,7 +152,7 @@ var PrincipalMenu = {
         PrincipalMenu.createPrincipalMenu();
         $("#splashScreenVideoContainer").remove();
         $('#principalMenu').show();
-        MapManager.resetMapInterface();
+        application.resetInterface();
         MapManager.resetMarker();
         PrincipalMenu.open = true;
         PrincipalMenu.fromPrincipalMenu = false;

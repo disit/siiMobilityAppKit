@@ -96,7 +96,6 @@ var SettingsManager = {
             localStorage.setItem(setting, SettingsManager[setting]);
         }
         SettingsManager.refreshAll();
-        SettingsManager.hideSettingsMenu();
     },
 
     cancelChanges: function() {
@@ -149,20 +148,20 @@ var SettingsManager = {
     },
 
     hideSettingsMenu: function() {
-        $('#settingsMenu').hide(Parameters.hidePanelGeneralDuration);
-        SettingsManager.open = false;
-        application.removingMenuToCheck("SettingsManager");
-        if (PrincipalMenu.fromPrincipalMenu) {
-            PrincipalMenu.show();
-        }
+        setTimeout(function () {
+            $('#settingsMenu').hide(Parameters.hidePanelGeneralDuration);
+            SettingsManager.open = false;
+            application.removingMenuToCheck("SettingsManager");
+            if (PrincipalMenu.fromPrincipalMenu) {
+                PrincipalMenu.show();
+            }
+        }, 1000);
     },
 
-    refreshAll: function() {
+    refreshAll: function () {
         Globalization.refresh();
         SettingsManager.refreshMenu();
-        TextSearcher.refreshMenu();
-        CategorySearcher.refreshMenu();
-        EventsSearcher.refreshMenu();
+        CategorySearcher.refreshCategoryMenu();
         GpsManager.refresh();
         MapManager.initializeAndUpdatePopUpGpsMarker();
         MapManager.initializeAndUpdatePopUpManualMarker();
@@ -179,6 +178,7 @@ var SettingsManager = {
         } else {
             $("#profileShower").hide(0);
         }
+        SettingsManager.hideSettingsMenu();
     },
 
     checkForBackButton: function () {
@@ -187,6 +187,12 @@ var SettingsManager = {
             if (PrincipalMenu.fromPrincipalMenu) {
                 PrincipalMenu.show();
             }
+        }
+    },
+
+    closeAll: function () {
+        if (SettingsManager.open) {
+            SettingsManager.hideSettingsMenu();
         }
     }
 

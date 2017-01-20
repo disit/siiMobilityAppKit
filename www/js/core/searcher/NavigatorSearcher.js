@@ -127,13 +127,19 @@ var NavigatorSearcher = {
     	MapManager.addNavigationButtons();
     	MapManager.activate3d();
     	MapManager.disabling3d();
-    	MapManager.resetMapInterface();
+    	application.resetInterface();
     	$("#dropdownThreeVertical").removeClass('open');
     	$("#navigationMode").html(Globalization.labels.navigatiorSearcherBar.navigationMode);
     	$('#navbarNavigation').show(0);
     	$('.ol-rotate').hide(0);
     },
 
+    closeAll: function () {
+        if (NavigatorSearcher.started == true) {
+            NavigatorSearcher.stop();
+        }
+        $('#navigationSearchButton').html('<i class=\"icon ion-navigate\"></i>');
+    },
 
     //callBack
     successQuery: function (response) {
@@ -168,8 +174,7 @@ var NavigatorSearcher = {
                     });
                 }
               
-                CategorySearcher.showResultsMenu(responseObject["Results"]);
-                MapManager.lastSearchPerformed = "#resultsMenu";
+                CategorySearcher.show(responseObject["Results"]);
                 MapManager.addGeoJSONLayerWithoutArea(responseObject);
                 navigator.vibrate(500);
 

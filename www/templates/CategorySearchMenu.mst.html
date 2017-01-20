@@ -58,7 +58,7 @@
 </div>
 
 <button id="categorySearchGoButton" type="button" class="btn btn-success" style="border-radius: 0px"
-        onclick="SearchManager.search('categories');CategorySearcher.hide();">
+        onclick="CategorySearcher.hidePanelMenu(); SearchManager.search('CategorySearcher');">
     <script>
         $("#categorySearchGoButton").html(
 				Globalization.labels.categorySearchMenu.goButton)
@@ -66,7 +66,7 @@
 </button>
 
 <button id="categorySearchLastResultsButton" type="button" class="btn btn-primary" style="border-radius: 0px"
-        onclick="CategorySearcher.lastResults(); CategorySearcher.hide();">
+        onclick="CategorySearcher.hidePanelMenu(); CategorySearcher.lastResults();">
     <script>
         $("#categorySearchLastResultsButton").html(
 				Globalization.labels.categorySearchMenu.lastResultsButton)

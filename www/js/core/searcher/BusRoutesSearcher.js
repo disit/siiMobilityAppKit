@@ -25,6 +25,8 @@ var BusRoutesSearcher = {
     open: false,
     expanded: false,
     results: null,
+    varName: "BusRoutesSearcher",
+    idMenu: "busRoutesMenu",
 
     getRoutesForLineToBusStop: function (line, agencyUri, busStopName) {
         var busStopsRoutesQuery = QueryManager.createBusStopsRoutesQuery(line, agencyUri, Utility.unescapeHtml(busStopName), 'false', "user");
@@ -38,18 +40,20 @@ var BusRoutesSearcher = {
     },
 
     show: function () {
-        MapManager.resetMapInterface();
-        MapManager.showMenuReduceMap('#busRoutesMenu');
-        $('#collapseBusRoutesMenu').hide();
+        application.resetInterface();
+        MapManager.showMenuReduceMap("#" + BusRoutesSearcher.idMenu);
+        $("#" + BusRoutesSearcher.idMenu + "Collapse").hide();
         BusRoutesSearcher.open = true;
-        application.addingMenuToCheck("BusRoutesSearcher");
+        InfoManager.addingMenuToManage(BusRoutesSearcher.varName);
+        application.addingMenuToCheck(BusRoutesSearcher.varName);
         application.setBackButtonListener();
     },
 
     hide: function () {
-        MapManager.reduceMenuShowMap('#busRoutesMenu');
+        MapManager.reduceMenuShowMap("#" + BusRoutesSearcher.idMenu);
         BusRoutesSearcher.open = false;
-        application.removingMenuToCheck("BusRoutesSearcher");
+        InfoManager.removingMenuToManage(BusRoutesSearcher.varName);
+        application.removingMenuToCheck(BusRoutesSearcher.varName);
     },
 
     checkForBackButton: function () {
@@ -58,13 +62,30 @@ var BusRoutesSearcher = {
         }
     },
 
+    refreshMenuPosition: function () {
+        if (BusRoutesSearcher.open) {
+            MapManager.showMenuReduceMap("#" + BusRoutesSearcher.idMenu);
+            Utility.checkAxisToDrag("#" + BusRoutesSearcher.idMenu);
+            if (BusRoutesSearcher.expanded) {
+                BusRoutesSearcher.expandBusRoutesMenu();
+            }
+        }
+    },
+
+    closeAll: function () {
+        if (BusRoutesSearcher.open) {
+            BusRoutesSearcher.hide();
+        }
+    },
+
+
     expandBusRoutesMenu: function () {
-        Utility.expandMenu("#busRoutesMenu", "#expandBusRoutesMenu", "#collapseBusRoutesMenu");
+        Utility.expandMenu("#" + BusRoutesSearcher.idMenu, "#" + BusRoutesSearcher.idMenu + "Expand", "#" + BusRoutesSearcher.idMenu + "Collapse");
         BusRoutesSearcher.expanded = true;
     },
 
     collapseBusRoutesMenu: function () {
-        Utility.collapseMenu("#busRoutesMenu", "#expandBusRoutesMenu", "#collapseBusRoutesMenu");
+        Utility.collapseMenu("#" + BusRoutesSearcher.idMenu, "#" + BusRoutesSearcher.idMenu + "Expand", "#" + BusRoutesSearcher.idMenu + "Collapse");
         BusRoutesSearcher.expanded = false;
     },
 
@@ -75,7 +96,7 @@ var BusRoutesSearcher = {
     },
 
     hideInfoRouteModal: function () {
-        $('#busRoutesMenu').css({ 'z-index': '1001' });
+        $("#" + BusRoutesSearcher.idMenu).css({ 'z-index': '1001' });
         $("#infoRouteModal").modal('hide');
         BusRoutesSearcher.infoRouteModalOpen = false;
     },
@@ -132,7 +153,6 @@ var BusRoutesSearcher = {
             MapManager.addSelectedGeometry(results["Route"].wktGeometry);
             BusRoutesSearcher.refreshMenu();
             BusRoutesSearcher.show();
-            MapManager.lastSearchPerformed = "#busRoutesMenu";
         }
 
     },
@@ -142,10 +162,10 @@ var BusRoutesSearcher = {
     },
 
     refreshMenu: function () {
-        if ($("#busRoutesMenu").length == 0) {
-            $("#indexPage").append("<div id=\"busRoutesMenu\" class=\"commonHalfMenu\"></div>")
+        if ($("#" + BusRoutesSearcher.idMenu).length == 0) {
+            $("#indexPage").append("<div id=\""+ BusRoutesSearcher.idMenu + "\" class=\"commonHalfMenu\"></div>")
         }
-        ViewManager.render(BusRoutesSearcher.results, "#busRoutesMenu", "BusRoutesMenu");
-        Utility.movingPanelWithTouch("#busRoutesMenuExpandHandler", "#busRoutesMenu");
+        ViewManager.render(BusRoutesSearcher.results, "#" + BusRoutesSearcher.idMenu, "BusRoutesMenu");
+        Utility.movingPanelWithTouch( "#" + BusRoutesSearcher.idMenu + "ExpandHandler", "#" + BusRoutesSearcher.idMenu);
     }
 }

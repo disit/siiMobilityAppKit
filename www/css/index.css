@@ -297,11 +297,11 @@ html, div[data-role="page"], div[data-role="content"] {
     -webkit-overflow-scrolling: touch;
 }
 
-div#resultsMenu #resultsMenuInner .panel-body b {
+.commonMenuInner .panel-body b {
    text-transform: capitalize;
 }
 
-div#textSearchMenu #textSearchMenuInner .panel-body b {
+.commonHalfMenuInner .panel-body b {
    text-transform: capitalize;
 }
 

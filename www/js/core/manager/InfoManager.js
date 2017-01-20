@@ -1,4 +1,5 @@
-﻿/* SII-MOBILITY DEV KIT MOBILE APP KM4CITY.
+﻿/// <reference path="../searcher/CategorySearcher.js" />
+/* SII-MOBILITY DEV KIT MOBILE APP KM4CITY.
    Copyright (C) 2016 DISIT Lab http://www.disit.org/6981 - University of Florence
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU Affero General Public License
@@ -30,7 +31,8 @@ var InfoManager = {
     lockSharing: false,
     currentResponse: null,
     currentTimetable: null,
-    menuToManage: ['#instigatorMenu', '#eventsMenu', '#textSearchMenu', '#busRoutesMenu', '#resultsMenu'],
+    menuToManageList: [],
+    lastRemovedMenu: null,
 
     showImageModal: function (image) {
         var backupExpanded = InfoManager.expanded;
@@ -154,7 +156,7 @@ var InfoManager = {
             'z-index': '1002'
         });
         $('#infoMenu').empty();
-        if (!EventsSearcher.open && !TextSearcher.open && !BusRoutesSearcher.open && !CategorySearcher.openResultsMenu) {
+        if (InfoManager.menuToManageList.length == 0) {
             $('#content').css({
                 'height': '100%',
                 'width': '100%'
@@ -182,10 +184,6 @@ var InfoManager = {
         $('#serviceCarouselPhotos .carousel-inner .item').css('height', $(window).width() * 0.2 + "px");
         $('#serviceCarouselPhotos .carousel-inner .item img').css('max-height', $(window).width() * 0.2 + "px");
 
-        for (var idMenu in InfoManager.menuToManage) {
-            $(idMenu).show();
-        }
-
         MapManager.updateMap();
         MapManager.centerMapOnCoordinates(latitude, longitude);
         InfoManager.open = false;
@@ -210,6 +208,29 @@ var InfoManager = {
             } else {
                 InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
             }
+        }
+    },
+
+    refreshMenuPosition: function () {
+        if (InfoManager.open) {
+            MapManager.showMenuReduceMap('#infoMenu');
+            Utility.checkAxisToDrag("#infoMenu");
+            if (InfoManager.expanded) {
+                InfoManager.expandInfoAboutOneMarker();
+            }
+        }
+        InfoManager.rescaleCarouselHeight();
+        InfoManager.rescaleModalHeight();
+    },
+
+    closeAll: function(){
+        if (InfoManager.open) {
+            PictureManager.hideSendPhotoModal();
+            PictureManager.hideSendPhotoAlbumModal();
+            FeedbackManager.hideModal();
+            InfoManager.hideImageModal();
+            BusRoutesSearcher.hideInfoRouteModal();
+            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
         }
     },
 
@@ -283,10 +304,6 @@ var InfoManager = {
                     response.results.bindings[i].day.value =  Globalization.labels.weather[response.results.bindings[i].day.value];
                 }
                 ViewManager.render(response, "#infoMenu", "Weather");
-            }
-
-            for (var idMenu in InfoManager.menuToManage) {
-                $(idMenu).hide();
             }
 
             MapManager.showMenuReduceMap('#infoMenu');
@@ -457,6 +474,34 @@ var InfoManager = {
         $("#serviceCarouselPhotos .carousel-inner .item").each(function (index) {
             $(this).children("img").attr("src", imagesArray[index].photo);
         });
+    },
+
+    addingMenuToManage: function (menuToManage) {
+        InfoManager.menuToManageList.unshift(menuToManage);
+    },
+
+    removingMenuToManage: function (menuToManage) {
+        var index = InfoManager.menuToManageList.indexOf(menuToManage);
+        if (index != -1) {
+            InfoManager.lastRemovedMenu = menuToManage;
+            InfoManager.menuToManageList.splice(InfoManager.menuToManageList.indexOf(menuToManage), 1);
+        }
+    },
+    
+    openLastSearchPerformed: function () {
+        var menuToOpen = null;
+        if (InfoManager.menuToManageList.length != 0) {
+            menuToOpen = InfoManager.menuToManageList[0];
+        } else{
+            menuToOpen = InfoManager.lastRemovedMenu;
+        }
+        if (menuToOpen != null) {
+            if (window[menuToOpen] != null) {
+                if (window[menuToOpen]["show"] != null) {
+                    window[menuToOpen]["show"]();
+                }
+            }
+        }
     }
 
 }

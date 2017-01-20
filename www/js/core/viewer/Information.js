@@ -50,5 +50,11 @@ var Information = {
                 PrincipalMenu.show();
             }
         }
+    },
+
+    closeAll: function () {
+        if (Information.open) {
+            Information.hide();
+        }
     }
 }

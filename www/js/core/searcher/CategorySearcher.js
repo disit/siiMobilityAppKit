@@ -21,12 +21,10 @@
 */
 var CategorySearcher = {
 
+    openPanelMenu: false,
     open: false,
-    openResultsMenu: false,
     results: null,
     expanded: false,
-    searchStarted: false,
-    autoSearchStarted: false,
     forceSelectedKeys: null,
     tplSearch: false,
     currentLanguage: null,
@@ -134,7 +132,7 @@ var CategorySearcher = {
 
     resetFilterTplResults: function () {
         $("input[name=filterTplResults]").val("");
-        CategorySearcher.showResultsMenu(CategorySearcher.results);
+        CategorySearcher.show(CategorySearcher.results);
         $("input[name=filterTplResults]").attr("placeholder", Globalization.labels.categorySearchMenu.filterLines);
         $("#resultsMenuInner").css("top", "92px");
         MapManager.addGeoJSONLayer({ "Results": CategorySearcher.results });
@@ -171,7 +169,7 @@ var CategorySearcher = {
         CategorySearcher.selectAll();
     },
 
-    refreshMenu: function () {
+    refreshCategoryMenu: function () {
         if (CategorySearcher.textSize != SettingsManager.textSize) {
             CategorySearcher.textSize = SettingsManager.textSize;
         }
@@ -328,8 +326,6 @@ var CategorySearcher = {
     },
 
     search: function (forceSelection) {
-        CategorySearcher.searchStarted = true;
-        MapManager.resetMapInterface();
         if (SearchManager.searchCenter != null) {
             var selectedNodeNumber = $("#" + CategorySearcher.activeTree).fancytree("getTree").getSelectedNodes().length;
 
@@ -385,8 +381,8 @@ var CategorySearcher = {
     onKeyEnter: function (event) {
         if (event.which == 13 || event.keyCode == 13) {
             //code to execute here
-            SearchManager.search('categories');
-            CategorySearcher.hide();
+            SearchManager.search("CategorySearcher");
+            CategorySearcher.hidePanelMenu();
             return false;
         }
         return true;
@@ -401,9 +397,9 @@ var CategorySearcher = {
         return true;
     },
 
-    show: function () {
-        if (CategorySearcher.open == false) {
-            CategorySearcher.open = true;
+    showPanelMenu: function () {
+        if (CategorySearcher.openPanelMenu == false) {
+            CategorySearcher.openPanelMenu = true;
             if (CategorySearcher.newStart != true || localStorage.getItem("firstStart") == null) {
                 CategorySearcher.selectAll();
             }
@@ -421,20 +417,50 @@ var CategorySearcher = {
 
     },
 
-    hide: function () {
+    hidePanelMenu: function () {
         $('#categorySearchMenu').panel('close');
         $('#categorySearchMenuImage').removeClass("glyphicon-chevron-right").addClass("glyphicon-th-list");
-        CategorySearcher.open = false;
-        application.removingMenuToCheck("CategorySearcher");
+        CategorySearcher.openPanelMenu = false;
+        if (!CategorySearcher.open) {
+            application.removingMenuToCheck("CategorySearcher");
+        }
     },
 
     checkForBackButton: function () {
-        if (CategorySearcher.openResultsMenu && !CategorySearcher.open) {
-            CategorySearcher.hideResultsMenu();
+        if (CategorySearcher.open && !CategorySearcher.openPanelMenu) {
+            CategorySearcher.hide();
+        }
+        if (CategorySearcher.openPanelMenu) {
+            CategorySearcher.hidePanelMenu();
+        }
+    },
+
+    refreshMenuPosition: function () {
+        if (CategorySearcher.open) {
+            MapManager.showMenuReduceMap('#resultsMenu');
+            Utility.checkAxisToDrag("#resultsMenu");
+            if (CategorySearcher.expanded) {
+                CategorySearcher.expandResultsMenu();
+            }
+        }
+        CategorySearcher.rescaleFontSize();
+    },
+
+    closeAll: function(){
+        if (CategorySearcher.openPanelMenu) {
+            CategorySearcher.hidePanelMenu();
         }
         if (CategorySearcher.open) {
             CategorySearcher.hide();
         }
+    },
+
+    refreshMenu: function () {
+        if ($("#resultsMenu").length == 0) {
+            $("#indexPage").append("<div id=\"resultsMenu\" class=\"commonHalfMenu\"></div>")
+        }
+        ViewManager.render(CategorySearcher.results, "#resultsMenu", "ResultsMenu");
+        Utility.movingPanelWithTouch("#resultsMenuExpandHandler", "#resultsMenu");
     },
 
     expandResultsMenu: function () {
@@ -447,40 +473,37 @@ var CategorySearcher = {
         CategorySearcher.expanded = false;
     },
 
-    showResultsMenu: function (results) {
-        if ($("#resultsMenu").length == 0) {
-            $("#indexPage").append("<div id=\"resultsMenu\" class=\"commonHalfMenu\"></div>")
-        }
-        ViewManager.render(results, "#resultsMenu", "ResultsMenu");
+    show: function () {
+        application.resetInterface();
         MapManager.showMenuReduceMap('#resultsMenu');
         $('#collapseResultsMenu').hide();
-        Utility.movingPanelWithTouch("#resultsMenuExpandHandler", "#resultsMenu");
-        CategorySearcher.openResultsMenu = true;
+        CategorySearcher.open = true;
+        InfoManager.addingMenuToManage("CategorySearcher");
         application.addingMenuToCheck("CategorySearcher");
         application.setBackButtonListener();
     },
 
-    hideResultsMenu: function () {
+    hide: function () {
         $('#resultsMenu').css({ 'z-index': '1001' });
         MapManager.reduceMenuShowMap('#resultsMenu');
-        CategorySearcher.openResultsMenu = false;
+        CategorySearcher.open = false;
+        InfoManager.removingMenuToManage("CategorySearcher");
         application.removingMenuToCheck("CategorySearcher");
         CategorySearcher.tplSearch = false;
     },
 
     resetPanel: function () {
-        CategorySearcher.open = false;
+        CategorySearcher.openPanelMenu = false;
         $('#categorySearchMenuImage').toggleClass("glyphicon-chevron-right glyphicon-th-list");
-        if (!CategorySearcher.openResultsMenu) {
+        if (!CategorySearcher.open) {
             application.removingMenuToCheck("CategorySearcher");
         }
         application.resetBackButtonListener();
     },
 
     resetSearch: function () {
-        CategorySearcher.searchStarted = false;
-        CategorySearcher.autoSearchStarted = false;
         CategorySearcher.forceSelectedKeys = null;
+        QueryManager.resetMaxDists();
         Loading.hideAutoSearchLoading();
     },
 
@@ -504,11 +527,10 @@ var CategorySearcher = {
             if (response[category].features.length != 0) {
                 responseObject["Results"].features = responseObject["Results"].features.concat(response[category].features);
                 responseObject["Results"].fullCount = responseObject["Results"].fullCount + response[category].fullCount;
-                CategorySearcher.resetSearch();
             } else {
                 emptyCategory++;
                 if (emptyCategory == lengthCategory) {
-                    CategorySearcher.startAutoSearch();
+                    SearchManager.startAutoSearch("CategorySearcher");
                 }
 
             }
@@ -536,10 +558,10 @@ var CategorySearcher = {
             responseObject["Results"].tplSearch = CategorySearcher.tplSearch;
 
             CategorySearcher.results = responseObject["Results"];
-            CategorySearcher.showResultsMenu(CategorySearcher.results);
-            MapManager.lastSearchPerformed = "#resultsMenu";
+            CategorySearcher.refreshMenu();
+            CategorySearcher.show();
             MapManager.addGeoJSONLayer(responseObject);
-            QueryManager.resetMaxDists();
+            CategorySearcher.resetSearch();
             if (responseObject["Results"].tplSearch) {
                 $("input[name=filterTplResults]").attr("placeholder", Globalization.labels.categorySearchMenu.filterLines);
                 $("#resultsMenuInner").css("top", "92px");
@@ -550,9 +572,8 @@ var CategorySearcher = {
     },
 
     lastResults: function () {
-        
-        CategorySearcher.showResultsMenu(CategorySearcher.results);
-        MapManager.lastSearchPerformed = "#resultsMenu";
+        CategorySearcher.refreshMenu();
+        CategorySearcher.show();
         MapManager.addGeoJSONLayerWithoutArea({ "Results": CategorySearcher.results });
         if (CategorySearcher.results.tplSearch) {
             $("input[name=filterTplResults]").attr("placeholder", Globalization.labels.categorySearchMenu.filterLines);
@@ -564,29 +585,6 @@ var CategorySearcher = {
     errorQuery: function (error) {
         CategorySearcher.resetSearch();
         navigator.notification.alert(Globalization.alerts.servicesServerError.message, function () { }, Globalization.alerts.servicesServerError.title);
-    },
-
-    startAutoSearch: function () {
-        var resultOfIncrease = QueryManager.increaseMaxDistTemporary();
-        if (resultOfIncrease == true) {
-            if (CategorySearcher.searchStarted == true) {
-                CategorySearcher.autoSearchStarted = true;
-                Loading.showAutoSearchLoading();
-                CategorySearcher.search();
-            }
-        } else {
-            var responseObject = {
-                "Results": {
-                    "fullCount": 0,
-                    "type": "FeatureCollection",
-                    "features": []
-                }
-            };
-            MapManager.addGeoJSONLayer(responseObject);
-            CategorySearcher.resetSearch();
-            QueryManager.resetMaxDists();
-            navigator.notification.alert(Globalization.alerts.overMaxDistance.message, function () {}, Globalization.alerts.overMaxDistance.title);
-        }
     }
 
 }

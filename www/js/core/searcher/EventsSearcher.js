@@ -24,17 +24,19 @@ var EventsSearcher = {
     open: false,
     expanded: false,
     results: null,
+    varName: "EventsSearcher",
+    idMenu: "eventsMenu",
     currentTime: null,
 
     refreshMenu: function () {
-        if ($("#eventsMenu").length == 0) {
-            $("#indexPage").append("<div id=\"eventsMenu\" class=\"commonHalfMenu\"></div>")
+        if ($("#" + EventsSearcher.idMenu).length == 0) {
+            $("#indexPage").append("<div id=\"" + EventsSearcher.idMenu + "\" class=\"commonHalfMenu\"></div>")
         }
-        ViewManager.render(EventsSearcher.results, "#eventsMenu", "EventsMenu");
+        ViewManager.render(EventsSearcher.results, "#" + EventsSearcher.idMenu, "EventsMenu");
         if (EventsSearcher.currentTime != null) {
             $("#eventsButton" + EventsSearcher.currentTime.charAt(0).toUpperCase() + EventsSearcher.currentTime.slice(1)).removeClass("btn-primary").addClass("btn-success");
         }
-        Utility.movingPanelWithTouch("#eventsMenuExpandHandler", "#eventsMenu");
+        Utility.movingPanelWithTouch("#" + EventsSearcher.idMenu + "ExpandHandler", "#" + EventsSearcher.idMenu);
     },
 
     search: function (time) {
@@ -44,20 +46,22 @@ var EventsSearcher = {
     },
 
     show: function () {
-        MapManager.resetMapInterface();
-        MapManager.showMenuReduceMap('#eventsMenu');
-        $('#collapseEventsMenu').hide();
+        application.resetInterface();
+        MapManager.showMenuReduceMap("#" + EventsSearcher.idMenu);
+        $("#" + EventsSearcher.idMenu + "Collapse").hide();
     	localStorage.setItem("latestEventsClickedTime", (new Date().getTime()));
     	PrincipalMenu.resetEventsBadge();
     	EventsSearcher.open = true;
-    	application.addingMenuToCheck("EventsSearcher");
+    	InfoManager.addingMenuToManage(EventsSearcher.varName);
+    	application.addingMenuToCheck(EventsSearcher.varName);
         application.setBackButtonListener();
     },
 
     hide: function () {
-        $('#eventsMenu').css({ 'z-index': '1001' });
-        MapManager.reduceMenuShowMap('#eventsMenu');
-        application.removingMenuToCheck("EventsSearcher");
+        $("#" + EventsSearcher.idMenu).css({ 'z-index': '1001' });
+        MapManager.reduceMenuShowMap("#" + EventsSearcher.idMenu);
+        InfoManager.removingMenuToManage(EventsSearcher.varName);
+        application.removingMenuToCheck(EventsSearcher.varName);
         EventsSearcher.open = false;
     },
 
@@ -67,13 +71,29 @@ var EventsSearcher = {
         }
     },
 
+    refreshMenuPosition: function() {
+        if (EventsSearcher.open) {
+            MapManager.showMenuReduceMap("#" + EventsSearcher.idMenu);
+            Utility.checkAxisToDrag("#" + EventsSearcher.idMenu);
+            if (EventsSearcher.expanded) {
+                EventsSearcher.expandEventsMenu();
+            }
+        }
+    },
+
+    closeAll: function(){
+        if (EventsSearcher.open) {
+            EventsSearcher.hide();
+        }
+    },
+
     expandEventsMenu: function () {
-        Utility.expandMenu("#eventsMenu", "#expandEventsMenu", "#collapseEventsMenu");
+        Utility.expandMenu("#" + EventsSearcher.idMenu, "#" + EventsSearcher.idMenu + "Expand", "#" + EventsSearcher.idMenu + "Collapse");
         EventsSearcher.expanded = true;
     },
 
     collapseEventsMenu: function () {
-        Utility.collapseMenu("#eventsMenu", "#expandEventsMenu", "#collapseEventsMenu");
+        Utility.collapseMenu("#" + EventsSearcher.idMenu, "#" + EventsSearcher.idMenu + "Expand", "#" + EventsSearcher.idMenu + "Collapse");
         EventsSearcher.expanded = false;
     },
 
@@ -98,7 +118,6 @@ var EventsSearcher = {
                     return a.properties.distanceFromGPS - b.properties.distanceFromGPS
                 });
             }
-            MapManager.lastSearchPerformed = "#eventsMenu";
          }
         	
          EventsSearcher.results = response;

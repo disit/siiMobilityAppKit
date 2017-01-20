@@ -1,0 +1,12 @@
+﻿{
+  "principalMenu": {
+    "moduleParkingSearcher": "Car Park List"
+  },
+  "parkingMenu": {
+    "title": "Car Parks",
+    "gpsOrderText": "Closer <i class=\"glyphicon glyphicon-record\">",
+    "searchCenterOrderText": "Closer <i class=\"glyphicon glyphicon-map-marker\">",
+    "freeParkingOrderText":  "Free Parking Lots"
+  }
+}
+

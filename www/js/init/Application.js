@@ -133,16 +133,23 @@ var application = {
 
     },
 
+    resetInterface: function(){
+        for (var i = application.menuToCheckArray.length - 1; i >= 0; i--) {
+            if (window[application.menuToCheckArray[i]] != null) {
+                if (window[application.menuToCheckArray[i]]["closeAll"] != null) {
+                    window[application.menuToCheckArray[i]]["closeAll"]();
+                }
+            }
+        }
+    },
+
     onResize: function () {
-        if (typeof MapManager != "undefined") {
-            MapManager.refreshMenuPosition();
-        }
-        if (typeof CategorySearcher != "undefined") {
-            CategorySearcher.rescaleFontSize();
-        }
-        if (typeof InfoManager != "undefined") {
-            InfoManager.rescaleCarouselHeight();
-            InfoManager.rescaleModalHeight();
+        for (var i = 0; i < application.menuToCheckArray.length; i++) {
+            if (window[application.menuToCheckArray[i]] != null) {
+                if (window[application.menuToCheckArray[i]]["refreshMenuPosition"] != null) {
+                    window[application.menuToCheckArray[i]]["refreshMenuPosition"]();
+                }
+            }
         }
     },
 
@@ -158,8 +165,8 @@ var application = {
                 }
             }
         }
-        //if (!EventsSearcher.open && !CategorySearcher.open && !TextSearcher.open && !CategorySearcher.openResultsMenu && !InfoManager.open && !SettingsManager.open && !Information.open && !Log.open && !LogRecommender.open && !BusRoutesSearcher.open && !StartInformation.open && !ChooseLanguage.open && !ChooseProfile.open) {
-        if (application.menuToCheckArray.length == 0){
+
+        if (application.menuToCheckArray.length == 0) {
             PrincipalMenu.show();
             if (PrincipalMenu.modifing) {
                 PrincipalMenu.savePrincipalMenu();
@@ -167,12 +174,13 @@ var application = {
                 application.resetBackButtonListener();
             }
         } else {
-            window[application.menuToCheckArray[0]]["checkForBackButton"]();
+            if (window[application.menuToCheckArray[0]] != null) {
+                if (window[application.menuToCheckArray[0]]["checkForBackButton"] != null) {
+                    window[application.menuToCheckArray[0]]["checkForBackButton"]();
+                }
+            }
         }
 
-       
-        
-        //if (!EventsSearcher.open && !CategorySearcher.open && !TextSearcher.open && !CategorySearcher.openResultsMenu && !InfoManager.open && !SettingsManager.open && !Information.open && !Log.open && !LogRecommender.open && !BusRoutesSearcher.open && !StartInformation.open && !ChooseLanguage.open && !ChooseProfile.open) {
         if (application.menuToCheckArray.length == 0) {
             if (!PrincipalMenu.open && device.platform != "Web") {
                 window.plugins.toast.showWithOptions({

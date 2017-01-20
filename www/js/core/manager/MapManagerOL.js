@@ -251,17 +251,17 @@ var MapManager = {
             MapManager.addSingleButton('<i class=\"glyphicon glyphicon-calendar\"></i>', function () { EventsSearcher.search("week"); }, 'eventsButton ol-unselectable ol-control', "eventsButton");
         }
         if (MapManager.cyclePathsButton == null) {
-            MapManager.addSingleButton('<i class=\"icon ion-android-bicycle\"></i>', function () {CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("categories");}, 'cyclePathsButton ol-unselectable ol-control', "cyclePathsButton");
+            MapManager.addSingleButton('<i class=\"icon ion-android-bicycle\"></i>', function () {CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("CategorySearcher");}, 'cyclePathsButton ol-unselectable ol-control', "cyclePathsButton");
         } 
         if (MapManager.greenAreasButton == null) {
-            MapManager.addSingleButton('<img style="height:23px" src="img/greenAreas.png">', function () { CategorySearcher.forceSelectedKeys = ["Green_areas", "Gardens"]; SearchManager.search("categories"); }, 'greenAreasButton ol-unselectable ol-control', "greenAreasButton");
+            MapManager.addSingleButton('<img style="height:23px" src="img/greenAreas.png">', function () { CategorySearcher.forceSelectedKeys = ["Green_areas", "Gardens"]; SearchManager.search("CategorySearcher"); }, 'greenAreasButton ol-unselectable ol-control', "greenAreasButton");
         } 
         if (MapManager.carParkButton == null) {
-            MapManager.addSingleButton('<b>P</b>', function () { CategorySearcher.forceSelectedKeys = ["Car_park"]; SearchManager.search("categories"); }, 'carParkButton ol-unselectable ol-control', "carParkButton");
+            MapManager.addSingleButton('<b>P</b>', function () { CategorySearcher.forceSelectedKeys = ["Car_park"]; SearchManager.search("CategorySearcher"); }, 'carParkButton ol-unselectable ol-control', "carParkButton");
         }
 
         if (MapManager.busStopButton == null) {
-            MapManager.addSingleButton('<i class=\"icon ion-android-bus\"></i>', function () { CategorySearcher.tplSearch = true; CategorySearcher.forceSelectedKeys = ["BusStop", "Train_station", "Tram_stops", "Ferry_stop"]; SearchManager.search("categories"); }, 'busStopButton ol-unselectable ol-control', "busStopButton");
+            MapManager.addSingleButton('<i class=\"icon ion-android-bus\"></i>', function () { CategorySearcher.tplSearch = true; CategorySearcher.forceSelectedKeys = ["BusStop", "Train_station", "Tram_stops", "Ferry_stop"]; SearchManager.search("CategorySearcher"); }, 'busStopButton ol-unselectable ol-control', "busStopButton");
         }
         
     },
@@ -592,79 +592,80 @@ var MapManager = {
         var areaStyle;
         var serviceUriWithGeometry = [];
         for (var category in jsonFile) {
-            if (jsonFile[category].features.length != 0) {
-                var features = (new ol.format.GeoJSON()).readFeatures(jsonFile[category]);
-                for (var i = 0; i < features.length; i++) {
-                    if (features[i].get('alternativeIcon') == null) {
-                        var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('serviceType') + '.png', "classic");
-                    } else {
-                        var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('alternativeIcon') + '.png', "classic");
+            if (jsonFile[category].features != null) {
+                if (jsonFile[category].features.length != 0) {
+                    var features = (new ol.format.GeoJSON()).readFeatures(jsonFile[category]);
+                    for (var i = 0; i < features.length; i++) {
+                        if (features[i].get('alternativeIcon') == null) {
+                            var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('serviceType') + '.png', "classic");
+                        } else {
+                            var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('alternativeIcon') + '.png', "classic");
+                        }
+
+                        var iconStyle = new ol.style.Style({
+                            image: new ol.style.Icon({
+                                anchor: [0.5, 1],
+                                size: [36, 41],
+                                src: iconUrl
+                            })
+                        });
+                        features[i].setStyle(iconStyle);
+                        //Si inserisce un po' di rumore (1-5 metri) per evitare che servizi con le stesse coordinate siano posizionati nelle stesse coordinate GPS
+                        features[i].getGeometry().getCoordinates()[0] = features[i].getGeometry().getCoordinates()[0] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
+                        features[i].getGeometry().getCoordinates()[1] = features[i].getGeometry().getCoordinates()[1] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
+                        features[i].setGeometry(new ol.geom.Point(ol.proj.fromLonLat(features[i].getGeometry().getCoordinates())));
+
+                        if (features[i].get('hasGeometry') == true && features[i].get('serviceType') != "TransferServiceAndRenting_Controlled_parking_zone" && features[i].get('serviceType') != "TourismService_Tourist_trail") {
+                            serviceUriWithGeometry.push(features[i].get('serviceUri'));
+                        }
                     }
-                    
-                    var iconStyle = new ol.style.Style({
-                        image: new ol.style.Icon({
-                            anchor: [0.5, 1],
-                            size: [36, 41],
-                            src: iconUrl
+
+                    MapManager.iconsLayer[category] = new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                            features: features
                         })
                     });
-                    features[i].setStyle(iconStyle);
-                    //Si inserisce un po' di rumore (1-5 metri) per evitare che servizi con le stesse coordinate siano posizionati nelle stesse coordinate GPS
-                    features[i].getGeometry().getCoordinates()[0] = features[i].getGeometry().getCoordinates()[0] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
-                    features[i].getGeometry().getCoordinates()[1] = features[i].getGeometry().getCoordinates()[1] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
-                    features[i].setGeometry(new ol.geom.Point(ol.proj.fromLonLat(features[i].getGeometry().getCoordinates())));
 
-                    if (features[i].get('hasGeometry') == true && features[i].get('serviceType') != "TransferServiceAndRenting_Controlled_parking_zone" && features[i].get('serviceType') != "TourismService_Tourist_trail") {
-                        serviceUriWithGeometry.push(features[i].get('serviceUri'));
+                    if (MapManager.map != null) {
+                        MapManager.map.addLayer(MapManager.iconsLayer[category]);
+                        MapManager.iconsLayer[category].setZIndex(1);
+
+                        for (var i = 0; i < serviceUriWithGeometry.length; i++) {
+                            var serviceQuery = QueryManager.createServiceQuery(serviceUriWithGeometry[i], "app");
+                            APIClient.executeQueryWithoutAlert(serviceQuery, MapManager.addGeometryWktElement, MapManager.errorQueryGeometryWktElement);
+                        }
                     }
-                }
 
-                MapManager.iconsLayer[category] = new ol.layer.Vector({
-                    source: new ol.source.Vector({
-                        features: features
-                    })
-                });
-
-                if (MapManager.map != null) {
-                    MapManager.map.addLayer(MapManager.iconsLayer[category]);
-                    MapManager.iconsLayer[category].setZIndex(1);
-
-                    for (var i = 0; i < serviceUriWithGeometry.length; i++) {
-                        var serviceQuery = QueryManager.createServiceQuery(serviceUriWithGeometry[i], "app");
-                        APIClient.executeQueryWithoutAlert(serviceQuery, MapManager.addGeometryWktElement, MapManager.errorQueryGeometryWktElement);
+                    if (jsonFile[category].fullCount != null && !isNaN(jsonFile[category].fullCount)) {
+                        $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                    } else {
+                        $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length);
                     }
-                }
+                    $("#servicesFounded").show(0);
 
-                if (jsonFile[category].fullCount != null && !isNaN(jsonFile[category].fullCount)) {
-                    $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                    areaStyle = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0, 204, 0, 0.3)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#0c0',
+                            width: 4
+                        })
+                    });
+
                 } else {
-                    $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length);
+
+                    areaStyle = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255, 0, 51, 0.3)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#f03',
+                            width: 4
+                        })
+                    });
                 }
-                $("#servicesFounded").show(0);
-
-                areaStyle = new ol.style.Style({
-                    fill: new ol.style.Fill({
-                        color: 'rgba(0, 204, 0, 0.3)'
-                    }),
-                    stroke: new ol.style.Stroke({
-                        color: '#0c0',
-                        width: 4
-                    })
-                });
-
-            } else {
-
-                areaStyle = new ol.style.Style({
-                    fill: new ol.style.Fill({
-                        color: 'rgba(255, 0, 51, 0.3)'
-                    }),
-                    stroke: new ol.style.Stroke({
-                        color: '#f03',
-                        width: 4
-                    })
-                });
             }
-
            
         }
 
@@ -705,74 +706,76 @@ var MapManager = {
         var serviceUriWithGeometry = [];
 
         for (var category in jsonFile) {
-            if (jsonFile[category].features.length != 0) {
-                var features = (new ol.format.GeoJSON()).readFeatures(jsonFile[category]);
-                for (var i = 0; i < features.length; i++) {
-                    if (features[i].get('alternativeIcon') == null) {
-                        var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('serviceType') + '.png', "classic");
-                    } else {
-                        var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('alternativeIcon') + '.png', "classic");
+            if (jsonFile[category].features != null) {
+                if (jsonFile[category].features.length != 0) {
+                    var features = (new ol.format.GeoJSON()).readFeatures(jsonFile[category]);
+                    for (var i = 0; i < features.length; i++) {
+                        if (features[i].get('alternativeIcon') == null) {
+                            var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('serviceType') + '.png', "classic");
+                        } else {
+                            var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + features[i].get('alternativeIcon') + '.png', "classic");
+                        }
+                        var iconStyle = new ol.style.Style({
+                            image: new ol.style.Icon({
+                                anchor: [0.5, 1],
+                                size: [36, 41],
+                                src: iconUrl
+                            })
+                        });
+                        features[i].setStyle(iconStyle);
+                        //Si inserisce un po' di rumore (1-5 metri) per evitare che servizi con le stesse coordinate siano posizionati nelle stesse coordinate GPS
+                        features[i].getGeometry().getCoordinates()[0] = features[i].getGeometry().getCoordinates()[0] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
+                        features[i].getGeometry().getCoordinates()[1] = features[i].getGeometry().getCoordinates()[1] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
+                        features[i].setGeometry(new ol.geom.Point(ol.proj.fromLonLat(features[i].getGeometry().getCoordinates())));
+
+                        if (features[i].get('hasGeometry') == true && features[i].get('serviceType') != "TransferServiceAndRenting_Controlled_parking_zone" && features[i].get('serviceType') != "TourismService_Tourist_trail") {
+                            serviceUriWithGeometry.push(features[i].get('serviceUri'));
+                        }
                     }
-                    var iconStyle = new ol.style.Style({
-                        image: new ol.style.Icon({
-                            anchor: [0.5, 1],
-                            size: [36, 41],
-                            src: iconUrl
+
+                    MapManager.iconsLayer[category] = new ol.layer.Vector({
+                        source: new ol.source.Vector({
+                            features: features
                         })
                     });
-                    features[i].setStyle(iconStyle);
-                    //Si inserisce un po' di rumore (1-5 metri) per evitare che servizi con le stesse coordinate siano posizionati nelle stesse coordinate GPS
-                    features[i].getGeometry().getCoordinates()[0] = features[i].getGeometry().getCoordinates()[0] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
-                    features[i].getGeometry().getCoordinates()[1] = features[i].getGeometry().getCoordinates()[1] + (Math.random() * (0.000030 - 0.000010) + 0.000010);
-                    features[i].setGeometry(new ol.geom.Point(ol.proj.fromLonLat(features[i].getGeometry().getCoordinates())));
 
-                    if (features[i].get('hasGeometry') == true && features[i].get('serviceType') != "TransferServiceAndRenting_Controlled_parking_zone" && features[i].get('serviceType') != "TourismService_Tourist_trail") {
-                        serviceUriWithGeometry.push(features[i].get('serviceUri'));
-                    }
-                }
+                    if (MapManager.map != null) {
+                        MapManager.map.addLayer(MapManager.iconsLayer[category]);
+                        MapManager.iconsLayer[category].setZIndex(1);
 
-                MapManager.iconsLayer[category] = new ol.layer.Vector({
-                    source: new ol.source.Vector({
-                        features: features
-                    })
-                });
+                        for (var i = 0; i < serviceUriWithGeometry.length; i++) {
+                            var serviceQuery = QueryManager.createServiceQuery(serviceUriWithGeometry[i], "app");
+                            APIClient.executeQueryWithoutAlert(serviceQuery, MapManager.addGeometryWktElement, MapManager.errorQueryGeometryWktElement);
+                        }
 
-                if (MapManager.map != null) {
-                    MapManager.map.addLayer(MapManager.iconsLayer[category]);
-                    MapManager.iconsLayer[category].setZIndex(1);
-
-                    for (var i = 0; i < serviceUriWithGeometry.length; i++) {
-                        var serviceQuery = QueryManager.createServiceQuery(serviceUriWithGeometry[i], "app");
-                        APIClient.executeQueryWithoutAlert(serviceQuery, MapManager.addGeometryWktElement, MapManager.errorQueryGeometryWktElement);
                     }
 
-                }
-
-                if (jsonFile[category].fullCount != null && !isNaN(jsonFile[category].fullCount)) {
-                    if (category == "Event") {
-                        $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.events + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                    if (jsonFile[category].fullCount != null && !isNaN(jsonFile[category].fullCount)) {
+                        if (category == "Event") {
+                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.events + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                        } else {
+                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                        }
                     } else {
-                        $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                        if (category == "Event") {
+                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.events + jsonFile[category].features.length);
+                        } else {
+                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length);
+                        }
                     }
-                } else {
-                    if (category == "Event") {
-                        $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.events + jsonFile[category].features.length);
-                    } else {
-                        $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length);
+                    $("#servicesFounded").show(0);
+
+                    if (MapManager.map != null && NavigatorSearcher.started != true) {
+                        if (MapManager.iconsLayer[category].getSource().getFeatures().length > 1) {
+                            MapManager.map.getView().fit(MapManager.iconsLayer[category].getSource().getExtent(), MapManager.map.getSize(), {
+                                constrainResolution: false,
+                                padding: [40, 20, 10, 20]
+                            });
+                        } else if (MapManager.iconsLayer[category].getSource().getFeatures().length == 1) {
+                            MapManager.map.getView().setCenter(MapManager.iconsLayer[category].getSource().getFeatures()[0].getGeometry().getCoordinates());
+                        }
                     }
                 }
-                $("#servicesFounded").show(0);
-
-                if (MapManager.map != null && NavigatorSearcher.started != true) {
-                    if (MapManager.iconsLayer[category].getSource().getFeatures().length > 1) {
-                        MapManager.map.getView().fit(MapManager.iconsLayer[category].getSource().getExtent(), MapManager.map.getSize(), {
-                            constrainResolution: false,
-                            padding: [40, 20, 10, 20]
-                        });
-                    } else if (MapManager.iconsLayer[category].getSource().getFeatures().length == 1){
-                        MapManager.map.getView().setCenter(MapManager.iconsLayer[category].getSource().getFeatures()[0].getGeometry().getCoordinates());
-                    }
-                } 
             }
         }
 
@@ -1088,7 +1091,7 @@ var MapManager = {
             $(idDivMenu + " div.grippyContainer").removeClass("grippyContainer-horizontal").addClass("grippyContainer-vertical");
             $(idDivMenu + " div.grippy").removeClass("grippy-horizontal").addClass("grippy-vertical");
             $("#dropdownThreeVertical").removeClass('open');
-            CategorySearcher.hide();
+            CategorySearcher.hidePanelMenu();
         }
         $('#servicesFounded').css({
             'left': $('#content').width() * 0.2 + 'px',
@@ -1139,127 +1142,6 @@ var MapManager = {
             $('#categorySearchMenu').css('height', $('#content').height() + 'px');
             MapManager.updateMap();
             
-    },
-
-    refreshMenuPosition: function(){
-        if (EventsSearcher.open) {
-            MapManager.showMenuReduceMap('#eventsMenu');
-            Utility.checkAxisToDrag("#eventsMenu");
-            if (EventsSearcher.expanded) {
-                EventsSearcher.expandEventsMenu();
-            }
-        }
-        if (TextSearcher.open) {
-            MapManager.showMenuReduceMap('#textSearchMenu');
-            Utility.checkAxisToDrag("#textSearchMenu");
-            if (TextSearcher.expanded) {
-                TextSearcher.expandTextSearchMenu();
-            }
-        }
-        if (InfoManager.open) {
-            MapManager.showMenuReduceMap('#infoMenu');
-            Utility.checkAxisToDrag("#infoMenu");
-            if (InfoManager.expanded) {
-                InfoManager.expandInfoAboutOneMarker();
-            }
-        }
-        if (CategorySearcher.openResultsMenu) {
-            MapManager.showMenuReduceMap('#resultsMenu');
-            Utility.checkAxisToDrag("#resultsMenu");
-            if (CategorySearcher.expanded) {
-                CategorySearcher.expandResultsMenu();
-            }
-        }
-        if (BusRoutesSearcher.open) {
-            MapManager.showMenuReduceMap('#busRoutesMenu');
-            Utility.checkAxisToDrag("#busRoutesMenu");
-            if (BusRoutesSearcher.expanded) {
-                BusRoutesSearcher.expandBusRoutesMenu();
-            }
-        }
-        if (ExampleModule.open) {
-            MapManager.showMenuReduceMap('#exampleMenu');
-            Utility.checkAxisToDrag("#exampleMenu");
-            if (ExampleModule.expanded) {
-                ExampleModule.expandBusRoutesMenu();
-            }
-        }
-    },
-
-    resetMapInterface: function () {
-        if (NavigatorSearcher.started == true) {
-            NavigatorSearcher.stop();
-        }
-        $('#navigationSearchButton').html('<i class=\"icon ion-navigate\"></i>');
-        if (InfoManager.open) {
-            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-        }
-        if (EventsSearcher.open) {
-            EventsSearcher.hide();
-        }
-        if (ExampleModule.open) {
-            ExampleModule.hide();
-        }
-        if (BusRoutesSearcher.open) {
-            BusRoutesSearcher.hide();
-        }
-        if (CategorySearcher.open) {
-            CategorySearcher.hide();
-        }
-        if (CategorySearcher.openResultsMenu) {
-            CategorySearcher.hideResultsMenu();
-        }
-        if (TextSearcher.open) {
-            TextSearcher.hide();
-        }
-        if (SettingsManager.open) {
-            SettingsManager.hideSettingsMenu();
-        }
-        if (Information.open) {
-            Information.hide();   
-        }
-        if (Log.open) {
-            Log.hide();
-        }
-        if (LogRecommender.open) {
-            LogRecommender.hide();
-        }
-        if (InfoManager.open) {
-            PictureManager.hideSendPhotoModal();
-            PictureManager.hideSendPhotoAlbumModal();
-            FeedbackManager.hideModal();
-            InfoManager.hideImageModal();
-            BusRoutesSearcher.hideInfoRouteModal();
-            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-        }
-    },
-
-    reopenLastSearchPerformed: function () {
-        if (!EventsSearcher.open && !BusRoutesSearcher.open && !TextSearcher.open && !CategorySearcher.openResultsMenu && !InfoManager.open) {
-            MapManager.showMenuReduceMap(MapManager.lastSearchPerformed);
-            if (MapManager.lastSearchPerformed == "#eventsMenu") {
-                EventsSearcher.open = true;
-            } else if (MapManager.lastSearchPerformed == "#busRoutesMenu") {
-                BusRoutesSearcher.open = true;
-            } else if (MapManager.lastSearchPerformed == "#textSearchMenu") {
-                TextSearcher.open = true;
-            } else if (MapManager.lastSearchPerformed == "#resultsMenu") {
-                CategorySearcher.openResultsMenu = true;
-            }
-        } else if (EventsSearcher.open && InfoManager.open) {
-            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-            MapManager.showMenuReduceMap("#eventsMenu");
-        } else if (BusRoutesSearcher.open && InfoManager.open) {
-            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-            MapManager.showMenuReduceMap("#busRoutesMenu");
-        } else if (TextSearcher.open && InfoManager.open) {
-            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-            MapManager.showMenuReduceMap("#textSearchMenu");
-        } else if (CategorySearcher.openResultsMenu && InfoManager.open) {
-            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-            MapManager.showMenuReduceMap("#resultsMenu");
-        }
-        application.setBackButtonListener();
     },
 
     disableGpsZoom: function () {

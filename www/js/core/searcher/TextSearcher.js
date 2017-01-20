@@ -24,29 +24,28 @@ var TextSearcher = {
     open: false,
     expanded: false,
     results: null,
+    varName: "TextSearcher",
+    idMenu: "textSearchMenu",
     text: null,
-    searchStarted: false,
     fullSearch: false,
-    autoSearchStarted: false,
 
     refreshMenu: function () {
-        if ($("#textSearchMenu").length == 0) {
-            $("#indexPage").append("<div id=\"textSearchMenu\" class=\"commonHalfMenu\"></div>")
+        if ($("#" + TextSearcher.idMenu).length == 0) {
+            $("#indexPage").append("<div id=\"" + TextSearcher.idMenu + "\" class=\"commonHalfMenu\"></div>")
         }
-        ViewManager.render(TextSearcher.results, "#textSearchMenu", "TextSearchMenu");
-        $("#textSearchMenuInput").val(TextSearcher.text);
-        Utility.movingPanelWithTouch("#textSearchMenuExpandHandler", "#textSearchMenu");
+        ViewManager.render(TextSearcher.results, "#" + TextSearcher.idMenu, "TextSearchMenu");
+        $("#" + TextSearcher.idMenu + "Input").val(TextSearcher.text);
+        Utility.movingPanelWithTouch("#" + TextSearcher.idMenu + "ExpandHandler", "#" + TextSearcher.idMenu);
     },
 
     search: function () {
         if (SearchManager.searchCenter != null || TextSearcher.fullSearch) {
-            TextSearcher.text = $("#textSearchMenuInput").val();
+            TextSearcher.text = $("#" + TextSearcher.idMenu + "Input").val();
             if (TextSearcher.text != "") {
                     if (TextSearcher.fullSearch) {
                         var fullTextQuery = QueryManager.createFullTextQuery(TextSearcher.text);
                         APIClient.executeQuery(fullTextQuery, TextSearcher.successQuery, TextSearcher.errorQuery, "user");
                     } else {
-                        TextSearcher.searchStarted = true;
                         var textQuery = QueryManager.createTextQuery(TextSearcher.text, SearchManager.searchCenter, "user");
                         APIClient.executeQuery(textQuery, TextSearcher.successQuery, TextSearcher.errorQuery);
                     }
@@ -75,39 +74,41 @@ var TextSearcher = {
     onKeyEnter: function (event) {
         if (event.which == 13 || event.keyCode == 13) {
             TextSearcher.collapseTextSearchMenu();
-            SearchManager.search('text');
+            SearchManager.search(TextSearcher.varName);
             return false;
         }
         return true;
     },
 
     expandTextSearchMenu: function () {
-        Utility.expandMenu("#textSearchMenu", "#expandTextSearchMenu", "#collapseTextSearchMenu");
+        Utility.expandMenu("#" + TextSearcher.idMenu, "#" + TextSearcher.idMenu + "Expand", "#" + TextSearcher.idMenu + "Collapse");
         TextSearcher.expanded = true;
     },
 
     collapseTextSearchMenu: function () {
-        Utility.collapseMenu("#textSearchMenu", "#expandTextSearchMenu", "#collapseTextSearchMenu");
+        Utility.collapseMenu("#" + TextSearcher.idMenu, "#" + TextSearcher.idMenu + "Expand", "#" + TextSearcher.idMenu + "Collapse");
         TextSearcher.expanded = false;
     },
 
     show: function () {
-        MapManager.resetMapInterface();
+        application.resetInterface();
         TextSearcher.refreshMenu();
-        MapManager.showMenuReduceMap('#textSearchMenu');
-        $('#collapseTextSearchMenu').hide();
+        MapManager.showMenuReduceMap("#" + TextSearcher.idMenu);
+        $("#" + TextSearcher.idMenu + "Collapse").hide();
         TextSearcher.expandTextSearchMenu();
-        $('#textSearchMenuInput').focus();
+        $("#" + TextSearcher.idMenu + "Input").focus();
         TextSearcher.open = true;
-        application.addingMenuToCheck("TextSearcher");
+        InfoManager.addingMenuToManage(TextSearcher.varName);
+        application.addingMenuToCheck(TextSearcher.varName);
         application.setBackButtonListener();
     },
 
     hide: function () {
-        $('#textSearchMenu').css({ 'z-index': '1001' });
-        MapManager.reduceMenuShowMap('#textSearchMenu');
+        $("#" + TextSearcher.idMenu).css({ 'z-index': '1001' });
+        MapManager.reduceMenuShowMap("#" + TextSearcher.idMenu);
+        InfoManager.removingMenuToManage(TextSearcher.varName);
+        application.removingMenuToCheck(TextSearcher.varName);
         TextSearcher.open = false;
-        application.removingMenuToCheck("TextSearcher");
     },
 
     checkForBackButton: function () {
@@ -116,11 +117,26 @@ var TextSearcher = {
         }
     },
 
+    refreshMenuPosition: function () {
+        if (TextSearcher.open) {
+            MapManager.showMenuReduceMap("#" + TextSearcher.idMenu);
+            Utility.checkAxisToDrag("#" + TextSearcher.idMenu);
+            if (TextSearcher.expanded) {
+                TextSearcher.expandTextSearchMenu();
+            }
+        }
+    },
+
+    closeAll: function () {
+        if (TextSearcher.open) {
+            TextSearcher.hide();
+        }
+    },
+
     resetSearch: function () {
-        TextSearcher.searchStarted = false;
         TextSearcher.fullSearch = false;
-        TextSearcher.autoSearchStarted = false;
         QueryManager.resetMaxDists();
+        TextSearcher.collapseTextSearchMenu();
         Loading.hideAutoSearchLoading();
     },
 
@@ -130,8 +146,8 @@ var TextSearcher = {
 
 
     resetInputText: function(){
-        $('#textSearchMenuInput').val('');
-        $('#textSearchMenuInput').focus();
+        $("#" + TextSearcher.idMenu + "Input").val('');
+        $("#" + TextSearcher.idMenu + "Input").focus();
     },
 
     inputTextOnFocus: function () {
@@ -171,16 +187,14 @@ var TextSearcher = {
             TextSearcher.results = response;
             TextSearcher.refreshMenu();
             TextSearcher.resetSearch();
-            TextSearcher.collapseTextSearchMenu();
-            MapManager.lastSearchPerformed = "#textSearchMenu";
-            CategorySearcher.hide();
+            CategorySearcher.hidePanelMenu();
 
         } else {
             if (TextSearcher.fullSearch) {
                 navigator.notification.alert(Globalization.alerts.noFullTextResults.message, function () { }, Globalization.alerts.noFullTextResults.title);
                 TextSearcher.fullSearch = false;
             } else {
-                TextSearcher.startAutoSearch();
+                SearchManager.startAutoSearch(TextSearcher.varName);
             }
         }
 
@@ -190,31 +204,6 @@ var TextSearcher = {
     errorQuery: function (error) {
         TextSearcher.resetSearch();
         navigator.notification.alert(Globalization.alerts.servicesServerError.message, function () { }, Globalization.alerts.servicesServerError.title);
-    },
-
-    startAutoSearch: function () {
-        var resultOfIncrease = QueryManager.increaseMaxDistTemporary();
-        if (resultOfIncrease == true) {
-            if (TextSearcher.searchStarted == true) {
-                TextSearcher.autoSearchStarted = true;
-                Loading.showAutoSearchLoading();
-                TextSearcher.search();
-            }
-        } else {
-            var response = {
-                "Results": {
-                    "fullCount": 0,
-                    "type": "FeatureCollection",
-                    "features": []
-                }
-            };
-            MapManager.addGeoJSONLayer(response);
-            TextSearcher.results = response;
-            TextSearcher.refreshMenu();
-            TextSearcher.resetSearch();
-            TextSearcher.collapseTextSearchMenu();
-            navigator.notification.alert(Globalization.alerts.overMaxDistance.message, function () {}, Globalization.alerts.overMaxDistance.title);
-        }
     }
 
 }

@@ -7,10 +7,10 @@
             <i class="glyphicon glyphicon-remove"
                style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
         </a>
-        <a id="expandTextSearchMenu" class="pull-left" onclick="TextSearcher.expandTextSearchMenu();">
+        <a id="textSearchMenuExpand" class="pull-left" onclick="TextSearcher.expandTextSearchMenu();">
             <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
         </a>
-        <a id="collapseTextSearchMenu" class="pull-left" onclick="TextSearcher.collapseTextSearchMenu();">
+        <a id="textSearchMenuCollapse" class="pull-left" onclick="TextSearcher.collapseTextSearchMenu();">
             <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
         </a>
         <div class="input-group">
@@ -36,7 +36,7 @@
             </button>
             <button class="btn btn-success"
                     style="width: 50.3%; height: 23px; padding: 0px; border-top-right-radius: 0px; border-left-color: white;"
-                    onclick="TextSearcher.collapseTextSearchMenu(); SearchManager.search('text');">
+                    onclick="TextSearcher.collapseTextSearchMenu(); SearchManager.search('TextSearcher');">
                 <img src="img/circleSearch.png" height="18"><b style="padding-left: 5px;font-size: 12px" id="textSearchAroundButton"><script>
                     $("#textSearchAroundButton").html(Globalization.labels.textSearchMenu.buttonAround)
 </script></b>

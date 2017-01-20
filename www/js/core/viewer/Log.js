@@ -70,6 +70,12 @@ var Log = {
         }
     },
 
+    closeAll: function () {
+        if (Log.open) {
+            Log.hide();
+        }
+    },
+
     write: function(textToWrite) {
         var currentLog = JSON.parse(localStorage.getItem("log"));
         if (currentLog != null) {

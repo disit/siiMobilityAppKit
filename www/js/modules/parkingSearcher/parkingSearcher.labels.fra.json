@@ -1,0 +1,11 @@
+﻿{
+  "principalMenu": {
+    "moduleParkingSearcher": "Liste Parkings"
+  },
+  "parkingMenu": {
+    "title": "Parkings",
+    "gpsOrderText": "Plus près <i class=\"glyphicon glyphicon-record\">",
+    "searchCenterOrderText": "Plus près <i class=\"glyphicon glyphicon-map-marker\">",
+    "freeParkingOrderText":  "Parking Disponible"
+  }
+}

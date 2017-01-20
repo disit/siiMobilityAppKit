@@ -25,8 +25,8 @@ var SearchManager = {
     typeOfSearchCenter: null,
     currentType: null,
 
-    search: function (type) {
-        SearchManager.currentType = type;
+    search: function (searcher) {
+        SearchManager.currentType = searcher;
         if (MapManager.gpsMarkerCoordinates() != null) {
             if (MapManager.manualMarkerCoordinates() != null) {
                 if (MapManager.selectedServiceMarkerCoordinates() != null) {
@@ -105,31 +105,63 @@ var SearchManager = {
         }
     },
 
-    searchOnManualMarker: function (type) {
+    searchOnManualMarker: function (searcher) {
         SearchManager.searchCenter = MapManager.manualMarkerCoordinates();
         SearchManager.typeOfSearchCenter = "manualMarker";
-        SearchManager.rightSearch(type);
+        SearchManager.rightSearch(searcher);
     },
 
-    searchOnGpsMarker: function(type){
+    searchOnGpsMarker: function(searcher){
         SearchManager.searchCenter = MapManager.gpsMarkerCoordinates();
         SearchManager.typeOfSearchCenter = "gpsMarker";
-        SearchManager.rightSearch(type);
+        SearchManager.rightSearch(searcher);
     },
 
-    searchOnSelectedServiceMarker: function(type){
+    searchOnSelectedServiceMarker: function(searcher){
         SearchManager.searchCenter = MapManager.selectedServiceMarkerCoordinates();
         SearchManager.typeOfSearchCenter = "selectedServiceMarker";
-        SearchManager.rightSearch(type);
+        SearchManager.rightSearch(searcher);
     },
 
-    rightSearch: function (type) {
-        if (type == "text") {
-            TextSearcher.search();
-        } else if (type == "categories") {
-            CategorySearcher.search();
-        } else if (type == "weather") {
-            WeatherSearcher.search();
+    rightSearch: function (searcher) {
+        if (window[searcher] != null) {
+            if (window[searcher]["search"] != null) {
+                window[searcher]["search"]();
+            }
+        }
+    },
+
+    startAutoSearch: function (searcher) {
+        var resultOfIncrease = QueryManager.increaseMaxDistTemporary();
+        if (resultOfIncrease == true) {
+            Loading.showAutoSearchLoading();
+            if (window[searcher] != null) {
+                if (window[searcher]["search"] != null) {
+                    window[searcher]["search"]();
+                }
+            }
+        } else {
+            var response = {
+                "Results": {
+                    "fullCount": 0,
+                    "type": "FeatureCollection",
+                    "features": []
+                }
+            };
+            MapManager.addGeoJSONLayer(response);
+
+            if (window[searcher] != null) {
+                if (window[searcher]["results"] != null) {
+                    window[searcher]["results"] = response["Results"];
+                }
+                if (window[searcher]["refreshMenu"] != null) {
+                    window[searcher]["refreshMenu"]();
+                }
+                if (window[searcher]["resetSearch"] != null) {
+                    window[searcher]["resetSearch"]();
+                }
+            }
+            navigator.notification.alert(Globalization.alerts.overMaxDistance.message, function () { }, Globalization.alerts.overMaxDistance.title);
         }
     }
 

@@ -22,7 +22,7 @@
     "index": 0
   },
   {
-    "callback": "PrincipalMenu.logPrincipalMenuChoices('poi'); PrincipalMenu.hide(); MapManager.centerMapOnGps(); $('#categorySearchMenu').panel('open'); CategorySearcher.show();",
+    "callback": "PrincipalMenu.logPrincipalMenuChoices('poi'); PrincipalMenu.hide(); MapManager.centerMapOnGps(); $('#categorySearchMenu').panel('open'); CategorySearcher.showPanelMenu();",
     "iconId": "",
     "iconClass": "glyphicon glyphicon-th-list",
     "iconFontSize": "35px",
@@ -66,7 +66,7 @@
     "index": 2
   },
   {
-    "callback": "PrincipalMenu.logPrincipalMenuChoices('bus'); PrincipalMenu.hide(); CategorySearcher.tplSearch = true; CategorySearcher.forceSelectedKeys = ['BusStop', 'Train_station', 'Tram_stops', 'Ferry_stop']; SearchManager.search('categories');",
+    "callback": "PrincipalMenu.logPrincipalMenuChoices('bus'); PrincipalMenu.hide(); CategorySearcher.tplSearch = true; CategorySearcher.forceSelectedKeys = ['BusStop', 'Train_station', 'Tram_stops', 'Ferry_stop']; SearchManager.search('CategorySearcher');",
     "iconId": "",
     "iconClass": "icon ion-android-bus",
     "iconFontSize": "41px",
@@ -88,7 +88,7 @@
     "index": 3
   },
   {
-    "callback": "PrincipalMenu.logPrincipalMenuChoices('parking'); PrincipalMenu.hide(); CategorySearcher.forceSelectedKeys = ['Car_park']; SearchManager.search('categories');",
+    "callback": "PrincipalMenu.logPrincipalMenuChoices('parking'); PrincipalMenu.hide(); CategorySearcher.forceSelectedKeys = ['Car_park']; SearchManager.search('CategorySearcher');",
     "iconId": "",
     "iconClass": "",
     "iconFontSize": "",
