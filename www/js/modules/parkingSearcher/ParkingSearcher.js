@@ -27,7 +27,6 @@ var ParkingSearcher = {
     varName: "ParkingSearcher",
     idMenu: "parkingMenu",
     responseLength: 0,
-    parkRetrieved: 0,
     temporaryResponse: null,
 
     show: function () {
@@ -108,11 +107,17 @@ var ParkingSearcher = {
         for (var category in response) {
             if (response[category].features.length != 0) {
                 ParkingSearcher.responseLength = response[category].features.length;
-                ParkingSearcher.parkRetrieved = 0;
+                ParkingSearcher.temporaryResponse = {
+                    "Results": {
+                        "features": [],
+                        "fullCount": ParkingSearcher.responseLength,
+                        "type": "FeatureCollection",
+                    }
+                };
                 Loading.showAutoSearchLoading();
                 for (var i = 0; i < response[category].features.length; i++) {
                     var serviceQuery = QueryManager.createServiceQuery(response[category].features[i].properties.serviceUri, "app");
-                    APIClient.executeQueryWithoutAlert(serviceQuery, ParkingSearcher.mergeResults, ParkingSearcher.incrementAndCheckRetrieved);
+                    APIClient.executeQueryWithoutAlert(serviceQuery, ParkingSearcher.mergeResults, ParkingSearcher.decrementAndCheckRetrieved);
                 }
             } else {
                 SearchManager.startAutoSearch(ParkingSearcher.varName);
@@ -121,15 +126,6 @@ var ParkingSearcher = {
     },
 
     mergeResults: function (response) {
-        if (ParkingSearcher.parkRetrieved == 0) {
-            ParkingSearcher.temporaryResponse = {
-                "Results": {
-                    "features": [],
-                    "fullCount": ParkingSearcher.responseLength,
-                    "type": "FeatureCollection",
-                }
-            };
-        }
         for (var category in response) {
             if (response[category].features != null) {
                 if (response[category].features.length != 0) {
@@ -154,14 +150,14 @@ var ParkingSearcher = {
             }
         }
 
-        ParkingSearcher.incrementAndCheckRetrieved();
+        ParkingSearcher.decrementAndCheckRetrieved();
         
     },
 
-    incrementAndCheckRetrieved: function(){
-        ParkingSearcher.parkRetrieved++;
+    decrementAndCheckRetrieved: function(){
+        ParkingSearcher.responseLength--;
 
-        if (ParkingSearcher.parkRetrieved == ParkingSearcher.responseLength) {
+        if (ParkingSearcher.responseLength == 0) {
             ParkingSearcher.successQuery(ParkingSearcher.temporaryResponse);
             Loading.hideAutoSearchLoading();
         }
