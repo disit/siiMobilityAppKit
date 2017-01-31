@@ -481,7 +481,7 @@ var MapManager = {
                     'placement': 'top',
                     'animation': false,
                     'html': true,
-                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnGpsMarker('categories');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; \"> " + Globalization.labels.gpsPopUp.aroundYou + " </b></a></h4>"
+                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnGpsMarker('CategorySearcher');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; \"> " + Globalization.labels.gpsPopUp.aroundYou + " </b></a></h4>"
                 });
                 if (device.platform == "iOS" && initPopUp) {
                     setTimeout(function () { $(element).popover('show'); }, 800);
@@ -520,7 +520,7 @@ var MapManager = {
                     'placement': 'top',
                     'animation': false,
                     'html': true,
-                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnManualMarker('categories');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; white-space: nowrap;\"> " + Globalization.labels.searchPopUp.aroundYou + " </b></a></h4><h4><a onclick=\"MapManager.removeManualMarker();\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: red\"> " + Globalization.labels.searchPopUp.remove + " </b></a></h4>"
+                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnManualMarker('CategorySearcher');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; white-space: nowrap;\"> " + Globalization.labels.searchPopUp.aroundYou + " </b></a></h4><h4><a onclick=\"MapManager.removeManualMarker();\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: red\"> " + Globalization.labels.searchPopUp.remove + " </b></a></h4>"
                 });
                 $(element).popover('show');
             }

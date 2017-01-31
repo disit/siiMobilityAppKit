@@ -33,6 +33,8 @@ var InfoManager = {
     currentTimetable: null,
     menuToManageList: [],
     lastRemovedMenu: null,
+    idMenu: "infoMenu",
+    singleTemplatesList: [],
 
     showImageModal: function (image) {
         var backupExpanded = InfoManager.expanded;
@@ -257,26 +259,33 @@ var InfoManager = {
                     Utility.enrichService(response[category].features[0]);
 
                     if (response[category].features[0].properties.serviceType != null) {
-                        if (response[category].features[0].properties.serviceType == "TransferServiceAndRenting_Car_park") {
-                            ViewManager.render(response, "#infoMenu", "Parking");
-                        } else if (response.busLines != null) {
-                            response.busLines.head.busStopEscaped = Utility.escapeHtml(response.busLines.head.busStop);
-                            if (response.timetable != null) {
-                                InfoManager.currentTimetable = response
-                                if (response.timetable.results != null && response.timetable.results.bindings != null) {
-                                    response.timetable.results.bindingsReduced = response.timetable.results.bindings.slice(0, 10);
-                                    response.timetable.results.bindingsReduced.sort(function (a, b) {
+                        var found = false;
+                        for (var i = 0; i < InfoManager.singleTemplatesList.length; i++) {
+                            if (response[category].features[0].properties.serviceType == InfoManager.singleTemplatesList[i].serviceType) {
+                                window[InfoManager.singleTemplatesList[i].varName]["renderSingleService"](response);
+                                found = true;
+                            }
+                        }
+                        if (!found) {
+                            if (response.busLines != null) {
+                                response.busLines.head.busStopEscaped = Utility.escapeHtml(response.busLines.head.busStop);
+                                if (response.timetable != null) {
+                                    InfoManager.currentTimetable = response
+                                    if (response.timetable.results != null && response.timetable.results.bindings != null) {
+                                        response.timetable.results.bindingsReduced = response.timetable.results.bindings.slice(0, 10);
+                                        response.timetable.results.bindingsReduced.sort(function (a, b) {
                                             var aDate = new Date(a.date.value + "T" + a.departureTime.value);
                                             var bDate = new Date(b.date.value + "T" + b.departureTime.value);
                                             return aDate.getTime() - bDate.getTime();
-                                    });
+                                        });
+                                    }
                                 }
+                                ViewManager.render(response, "#infoMenu", "BusStop");
+                            } else if (response[category].features[0].properties.serviceType == "TransferServiceAndRenting_SensorSite") {
+                                ViewManager.render(response, "#infoMenu", "SensorSite");
+                            } else {
+                                ViewManager.render(response, "#infoMenu", null);
                             }
-                            ViewManager.render(response, "#infoMenu", "BusStop");
-                        } else if (response[category].features[0].properties.serviceType == "TransferServiceAndRenting_SensorSite") {
-                            ViewManager.render(response, "#infoMenu", "SensorSite");
-                        } else {
-                            ViewManager.render(response, "#infoMenu", null);
                         }
                     } else {
                         ViewManager.render(response, "#infoMenu", null);
@@ -502,6 +511,26 @@ var InfoManager = {
                 }
             }
         }
-    }
+    },
+
+    checkNewSingleTemplates: function () {
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "singleTemplate.json", true, InfoManager.loadModulesButton, function (e) {
+        });
+    },
+
+    loadSingleTemplate: function (fullPath) {
+        $.ajax({
+            url: fullPath,
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                InfoManager.addSingleTemplate(data);
+            }
+        });
+    },
+
+    addSingleTemplate: function (singleTemplatesToAdd) {
+        InfoManager.singleTemplatesList = InfoManager.singleTemplatesList.concat(singleTemplatesToAdd);
+    },
 
 }

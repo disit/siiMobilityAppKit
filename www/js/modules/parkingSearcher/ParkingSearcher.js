@@ -58,7 +58,7 @@ var ParkingSearcher = {
             MapManager.showMenuReduceMap("#" + ParkingSearcher.idMenu);
             Utility.checkAxisToDrag("#" + ParkingSearcher.idMenu);
             if (ParkingSearcher.expanded) {
-                ParkingSearcher.expandBusRoutesMenu();
+                ParkingSearcher.expandParkingSearcher();
             }
         }
     },
@@ -68,7 +68,7 @@ var ParkingSearcher = {
             $("#indexPage").
                 append("<div id=\"" + ParkingSearcher.idMenu + "\" class=\"commonHalfMenu\"></div>")
         }
-        ViewManager.render(ParkingSearcher.results, "#" + ParkingSearcher.idMenu, "ParkingMenu");
+        ViewManager.render(ParkingSearcher.results, "#" + ParkingSearcher.idMenu, "js/modules/parkingSearcher/ParkingMenu.mst.html");
         Utility.movingPanelWithTouch("#" + ParkingSearcher.idMenu + "ExpandHandler",
             "#" + ParkingSearcher.idMenu);
         if (ParkingSearcher.expanded) {
@@ -98,7 +98,7 @@ var ParkingSearcher = {
         ParkingSearcher.expanded = false;
     },
 
-    search: function(){
+    search: function () {
         var parkingQuery = QueryManager.createCategoriesQuery(['Car_park'], SearchManager.searchCenter, "user");
         APIClient.executeQuery(parkingQuery, ParkingSearcher.searchInformationForEachFeature, ParkingSearcher.errorQuery);
     },
@@ -117,7 +117,9 @@ var ParkingSearcher = {
                 Loading.showAutoSearchLoading();
                 for (var i = 0; i < response[category].features.length; i++) {
                     var serviceQuery = QueryManager.createServiceQuery(response[category].features[i].properties.serviceUri, "app");
-                    APIClient.executeQueryWithoutAlert(serviceQuery, ParkingSearcher.mergeResults, ParkingSearcher.decrementAndCheckRetrieved);
+                    APIClient.executeQueryWithoutAlert(serviceQuery,
+                        ParkingSearcher.mergeResults,
+                        ParkingSearcher.decrementAndCheckRetrieved);
                 }
             } else {
                 SearchManager.startAutoSearch(ParkingSearcher.varName);
@@ -197,6 +199,10 @@ var ParkingSearcher = {
             Globalization.alerts.servicesServerError.message,
             function () { },
             Globalization.alerts.servicesServerError.title);
+    },
+
+    renderSingleService: function(singleService){
+        ViewManager.render(singleService, "#" + InfoManager.idMenu, "js/modules/parkingSearcher/Parking.mst.html");
     },
 
     resetSearch: function () {

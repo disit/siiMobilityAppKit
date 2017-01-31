@@ -75,9 +75,9 @@ var application = {
         }
 
         setTimeout(function () {
-            Utility.loadFilesInsideDirectory("www/js/lib/", "js", null, true, Utility.loadJS).then(function (e) {
-                Utility.loadFilesInsideDirectory("www/js/core/", "js", null, true, Utility.loadJS).then(function (e) {
-                    Utility.loadFilesInsideDirectory("www/js/modules/", "js", null, true, Utility.loadJS).then(function (e) {
+            Utility.loadFilesInsideDirectory("www/js/lib/", "js", null, true, Utility.loadJS,function (e) {
+                Utility.loadFilesInsideDirectory("www/js/core/", "js", null, true, Utility.loadJS,function (e) {
+                    Utility.loadFilesInsideDirectory("www/js/modules/", "js", null, true, Utility.loadJS, function (e) {
                         if (localStorage.getItem("acceptInformation") === null || (localStorage.getItem("profile") == "all" && localStorage.getItem("appVersion") != application.version)) {
                             ChooseLanguage.show();
                             $("#splashScreenVideoContainer").remove();
@@ -118,8 +118,8 @@ var application = {
         if (!application.checkConnection()) {
             navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
         }
-
         MapManager.createMap();
+        InfoManager.checkNewSingleTemplates();
         $.ajax({
             url: "js/Cesium/Cesium.js",
             dataType: "script",

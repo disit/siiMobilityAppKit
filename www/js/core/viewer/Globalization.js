@@ -33,16 +33,6 @@ var Globalization = {
                 Globalization.labels = data;
             }
         });
-        Utility.loadFilesInsideDirectory("www/js/modules/", null, "labels." + SettingsManager.language + ".json", true, Globalization.loadAndAddLabels);
-        $.ajax({
-            url: application.remoteJsonUrl + "labels/labels." + SettingsManager.language + ".json",
-            cache: false,
-            timeout: Parameters.timeoutGettingMenuCategorySearcher,
-            dataType: "json",
-            success: function (data) {
-                Globalization.modifyLabels(data);
-            }
-        });
         $.ajax({
             url: RelativePath.alerts + "alerts." + SettingsManager.language + ".json",
             async: false,
@@ -55,30 +45,48 @@ var Globalization = {
             url: RelativePath.alerts + "alerts." + device.platform + "." + SettingsManager.language + ".json",
             async: false,
             dataType: "json",
-            success: function(data) {
-                $.extend(Globalization.alerts,data);
-            }
-        });
-        Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts);
-        Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + device.platform + "." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts);
-        $.ajax({
-            url: application.remoteJsonUrl + "alerts/alerts." + SettingsManager.language + ".json",
-            cache: false,
-            timeout: Parameters.timeoutGettingMenuCategorySearcher,
-            dataType: "json",
             success: function (data) {
-                Globalization.modifyAlerts(data);
+                $.extend(Globalization.alerts, data);
             }
         });
-        $.ajax({
-            url: application.remoteJsonUrl + "alerts/alerts." + device.platform + "." + SettingsManager.language + ".json",
-            cache: false,
-            timeout: Parameters.timeoutGettingMenuCategorySearcher,
-            dataType: "json",
-            success: function (data) {
-                Globalization.modifyAlerts(data);
-            }
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "labels." + SettingsManager.language + ".json", true, Globalization.loadAndAddLabels, function (e) {
+            Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts, function (e) {
+                Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + device.platform + "." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts, function (e) {
+                    $.ajax({
+                        url: application.remoteJsonUrl + "labels/labels." + SettingsManager.language + ".json",
+                        cache: false,
+                        timeout: Parameters.timeoutGettingMenuCategorySearcher,
+                        dataType: "json",
+                        success: function (data) {
+                            Globalization.modifyLabels(data);
+                            PrincipalMenu.refreshMenu();
+                        }
+                    });
+                    $.ajax({
+                        url: application.remoteJsonUrl + "alerts/alerts." + SettingsManager.language + ".json",
+                        cache: false,
+                        timeout: Parameters.timeoutGettingMenuCategorySearcher,
+                        dataType: "json",
+                        success: function (data) {
+                            Globalization.modifyAlerts(data);
+                            PrincipalMenu.refreshMenu();
+                        }
+                    });
+                    $.ajax({
+                        url: application.remoteJsonUrl + "alerts/alerts." + device.platform + "." + SettingsManager.language + ".json",
+                        cache: false,
+                        timeout: Parameters.timeoutGettingMenuCategorySearcher,
+                        dataType: "json",
+                        success: function (data) {
+                            Globalization.modifyAlerts(data);
+                            PrincipalMenu.refreshMenu();
+                        }
+                    });
+                })
+            })
         });
+        
+        
     },
 
     loadAndAddLabels: function (fullPath) {
@@ -110,7 +118,9 @@ var Globalization = {
                 if (Globalization.labels[objectName] != null) {
                     Globalization.labels[objectName][fieldName] = labelsToAdd[objectName][fieldName];
                 } else {
-                    Globalization.labels[objectName]= { [fieldName]: labelsToAdd[objectName][fieldName] };
+                    var jsonObject = {};
+                    jsonObject[fieldName] = labelsToAdd[objectName][fieldName];
+                    Globalization.labels[objectName]= jsonObject;
                 }
             }
         }
@@ -120,9 +130,11 @@ var Globalization = {
         for (var objectName in alertsToAdd) {
             for (var fieldName in alertsToAdd[objectName]) {
                 if (Globalization.alerts[objectName] != null) {
-                    Globalization.alerts[objectName][fieldName] = labelsToAdd[objectName][fieldName];
+                    Globalization.alerts[objectName][fieldName] = alertsToAdd[objectName][fieldName];
                 } else {
-                    Globalization.alerts[objectName]= { [fieldName]: labelsToAdd[objectName][fieldName] };
+                    var jsonObject = {};
+                    jsonObject[fieldName] = alertsToAdd[objectName][fieldName];
+                    Globalization.alerts[objectName] = jsonObject;
                 }
             }
         }

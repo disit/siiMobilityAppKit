@@ -76,7 +76,7 @@ var PrincipalMenu = {
             }
         });
 
-        Utility.loadFilesInsideDirectory("www/js/modules/", null, "principalMenu.json", true, PrincipalMenu.loadModulesButton).then(function (e) {
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "principalMenu.json", true, PrincipalMenu.loadModulesButton, function (e) {
             PrincipalMenu.refreshMenu();
             localStorage.setItem("principalMenuButtons", JSON.stringify(PrincipalMenu.principalMenuButtons));
             PrincipalMenu.init = false;
@@ -116,6 +116,11 @@ var PrincipalMenu = {
                 if (PrincipalMenu.principalMenuButtons[j].captionId == buttonsToAdd[i].captionId) {
                     buttonAlreadyInserted = true;
                     if (buttonsToAdd[i].delete != true) {
+                        if (buttonsToAdd[i].forceRemoved) {
+                            PrincipalMenu.principalMenuButtons[j].removed = buttonsToAdd[i].removed;
+                        } else {
+                            buttonsToAdd[i].removed = PrincipalMenu.principalMenuButtons[j].removed;
+                        }
                         PrincipalMenu.principalMenuButtons.splice(j, 1, buttonsToAdd[i]);
                     } else {
                         PrincipalMenu.principalMenuButtons.splice(j, 1);
@@ -124,13 +129,21 @@ var PrincipalMenu = {
                 j++;
             }
             if (!buttonAlreadyInserted && buttonsToAdd[i].delete != true) {
-                for (var k = 0; k < PrincipalMenu.principalMenuButtons.length; k++) {
-                    if (PrincipalMenu.principalMenuButtons[k].removed == true) {
-                        PrincipalMenu.principalMenuButtons.splice(k, 0, buttonsToAdd[i]);
+                if (buttonsToAdd[i].index == 0) {
+                    var inserted = false;
+                    for (var k = 0; k < PrincipalMenu.principalMenuButtons.length; k++) {
+                        if (PrincipalMenu.principalMenuButtons[k].removed == true) {
+                            PrincipalMenu.principalMenuButtons.splice(k, 0, buttonsToAdd[i]);
+                            inserted = true;
                             break;
+                        }
                     }
+                    if (!inserted) {
+                        PrincipalMenu.principalMenuButtons.push(buttonsToAdd[i]);
+                    }
+                } else {
+                    PrincipalMenu.principalMenuButtons.splice(buttonsToAdd[i].index, 0, buttonsToAdd[i]);
                 }
-                PrincipalMenu.principalMenuButtons.push(buttonsToAdd[i]);
             }
         }
         PrincipalMenu.refreshIndexOfMenuButton();

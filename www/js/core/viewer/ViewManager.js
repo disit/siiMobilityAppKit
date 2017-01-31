@@ -42,7 +42,11 @@ var ViewManager = {
                 break;
             }
         } else {
-            template = this.loadTemplate("templates/" + templateName + ".mst.html");
+            if (templateName.indexOf("mst.html") == -1) {
+                template = this.loadTemplate("templates/" + templateName + ".mst.html");
+            } else {
+                template = this.loadTemplate(templateName);
+            }
         }
 
         if (template != "") {

@@ -420,8 +420,7 @@ var Utility = {
         }
     },
 
-    loadFilesInsideDirectory: function (relativeDirectory, type, substring, recursive, callback) {
-        var promise = new Promise(function (resolve, reject) {
+    loadFilesInsideDirectory: function (relativeDirectory, type, substring, recursive, singleFileCallback, finalCallback) {
             window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + relativeDirectory, function (dir) {
                 var reading = 0;
                 function readSome(reader) {
@@ -431,13 +430,19 @@ var Utility = {
                           reading--;
                           if (entries.length > 0) {
                               entries.forEach(function (entry) {
+                                  
                                   if (entry.isDirectory && recursive == true) {
                                       readSome(entry.createReader());
                                   } else if (type != null && entry.name.split('.').pop() == type) {
-                                      callback(entry.fullPath.substring(5));
-
+                                      console.log(entry.fullPath);
+                                      if (singleFileCallback != null) {
+                                          singleFileCallback(entry.fullPath.substring(5));
+                                      }
                                   } else if (substring != null && entry.name.indexOf(substring) != -1) {
-                                      callback(entry.fullPath.substring(5));
+                                      console.log(entry.fullPath);
+                                      if (singleFileCallback != null) {
+                                          singleFileCallback(entry.fullPath.substring(5));
+                                      }
                                   }
                               })
                           }
@@ -448,7 +453,9 @@ var Utility = {
                               if (substring != null) {
                                   console.log("DONE LOAD " + substring + " ON " + relativeDirectory);
                               }
-                              resolve("SUCCESS LOAD OF " + relativeDirectory);
+                              if (finalCallback != null) {
+                                  finalCallback("SUCCESS LOAD OF " + relativeDirectory);
+                              }
                           }
                       },
                       function (err) {
@@ -458,8 +465,6 @@ var Utility = {
                 }
                 readSome(dir.createReader());
             });
-        });
-        return promise;
     },
 
     loadJS: function (fullPath) {
