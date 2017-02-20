@@ -1,0 +1,89 @@
+
+<div id="idMenu" class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
+
+    <div id="idHandlerMenu" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal">
+            
+        </div>
+    </div>
+
+    <div class="panel-heading" style="padding: 0px 10px;height: 52px; border: none;">
+
+        <a class="pull-right" onclick="ModuloSapeviCheNel.hide();">
+            <i class="glyphicon glyphicon-remove" style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+
+        <a id="idExpandMenu" class="pull-left" onclick="ModuloSapeviCheNel.expandMenu();">
+            <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        
+        <a id="idCollapseMenu" class="pull-left" onclick="ModuloSapeviCheNel.collapseMenu();">
+            <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+
+        <b id="idHeaderTitleMenu" style="line-height: 52px;color: #333;">
+            <script>
+                $("#idHeaderTitleMenu").html(Globalization.labels.menuSapeviCheNel.title)
+            </script>
+        </b>
+
+    </div>
+</div>
+
+<div id="idInnerMenu" class="commonHalfMenuInner">
+
+    <!-- {{#features}} {{#properties}}-->
+
+    <div class="panel panel-default" style="margin: 0px 5px 10px 5px; color: #000; text-decoration: none;" onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{nameEscaped}}','{{civic}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}}, '{{#properties}}{{alternativeIcon}}{{/properties}}');">
+        <div class="panel-body card-2" style="position:relative">
+            {{#properties}}
+
+                {{#imageThumb}}
+                    <img id="parkingMenuImage{{identifier}}" src="{{imageThumb}}" style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">
+                {{/imageThumb}}
+                
+                <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
+                
+                <b style="text-align: center">
+                    {{#unescapeHtml}}
+                        {{name}}
+                    {{/unescapeHtml}}
+                </b>
+            
+                {{#typeLabel}}
+                    <br>
+                    <b id="parkingMenuTypeLabel{{identifier}}">
+                        <script>
+                            $("#parkingMenuTypeLabel{{identifier}}").html(Globalization.labels.infoMenu.type)
+                        </script>
+                    </b>
+                    {{typeLabel}}
+                {{/typeLabel}}
+
+                {{#distanceFromSearchCenter}}
+                    <br>
+                    <b id="parkingMenuTextSearchDistanceFromSearchCenter{{identifier}}">
+                        <script>
+                            $("#parkingMenuTextSearchDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromSearchCenter)
+                        </script>
+                    </b>
+                    {{distanceFromSearchCenter}} m
+                {{/distanceFromSearchCenter}}
+            
+                {{#distanceFromGPS}}
+                    <br>
+                    <b id="parkingMenuTextSearchDistanceFromGPS{{identifier}}">
+                        <script>
+                            $("#parkingMenuTextSearchDistanceFromGPS{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromGPS)
+                        </script>
+                    </b>
+                    {{distanceFromGPS}} m
+                {{/distanceFromGPS}}
+
+            {{/properties}}
+        </div>
+    </div>
+
+    <!-- {{/features}} -->
+
+</div>
