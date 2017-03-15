@@ -1,24 +1,3 @@
-/* SII-MOBILITY DEV KIT MOBILE APP KM4CITY.
-   Copyright (C) 2016 DISIT Lab http://www.disit.org/6981 - University of Florence
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Affero General Public License
-   as published by the Free Software Foundation.
-   The interactive user interfaces in modified source and object code versions 
-   of this program must display Appropriate Legal Notices, as required under 
-   Section 5 of the GNU Affero GPL . In accordance with Section 7(b) of the 
-   GNU Affero GPL , these Appropriate Legal Notices must retain the display 
-   of the "Sii-Mobility Dev Kit Mobile App Km4City" logo. The Logo "Sii-Mobility
-  Dev Kit Mobile App Km4City" must be a clickable link that leads directly to the
-  Internet URL http://www.sii-mobility.org oppure a DISIT Lab., using 
-  technology derived from  Http://www.km4city.org.
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU Affero General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
-*/
 var MapManager = {
 
     map: null,
@@ -39,7 +18,7 @@ var MapManager = {
     ticketButton: null,
     cyclePathsButton: null,
     carParkButton: null,
-    busStopButton:null,
+    busStopButton: null,
     greenAreasButton: null,
     infoSOCButton: null,
     searchArea: null,
@@ -56,7 +35,7 @@ var MapManager = {
     currentHeading: null,
     defaultLatitude: 43.7761,
     defaultLongitude: 11.2484,
-    lastSearchPerformed: "",
+    menuToCheckForClick: null,
 
 
     createMap: function () {
@@ -81,7 +60,7 @@ var MapManager = {
             });
 
             if (MapManager.navigationSearchButton == null) {
-                    MapManager.addSingleButton('<i class=\"icon ion-navigate\"></i>', function () { if (NavigatorSearcher.started != true) { NavigatorSearcher.start(); } else { NavigatorSearcher.stop(); } MapManager.centerMapOnGps(); }, 'navigationSearchButton ol-unselectable ol-control', "navigationSearchButton");
+                MapManager.addSingleButton('<i class=\"icon ion-navigate\"></i>', function () { if (NavigatorSearcher.started != true) { NavigatorSearcher.start(); } else { NavigatorSearcher.stop(); } MapManager.centerMapOnGps(); }, 'navigationSearchButton ol-unselectable ol-control', "navigationSearchButton");
             }
 
             if (MapManager.gpsButton == null) {
@@ -94,6 +73,7 @@ var MapManager = {
             MapManager.map.on('singleclick', function (event) {
                 MapManager.removeSearchArea();
                 var feature = MapManager.getFeaturesAtPixel(event.pixel);
+                var manualMarkerCallback = "CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnManualMarker('CategorySearcher')";
                 MapManager.closePopUp();
                 if (feature) {
                     if (feature.get('name') == "gps") {
@@ -105,7 +85,13 @@ var MapManager = {
                             MapManager.initializeAndUpdatePopUpGpsMarker();
                         }
                     } else if (feature.get('name') == "manual") {
-                        MapManager.initializeAndUpdatePopUpManualMarker();
+                        if (MapManager.menuToCheckForClick != null) {
+                            if (window[MapManager.menuToCheckForClick]["clickOnManualMarker"] != null) {
+                                window[MapManager.menuToCheckForClick]["clickOnManualMarker"](event);
+                            }
+                        } else {
+                            MapManager.initializeAndUpdatePopUpManualMarker(Globalization.labels.searchPopUp.aroundYou, manualMarkerCallback);
+                        }
                     } else if (feature.get('name') != null) {
                         var lnglat = ol.proj.toLonLat(feature.getGeometry().getCoordinates());
                         MapManager.addSelectedServiceMarker(feature.get('serviceType'), feature.get('name').replace(/_/g, " ").toLowerCase(), feature.get('civic'), feature.get('busLines'), feature.get('agency'), feature.get('serviceUri'), lnglat[1], lnglat[0], feature.get('alternativeIcon'));
@@ -113,16 +99,28 @@ var MapManager = {
                     }
                 } else if (typeof NavigatorSearcher != "undefined") {
                     if (NavigatorSearcher.started != true) {
-                        MapManager.addManualMarker(event.coordinate);
+                        if (MapManager.menuToCheckForClick != null) {
+                            if (window[MapManager.menuToCheckForClick]["clickOnMap"] != null) {
+                                window[MapManager.menuToCheckForClick]["clickOnMap"](event);
+                            }
+                        } else {
+                            MapManager.addManualMarker(event.coordinate, Globalization.labels.searchPopUp.aroundYou, manualMarkerCallback);
+                        }
                     }
                 } else {
-                    MapManager.addManualMarker(event.coordinate);
+                    if (MapManager.menuToCheckForClick != null) {
+                        if (window[MapManager.menuToCheckForClick]["clickOnMap"] != null) {
+                            window[MapManager.menuToCheckForClick]["clickOnMap"](event);
+                        }
+                    } else {
+                        MapManager.addManualMarker(event.coordinate, Globalization.labels.searchPopUp.aroundYou, manualMarkerCallback);
+                    }
                 }
             });
         }
     },
 
-    activate3d: function(){
+    activate3d: function () {
         if (MapManager.map != null && MapManager.map3d == null) {
             try {
                 MapManager.map3d = new olcs.OLCesium({ map: MapManager.map }); // map is the ol.Map instance
@@ -140,7 +138,7 @@ var MapManager = {
         }
     },
 
-    disabling3d: function(){
+    disabling3d: function () {
         if (MapManager.map3d != null) {
             MapManager.map3d.setEnabled(false);
             MapManager.map3d = null;
@@ -151,7 +149,7 @@ var MapManager = {
         }
     },
 
-    getFeaturesAtPixel: function(pixel) {
+    getFeaturesAtPixel: function (pixel) {
         var featureToReturn = null;
         if (MapManager.map3d && MapManager.map3d.getEnabled()) {
             var pickedObject = MapManager.map3d.getCesiumScene().pick(new Cesium.Cartesian2(pixel[0], pixel[1]));
@@ -177,12 +175,15 @@ var MapManager = {
         }
     },
 
-    disactiveInterationsForNavigation: function(){
-        MapManager.map.getInteractions().forEach(function(interaction) {
+    disactiveInterationsForNavigation: function () {
+        MapManager.map.getInteractions().forEach(function (interaction) {
             if (interaction instanceof ol.interaction.DragPan) {
-                interaction.setActive(false);
+                interaction.setActive(false); 
             }
             if (interaction instanceof ol.interaction.PinchRotate) {
+                interaction.setActive(false);
+            }
+            if (interaction instanceof ol.interaction.DragZoom) {
                 interaction.setActive(false);
             }
         }, this);
@@ -192,12 +193,15 @@ var MapManager = {
 
     },
 
-    activeIntereationsAfterNavigation: function(){
+    activeIntereationsAfterNavigation: function () {
         MapManager.map.getInteractions().forEach(function (interaction) {
             if (interaction instanceof ol.interaction.DragPan) {
                 interaction.setActive(true);
             }
             if (interaction instanceof ol.interaction.PinchRotate) {
+                interaction.setActive(true);
+            }
+            if (interaction instanceof ol.interaction.DragZoom) {
                 interaction.setActive(true);
             }
         }, this);
@@ -213,7 +217,7 @@ var MapManager = {
         }
     },
 
-    addSingleButton: function(innerHTML, callback, className, buttonToAdd){
+    addSingleButton: function (innerHTML, callback, className, buttonToAdd) {
         var buttonFunction = function (opt_options) {
 
             var options = opt_options || {};
@@ -241,8 +245,9 @@ var MapManager = {
         MapManager[buttonToAdd] = new buttonFunction();
         MapManager.map.addControl(MapManager[buttonToAdd]);
     },
-            
+
     addVariableButtons: function () {
+
         if (MapManager.manualButton == null) {
             MapManager.addSingleButton('<i class=\"glyphicon glyphicon-map-marker\"></i>', function () { MapManager.centerMapOnManual(); }, 'manualButton ol-unselectable ol-control', "manualButton");
         }
@@ -251,19 +256,21 @@ var MapManager = {
             MapManager.addSingleButton('<i class=\"glyphicon glyphicon-calendar\"></i>', function () { EventsSearcher.search("week"); }, 'eventsButton ol-unselectable ol-control', "eventsButton");
         }
         if (MapManager.cyclePathsButton == null) {
-            MapManager.addSingleButton('<i class=\"icon ion-android-bicycle\"></i>', function () {CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("CategorySearcher");}, 'cyclePathsButton ol-unselectable ol-control', "cyclePathsButton");
-        } 
+            MapManager.addSingleButton('<i class=\"icon ion-android-bicycle\"></i>', function () { CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("CategorySearcher"); }, 'cyclePathsButton ol-unselectable ol-control', "cyclePathsButton");
+        }
+
+
         if (MapManager.greenAreasButton == null) {
             MapManager.addSingleButton('<img style="height:23px" src="img/greenAreas.png">', function () { CategorySearcher.forceSelectedKeys = ["Green_areas", "Gardens"]; SearchManager.search("CategorySearcher"); }, 'greenAreasButton ol-unselectable ol-control', "greenAreasButton");
         } 
         if (MapManager.carParkButton == null) {
-            MapManager.addSingleButton('<b>P</b>', function () { CategorySearcher.forceSelectedKeys = ["Car_park"]; SearchManager.search("CategorySearcher"); }, 'carParkButton ol-unselectable ol-control', "carParkButton");
+            MapManager.addSingleButton('<b>P</b>', function () { SearchManager.search('ParkingSearcher'); }, 'carParkButton ol-unselectable ol-control', "carParkButton");
         }
 
         if (MapManager.busStopButton == null) {
-            MapManager.addSingleButton('<i class=\"icon ion-android-bus\"></i>', function () { CategorySearcher.tplSearch = true; CategorySearcher.forceSelectedKeys = ["BusStop", "Train_station", "Tram_stops", "Ferry_stop"]; SearchManager.search("CategorySearcher"); }, 'busStopButton ol-unselectable ol-control', "busStopButton");
+            MapManager.addSingleButton('<i class=\"icon ion-android-bus\"></i>', function () { SearchManager.search('TPLSearcher'); }, 'busStopButton ol-unselectable ol-control', "busStopButton");
         }
-        
+
     },
 
     removeNavigationButtons: function () {
@@ -276,7 +283,7 @@ var MapManager = {
             MapManager.activate3dVisualButton = null;
         }
     },
-    
+
     removeVariableButtons: function () {
         if (MapManager.ticketButton != null) {
             MapManager.map.removeControl(MapManager.ticketButton);
@@ -318,19 +325,20 @@ var MapManager = {
             MapManager.map.removeControl(MapManager.sharingButton);
             MapManager.sharingButton = null;
         }
+
     },
 
     centerMapOnGps: function () {
-        if (MapManager.gpsMarker != null && MapManager.map!= null) {
+        if (MapManager.gpsMarker != null && MapManager.map != null) {
             MapManager.map.getView().setCenter(MapManager.gpsMarker.getSource().getFeatures()[0].getGeometry().getCoordinates());
             MapManager.map.getView().setZoom(16);
-	    if (typeof NavigatorSearcher != "undefined") {
-            	if (NavigatorSearcher.started != true) {
-                	$(document.getElementById('gpsPopup')).popover('show');
-            	}
-	    } else {
-		$(document.getElementById('gpsPopup')).popover('show');
-	    }
+            if (typeof NavigatorSearcher != "undefined") {
+                if (NavigatorSearcher.started != true) {
+                    $(document.getElementById('gpsPopup')).popover('show');
+                }
+            } else {
+                $(document.getElementById('gpsPopup')).popover('show');
+            }
         } else if (MapManager.manualMarker != null) {
             navigator.notification.alert(Globalization.alerts.noPosition.message, function () { }, Globalization.alerts.noPosition.title);
         } else {
@@ -401,7 +409,7 @@ var MapManager = {
                     rad = ((360 - MapManager.currentHeading + MapManager.correctRotation) * Math.PI) / 180;
                 } else if (screen.orientation.angle != null) {
                     rad = ((360 - screen.orientation.angle - MapManager.currentHeading + MapManager.correctRotation) * Math.PI) / 180;
-                    
+
                 } else {
                     if (screen.orientation == "portrait-primary") {
                         rad = ((360 - MapManager.currentHeading + MapManager.correctRotation) * Math.PI) / 180;
@@ -481,7 +489,7 @@ var MapManager = {
                     'placement': 'top',
                     'animation': false,
                     'html': true,
-                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnGpsMarker('CategorySearcher');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; \"> " + Globalization.labels.gpsPopUp.aroundYou + " </b></a></h4>"
+                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnGpsMarker('CategorySearcher');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; \"> " + Globalization.labels.gpsPopUp.aroundYou + " </b></a></h4><h4><a onclick=\"Instigator.show();Instigator.getSuggestions('gps', true);\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: green; \"> " + Globalization.labels.gpsPopUp.suggestions + " </b></a></h4><h4><a onclick=\"Instigator.show(); MapManager.addGeoJSONLayerWithoutArea(Instigator.response);\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: purple; white-space: nowrap;\"> " + Globalization.labels.gpsPopUp.lastSuggestions + " </b></a></h4>"
                 });
                 if (device.platform == "iOS" && initPopUp) {
                     setTimeout(function () { $(element).popover('show'); }, 800);
@@ -500,7 +508,7 @@ var MapManager = {
         }
     },
 
-    initializeAndUpdatePopUpManualMarker: function () {
+    initializeAndUpdatePopUpManualMarker: function (label, callback) {
         if (MapManager.map != null) {
             if (MapManager.manualMarker != null) {
                 $(document.getElementById('manualPopup')).popover('destroy');
@@ -520,7 +528,7 @@ var MapManager = {
                     'placement': 'top',
                     'animation': false,
                     'html': true,
-                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnManualMarker('CategorySearcher');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; white-space: nowrap;\"> " + Globalization.labels.searchPopUp.aroundYou + " </b></a></h4><h4><a onclick=\"MapManager.removeManualMarker();\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: red\"> " + Globalization.labels.searchPopUp.remove + " </b></a></h4>"
+                    'content': "<h4><a onclick=\"" + callback + "\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; white-space: nowrap;\"> " + label + " </b></a></h4><h4><a onclick=\"Instigator.show();Instigator.getSuggestions('manual', true);\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: green; white-space: nowrap;\"> " + Globalization.labels.searchPopUp.suggestions + " </b></a></h4><h4><a onclick=\"MapManager.removeManualMarker();\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: red\"> " + Globalization.labels.searchPopUp.remove + " </b></a></h4>"
                 });
                 $(element).popover('show');
             }
@@ -666,7 +674,7 @@ var MapManager = {
                     });
                 }
             }
-           
+
         }
 
         searchAreaFeature.setStyle(areaStyle);
@@ -820,12 +828,12 @@ var MapManager = {
                     MapManager.geometryWktLayer[category].getSource().addFeatures(features);
                 }
 
-                
+
             }
         }
     },
 
-    addManualMarker: function (coordinates) {
+    addManualMarker: function (coordinates,label, callback) {
         if (MapManager.manualMarker === null) {
             var manualFeature = new ol.Feature({
                 geometry: new ol.geom.Point(coordinates),
@@ -854,7 +862,7 @@ var MapManager = {
         } else {
             MapManager.manualMarker.getSource().getFeatures()[0].setGeometry(new ol.geom.Point(coordinates));
         }
-        MapManager.initializeAndUpdatePopUpManualMarker();
+        MapManager.initializeAndUpdatePopUpManualMarker(label, callback);
     },
 
     addSelectedServiceMarker: function (serviceType, name, civic, busLines, agency, serviceUri, latitude, longitude, alternativeIcon) {
@@ -886,7 +894,7 @@ var MapManager = {
             var iconUrl = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/over/' + alternativeIcon + '_over.png', "over");
         }
 
-        
+
 
         var iconStyle = new ol.style.Style({
             image: new ol.style.Icon({
@@ -927,7 +935,7 @@ var MapManager = {
 
         if (civic != "" && civic != null && (typeof serviceType == 'undefined' || serviceType == "")) {
             content += "<i id=\"civicNumber\">" + Globalization.labels.textSearchMenu.civic + "</i>" + civic;
-        } 
+        }
         if (agency != "" && agency != null && serviceType.indexOf("TransferServiceAndRenting_BusStop") !== -1) {
             content += "<span>" + agency + "</span><br>";
         }
@@ -953,39 +961,39 @@ var MapManager = {
                 MapManager.selectedGeometry = null;
             }
 
-                var feature = (new ol.format.WKT().readFeature(wktGeometry, {
-                        dataProjection: 'EPSG:4326',
-                        featureProjection: 'EPSG:3857'
-                    }));
-         
-                    geometryStyle = new ol.style.Style({
-                        fill: new ol.style.Fill({
-                            color: 'rgba(120, 0, 170, 0.3)'
-                        }),
-                        stroke: new ol.style.Stroke({
-                            color: '#7800aa',
-                            width: 4
-                        })
-                    });
+            var feature = (new ol.format.WKT().readFeature(wktGeometry, {
+                dataProjection: 'EPSG:4326',
+                featureProjection: 'EPSG:3857'
+            }));
 
-                feature.setStyle(geometryStyle);
+            geometryStyle = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: 'rgba(120, 0, 170, 0.3)'
+                }),
+                stroke: new ol.style.Stroke({
+                    color: '#7800aa',
+                    width: 4
+                })
+            });
 
-                if (MapManager.selectedGeometry == null) {
-                    MapManager.selectedGeometry = new ol.layer.Vector({
-                        source: new ol.source.Vector({
-                            features: [feature]
-                        })
+            feature.setStyle(geometryStyle);
+
+            if (MapManager.selectedGeometry == null) {
+                MapManager.selectedGeometry = new ol.layer.Vector({
+                    source: new ol.source.Vector({
+                        features: [feature]
+                    })
+                });
+                if (MapManager.map != null) {
+                    MapManager.map.addLayer(MapManager.selectedGeometry);
+                    MapManager.selectedGeometry.setZIndex(0);
+                    MapManager.map.getView().fit(MapManager.selectedGeometry.getSource().getExtent(), MapManager.map.getSize(), {
+                        constrainResolution: false,
+                        padding: [130, 30, 10, 30]
                     });
-                    if (MapManager.map != null) {
-                        MapManager.map.addLayer(MapManager.selectedGeometry);
-                        MapManager.selectedGeometry.setZIndex(0);
-                        MapManager.map.getView().fit(MapManager.selectedGeometry.getSource().getExtent(), MapManager.map.getSize(), {
-                            constrainResolution: false,
-                            padding: [130, 30, 10, 30]
-                        });
-                    }
                 }
             }
+        }
     },
 
 
@@ -1102,7 +1110,7 @@ var MapManager = {
             'left': $('#content').width() * 0.48 + 'px',
         });
         $('#settingsLoadingImage').css({
-           'left': $('#content').width() * 0.48 + 'px',
+            'left': $('#content').width() * 0.48 + 'px',
         });
 
         $('#autoSearchLoadingImage').css({
@@ -1110,42 +1118,50 @@ var MapManager = {
         });
 
         MapManager.updateMap();
-        
+
     },
 
     reduceMenuShowMap: function (idDivMenu) {
-            $(idDivMenu).css({
-                'bottom': '-100%',
-                'top': 'auto',
-                'right': 'auto',
-                'width': '100%',
-                'height': '35%'
-            });
-            $('#content').css({
-                'height': '100%',
-                'width': '100%'
-            });
-            $('#servicesFounded').css({
-                'left': '20%',
-                'width': '60%',
+        $(idDivMenu).css({
+            'bottom': '-100%',
+            'top': 'auto',
+            'right': 'auto',
+            'width': '100%',
+            'height': '35%'
+        });
+        $('#content').css({
+            'height': '100%',
+            'width': '100%'
+        });
+        $('#servicesFounded').css({
+            'left': '20%',
+            'width': '60%',
 
-            });
-            $('#loadingImage').css({
-                'left': '48%',
-            });
-            $('#settingsLoadingImage').css({
-                'left': '48%',
-            });
-            $('#autoSearchLoadingImage').css({
-                'left': '48%',
-            });
-            $('#categorySearchMenu').css('height', $('#content').height() + 'px');
-            MapManager.updateMap();
-            
+        });
+        $('#loadingImage').css({
+            'left': '48%',
+        });
+        $('#settingsLoadingImage').css({
+            'left': '48%',
+        });
+        $('#autoSearchLoadingImage').css({
+            'left': '48%',
+        });
+        $('#categorySearchMenu').css('height', $('#content').height() + 'px');
+        MapManager.updateMap();
+
     },
 
     disableGpsZoom: function () {
         MapManager.gpsZoom = false;
-    }
+    },
 
-}
+    addingMenuToCheck: function (menuToCheck) {
+        MapManager.menuToCheckForClick = menuToCheck;
+    },
+
+    removingMenuToCheck: function () {
+        MapManager.menuToCheckForClick = null;
+    },
+
+};
