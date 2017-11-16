@@ -2,29 +2,38 @@
 
 [Sii-Mobility](http://www.sii-mobility.org) Dev Kit [Mobile App](http://www.km4city.org/app/)[Km4city](http://www.km4city.org) è un kit di sviluppo per creare app ibride (attraverso il framework [Apache Cordova](https://cordova.apache.org) utilizzando l'infastruttura [Km4city](http://www.km4city.org) creata e mantenuta da [Disit Lab](http://www.disit.org) presso l'[Università degli studi di Firenze](http://www.unifi.it).
 
+Read this in other languages: [English](https://github.com/disit/siiMobilityAppKit/blob/master/Readme.en.md)
+
 ## Getting Started
 
 # Requirements
 
  - [Java Development Kit >= 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - [Node.js >= LTS 6.9.4](https://nodejs.org/it/) 
- - Cordova Apache >= 6.4.0 (Si può installare con il comando `npm install -g cordova` dato all'interno del "Prompt dei comandi"
- - [Android Studio >= 2.2.3](https://developer.android.com/studio/index.html)
+ - [Node.js >= LTS 8.9.1](https://nodejs.org/it/) 
+ - [Cordova Apache >= 7.1.0] (https://cordova.apache.org/)
+ - Android Studio >= 3.0.0](https://developer.android.com/studio/index.html)
+ - [Grunt >= 1.0.1](https://gruntjs.com/)
  - Driver USB relativi al dispositivo sul quale andrete a testare l'app generata (per esempio quelli [SAMSUNG](http://downloadcenter.samsung.com/content/DR/201602/20160217043054798/SAMSUNG_USB_Driver_for_Mobile_Phones_v1.5.45.00.exe))
 
 # First Start
 
  1. Installati i requisiti dovrete scaricare questo progetto da github e posizionarlo in una cartella all'interno del PC
  2. Aprite il "Prompt dei comandi" e navigate fino a raggiungere la root del progetto.
- 3. Eseguite il comando `cordova build android`
- 4. Risultato building
-	1. Se tutto è andato a buon fine avrete ricevuto come output (ovviamente i secondi che ha impiegato ad eseguire il build possono cambiare), seguito dal percorso che indica dove è stato creato l'APK di debug (di default %YOUR_FOLDER%/siiMobilityAppKit/platforms/android/build/outputs/apk/android-debug.apk:
+ 3. Installate i seguenti pacchetti con i comandi:
+	* npm install grunt-json-merger
+	* npm install grunt-contrib-concat
+	* npm install grunt-contrib-clean 
+ 4. Eseguite il comando 'build' (tale comando unirà rispettivamente i file js e i file json delle labels e salverà i file risultanti in www/js/build)
+ 5. Risultato building
+	* Se tutto è andato a buon fine avrete ricevuto come output (ovviamente i secondi che ha impiegato ad eseguire il build possono cambiare), seguito dal percorso che indica dove è stato creato l'APK di debug (di default %YOUR_FOLDER%/siiMobilityAppKit/platforms/android/build/outputs/apk/android-debug.apk:
 	```
-	BUILD SUCCESSFUL
-	Total time: 5.169 secs
-	Built the following apk(s)
-	```
- 	2. Se appare un messaggio di errore relativo a licenze non accettate, si deve aprire Android Studio e controllare che sia stato installato l'SDK attraverso l'SDK Manager e installare eventuali aggiornamenti proposti. Durante tali aggiornamenti vi sarà richiesto di accettare alcune licenze e questo sbloccherà l'errore che si presentava durante il build dell'apk. Fatto questo ripartite dal punto 3.
+	BUILD SUCCESSFUL in 3m 40s
+		47 actionable tasks: 13 executed, 34 up-to-date
+		Built the following apk(s):
+		```
+ 	* Se appare un messaggio di errore relativo a licenze non accettate, si deve aprire Android Studio e controllare che sia stato installato l'SDK attraverso l'SDK Manager e installare eventuali aggiornamenti proposti. Durante tali aggiornamenti vi sarà richiesto di accettare alcune licenze e questo sbloccherà l'errore che si presentava durante il build dell'apk. Fatto questo ripartite dal punto 4.
+
+N.B.: Quando viene creato un nuovo modulo, per la visualizzazione del nuovo bottone nel menù, si deve inserire l'oggetto JSON relativo al bottone all'interno del file www/js/data/json/PrincipalMenu.json
 
 ## Bugs and Issues
 
