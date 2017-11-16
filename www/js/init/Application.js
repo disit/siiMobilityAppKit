@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -40,15 +40,17 @@
 var application = {
 
     appID: "smak-x",
-    version: "0.0.1",
+    version: "0.0.2",
     uid: null,
     uid2: null,
     menuToCheckArray: [],
     remoteJsonUrl: "http://www.disit.org/km4city/appdevkit/",
 
+
     initialize: function () {
         application.bindEvents();
     },
+
 
     bindEvents: function () {
         document.addEventListener('deviceready', application.onDeviceReady, false);
@@ -59,81 +61,60 @@ var application = {
     },
 
     checkConnection: function () {
-        var networkState = navigator.connection.type;
-        if (networkState == Connection.NONE) {
-            return false;
-        }
         return true;
     },
 
     onDeviceReady: function () {
         application.receivedEvent('deviceready');
-        if (device.platform == "Android") {
-            var loadAllTimeout = 5500;
-        } else {
-            loadAllTimeout = 0;
+        var loadAllTimeout = 0;
+        if (device.platform == "Android" || device.platform == "windows") {
+            if (localStorage.getItem("acceptInformation") === null || (localStorage.getItem("profile") == "all" && localStorage.getItem("appVersion") != application.version)) {
+                loadAllTimeout = 5500;
+            } 
         }
 
         setTimeout(function () {
-            Utility.loadFilesInsideDirectory("www/js/lib/", "js", null, true, Utility.loadJS,function (e) {
-                Utility.loadFilesInsideDirectory("www/js/core/", "js", null, true, Utility.loadJS,function (e) {
-                    Utility.loadFilesInsideDirectory("www/js/modules/", "js", null, true, Utility.loadJS, function (e) {
-                        if (localStorage.getItem("acceptInformation") === null || (localStorage.getItem("profile") == "all" && localStorage.getItem("appVersion") != application.version)) {
-                            ChooseLanguage.show();
-                            $("#splashScreenVideoContainer").remove();
-                            screen.unlockOrientation();
-                        } else {
-                            application.startingApp();
-                        }
+            if (localStorage.getItem("acceptInformation") === null || (localStorage.getItem("profile") == "all" && localStorage.getItem("appVersion") != application.version)) {
+                ChooseLanguage.show();
+            } else {
+                application.startingApp();
+            }
 
-                        cordova.getAppVersion.getVersionNumber().then(function (version) {
-                            application.version = version;
-                        });
-
-                        cordova.getAppVersion.getAppName().then(function (appName) {
-                            application.appID = appName.substring(0, 1).toLowerCase() + "dck-" + device.platform.substring(0, 1).toLowerCase();
-                        });
-                        application.uid = forge_sha256(device.uuid);
-                        if (typeof window.MacAddress != "undefined") {
-                            window.MacAddress.getMacAddress(
-                                function (macAddress) {
-                                    application.uid2 = hex_md5(macAddress.toLowerCase().replace(/:/g, "")).substring(0, 24);
-                                    application.uid2 = XXH.h64(application.uid2, 0).toString(16);
-                                },
-                                function (fail) { }
-                            );
-                        }
-                    })
-                })
-            });
         }, loadAllTimeout);
 
+        cordova.getAppVersion.getVersionNumber().then(function (version) {
+            application.version = version;
+        });
 
+        cordova.getAppVersion.getAppName().then(function (appName) {
+            application.appID = appName.substring(0, 1).toLowerCase() + "dck-" + device.platform.substring(0, 1).toLowerCase();
+        });
+        application.uid = forge_sha256(device.uuid);
     },
 
     startingApp: function () {
         SettingsManager.initializeSettings();
-        PrincipalMenu.show();
-        screen.unlockOrientation();
+        
         if (!application.checkConnection()) {
             navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
         }
+
         MapManager.createMap();
+        PrincipalMenu.show();
+
+
+
+
+
+
         InfoManager.checkNewSingleTemplates();
-        $.ajax({
-            url: "js/Cesium/Cesium.js",
-            dataType: "script",
-            success: function () {
-                CESIUM_BASE_URL = "js/Cesium";
-            }
-        });
+       
         if (device.platform == "Win32NT" || device.platform == "windows") {
             application.resetBackButtonListener();
         }
-
     },
 
-    resetInterface: function(){
+    resetInterface: function () {
         for (var i = application.menuToCheckArray.length - 1; i >= 0; i--) {
             if (window[application.menuToCheckArray[i]] != null) {
                 if (window[application.menuToCheckArray[i]]["closeAll"] != null) {
@@ -141,10 +122,46 @@ var application = {
                 }
             }
         }
+        MapManager.reduceMenuShowMap(null, true);
+    },
+
+    confirm: function (msg, callback, title, buttons) {
+        var buttonsWithLabel = [];
+
+        for (var i = 0; i < buttons.length; i++) {
+            var button = {
+                "label": buttons[i],
+                "indexButton": i + 1,
+                "callback": callback.toString().replace(/}$/, "").replace(/.+{/, "").replace(/indexButton/g, i + 1)
+            }
+            buttonsWithLabel.push(button);
+        }
+
+        var confirmModal = {
+            "msg": msg,
+            "title": title,
+            "buttonsWithLabel": buttonsWithLabel
+        }
+
+        ViewManager.render(confirmModal, "#dialogModal", "DialogModal");
+
+        $('#dialogModal').modal('show');
+    },
+
+    alert: function (msg, callback, title) {
+        var alertModal = {
+            "msg": msg,
+            "title": title
+        }
+
+        ViewManager.render(alertModal, "#dialogModal", "Alert");
+
+        $('#dialogModal').modal('show');
+
     },
 
     onResize: function () {
-        for (var i = 0; i < application.menuToCheckArray.length; i++) {
+        for (var i = application.menuToCheckArray.length - 1; i >= 0; i--) {
             if (window[application.menuToCheckArray[i]] != null) {
                 if (window[application.menuToCheckArray[i]]["refreshMenuPosition"] != null) {
                     window[application.menuToCheckArray[i]]["refreshMenuPosition"]();
@@ -154,68 +171,91 @@ var application = {
     },
 
     onBackKeyDown: function (event) {
+        if (device.platform != "Web" || event.oldURL.indexOf("#b") != -1) {
+            if (device.platform == "Android" || device.platform == "iOS") {
+                if (PrincipalMenu.open && !ChooseLanguage.open && !ChooseProfile.open && !PrincipalMenu.secondaryMenuOpen) {
+                    if (PrincipalMenu.modifing) {
+                        PrincipalMenu.savePrincipalMenu();
+                    } else {
+                        PrincipalMenu.resetEventsBadge();
+                        application.close();
+                    }
+                }
+            }
 
-        if (device.platform == "Android" || device.platform == "iOS") {
-            if (PrincipalMenu.open && !ChooseLanguage.open && !ChooseProfile.open) {
+            if (application.menuToCheckArray.length == 0) {
+                PrincipalMenu.show();
                 if (PrincipalMenu.modifing) {
                     PrincipalMenu.savePrincipalMenu();
                 } else {
-                    PrincipalMenu.resetEventsBadge();
-                    application.close();
+                    application.resetBackButtonListener();
                 }
-            }
-        }
-
-        if (application.menuToCheckArray.length == 0) {
-            PrincipalMenu.show();
-            if (PrincipalMenu.modifing) {
-                PrincipalMenu.savePrincipalMenu();
             } else {
-                application.resetBackButtonListener();
-            }
-        } else {
-            if (window[application.menuToCheckArray[0]] != null) {
-                if (window[application.menuToCheckArray[0]]["checkForBackButton"] != null) {
-                    window[application.menuToCheckArray[0]]["checkForBackButton"]();
+                if (window[application.menuToCheckArray[0]] != null) {
+                    if (window[application.menuToCheckArray[0]]["open"] != null && application.menuToCheckArray[0] != "PrincipalMenu") {
+                        if (window[application.menuToCheckArray[0]]["open"] == false) {
+                            application.resetInterface();
+                            PrincipalMenu.show();
+                        }
+                    }
+                }
+                if (window[application.menuToCheckArray[0]] != null) {
+                    if (window[application.menuToCheckArray[0]]["checkForBackButton"] != null) {
+                        window[application.menuToCheckArray[0]]["checkForBackButton"]();
+                    }
+                }
+                if (application.menuToCheckArray.length == 0) {
+                    if (!PrincipalMenu.open && device.platform != "Web") {
+                        window.plugins.toast.showWithOptions(
+                            {
+                                message: Globalization.labels.principalMenu.returnMenu,
+                                duration: "long", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself. 
+                                position: "bottom",
+                                addPixelsY: -40 // added a negative value to move it up a bit (default 0) 
+                            },
+                            function () { }, // optional
+                            function () { } // optional 
+                        );
+                    }
                 }
             }
-        }
 
-        if (application.menuToCheckArray.length == 0) {
-            if (!PrincipalMenu.open && device.platform != "Web") {
-                window.plugins.toast.showWithOptions({
-                    message: Globalization.labels.principalMenu.returnMenu,
-                    duration: "long", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself. 
-                    position: "bottom",
-                    addPixelsY: -40 // added a negative value to move it up a bit (default 0) 
-                },
-                    function () { }, // optional
-                    function () { } // optional 
-                );
+            
+            if (device.platform == "Web" && !PrincipalMenu.open) {
+                application.setBackButtonListener();
             }
         }
     },
 
     onPause: function (event) {
-        if (typeof GpsManager != "undefined") {
-            GpsManager.stopWatchingPosition();
+        if (device.platform != "Web") {
+
+            if (typeof GpsManager != "undefined") {
+                GpsManager.stopWatchingPosition();
+            }
         }
     },
 
     onResume: function (event) {
-        if (typeof GpsManager != "undefined") {
-            GpsManager.watchingPosition();
+        if (device.platform != "Web") {
+
+
+            if (typeof GpsManager != "undefined") {
+                GpsManager.watchingPosition();
+            }
         }
     },
 
     close: function () {
-        navigator.Backbutton.goHome(function () { }, function () { });
+        if (device.platform != "Web") {
+            navigator.Backbutton.goHome(function () { }, function () { });
+        }
     },
 
     setBackButtonListener: function () {
         if (device.platform == "Win32NT" || device.platform == "windows") {
             document.addEventListener('backbutton', application.onBackKeyDown, false);
-        }
+        } 
     },
 
     resetBackButtonListener: function () {
@@ -224,7 +264,7 @@ var application = {
         }
     },
 
-    addingMenuToCheck: function(menuToCheck){
+    addingMenuToCheck: function (menuToCheck) {
         application.menuToCheckArray.unshift(menuToCheck);
     },
 
@@ -236,5 +276,6 @@ var application = {
     },
 
     // Update DOM on a Received Event
-    receivedEvent: function (id) { }
+    receivedEvent: function (id) {
+    }
 };

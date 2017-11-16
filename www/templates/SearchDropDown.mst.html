@@ -1,0 +1,22 @@
+﻿ <!-- {{#features}}    {{#properties}} -->
+    {{#properties}}<li class="list-group-item" style="min-height:50px" onclick="{{generalCallback}}MapManager.centerMapOnCoordinates({{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{#nameEscaped}}{{nameEscaped}}{{/nameEscaped}}{{^nameEscaped}}{{#address}}{{address}}{{/address}}{{#civic}},{{civic}}{{/civic}}{{^address}}{{city}}{{/address}}{{/nameEscaped}}','{{civic}}','{{busLines}}','{{agency}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}}, '{{#properties}}{{alternativeIcon}}{{/properties}}');">
+                       {{/properties}}
+    {{#properties}}
+    {{#imageThumb}}<img id="resultsMenuImage{{identifier}}" src="{{imageThumb}}"
+                        style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
+    <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
+    {{#name}}<b style="text-align: center; text-transform: capitalize">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>{{/name}}
+    {{#address}} <b style="text-align: center; text-transform: capitalize">
+        {{address}},{{civic}} {{cap}} {{city}} {{province}}
+    </b>{{/address}}
+                       {{^address}} <b style="text-align: center; text-transform: capitalize">
+                           {{city}}
+                       </b>{{/address}}
+    {{#distanceFromSomething}}
+    <br>
+    {{#distanceFromGPS}} <i class="glyphicon glyphicon-record"></i> {{distanceFromGPS}} m{{/distanceFromGPS}}
+    {{#distanceFromSearchCenter}}<i class="glyphicon glyphicon-map-marker"></i> {{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+
+    {{/distanceFromSomething}}{{/properties}}
+</li>
+<!-- {{/features}} -->

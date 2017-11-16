@@ -46,6 +46,21 @@ var FeedbackManager = {
         }
     },
 
+    sendDirectStars: function (stars) {
+        if (stars != 0) {
+            var feedbackQuery = QueryManager.createFeedbackQuery(FeedbackManager.currentServiceUri, null, stars, "user");
+            APIClient.executeQueryText(feedbackQuery, function () { }, function () { });
+        }
+    },
+
+    sendDirectComment: function(){
+        var comment = $("#serviceTextAreaComment").val();
+        if (comment != 0) {
+            var feedbackQuery = QueryManager.createFeedbackQuery(FeedbackManager.currentServiceUri, comment, null, "user");
+            APIClient.executeQueryText(feedbackQuery, FeedbackManager.successComments, FeedbackManager.errorComments);
+        }
+    },
+
     successStars: function (response) {
         $("#inputStarsFeedbackModal").rating('clear');
         $("#inputStarsSendPhotoModal").rating('clear');
@@ -91,7 +106,7 @@ var FeedbackManager = {
         navigator.notification.alert(Globalization.alerts.sendCommentError.message, function () { }, Globalization.alerts.sendCommentError.title);
     },
 
-    sendVoteSuggestion: function(serviceUri, genID, vote, suggType){
+    sendVoteSuggestion: function (serviceUri, genID, vote, suggType) {
         var voteSuggestionQuery = QueryManager.createVoteSuggestion(serviceUri, genID, vote, suggType);
         APIClient.executeRecommenderQueryWithoutAlert(voteSuggestionQuery, FeedbackManager.successVoteSuggestion, FeedbackManager.errorVoteSuggestion);
     },
@@ -108,13 +123,18 @@ var FeedbackManager = {
 
     showModal: function (serviceUri) {
         FeedbackManager.currentServiceUri = serviceUri;
-        $("#starsModalCancelButton").html(Globalization.labels.feedbackModal.cancel);
-        $("#starsModalSendButton").html(Globalization.labels.pictureModal.send);
+        $("#starsModalCancelButton").html(Globalization.labels.commonLabels.cancel);
+        $("#starsModalSendButton").html(Globalization.labels.commonLabels.send);
+        $("#userStarsLabelSendFeedbackModal").html(Globalization.labels.infoMenu.userStars);
+        $("#commentLabelSendFeedbackModal").html(Globalization.labels.infoMenu.comment);
         $("#buttonUploadPhotoFeedbackModal").html(Globalization.labels.feedbackModal.uploadPhoto);
         $("#buttonTakePhotoFeedbackModal").html(Globalization.labels.feedbackModal.takePhoto);
-        $("#textAreaCommentsFeedbackModal").attr("placeholder", Globalization.labels.feedbackModal.comment);
+        //$("#textAreaCommentsFeedbackModal").attr("placeholder", Globalization.labels.feedbackModal.comment);
         $("#starsModal").modal('show');
         $('#starsModal').on('hide.bs.modal', function (e) { FeedbackManager.modalOpen = false; });
+        $("#inputStarsFeedbackModal").parent().children("div.rating").children("span.empty-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+        $("#inputStarsFeedbackModal").parent().children("div.rating").children("span.filled-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+
         FeedbackManager.modalOpen = true;
 
         if (device.platform == "Web") {
@@ -128,7 +148,7 @@ var FeedbackManager = {
                 if (input.target.files != null) {
                     var filesReadedArray = [];
                     var formDataArray = [];
-                    
+
                     for (var i = 0; i < input.target.files.length; i++) {
                         var reader = new FileReader();
                         FeedbackManager.currentType = input.target.files[i].type;
@@ -138,7 +158,7 @@ var FeedbackManager = {
                             var fd = new FormData();
                             fd.append("file", blob, FeedbackManager.currentFileName);
                             formDataArray.push(fd);
-                            
+
                             if (formDataArray.length == input.target.files.length) {
                                 PictureManager.formDataArrayToUpload = formDataArray;
                             }
@@ -185,7 +205,12 @@ var FeedbackManager = {
         $("#textAreaCommentsFeedbackModal").val("");
         FeedbackManager.hideModal();
         PictureManager.pickPhotoFromAlbum(FeedbackManager.currentServiceUri);
-        
+
+    },
+
+    setServiceUri: function (serviceUri) {
+        FeedbackManager.currentServiceUri = Utility.unescapeHtml(serviceUri);
     }
 
-}
+};
+

@@ -46,9 +46,9 @@ var CompassManager = {
 
     onErrorInit: function (error) {
         if (CompassManager.checkCompass === null && error.code != 3 && error.code != 20) {
-                CompassManager.checkCompass = setInterval(function () {
-                    CompassManager.initializeHeading();
-                }, CompassManager.timeout);
+            CompassManager.checkCompass = setInterval(function () {
+                CompassManager.initializeHeading();
+            }, CompassManager.timeout);
         }
     },
 
@@ -58,7 +58,7 @@ var CompassManager = {
 
     onSuccessUpdate: function (heading) {
         var newHeading = Math.round(heading.magneticHeading);
-        if (Math.abs(newHeading - CompassManager.heading) > 6 ) {
+        if (Math.abs(newHeading - CompassManager.heading) > 6) {
             CompassManager.heading = newHeading;
             if (CompassManager.heading != 0 && CompassManager.heading != null && !isNaN(CompassManager.heading)) {
                 CompassManager.isAvailable = true;
@@ -83,4 +83,4 @@ var CompassManager = {
         }
         return null;
     }
-}
+};

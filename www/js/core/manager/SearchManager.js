@@ -24,8 +24,10 @@ var SearchManager = {
     searchCenter: null,
     typeOfSearchCenter: null,
     currentType: null,
+    fireLastCallback: false,
 
     search: function (searcher) {
+        SearchManager.fireLastCallback = false;
         SearchManager.currentType = searcher;
         if (MapManager.gpsMarkerCoordinates() != null) {
             if (MapManager.manualMarkerCoordinates() != null) {
@@ -98,6 +100,9 @@ var SearchManager = {
                             if (indexButton == 3) {
                                 CheckGPS.openSettings();
                             }
+                            if (indexButton == 2) {
+                                SearchManager.fireLastCallback = true;
+                            }
                         }
                     }, Globalization.alerts.noPosition.title, Globalization.alerts.noPosition.buttonName);
                 }
@@ -111,13 +116,13 @@ var SearchManager = {
         SearchManager.rightSearch(searcher);
     },
 
-    searchOnGpsMarker: function(searcher){
+    searchOnGpsMarker: function (searcher) {
         SearchManager.searchCenter = MapManager.gpsMarkerCoordinates();
         SearchManager.typeOfSearchCenter = "gpsMarker";
         SearchManager.rightSearch(searcher);
     },
 
-    searchOnSelectedServiceMarker: function(searcher){
+    searchOnSelectedServiceMarker: function (searcher) {
         SearchManager.searchCenter = MapManager.selectedServiceMarkerCoordinates();
         SearchManager.typeOfSearchCenter = "selectedServiceMarker";
         SearchManager.rightSearch(searcher);
@@ -165,4 +170,4 @@ var SearchManager = {
         }
     }
 
-}
+};

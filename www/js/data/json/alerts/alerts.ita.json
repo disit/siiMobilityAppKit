@@ -1,12 +1,17 @@
 {
   "connectionError": {
-    "message": "Nessuna connessione internet attiva. Controlla se la connessione wi-fi o la connessione dati sono attive.",
+    "message": "Non è stato possibile recuperare le informazioni richieste. Prova ad effettuare nuovamente la richiesta!",
     "title": "Controlla La Connessione",
     "buttonName": ""
   },
   "servicesCategoryNotSelected": {
     "message": "Non è stato selezionato nessun servizio da ricercare.",
     "title": "Servizi Non Selezionati",
+    "buttonName": ""
+  },
+  "timeoutError": {
+    "message": "Non è stato possibile recuperare le informazioni richieste. Prova ad effettuare nuovamente la richiesta.",
+    "title": "Controlla La Connessione",
     "buttonName": ""
   },
   "servicesServerError": {
@@ -40,18 +45,18 @@
     "buttonName": ""
   },
   "chooseGpsManualSearchCenter": {
-    "message": "Scegli il centro dell'area di ricerca dei servizi o la posizione della quale si desidera sapere il meteo.",
-    "title": "Ricerca",
+    "message": "Dove vuoi cercare?",
+    "title": "",
     "buttonName": [ "GPS", "Posizione Manuale" ]
   },
   "chooseGpsServiceSearchCenter": {
-    "message": "Scegli il centro dell'area di ricerca dei servizi o la posizione della quale si desidera sapere il meteo.",
-    "title": "Ricerca",
+    "message": "Dove vuoi cercare?",
+    "title": "",
     "buttonName": [ "GPS", "Ultimo Servizio" ]
   },
   "chooseManualServiceSearchCenter": {
-    "message": "Scegli il centro dell'area di ricerca dei servizi o la posizione della quale si desidera sapere il meteo.",
-    "title": "Ricerca",
+    "message": "Dove vuoi cercare?",
+    "title": "",
     "buttonName": [ "Posizione Manuale", "Ultimo Servizio" ]
   },
   "addCalendarSuccess": {
@@ -126,6 +131,74 @@
     "message": "E' necessario abilitare i permessi di geolocalizzazione nelle impostazioni del browser.",
     "title": "Permesso Negato",
     "buttonName": ""
+  },
+  "saveSettings": {
+    "message": "Vuoi salvare?",
+    "title": "",
+    "buttonName": [ "Annulla", "Salva" ]
+  },
+  "wrongEmail": {
+    "message": "Non è stata inserita una email",
+    "title": "",
+    "buttonName": ""
+  },
+  "wrongConfirmPassword": {
+    "message": "Le due password sono diverse",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyemail": {
+    "message": "Email non inserita",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptypassword": {
+    "message": "Password non inserita",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyconfirmPassword": {
+    "message": "La password deve essere confermata",
+    "title": "",
+    "buttonName": ""
+  },
+  "welcomeToApp": {
+    "message": "Benvenuto in Km4city!!!",
+    "title": "",
+    "buttonName": ""
+  },
+  "unauthorized": {
+    "message": "Non sei registrato o hai inserito email e/o password sbagliate",
+    "title": "",
+    "buttonName": ""
+  },
+  "updateApp": {
+    "message": "Per accedere al tuo profilo devi aggiornare la app",
+    "title": "",
+    "buttonName": [ "Annulla", "Aggiorna" ]
+  },
+  "updateServer": {
+    "message": "Stiamo aggiornando il server",
+    "title": "",
+    "buttonName": ""
+  },
+  "userDuplicate": {
+    "message": "Utente già registrato",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecified": {
+    "message": "Per favore autorizza le informazioni relative alla mail",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecifiedFB": {
+    "message": "Non puoi registrarti se non autorizzi le informazioni relative alla mail",
+    "title": "",
+    "buttonName": [ "Annulla", "Autorizzo Email" ]
   }
 }
+
+
+
 

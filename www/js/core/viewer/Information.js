@@ -34,7 +34,7 @@ var Information = {
         application.setBackButtonListener();
     },
 
-    hide: function() {
+    hide: function () {
         $('#information').hide(Parameters.hidePanelGeneralDuration);
         Information.open = false;
         application.removingMenuToCheck("Information");
@@ -53,8 +53,6 @@ var Information = {
     },
 
     closeAll: function () {
-        if (Information.open) {
             Information.hide();
-        }
     }
-}
+};

@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cordova-plugin-x-socialsharing"
-        version="5.1.1">
+        version="5.2.1">
 
   <name>SocialSharing</name>
 
@@ -25,6 +25,8 @@
     <engine name="cordova" version=">=3.0.0"/>
   </engines>
 
+  <dependency id="es6-promise-plugin" version="4.1.0" />
+
   <js-module src="www/SocialSharing.js" name="SocialSharing">
     <clobbers target="window.plugins.socialsharing" />
   </js-module>
@@ -38,9 +40,13 @@
         <param name="onload" value="true" />
       </feature>
     </config-file>
+          
+    <config-file target="*-Info.plist" parent="NSPhotoLibraryAddUsageDescription">
+      <string>This app requires photo library access to function properly.</string>
+    </config-file>
 
-    <header-file src="src/ios/NSString+URLEncoding.h"/>
-    <source-file src="src/ios/NSString+URLEncoding.m"/>
+    <header-file src="src/ios/NSString+SSURLEncoding.h"/>
+    <source-file src="src/ios/NSString+SSURLEncoding.m"/>
     <header-file src="src/ios/SocialSharing.h"/>
     <source-file src="src/ios/SocialSharing.m"/>
 
@@ -61,7 +67,17 @@
       <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     </config-file>
 
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <provider android:authorities="${applicationId}.sharing.provider" android:exported="false" android:grantUriPermissions="true" android:name="nl.xservices.plugins.FileProvider">
+        <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/sharing_paths" />
+      </provider>
+    </config-file>
+
     <source-file src="src/android/nl/xservices/plugins/SocialSharing.java" target-dir="src/nl/xservices/plugins"/>
+    <source-file src="src/android/nl/xservices/plugins/FileProvider.java" target-dir="src/nl/xservices/plugins"/>
+    <source-file src="src/android/res/xml/sharing_paths.xml" target-dir="res/xml"/>
+
+    <framework src="com.android.support:support-v4:24.1.1+" />
   </platform>
 
   <!-- wp8 -->
@@ -75,13 +91,12 @@
     <source-file src="src/wp8/SocialSharing.cs" />
     <framework src="src/wp8/Newtonsoft.Json.dll" custom="true"/>
   </platform>
-  
+
   <!-- windows -->
   <platform name="windows">
     <js-module src="src/windows/SocialSharingProxy.js" name="SocialSharingProxy">
-      <merges target="" />
+      <runs />
     </js-module>
-    <source-file src="" />
   </platform>
 
 </plugin>

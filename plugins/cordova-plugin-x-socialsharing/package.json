@@ -1,13 +1,15 @@
 {
   "name": "cordova-plugin-x-socialsharing",
-  "version": "5.1.1",
+  "version": "5.2.1",
   "description": "Share text, images (and other files), or a link via the native sharing widget of your device. Android is fully supported, as well as iOS 6 and up. WP8 has somewhat limited support.",
   "cordova": {
     "id": "cordova-plugin-x-socialsharing",
     "platforms": [
       "ios",
       "android",
-      "wp8"
+      "wp8",
+      "windows",
+      "web"
     ]
   },
   "repository": {
@@ -26,6 +28,7 @@
     "Pocket",
     "LinkedIn",
     "cordova",
+    "WebShare",
     "ecosystem:cordova",
     "cordova-ios",
     "cordova-android",
@@ -37,10 +40,40 @@
       "version": ">=3.0.0"
     }
   ],
-  "author": "Eddy Verbruggen - @EddyVerbruggen",
+  "author": {
+    "name": "Eddy Verbruggen - @EddyVerbruggen"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin/issues"
   },
-  "homepage": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin#readme"
+  "homepage": "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin#readme",
+  "gitHead": "ea07539955202581db3e5f5a9f296fae96362521",
+  "_id": "cordova-plugin-x-socialsharing@5.2.1",
+  "scripts": {},
+  "_shasum": "dbc354b993f9b7b1600396822d8202b73cc581f3",
+  "_from": "cordova-plugin-x-socialsharing@latest",
+  "_npmVersion": "3.10.10",
+  "_nodeVersion": "6.10.3",
+  "_npmUser": {
+    "name": "eddyverbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "dist": {
+    "shasum": "dbc354b993f9b7b1600396822d8202b73cc581f3",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-x-socialsharing/-/cordova-plugin-x-socialsharing-5.2.1.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "eddyverbruggen",
+      "email": "eddyverbruggen@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-x-socialsharing-5.2.1.tgz_1508348281484_0.49444950511679053"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-x-socialsharing/-/cordova-plugin-x-socialsharing-5.2.1.tgz",
+  "readme": "ERROR: No README data found!"
 }

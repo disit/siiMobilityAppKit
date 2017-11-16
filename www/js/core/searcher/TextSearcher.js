@@ -1,112 +1,74 @@
-/* SII-MOBILITY DEV KIT MOBILE APP KM4CITY.
-   Copyright (C) 2016 DISIT Lab http://www.disit.org/6981 - University of Florence
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Affero General Public License
-   as published by the Free Software Foundation.
-   The interactive user interfaces in modified source and object code versions 
-   of this program must display Appropriate Legal Notices, as required under 
-   Section 5 of the GNU Affero GPL . In accordance with Section 7(b) of the 
-   GNU Affero GPL , these Appropriate Legal Notices must retain the display 
-   of the "Sii-Mobility Dev Kit Mobile App Km4City" logo. The Logo "Sii-Mobility
-  Dev Kit Mobile App Km4City" must be a clickable link that leads directly to the
-  Internet URL http://www.sii-mobility.org oppure a DISIT Lab., using 
-  technology derived from  Http://www.km4city.org.
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU Affero General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
-*/
 var TextSearcher = {
 
     open: false,
-    expanded: false,
     results: null,
     varName: "TextSearcher",
     idMenu: "textSearchMenu",
     text: null,
-    fullSearch: false,
+    currentCoordinates: null,
+    isManualCoordinates: false,
+    isGPSCoordinates: false,
+    clickOnManualButton: false,
 
     refreshMenu: function () {
         if ($("#" + TextSearcher.idMenu).length == 0) {
-            $("#indexPage").append("<div id=\"" + TextSearcher.idMenu + "\" class=\"commonHalfMenu\"></div>")
+            $("#indexPage").append("<div id=\"" + TextSearcher.idMenu + "\"></div>")
         }
         ViewManager.render(TextSearcher.results, "#" + TextSearcher.idMenu, "TextSearchMenu");
+        if (TextSearcher.isGPSCoordinates) {
+            $("#buttonGPSCoordinates").removeClass("btn-default").addClass("btn-primary");
+        }
+        if (TextSearcher.isManualCoordinates) {
+            $("#buttonManualCoordinates").removeClass("btn-default").addClass("btn-primary");
+        }
         $("#" + TextSearcher.idMenu + "Input").val(TextSearcher.text);
-        Utility.movingPanelWithTouch("#" + TextSearcher.idMenu + "ExpandHandler", "#" + TextSearcher.idMenu);
     },
 
     search: function () {
-        if (SearchManager.searchCenter != null || TextSearcher.fullSearch) {
-            TextSearcher.text = $("#" + TextSearcher.idMenu + "Input").val();
-            if (TextSearcher.text != "") {
-                    if (TextSearcher.fullSearch) {
-                        var fullTextQuery = QueryManager.createFullTextQuery(TextSearcher.text);
-                        APIClient.executeQuery(fullTextQuery, TextSearcher.successQuery, TextSearcher.errorQuery, "user");
-                    } else {
-                        var textQuery = QueryManager.createTextQuery(TextSearcher.text, SearchManager.searchCenter, "user");
-                        APIClient.executeQuery(textQuery, TextSearcher.successQuery, TextSearcher.errorQuery);
-                    }
-            } else {
-                navigator.notification.alert(Globalization.alerts.noTextToSearch.message, function () { }, Globalization.alerts.noTextToSearch.title);
+        $('#listPOISearched').dropdown().hide();
+        TextSearcher.text = $("#" + TextSearcher.idMenu + "Input").val();
+        if (TextSearcher.text != "") {
+            var shortcut = false;
+            if (TextSearcher.text == "km4citytestmodeon") {
+                APIClient.useTestAPI();
+                TextSearcher.hide();
+                shortcut = true;
+            }
+            if (TextSearcher.text == "km4citytestmodeoff") {
+                APIClient.useProductionAPI();
+                TextSearcher.hide();
+                shortcut = true;
+            }
+            if (!shortcut) {
+                var textQuery = QueryManager.createAddressPOISearchQuery(TextSearcher.text, TextSearcher.currentCoordinates, true, "AND", [], "user");
+                APIClient.executeQuery(textQuery, TextSearcher.successQuery, TextSearcher.errorQuery);
             }
         } else {
-            navigator.notification.confirm(Globalization.alerts.noPosition.message, function (indexButton) {
-                if (device.platform == "Android") {
-                    if (indexButton == 3) {
-                        CheckGPS.openSettings();
-                    }
-                    if (indexButton == 1 || indexButton == 0) {
-                        TextSearcher.resetSearch();
-                    }
-                } else if (device.platform == "iOS" || device.platform == "Win32NT" || device.platform == "windows") {
-                    if (indexButton == 1 || indexButton == 0) {
-                        TextSearcher.resetSearch();
-                    }
-
-                }
-            }, Globalization.alerts.noPosition.title, Globalization.alerts.noPosition.buttonName);
+            navigator.notification.alert(Globalization.alerts.noTextToSearch.message, function () { }, Globalization.alerts.noTextToSearch.title);
         }
     },
 
     onKeyEnter: function (event) {
         if (event.which == 13 || event.keyCode == 13) {
-            TextSearcher.collapseTextSearchMenu();
-            SearchManager.search(TextSearcher.varName);
+            TextSearcher.search();
             return false;
         }
         return true;
     },
 
-    expandTextSearchMenu: function () {
-        Utility.expandMenu("#" + TextSearcher.idMenu, "#" + TextSearcher.idMenu + "Expand", "#" + TextSearcher.idMenu + "Collapse");
-        TextSearcher.expanded = true;
-    },
-
-    collapseTextSearchMenu: function () {
-        Utility.collapseMenu("#" + TextSearcher.idMenu, "#" + TextSearcher.idMenu + "Expand", "#" + TextSearcher.idMenu + "Collapse");
-        TextSearcher.expanded = false;
-    },
-
     show: function () {
         application.resetInterface();
         TextSearcher.refreshMenu();
-        MapManager.showMenuReduceMap("#" + TextSearcher.idMenu);
-        $("#" + TextSearcher.idMenu + "Collapse").hide();
-        TextSearcher.expandTextSearchMenu();
+        $("#" + TextSearcher.idMenu).show();
         $("#" + TextSearcher.idMenu + "Input").focus();
+        TextSearcher.setCoordinatesToManual();
         TextSearcher.open = true;
-        InfoManager.addingMenuToManage(TextSearcher.varName);
         application.addingMenuToCheck(TextSearcher.varName);
         application.setBackButtonListener();
     },
 
     hide: function () {
-        $("#" + TextSearcher.idMenu).css({ 'z-index': '1001' });
-        MapManager.reduceMenuShowMap("#" + TextSearcher.idMenu);
-        InfoManager.removingMenuToManage(TextSearcher.varName);
+        $("#" + TextSearcher.idMenu).hide();
         application.removingMenuToCheck(TextSearcher.varName);
         TextSearcher.open = false;
     },
@@ -117,41 +79,23 @@ var TextSearcher = {
         }
     },
 
-    refreshMenuPosition: function () {
-        if (TextSearcher.open) {
-            MapManager.showMenuReduceMap("#" + TextSearcher.idMenu);
-            Utility.checkAxisToDrag("#" + TextSearcher.idMenu);
-            if (TextSearcher.expanded) {
-                TextSearcher.expandTextSearchMenu();
-            }
-        }
-    },
-
     closeAll: function () {
-        if (TextSearcher.open) {
             TextSearcher.hide();
-        }
     },
 
     resetSearch: function () {
-        TextSearcher.fullSearch = false;
         QueryManager.resetMaxDists();
-        TextSearcher.collapseTextSearchMenu();
         Loading.hideAutoSearchLoading();
     },
 
-    activeFullSearch: function () {
-        TextSearcher.fullSearch = true;
-    },
-
-
-    resetInputText: function(){
+    resetInputText: function () {
         $("#" + TextSearcher.idMenu + "Input").val('');
         $("#" + TextSearcher.idMenu + "Input").focus();
+        $('#listPOISearched').dropdown().hide();
     },
 
     inputTextOnFocus: function () {
-        TextSearcher.expandTextSearchMenu();
+        TextSearcher.searchPOIFast();
     },
 
     //callBack
@@ -163,6 +107,7 @@ var TextSearcher = {
         if (response.features.length != 0) {
 
             for (var i = 0; i < response.features.length; i++) {
+                response.features[i].properties.serviceType = response.features[i].properties.serviceType.replace(/\ /g, "_");
                 Utility.enrichService(response.features[i], i);
             }
             if (response.features[0].properties.distanceFromSearchCenter != null) {
@@ -175,27 +120,20 @@ var TextSearcher = {
                 });
             }
 
-            if (TextSearcher.fullSearch) {
-                MapManager.addGeoJSONLayerWithoutArea({
-                    "Results": response
-                });
-            } else {
-                MapManager.addGeoJSONLayer({
-                    "Results": response
-                });
-            }
+            MapManager.addGeoJSONLayerWithoutArea({
+                "Results": response
+            });
+
+
             TextSearcher.results = response;
-            TextSearcher.refreshMenu();
+            CategorySearcher.results = response;
+            CategorySearcher.refreshMenu();
+            CategorySearcher.showWithoutResetInterface();
             TextSearcher.resetSearch();
             CategorySearcher.hidePanelMenu();
 
         } else {
-            if (TextSearcher.fullSearch) {
-                navigator.notification.alert(Globalization.alerts.noFullTextResults.message, function () { }, Globalization.alerts.noFullTextResults.title);
-                TextSearcher.fullSearch = false;
-            } else {
-                SearchManager.startAutoSearch(TextSearcher.varName);
-            }
+            navigator.notification.alert(Globalization.alerts.noFullTextResults.message, function () { }, Globalization.alerts.noFullTextResults.title);
         }
 
     },
@@ -204,6 +142,103 @@ var TextSearcher = {
     errorQuery: function (error) {
         TextSearcher.resetSearch();
         navigator.notification.alert(Globalization.alerts.servicesServerError.message, function () { }, Globalization.alerts.servicesServerError.title);
+    },
+
+    searchPOIFast: function () {
+        TextSearcher.text = $("#" + TextSearcher.idMenu + "Input").val();
+        if (TextSearcher.text.length >= 3) {
+            $("#listPOISearched").html("<img src='img/loader.gif' style='position: absolute;left: 40%;' width='64'>");
+            var addressPOISearchQuery = QueryManager.createAddressPOISearchQuery(TextSearcher.text, TextSearcher.currentCoordinates, true, "AND", [], "user");
+            APIClient.executeQueryWithoutAlert(addressPOISearchQuery, TextSearcher.successFastQuery);
+        } else if (TextSearcher.text == "") {
+            $('#listPOISearched').dropdown().hide();
+        }
+    },
+
+    successFastQuery: function (response) {
+        var responseObject = {
+            "Results": {
+                "fullCount": 0,
+                "type": "FeatureCollection",
+                "features": []
+            }
+        };
+
+        var itemToShow = response.features.length > 20 ? 20 : response.features.length;
+
+        for (var i = 0; i < itemToShow; i++) {
+            response.features[i].properties.serviceType = response.features[i].properties.serviceType.replace(/\ /g, "_");
+            if (response.features[i].properties.address != null) {
+                response.features[i].properties.address = response.features[i].properties.address.replace(/'/g, " ");
+            }
+            if (response.features[i].properties.city != null) {
+                response.features[i].properties.city = response.features[i].properties.city.replace(/'/g, " ");
+            }
+
+            responseObject["Results"].features.push(response.features[i]);
+        }
+
+        if (responseObject["Results"].features.length != 0) {
+            for (var i = 0; i < responseObject["Results"].features.length; i++) {
+                responseObject["Results"].features[i].id = i;
+                Utility.enrichService(responseObject["Results"].features[i], i);
+            }
+            if (responseObject["Results"].features[0].properties.distanceFromSearchCenter != null) {
+                responseObject["Results"].features.sort(function (a, b) {
+                    return a.properties.distanceFromSearchCenter - b.properties.distanceFromSearchCenter
+                });
+            } else {
+                responseObject["Results"].features.sort(function (a, b) {
+                    return a.properties.distanceFromGPS - b.properties.distanceFromGPS
+                });
+            }
+            responseObject["Results"]["generalCallback"] = "TextSearcher.hide();";
+            SearchDropDown.createAndShow("#listPOISearched", responseObject["Results"]);
+            $("#listPOISearched").css("max-height", $(window).height() * 0.8 + "px");
+        } else {
+            $('#listPOISearched').dropdown().show();
+            $("#listPOISearched").html("<b style='position: absolute;left: 35%;top: 25px;'>" + Globalization.labels.timetable.noResults + "</b>");
+        }
+    },
+
+    setCoordinatesToManual: function () {
+        if (MapManager.manualMarkerCoordinates() != null) {
+            $("#buttonManualCoordinates").removeClass("btn-default").addClass("btn-primary");
+            $("#buttonGPSCoordinates").removeClass('btn-primary').addClass("btn-default");
+            TextSearcher.currentCoordinates = MapManager.manualMarkerCoordinates();
+            TextSearcher.isManualCoordinates = true;
+            TextSearcher.isGPSCoordinates = false;
+            TextSearcher.searchPOIFast();
+        } else {
+            if (TextSearcher.clickOnManualButton) {
+                navigator.notification.alert(Globalization.alerts.manualPosition.message, function () { }, Globalization.alerts.manualPosition.title);
+            }
+            $("#buttonManualCoordinates").removeClass('btn-primary').addClass("btn-default");
+            TextSearcher.setCoordinatesToGPS(true);
+        }
+        TextSearcher.clickOnManualButton = false;
+    },
+
+    setCoordinatesToGPS: function (fromManualButton) {
+        if (MapManager.gpsMarkerCoordinates() != null) {
+            $("#buttonGPSCoordinates").removeClass("btn-default").addClass("btn-primary");
+            $("#buttonManualCoordinates").removeClass('btn-primary').addClass("btn-default");
+            TextSearcher.currentCoordinates = MapManager.gpsMarkerCoordinates();
+            TextSearcher.isManualCoordinates = false;
+            TextSearcher.isGPSCoordinates = true;
+            TextSearcher.searchPOIFast();
+        } else {
+            $("#buttonGPSCoordinates").removeClass('btn-primary').addClass("btn-default");
+            if (!fromManualButton) {
+                navigator.notification.confirm(Globalization.alerts.noPosition.message, function (indexButton) {
+                    if (device.platform == "Android") {
+                        if (indexButton == 3) {
+                            CheckGPS.openSettings();
+                        }
+                    }
+                }, Globalization.alerts.noPosition.title, Globalization.alerts.noPosition.buttonName);
+            }
+        }
     }
 
-}
+};

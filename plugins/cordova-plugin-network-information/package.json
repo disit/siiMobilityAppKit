@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-network-information",
-  "version": "1.3.0",
+  "version": "1.3.4",
   "description": "Cordova Network Information Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-network-information",
     "platforms": [
@@ -21,7 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-network-information"
+    "url": "git+https://github.com/apache/cordova-plugin-network-information.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
   "keywords": [
     "cordova",
@@ -42,10 +46,12 @@
     "cordova-browser"
   ],
   "scripts": {
-    "test": "npm run jshint",
-    "jshint": "jshint www && jshint src && jshint tests"
+    "test": "npm run eslint",
+    "eslint": "eslint www && eslint src && eslint tests"
   },
-  "author": "Apache Software Foundation",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
@@ -55,6 +61,58 @@
     }
   },
   "devDependencies": {
-    "jshint": "^2.6.0"
-  }
+    "eslint": "^4.0.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-network-information#readme",
+  "_id": "cordova-plugin-network-information@1.3.4",
+  "_shasum": "28f426cc2659174dc622a07180f9ba0d855f7383",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-network-information/-/cordova-plugin-network-information-1.3.4.tgz",
+  "_from": "cordova-plugin-network-information@latest",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "28f426cc2659174dc622a07180f9ba0d855f7383",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-network-information/-/cordova-plugin-network-information-1.3.4.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-network-information-1.3.4.tgz_1510361675508_0.08514285227283835"
+  },
+  "directories": {}
 }

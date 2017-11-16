@@ -13,17 +13,23 @@
         <a id="busRoutesMenuCollapse" class="pull-left" onclick="BusRoutesSearcher.collapseBusRoutesMenu();">
             <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
         </a>
-        <b id="busRoutesHeaderTitle" style="line-height: 52px; color: #333;">
+        <p id="busRoutesHeaderTitle" style="line-height: 52px; color: #333;font-weight: bold;">
             <script>
                 $("#busRoutesHeaderTitle").html(
 						Globalization.labels.busRoutesMenu.headerTitle)</script>
-        </b>
+        </p>
     </div>
 </div>
 <div id="busRoutesMenuInner" class="commonHalfMenuInner">
     <div class="panel panel-default" style="margin-bottom: 5px;color: #000; text-decoration: none; border: 4px solid #7800aa">
-        <div class="panel-body">
+        <div class="panel-body" style="text-align: center">
             {{#lineNumber}}<b>{{lineNumber}}: </b>{{/lineNumber}}{{firstBusStop}} <i class='glyphicon glyphicon-arrow-right'></i> {{lastBusStop}}
+            <br />
+            <a id="busStopsServicesOnLine{{identifier}}" class="btn btn-default" role="button" style="border: 1px solid #7800aa; color:#7800aa; padding: 6px 3px;font-size: 16px;" onclick="BusRoutesSearcher.searchServicesOnRoute();">
+                <script>
+                    $("#busStopsServicesOnLine{{identifier}}").html(
+						Globalization.labels.busRoutesMenu.servicesOnLine)</script>
+            </a>
         </div>
     </div>
 
@@ -54,12 +60,12 @@
             </span>
             <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
             <b style="text-align: center;text-transform:capitalize;">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
-            {{#distanceFromSearchCenter}}<br><b id="busRoutesDistanceFromSearchCenter{{identifier}}">
-                <script>$("#busRoutesDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.busRoutesMenu.distanceFromSearchCenter)</script>
-            </b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
-            {{#distanceFromGPS}}<br><b id="busRoutesDistanceFromGPS{{identifier}}">
-                <script>$("#busRoutesDistanceFromGPS{{identifier}}").html(Globalization.labels.busRoutesMenu.distanceFromGPS)</script>
-            </b>{{distanceFromGPS}} m{{/distanceFromGPS}}
+            {{#distanceFromSomething}}
+<br>
+{{#distanceFromGPS}} <i class="glyphicon glyphicon-record"></i> {{distanceFromGPS}} m{{/distanceFromGPS}}
+{{#distanceFromSearchCenter}}<i class="glyphicon glyphicon-map-marker"></i> {{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+
+{{/distanceFromSomething}}
         </div>
         {{/properties}}
     </div>

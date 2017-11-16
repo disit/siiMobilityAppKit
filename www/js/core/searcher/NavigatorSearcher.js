@@ -1,99 +1,95 @@
-/* SII-MOBILITY DEV KIT MOBILE APP KM4CITY.
-   Copyright (C) 2016 DISIT Lab http://www.disit.org/6981 - University of Florence
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Affero General Public License
-   as published by the Free Software Foundation.
-   The interactive user interfaces in modified source and object code versions 
-   of this program must display Appropriate Legal Notices, as required under 
-   Section 5 of the GNU Affero GPL . In accordance with Section 7(b) of the 
-   GNU Affero GPL , these Appropriate Legal Notices must retain the display 
-   of the "Sii-Mobility Dev Kit Mobile App Km4City" logo. The Logo "Sii-Mobility
-  Dev Kit Mobile App Km4City" must be a clickable link that leads directly to the
-  Internet URL http://www.sii-mobility.org oppure a DISIT Lab., using 
-  technology derived from  Http://www.km4city.org.
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU Affero General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
-*/
 var NavigatorSearcher = {
 
-	searchInterval: null,
-	lastCoordinated: null,
-	init: null,
-	started: null,
-	
-	start: function(){
-		if (NavigatorSearcher.searchInterval == null){
-			navigator.notification.confirm(Globalization.alerts.navigatorSearcherStart.message, function(indexButton) {
+    searchInterval: null,
+    lastCoordinated: null,
+    init: null,
+    started: null,
+
+    start: function () {
+        $("#loadingOverlayPage").show();
+        if (NavigatorSearcher.searchInterval == null) {
+            navigator.notification.confirm(Globalization.alerts.navigatorSearcherStart.message, function (indexButton) {
                 if (indexButton == 2) {
                     NavigatorSearcher.startNavigation();
+                } else {
+                    $("#loadingOverlayPage").hide();
                 }
             }, Globalization.alerts.navigatorSearcherStart.title, Globalization.alerts.navigatorSearcherStart.buttonName);
-		} 	
-	},
-	
-	stop: function () {
-	    Loading.hide();
-	    $('#navbarNavigation').hide(0);
-	    $('.ol-rotate').show(0);
-		clearInterval(NavigatorSearcher.searchInterval);
-		NavigatorSearcher.searchInterval = null;
-		CompassManager.stopWatchingCompass();
-		if (typeof window.plugins != "undefined") {
-		    window.plugins.insomnia.allowSleepAgain()
-		}
-		NavigatorSearcher.started = false;
-		MapManager.addVariableButtons();
-		$("#navigationSearchButton").html('<i class=\"icon ion-navigate\"></i>');
-		MapManager.removeNavigationButtons();
-		MapManager.initializeAndUpdatePopUpGpsMarker();
-		MapManager.disabling3d();
-		MapManager.activeIntereationsAfterNavigation();
-	},
+        }
+    },
 
-    startNavigation: function() {
-    	if (GpsManager.currentCoordinates() != null) {
-    		var selectedNodeNumber = $("#categorySearchFancyTree").fancytree("getTree").getSelectedNodes().length;
+    stop: function () {
+        Loading.hide();
+        $('#navbarNavigation').hide(0);
+        $('.ol-rotate').show(0);
+        clearInterval(NavigatorSearcher.searchInterval);
+        NavigatorSearcher.searchInterval = null;
+        CompassManager.stopWatchingCompass();
+        if (typeof window.plugins != "undefined") {
+            window.plugins.insomnia.allowSleepAgain()
+        }
+        NavigatorSearcher.started = false;
+        MapManager.addVariableButtons();
+        $("#navigationSearchButton").html('<i class=\"fa fa-location-arrow\"></i>');
+        MapManager.removeNavigationButtons();
+        MapManager.initializeAndUpdatePopUpGpsMarker();
+        MapManager.disabling3d();
+        MapManager.activeIntereationsAfterNavigation();
+        application.resetInterface();
+    },
 
-    		if (selectedNodeNumber == 0) {
+    startNavigation: function () {
+        if (GpsManager.currentCoordinates() != null) {
+            if (typeof Cesium == "undefined") {
+                $.ajax({
+                    url: "js/Cesium/Cesium.js",
+                    async: false,
+                    dataType: "script",
+                    success: function () {
+                        CESIUM_BASE_URL = "js/Cesium";
+                    }
+                });
+            }
 
-    			navigator.notification.alert(Globalization.alerts.servicesCategoryNotSelected.message, function() {}, Globalization.alerts.servicesCategoryNotSelected.title);
-    			
-    			return false;
-    		}
+            //var selectedNodeNumber = $("#categorySearchFancyTree").fancytree("getTree").getSelectedNodes().length;
 
-    		var selectedKeys = ["Service"];
+            //if (selectedNodeNumber == 0) {
 
-    		if (selectedNodeNumber != $("#categorySearchFancyTree").fancytree("getTree").count() || SettingsManager.profile != "all") {
-    			selectedKeys = $.map($("#categorySearchFancyTree").fancytree("getTree").getSelectedNodes(true), function(node) {
-    			return node.key;
-    			});
-    		}
-    	
-    		if (NavigatorSearcher.lastCoordinates == null){
-    			NavigatorSearcher.lastCoordinates = MapManager.gpsMarkerCoordinates();
-    		}
-  
-    		NavigatorSearcher.init = true;
-    		NavigatorSearcher.viewAdjustement();
-    		MapManager.disactiveInterationsForNavigation();
-    		$("#navigationSearchButton").html('<i class=\"icon ion-android-hand\"></i>');
-    		CompassManager.initializeHeading();
-    		if (typeof window.plugins != "undefined") {
-    		    window.plugins.insomnia.keepAwake();
-    		}
-    		NavigatorSearcher.started = true;
-    		NavigatorSearcher.search(selectedKeys);
-    		NavigatorSearcher.searchInterval = setInterval(function(){
-    		    NavigatorSearcher.search(selectedKeys);
-    		}, 20000);
-    		
-    	} else {
-    		navigator.notification.confirm(Globalization.alerts.noPosition.message, function(indexButton) {
+            //    navigator.notification.alert(Globalization.alerts.servicesCategoryNotSelected.message, function () { }, Globalization.alerts.servicesCategoryNotSelected.title);
+
+            //    return false;
+            //}
+
+            var selectedKeys = ["Service"];
+
+            //if (selectedNodeNumber != $("#categorySearchFancyTree").fancytree("getTree").count() || SettingsManager.profile != "all") {
+            //    selectedKeys = $.map($("#categorySearchFancyTree").fancytree("getTree").getSelectedNodes(true), function (node) {
+            //        return node.key;
+            //    });
+            //}
+
+            if (NavigatorSearcher.lastCoordinates == null) {
+                NavigatorSearcher.lastCoordinates = MapManager.gpsMarkerCoordinates();
+            }
+
+            NavigatorSearcher.init = true;
+            NavigatorSearcher.viewAdjustement();
+            MapManager.disactiveInterationsForNavigation();
+            $("#navigationSearchButton").html('<i class=\"icon ion-android-hand\"></i>');
+            CompassManager.initializeHeading();
+            if (typeof window.plugins != "undefined") {
+                window.plugins.insomnia.keepAwake();
+            }
+            application.addingMenuToCheck("NavigatorSearcher");
+            NavigatorSearcher.started = true;
+            NavigatorSearcher.search(selectedKeys);
+            $("#loadingOverlayPage").hide();
+            NavigatorSearcher.searchInterval = setInterval(function () {
+                NavigatorSearcher.search(selectedKeys);
+            }, 20000);
+
+        } else {
+            navigator.notification.confirm(Globalization.alerts.noPosition.message, function (indexButton) {
                 if (device.platform == "Android") {
                     if (indexButton == 3) {
                         CheckGPS.openSettings();
@@ -107,38 +103,44 @@ var NavigatorSearcher = {
                     }
                 }
             }, Globalization.alerts.noPosition.title, Globalization.alerts.noPosition.buttonName);
-    	}
+        }
     },
-    
-    search: function(selectedKeys){
-    	if (Math.round(GpsManager.getDistanceFromGPSInM(NavigatorSearcher.lastCoordinates[0], NavigatorSearcher.lastCoordinates[1])) > 15 || NavigatorSearcher.init == true){
-			NavigatorSearcher.init = false;
-			NavigatorSearcher.lastCoordinates = MapManager.gpsMarkerCoordinates();
-			SearchManager.searchCenter = NavigatorSearcher.lastCoordinates;
-			var categoriesQuery = QueryManager.createCategoriesQuery(selectedKeys, MapManager.gpsMarkerCoordinates(), "app");
-			APIClient.executeQueryWithoutAlert(categoriesQuery, NavigatorSearcher.successQuery, NavigatorSearcher.errorQuery);
-		}
+
+    search: function (selectedKeys) {
+        if (Math.round(GpsManager.getDistanceFromGPSInM(NavigatorSearcher.lastCoordinates[0], NavigatorSearcher.lastCoordinates[1])) > 75 || NavigatorSearcher.init == true) {
+            NavigatorSearcher.init = false;
+            NavigatorSearcher.lastCoordinates = MapManager.gpsMarkerCoordinates();
+            SearchManager.searchCenter = NavigatorSearcher.lastCoordinates;
+            var categoriesQuery = QueryManager.createCategoriesQuery(selectedKeys, MapManager.gpsMarkerCoordinates(), "app");
+            APIClient.executeQueryWithoutAlert(categoriesQuery, NavigatorSearcher.successQuery, NavigatorSearcher.errorQuery);
+        }
     },
-    
-    viewAdjustement: function(){
-    	MapManager.removeManualMarker();
-    	MapManager.removeAndUpdatePopUpGpsMarker();
-    	MapManager.removeVariableButtons();
-    	MapManager.addNavigationButtons();
-    	MapManager.activate3d();
-    	MapManager.disabling3d();
-    	application.resetInterface();
-    	$("#dropdownThreeVertical").removeClass('open');
-    	$("#navigationMode").html(Globalization.labels.navigatiorSearcherBar.navigationMode);
-    	$('#navbarNavigation').show(0);
-    	$('.ol-rotate').hide(0);
+
+    viewAdjustement: function () {
+        MapManager.removeManualMarker();
+        MapManager.removeAndUpdatePopUpGpsMarker();
+        MapManager.removeVariableButtons();
+        MapManager.addNavigationButtons();
+        MapManager.activate3d();
+        MapManager.disabling3d();
+        application.resetInterface();
+        $("#dropdownThreeVertical").removeClass('open');
+        $("#navigationMode").html(Globalization.labels.navigatiorSearcherBar.navigationMode);
+        $('#navbarNavigation').show(0);
+        $('.ol-rotate').hide(0);
     },
 
     closeAll: function () {
         if (NavigatorSearcher.started == true) {
             NavigatorSearcher.stop();
         }
-        $('#navigationSearchButton').html('<i class=\"icon ion-navigate\"></i>');
+
+        application.removingMenuToCheck("NavigatorSearcher");
+        $('#navigationSearchButton').html('<i class=\"fa fa-location-arrow\"></i>');
+    },
+
+    checkForBackButton: function () {
+        NavigatorSearcher.closeAll();
     },
 
     //callBack
@@ -173,8 +175,10 @@ var NavigatorSearcher = {
                         return a.properties.distanceFromGPS - b.properties.distanceFromGPS
                     });
                 }
-              
-                CategorySearcher.show(responseObject["Results"]);
+
+                CategorySearcher.results = responseObject["Results"];
+                CategorySearcher.refreshMenu();
+                CategorySearcher.showWithoutResetInterface();
                 MapManager.addGeoJSONLayerWithoutArea(responseObject);
                 navigator.vibrate(500);
 
@@ -183,8 +187,8 @@ var NavigatorSearcher = {
     },
 
     //callBack
-    errorQuery: function(error) {
-        
+    errorQuery: function (error) {
+
     }
 
-}
+};

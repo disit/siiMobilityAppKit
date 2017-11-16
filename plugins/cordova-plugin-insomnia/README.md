@@ -42,6 +42,8 @@ $ cordova prepare
 
 The javascript bridge is brought in automatically, so no need to reference Insomnia.js from your html.
 
+You can also get this plugin [from NPM](https://www.npmjs.com/package/cordova-plugin-insomnia).
+
 ### Manually
 
 1\. Add the following xml to your `config.xml` in the root directory of your `www` folder:
@@ -104,6 +106,12 @@ The plugin's  javascript file is brought in automatically. Make sure though you 
 An optional successCallback (first argument) will be triggered if the functions succeed. Even calling `keepAwake` twice will fire the successCallback, because the app will respond as expected (being kept awake).
 
 An optional errorCallback (second argument) will only be triggered if something fatal happened, preventing the plugin to work as expected.
+
+### Quirks
+[In this issue](#29) it was reported that on iOS the app would fall asleep after the Camera has been used,
+even if you previously called `keepAwake`. A similar [issue on Android](#30) where the photo library was accessed during app usage.
+
+So to make sure your app honors `keepAwake` you have to re-run that method after these kinds of 'external UI' thingies give control back to your app.
 
 ## 4. CREDITS ##
 

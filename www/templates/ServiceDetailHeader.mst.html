@@ -1,0 +1,33 @@
+<!-- 	{{#properties}} -->
+    <li class="list-group-item" style="padding-top: 8px 0px;text-align: center;">
+        <!-- {{^web}} -->
+            <!--{{^wp8}}-->
+                <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n', '{{nameEscaped}}', '{{#carouselContent.0}}{{photo}}{{/carouselContent.0}}', 'http://www.km4city.org/', 'infoMenu')"><i style="font-size:20px;" class="icon fa fa-share-alt {{currentLanguage}} {{category}}"></i></a>
+            <!--{{/wp8}}-->
+            <!--{{#wp8}}-->
+                <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n http://www.km4city.org/', '{{nameEscaped}}', null, null, 'infoMenu')"><i style="font-size:20px;" class="icon fa fa-share-alt {{currentLanguage}} {{category}}"></i></a>
+            <!--{{/wp8}}-->
+            <!--<a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();PictureManager.pickPhotoFromAlbum('{{serviceUri}}')"><i style="font-size:20px;padding-left:12px;" class="icon fa fa-picture-o {{currentLanguage}} {{category}}"></i></a>
+            <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();PictureManager.takePhoto('{{serviceUri}}')"><i style="font-size:20px;padding-left:12px;" class="icon fa fa-camera-retro {{currentLanguage}} {{category}}"></i></a>-->
+        <!-- {{/web}} -->
+            <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();InfoManager.addOrRemoveServiceToFavourites();"><i style="font-size:20px;padding-left:12px;" class="icon fa fa-heart {{currentLanguage}} {{category}}"></i></a>
+            <a href="#" class="extern" onclick="application.resetInterface();MapManager.resetMarkerExceptSelectedServiceMarker();PathFinder.show(); PathFinder.selectPoint(null, 'text',1,'{{nameEscaped}}',  [{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}]);"><i style="font-size:20px;padding-left:12px" class="icon ion-map {{currentLanguage}} {{category}}"></i></a>
+        <!--{{#android}}-->
+            <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=w', '_system');"><i style="font-size:20px;padding-left:12px" class="icon ion-android-walk {{currentLanguage}} {{category}}"></i></a>
+            <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=d', '_system');"><i style="font-size:20px;padding-left:12px" class="icon fa fa-car {{currentLanguage}} {{category}}"></i></a>
+            <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=r', '_system');"><i style="font-size:20px;padding-left:12px" class="icon fa fa-bus {{currentLanguage}} {{category}}"></i></a>
+        <!--{{/android}}-->
+        <!--{{#ios}}-->
+            <a href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:20px;padding-left:12px" class="icon fa fa-location-arrow {{currentLanguage}} {{category}}"></i></a>
+        <!--{{/ios}}-->
+        <!--{{#wp8}}-->
+            <a href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:20px;padding-left:12px" class="icon fa fa-location-arrow {{currentLanguage}} {{category}}"></i></a>
+        <!--{{/wp8}}-->
+        <br />
+        <a id="serviceSearchAroundSelectedService{{identifier}}" class="btn btn-default icon {{currentLanguage}} {{category}}" role="button" style="border: 1px solid #eee; background-color:#fff; padding: 6px 3px;font-size: 16px;" onclick="CategorySearcher.forceSelectedKeys = ['Service'];SearchManager.searchOnSelectedServiceMarker('CategorySearcher')">
+            <script>
+                $("#serviceSearchAroundSelectedService{{identifier}}").html(Globalization.labels.searchPopUp.aroundYou)
+            </script>
+        </a>
+    </li>
+<!-- {{/properties}} -->

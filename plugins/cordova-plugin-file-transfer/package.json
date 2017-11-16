@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-file-transfer",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Cordova File Transfer Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-file-transfer",
     "platforms": [
@@ -25,7 +26,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-file-transfer"
+    "url": "git+https://github.com/apache/cordova-plugin-file-transfer.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
   "keywords": [
     "cordova",
@@ -44,7 +48,9 @@
     "cordova-firefoxos",
     "cordova-browser"
   ],
-  "author": "Apache Software Foundation",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
@@ -56,5 +62,55 @@
   "devDependencies": {
     "jscs": "^2.6.0",
     "jshint": "^2.8.0"
-  }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-file-transfer#readme",
+  "_id": "cordova-plugin-file-transfer@1.7.0",
+  "_shasum": "e622c18a8992865850d25bdc30cc4b71de51d874",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-file-transfer/-/cordova-plugin-file-transfer-1.7.0.tgz",
+  "_from": "cordova-plugin-file-transfer@latest",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "e622c18a8992865850d25bdc30cc4b71de51d874",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-file-transfer/-/cordova-plugin-file-transfer-1.7.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "nikhilkh",
+      "email": "nikhil.khandelwal@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-file-transfer-1.7.0.tgz_1510361665294_0.9879124828148633"
+  },
+  "directories": {}
 }

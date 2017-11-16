@@ -1,6 +1,6 @@
 # PhoneGap Toast plugin
 
-for Android, iOS and WP8, by [Eddy Verbruggen](http://www.x-services.nl/phonegap-toast-plugin/796)
+for Android, iOS, WP8, Windows and BlackBerry by [Eddy Verbruggen](http://www.x-services.nl/phonegap-toast-plugin/796)
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=eddyverbruggen%40gmail%2ecom&lc=US&item_name=cordova%2dplugin%2dtoast&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
 If you like this plugin and want to say thanks please send a PR or donation. Both are equally appreciated!
@@ -18,9 +18,9 @@ If you like this plugin and want to say thanks please send a PR or donation. Bot
 1. [Description](#1-description)
 2. [Screenshots](#2-screenshots)
 3. [Installation](#3-installation)
-	3. [Automatically (CLI / Plugman)](#automatically-cli--plugman)
-	3. [Manually](#manually)
-	3. [PhoneGap Build](#phonegap-build)
+  3. [Automatically (CLI / Plugman)](#automatically-cli--plugman)
+  3. [Manually](#manually)
+  3. [PhoneGap Build](#phonegap-build)
 4. [Usage](#4-usage)
   4. [Styling](#styling)
 5. [Credits](#5-credits)
@@ -185,6 +185,24 @@ function hide() {
 }
 ```
 
+When the toast gets hidden, your success callback will be called (in case you have defined one) with the `event` property equals to `hide` (more details about the callback in the next section).
+```js
+
+  window.plugins.toast.showWithOptions({
+      message: 'My message',
+      // More config here...
+  },
+      //Success callback
+      function(args) {
+          console.log(args.event);
+          //This will print 'hide'
+      }, 
+      function(error) {
+          console.error('toast error: ', error);
+      }
+  );
+```
+
 ### Receiving a callback when a Toast is tapped
 On iOS and Android the success handler of your `show` function will be notified (again) when the toast was tapped.
 
@@ -203,16 +221,20 @@ called again. You can distinguish between those events of course:
     // implement the success callback
     function(result) {
       if (result && result.event) {
-        console.log("The toast was tapped");
-        console.log("Event: " + result.event); // will be defined, with a value of "touch" when it was tapped by the user
+        console.log("The toast was tapped or got hidden, see the value of result.event");
+        console.log("Event: " + result.event); // "touch" when the toast was touched by the user or "hide" when the toast geot hidden
         console.log("Message: " + result.message); // will be equal to the message you passed in
         console.log("data.foo: " + result.data.foo); // .. retrieve passed in data here
-      } else {
-        console.log("The toast has been shown");
+        
+        if (result.event === 'hide') {
+          console.log("The toast has been shown");
+        }
       }
     }
   );
 ```
+
+The success callback is useful when your toast is binded to a notification id in your backend and you have to mark it as `read` when the toast is done, or to update the notifications counter for iOS. The usage of this will be defined by your application logic. Use the `result.data` object to support your specific logic.
 
 ### Styling
 Since version 2.4.0 you can pass an optional `styling` object to the plugin.
@@ -254,6 +276,8 @@ The Android code was entirely created by me.
 For iOS most credits go to this excellent [Toast for iOS project by Charles Scalesse] (https://github.com/scalessec/Toast).
 
 ## 6. CHANGELOG
+- 2.6.0: Windows support!
+- 2.5.2: Multi-line wrapping Toasts are now center aligned.
 - 2.5.1: You can now specify the `textSize` used in the font for iOS and Android.
 - 2.5.0: By popular demand: Specify the duration of the Toast on iOS and Android. Pass in `short` (2000ms), `long` (4000ms), or any nr of milliseconds: `900`.
 - 2.4.2: You can now also set the Toast `opacity` for iOS.

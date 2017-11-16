@@ -1,6 +1,6 @@
 {
   "connectionError": {
-    "message": "Aucune connexion internet active. Contrôlez si la connexion wi-fi ou la connexion données sont actives.",
+      "message": "Il n'a pas été possible de récupérer les informations requises. Essayez d'effectuer la demande à nouveau!",
     "title": "Contrôlez La Connexion",
     "buttonName": ""
   },
@@ -9,7 +9,12 @@
     "title": "Services Non Sélectionnés",
     "buttonName": ""
   },
-  "servicesServerError": {
+  "timeoutError": {
+    "message": "Il n'a pas été possible de récupérer les informations requises. Essayez d'effectuer la demande à nouveau.",
+    "title": "Contrôlez La Connexion",
+    "buttonName": ""
+  },
+"servicesServerError": {
     "message": "Il n'a pas été possible de récupérer les informations requises. Essayez d'effectuer la demande à nouveau.",
     "title": "Informations Non Disponibles",
     "buttonName": ""
@@ -40,18 +45,18 @@
     "buttonName": ""
   },
   "chooseGpsManualSearchCenter": {
-    "message": "Choisissez le centre de la zone de recherche des services ou la position à partir de laquelle on souhaite connaître la météo.",
-    "title": "Recherche",
+    "message": "Où voulez-vous chercher?",
+    "title": "",
     "buttonName": [ "GPS", "Position Manuelle" ]
   },
   "chooseGpsServiceSearchCenter": {
-    "message": "Choisissez le centre de la zone de recherche des services ou la position à partir de laquelle on souhaite connaître la météo.",
-    "title": "Recherche",
+    "message": "Où voulez-vous chercher?",
+    "title": "",
     "buttonName": [ "GPS", "Dernier Service" ]
   },
   "chooseManualServiceSearchCenter": {
-    "message": "Choisissez le centre de la zone de recherche des services ou la position à partir de laquelle on souhaite connaître la météo.",
-    "title": "Recherche",
+    "message": "Où voulez-vous chercher?",
+    "title": "",
     "buttonName": [ "Position Manuelle", "Dernier Service" ]
   },
   "addCalendarSuccess": {
@@ -126,6 +131,71 @@
     "message": "Il est nécessaire d'activer les permissions de géolocalisation dans le paramètres du navigateur.",
     "title": "Autorisation Refusée",
     "buttonName": ""
+  },
+  "saveSettings": {
+    "message": "Voulez-vous sauvegarder?",
+    "title": "",
+    "buttonName": [ "Annuler", "Sauvegarder" ]
+  },
+   "wrongEmail": {
+    "message": "Aucun email n'a été entré",
+    "title": "",
+    "buttonName": ""
+  },
+  "wrongConfirmPassword": {
+    "message": "Les deux mots de passe sont différents",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyemail": {
+    "message": "Email non entré",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptypassword": {
+    "message": "Mot de passe non entré",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyconfirmPassword": {
+    "message": "Le mot de passe doit être confirmé",
+    "title": "",
+    "buttonName": ""
+  },
+  "welcomeToApp": {
+    "message": "Bienvenue dans Km4city!!!",
+    "title": "",
+    "buttonName": ""
+  },
+  "unauthorized": {
+    "message": "Vous n'êtes pas enregistré ou avez entré de mauvais e-mails et / ou mots de passe",
+    "title": "",
+    "buttonName": ""
+  },
+  "updateApp": {
+    "message": "Vous devez mettre à jour votre application pour accéder à votre profil",
+    "title": "",
+    "buttonName": [ "Annuler", "Mettre à jour" ]
+  },
+  "updateServer": {
+    "message": "Nous mettons à jour le serveur",
+    "title": "",
+    "buttonName": ""
+  },
+  "userDuplicate": {
+    "message": "Déjà inscrit",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecified": {
+    "message": "Veuillez autoriser vos informations de email",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecifiedFB": {
+    "message": "Vous ne pouvez pas vous enregistrer si vous n'autorisez pas les informations de email",
+    "title": "",
+    "buttonName": [ "Annuler", "Autorise le email" ]
   }
 }
 

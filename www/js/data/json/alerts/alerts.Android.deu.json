@@ -5,8 +5,8 @@
     "buttonName": [ "Schließen", "Position Manuelle", "Standortsuche Zulassen" ]
   },
   "chooseThreeSearchCenter": {
-    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
-    "title": "Suche",
+    "message": "Wo möchten sie suchen?",
+    "title": "",
     "buttonName": [ "GPS", "Position Manuelle", "Letzte Anfrage" ]
   }
 }

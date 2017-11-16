@@ -23,107 +23,119 @@ var APIClient = {
 
     apiUrl: "http://www.disit.org/ServiceMap/api/v1/",                    
     photoServerUrl: "http://www.disit.org/ServiceMap/api/v1/photo",
-    
     fileTransfer: null,
     lockQuery: false,
 
-    executeQuery: function(query, successCallback, errorCallback) {
+    executeQuery: function (query, successCallback, errorCallback) {
         if (query != null && successCallback != null) {
             if (!APIClient.lockQuery) {
-                if (application.checkConnection()) {
-                    console.log(APIClient.apiUrl + query);
-                    $.ajax({
-                        url: encodeURI(APIClient.apiUrl + query),
-                        timeout: Parameters.timeoutGetQuery,
-                        method: "GET",
-                        dataType: "json",
-                        beforeSend: function () {
-                            APIClient.lockQuery = true;
-                            Loading.show();
-                        },
-                        success: function (data) {
-                            APIClient.lockQuery = false;
-                            successCallback(data);
-                        },
-                        error: function (error) {
-                            APIClient.lockQuery = false;
-                            errorCallback(error);
-                        },
-                        complete: function () {
-                            Loading.hide();
-                        }
-                    });
-                } else {
-                    navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
-                }
-            } else {
-                APIClient.showOperationRunning();
-            }
-        } 
-    },
-
-    executeQueryWithoutAlert: function (query, successCallback, errorCallback) {
-        if (query != null && successCallback != null) {
-            if (application.checkConnection()) {
                 console.log(APIClient.apiUrl + query);
                 $.ajax({
                     url: encodeURI(APIClient.apiUrl + query),
                     timeout: Parameters.timeoutGetQuery,
                     method: "GET",
                     dataType: "json",
-                    success: function (data) {
-                        successCallback(data);
+                    beforeSend: function () {
+                        APIClient.lockQuery = true;
+                        Loading.show();
                     },
-                    error: function (error) {
-                        if (errorCallback != null) {
-                            errorCallback(error);
+                    success: function (data) {
+                        APIClient.lockQuery = false;
+                        if (successCallback != null) {
+                            successCallback(data);
                         }
                     },
-                    beforeSend: function () {
-                        if (NavigatorSearcher.started) {
-                            Loading.show();
+                    error: function (error) {
+                        APIClient.lockQuery = false;
+                        if (error.statusText == "timeout") {
+                            navigator.notification.alert(Globalization.alerts.timeoutError.message, function () { }, Globalization.alerts.timeoutError.title);
+                        } else if (error.statusText == "error") {
+                            navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
+                        } else {
+                            if (errorCallback != null) {
+                                errorCallback(error);
+                            }
                         }
                     },
                     complete: function () {
-                        if (NavigatorSearcher.started) {
-                            Loading.hide();
-                        }
+                        Loading.hide();
                     }
-                });
-            } 
+                }); 
+            } else {
+                APIClient.showOperationRunning();
+            }
+        }
+    },
+
+    executeQueryWithoutAlert: function (query, successCallback, errorCallback) {
+        if (query != null && successCallback != null) {
+            console.log(APIClient.apiUrl + query);
+            $.ajax({
+                url: encodeURI(APIClient.apiUrl + query),
+                timeout: Parameters.timeoutGetQuery,
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    if (successCallback != null) {
+                        successCallback(data);
+                    }
+                },
+                error: function (error) {
+                    if (errorCallback != null) {
+                        errorCallback(error);
+                    }
+                },
+                beforeSend: function () {
+                    if (NavigatorSearcher.started) {
+                        Loading.show();
+                    }
+                },
+                complete: function () {
+                    if (NavigatorSearcher.started) {
+                        Loading.hide();
+                    }
+                }
+            });
         }
     },
 
     executeQueryText: function (query, successCallback, errorCallback) {
         if (query != null && successCallback != null) {
             if (!APIClient.lockQuery) {
-                if (application.checkConnection()) {
-                    console.log(APIClient.apiUrl + query);
-                    $.ajax({
-                        url: encodeURI(APIClient.apiUrl + query),
-                        timeout: Parameters.timeoutGetQuery,
-                        method: "GET",
-                        dataType: "text",
-                        beforeSend: function () {
-                            APIClient.lockQuery = true;
-                            Loading.showSettingsLoading();
-                        },
-                        success: function (data) {
-                            APIClient.lockQuery = false;
+                console.log(APIClient.apiUrl + query);
+                $.ajax({
+                    url: encodeURI(APIClient.apiUrl + query),
+                    timeout: Parameters.timeoutGetQuery,
+                    method: "GET",
+                    dataType: "text",
+                    beforeSend: function () {
+                        APIClient.lockQuery = true;
+                        Loading.showSettingsLoading();
+                    },
+                    success: function (data) {
+                        APIClient.lockQuery = false;
+                        if (successCallback != null) {
                             successCallback(data);
-                        },
-                        error: function (error) {
-                            APIClient.lockQuery = false;
-                            errorCallback(error);
-                        },
-                        complete: function () {
-                            Loading.hideSettingsLoading();
-                            
                         }
-                    });
-                } else {
-                    navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
-                }
+                    },
+                    error: function (error) {
+                        APIClient.lockQuery = false;
+                        if (error.statusText == "timeout") {
+                            navigator.notification.alert(Globalization.alerts.timeoutError.message, function () { }, Globalization.alerts.timeoutError.title);
+                        } else if (error.statusText == "error") {
+                            navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
+                        } else {
+                            if (errorCallback != null) {
+                                errorCallback(error);
+                            }
+                        }
+                    },
+                    complete: function () {
+                        Loading.hideSettingsLoading();
+
+                    }
+                });
+             
             } else {
                 APIClient.showOperationRunning();
             }
@@ -133,10 +145,10 @@ var APIClient = {
     uploadPhoto: function (photoUrl, serviceUri, successCallback, errorCallback) {
         APIClient.fileTransfer = new FileTransfer();
         var options = new FileUploadOptions();
-        
+
 
         var params = {};
-        params.uid = QueryManager.uid;
+        params.uid = application.uid;
         params.serviceUri = serviceUri;
         options.params = params;
         if (photoUrl.substring(photoUrl.lastIndexOf(".") + 1) == "jpg") {
@@ -145,7 +157,7 @@ var APIClient = {
             options.mimeType = "image/" + photoUrl.substring(photoUrl.lastIndexOf(".") + 1);
         }
         var paramsWindows = "";
-        
+
         options.fileKey = "file";
         options.fileName = photoUrl.substring(photoUrl.lastIndexOf("/") + 1);
 
@@ -153,26 +165,35 @@ var APIClient = {
     },
 
     uploadPhotoFromWeb: function (query, formData, successCallback, errorCallback) {
-        if (application.checkConnection()) {
-            console.log(APIClient.photoServerUrl);
-            $.ajax({
-                data: formData,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                url: encodeURI(APIClient.photoServerUrl + query),
-                timeout: Parameters.timeoutPostQuery,
-                success: function (data) {
+        console.log(APIClient.photoServerUrl);
+        $.ajax({
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            url: encodeURI(APIClient.photoServerUrl + query),
+            timeout: Parameters.timeoutPostQuery,
+            success: function (data) {
+                if (successCallback != null) {
                     successCallback(data);
-                },
-                error: function (error) {
-                    errorCallback(error);
-                },
-            });
-        }
+                }
+            },
+            error: function (error) {
+                if (error.statusText == "timeout") {
+                    navigator.notification.alert(Globalization.alerts.timeoutError.message, function () { }, Globalization.alerts.timeoutError.title);
+                } else if (error.statusText == "error") {
+                    navigator.notification.alert(Globalization.alerts.connectionError.message, function () { }, Globalization.alerts.connectionError.title);
+                } else {
+                    if (errorCallback != null) {
+                        errorCallback(error);
+                    }
+                }
+            },
+        });
+        
     },
 
-    abortUploadingPhoto: function(){
+    abortUploadingPhoto: function () {
         if (APIClient.fileTransfer != null) {
             APIClient.fileTransfer.abort();
         }
@@ -180,16 +201,16 @@ var APIClient = {
 
     showOperationRunning: function () {
         if (typeof window.plugins != "undefined") {
-            window.plugins.toast.showWithOptions(
-                        {
-                            message: Globalization.labels.apiclient.operationRunning,
-                            duration: "long", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself. 
-                            position: "bottom",
-                            addPixelsY: -40  // added a negative value to move it up a bit (default 0) 
-                        },
-                        function () { }, // optional
-                        function () { }    // optional 
-                        );
+            window.plugins.toast.showWithOptions({
+                message: Globalization.labels.apiclient.operationRunning,
+                duration: "long", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself.
+                position: "bottom",
+                addPixelsY: -40  // added a negative value to move it up a bit (default 0) 
+                },
+                function () { }, // optional
+                function () { }    // optional 
+            );
         }
-    }
-}
+    },
+
+};

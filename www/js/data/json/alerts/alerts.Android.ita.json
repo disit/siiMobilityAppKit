@@ -5,8 +5,8 @@
     "buttonName": [ "Chiudi", "Posiz. Manuale", "Abilita Posizione" ]
   },
   "chooseThreeSearchCenter": {
-    "message": "Scegli il centro dell'area di ricerca dei servizi o la posizione della quale si desidera sapere il meteo.",
-    "title": "Ricerca",
+    "message": "Dove vuoi cercare?",
+    "title": "",
     "buttonName": [ "GPS", "Posizione Manuale", "Ultimo Servizio" ]
   }
 }

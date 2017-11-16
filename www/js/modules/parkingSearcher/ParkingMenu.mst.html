@@ -1,4 +1,14 @@
-
+<style>
+    .freeParkingLotsDetail {
+        display: inline-block;
+        background-color: white;
+        border-radius: 2px;
+        margin: 3px;
+        text-align: center;
+        font-size: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+</style>
 <div id="parkingMenuHeader" class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
     <div id="parkingMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
         <div class="grippy grippy-horizontal"></div>
@@ -14,36 +24,37 @@
         <a id="parkingMenuCollapse" class="pull-left" onclick="ParkingSearcher.collapseParkingSearcher();">
             <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
         </a>
-        <b id="parkingMenuHeaderTitle" style="line-height: 52px;color: #333;">
+        <p id="parkingMenuHeaderTitle" style="line-height: 52px;color: #333;font-weight: bold;">
             <script>
                 $("#parkingMenuHeaderTitle").html(
                     Globalization.labels.parkingMenu.title)
             </script>
-        </b>
+        </p>
 
     </div>
 </div>
 
 <div id="parkingMenuInner" class="commonHalfMenuInner">
- <!-- {{#features.1}} {{#properties}}-->
+    <!-- {{#features.1}} {{#properties}}-->
     <div style="margin-bottom: 5px; text-align: center; width: 100%">
-        {{#distanceFromGPS}}<a class="btn btn-default sorting" href="#" role="button" onclick="ParkingSearcher.orderByDistanceFromGPS();" style="color:black; padding: 6px 3px;font-size: 16px"> <span id="parkingSearcherMenuGpsOrderText"><script>
-            $("#parkingSearcherMenuGpsOrderText").html(
-						Globalization.labels.parkingMenu.gpsOrderText)
-</script></span><i id="parkingSearcherMenuGpsOrderImage" class="glyphicon"></i></a>{{/distanceFromGPS}}
+        {{#distanceFromGPS}}<a class="btn btn-default sorting" href="#" role="button" onclick="ParkingSearcher.orderByDistanceFromGPS();" style="color:black; padding: 6px 3px;font-size: 16px">
+            <span id="parkingSearcherMenuGpsOrderText">
+                <script>$("#parkingSearcherMenuGpsOrderText").html(Globalization.labels.parkingMenu.gpsOrderText)</script>
+            </span><i id="parkingSearcherMenuGpsOrderImage" class="glyphicon"></i>
+        </a>{{/distanceFromGPS}}
         {{#distanceFromSearchCenter}}<a class="btn btn-default sorting" href="#" role="button" onclick="ParkingSearcher.orderByDistanceFromSearchCenter();" style="color:black;padding: 6px 3px;font-size: 16px">
-    <span id="parkingSearcherMenuSearchCenterOrderText">
-        <script>
-            $("#parkingSearcherMenuSearchCenterOrderText").html(
-						Globalization.labels.parkingMenu.searchCenterOrderText)
-        </script>
-    </span><i id="parkingSearcherMenuSearchCenterOrderImage" class="glyphicon"></i>
-</a>{{/distanceFromSearchCenter}}
-       <a class="btn btn-default sorting" href="#" role="button" onclick="ParkingSearcher.orderByFreeParkingLots();" style="color:black;padding: 6px 3px;font-size: 16px">
+            <span id="parkingSearcherMenuSearchCenterOrderText">
+                <script>
+                    $("#parkingSearcherMenuSearchCenterOrderText").html(
+                                Globalization.labels.parkingMenu.searchCenterOrderText)
+                </script>
+            </span><i id="parkingSearcherMenuSearchCenterOrderImage" class="glyphicon"></i>
+        </a>{{/distanceFromSearchCenter}}
+        <a class="btn btn-default sorting" href="#" role="button" onclick="ParkingSearcher.orderByFreeParkingLots();" style="color:black;padding: 6px 3px;font-size: 16px">
             <span id="parkingSearcherMenuFreeParkingOrderText">
                 <script>
-            $("#parkingSearcherMenuFreeParkingOrderText").html(
-						Globalization.labels.parkingMenu.freeParkingOrderText)
+                    $("#parkingSearcherMenuFreeParkingOrderText").html(
+                                Globalization.labels.parkingMenu.freeParkingOrderText)
                 </script>
             </span><i id="parkingSearcherMenuFreeParkingOrderImage" class="glyphicon"></i>
         </a>
@@ -53,20 +64,66 @@
     <div class="panel panel-default" style="margin: 0px 5px 10px 5px; color: #000; text-decoration: none;" onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{nameEscaped}}','{{civic}}','{{busLines}}','{{agency}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}}, '{{#properties}}{{alternativeIcon}}{{/properties}}');">
         <div class="panel-body card-2" style="position:relative">
             {{#properties}}
-            {{#freeParkingLots}}<b style="position: absolute; bottom: 0px; right: 10px; font-size: 24px; color: {{freeParkingLotsColor}}">{{freeParkingLots}}</b>{{/freeParkingLots}}
-            {{#imageThumb}}<img id="parkingMenuImage{{identifier}}" src="{{imageThumb}}"
-                                style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
-            <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
-            <b style="text-align: center">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
-            {{#typeLabel}}<br><b id="parkingMenuTypeLabel{{identifier}}">
-                <script>$("#parkingMenuTypeLabel{{identifier}}").html(Globalization.labels.infoMenu.type)</script>
-            </b>{{typeLabel}}{{/typeLabel}}
-            {{#distanceFromSearchCenter}}<br><b id="parkingMenuTextSearchDistanceFromSearchCenter{{identifier}}">
-                <script>$("#parkingMenuTextSearchDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromSearchCenter)</script>
-            </b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
-            {{#distanceFromGPS}}<br><b id="parkingMenuTextSearchDistanceFromGPS{{identifier}}">
-                <script>$("#parkingMenuTextSearchDistanceFromGPS{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromGPS)</script>
-            </b>{{distanceFromGPS}} m{{/distanceFromGPS}}{{/properties}}
+            <div class="reduceForRealTimeInfo">
+                {{#imageThumb}}<img id="parkingMenuImage{{identifier}}" src="{{imageThumb}}"
+                                    style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
+                <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
+                <div style="font-weight: bold; text-transform: capitalize">
+                    {{#unescapeHtml}}{{name}}{{/unescapeHtml}}
+                </div>
+                {{#typeLabel}}
+                <i class="fa fa-arrow-right" style="float: left;margin-right: 5px;"></i>
+                <div>{{typeLabel}}</div>
+                {{/typeLabel}}
+                {{#distanceFromSomething}}
+                {{#distanceFromGPS}} <i class="glyphicon glyphicon-record"></i> {{distanceFromGPS}} m{{/distanceFromGPS}}
+                {{#distanceFromSearchCenter}}<i class="glyphicon glyphicon-map-marker"></i> {{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+                {{/distanceFromSomething}}
+                <div class="realTimeInformation">
+                    <div class="freeParkingLotsDetail">
+                        <table style="font-size: 10px;width: 100%;border: 1px solid #eee;">
+                            {{#freeParkingLots}}
+                            <tbody>
+                                <tr>
+                                   
+                                    <th id="freeLots{{identifier}}" style="text-align: center;border: 1px solid #eee;" colspan="2">
+                                        <script>
+                                        $("#freeLots{{identifier}}").html(Globalization.labels.carPark.freeLots)</script>
+                                    </th>
+                                </tr>
+                                <tr>
+
+                                    <td style="border: 1px solid #eee; color: {{freeParkingLotsColor}}; font-size: 14px; padding: 0px 4px;">{{freeParkingLots}}</td>
+                                    <td style="border: 1px solid #eee;">{{#changeFormatDateTimeWOYear}}{{updating}}{{/changeFormatDateTimeWOYear}}</td>
+                                    
+                                </tr>
+                            </tbody>
+                            {{/freeParkingLots}}
+                        </table>
+                        <table style="font-size: 10px;width: 100%;border: 1px solid #eee;">
+                            {{#prediction}}
+                            <tbody>
+                                <tr>
+                                   
+                                    <th id="freeLotsPrediction{{identifier}}" style="text-align: center;border: 1px solid #eee;" colspan="2">
+                                        <script>
+                                            $("#freeLotsPrediction{{identifier}}").html(Globalization.labels.carPark.freeLotsPrediction)</script>
+                                    </th>
+                                </tr>
+                               
+                                <tr>
+                                    <td style="border: 1px solid #eee;color: {{predictionColor}}; font-size: 14px;padding: 0px 4px;">{{freePrediction}}</td>
+                                    <td style="border: 1px solid #eee;">{{#changeFormatDateTimeWOYear}}{{datePrediction}}{{/changeFormatDateTimeWOYear}}</td>
+                                   
+                                </tr>
+                             
+                            </tbody>
+                            {{/prediction}}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{/properties}}
         </div>
     </div>
     <!-- {{/features}} -->

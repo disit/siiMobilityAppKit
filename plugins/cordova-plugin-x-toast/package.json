@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-x-toast",
-  "version": "2.5.2",
+  "version": "2.6.0",
   "description": "This plugin allows you to show a Toast. A Toast is a little non intrusive buttonless popup which automatically disappears.",
   "cordova": {
     "id": "cordova-plugin-x-toast",
@@ -8,6 +8,7 @@
       "ios",
       "android",
       "wp8",
+      "windows",
       "blackberry10"
     ]
   },
@@ -24,6 +25,7 @@
     "cordova-ios",
     "cordova-android",
     "cordova-wp8",
+    "cordova-windows",
     "cordova-blackberry10"
   ],
   "engines": [
@@ -32,10 +34,42 @@
       "version": ">=3.0.0"
     }
   ],
-  "author": "Eddy Verbruggen <eddyverbruggen@gmail.com> (https://github.com/EddyVerbruggen)",
+  "author": {
+    "name": "Eddy Verbruggen",
+    "email": "eddyverbruggen@gmail.com",
+    "url": "https://github.com/EddyVerbruggen"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin/issues"
   },
-  "homepage": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin#readme"
+  "homepage": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin#readme",
+  "gitHead": "04b4cf78945d4cbec7efc849292ea1a6d44fe7be",
+  "_id": "cordova-plugin-x-toast@2.6.0",
+  "scripts": {},
+  "_shasum": "4778becb61e36c8951091a075850c28ded8f56a5",
+  "_from": "cordova-plugin-x-toast@latest",
+  "_npmVersion": "3.10.10",
+  "_nodeVersion": "6.9.4",
+  "_npmUser": {
+    "name": "eddyverbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "dist": {
+    "shasum": "4778becb61e36c8951091a075850c28ded8f56a5",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-x-toast/-/cordova-plugin-x-toast-2.6.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "eddyverbruggen",
+      "email": "eddyverbruggen@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/cordova-plugin-x-toast-2.6.0.tgz_1487449478306_0.20324575644917786"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-x-toast/-/cordova-plugin-x-toast-2.6.0.tgz",
+  "readme": "ERROR: No README data found!"
 }

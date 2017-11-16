@@ -9,7 +9,7 @@
 </div>
 <div id="chooseProfileInner">
 <!-- {{#profiles}} -->
-	<button type="button" class="btn btn-default" style="font-size: 20px;margin-bottom: 5px; width: 220px;padding:1px; color: {{backgroundColor}}; border: 2px solid {{backgroundColor}}; font-weight: bolder"
+	<button type="button" class="btn {{btnClass}}" style="font-size: 20px;margin-bottom: 5px; width: 220px;padding:1px; font-weight: bolder"
 		onclick="localStorage.setItem('profile', '{{key}}');ChooseProfile.hide();"><span>{{label}}  {{{icon}}}</span>
     </button>
 	<br>

@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-vibration",
-  "version": "2.1.1",
+  "version": "2.1.6",
   "description": "Cordova Vibration Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-vibration",
     "platforms": [
@@ -18,7 +19,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-vibration"
+    "url": "git+https://github.com/apache/cordova-plugin-vibration.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
   "keywords": [
     "cordova",
@@ -35,12 +39,73 @@
     "cordova-tizen"
   ],
   "scripts": {
-    "test": "npm run jshint",
-    "jshint": "jshint www && jshint src && jshint tests"
+    "test": "npm run eslint",
+    "eslint": "eslint www && eslint src && eslint tests"
   },
-  "author": "Apache Software Foundation",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
   "license": "Apache-2.0",
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
   "devDependencies": {
-    "jshint": "^2.6.0"
-  }
+    "eslint": "^4.0.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-vibration#readme",
+  "_id": "cordova-plugin-vibration@2.1.6",
+  "_shasum": "e57295892cf15e44b0c99f8feb44774395cb4a3e",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-vibration/-/cordova-plugin-vibration-2.1.6.tgz",
+  "_from": "cordova-plugin-vibration@latest",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "e57295892cf15e44b0c99f8feb44774395cb4a3e",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-vibration/-/cordova-plugin-vibration-2.1.6.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-vibration-2.1.6.tgz_1510361681363_0.9004129036329687"
+  },
+  "directories": {}
 }

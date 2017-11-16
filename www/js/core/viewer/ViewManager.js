@@ -21,20 +21,20 @@
 */
 var ViewManager = {
 
-    loadTemplate: function(templateUrl) {
+    loadTemplate: function (templateUrl) {
         var template = "";
         $.ajax({
             url: templateUrl,
             async: false,
             dataType: "html",
-            success: function(data) {
+            success: function (data) {
                 template = data;
             }
         });
         return template;
     },
 
-    render: function(data, component, templateName) {
+    render: function (data, component, templateName) {
         var template = "";
         if (templateName == null) {
             for (var pageType in data) {
@@ -57,4 +57,4 @@ var ViewManager = {
         $(component).html(html);
     }
 
-}
+};

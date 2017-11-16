@@ -1,6 +1,6 @@
 {
   "connectionError": {
-    "message": "No hay conexión a internet. Revise si la conexión wi-fi o el intercambio de datos están activos.",
+    "message": "No ha sido posible recuperar la información solicitada. Inténtelo de nuevo!",
     "title": "Revise La Conexión",
     "buttonName": ""
   },
@@ -9,7 +9,12 @@
     "title": "Servicios No Seleccionados",
     "buttonName": ""
   },
-  "servicesServerError": {
+  "timeoutError": {
+    "message": "No ha sido posible recuperar la información solicitada. Inténtelo de nuevo.",
+    "title": "Revise La Conexión",
+    "buttonName": ""
+  },
+"servicesServerError": {
     "message": "No ha sido posible recuperar la información solicitada. Inténtelo de nuevo.",
     "title": "Información No Disponible",
     "buttonName": ""
@@ -40,18 +45,18 @@
     "buttonName": ""
   },
   "chooseGpsManualSearchCenter": {
-    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
-    "title": "Búsqueda",
+    "message": "¿Dónde quieres buscar?",
+    "title": "",
     "buttonName": [ "GPS", "Ubicación Manual" ]
   },
   "chooseGpsServiceSearchCenter": {
-    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
-    "title": "Búsqueda",
+    "message": "¿Dónde quieres buscar?",
+    "title": "",
     "buttonName": [ "GPS", "Último servicio" ]
   },
   "chooseManualServiceSearchCenter": {
-    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
-    "title": "Búsqueda",
+    "message": "¿Dónde quieres buscar?",
+    "title": "",
     "buttonName": [ "Ubicación Manual", "Último servicio" ]
   },
   "addCalendarSuccess": {
@@ -126,6 +131,71 @@
     "message": "Es necesario habilitar los permisos de geolocalización en los ajustes del dispositivo.",
     "title": "Permiso Denegado",
     "buttonName": ""
+  },
+  "saveSettings": {
+    "message": "¿Quieres guardar?",
+    "title": "",
+    "buttonName": [ "Cancelar", "Guardar" ]
+  },
+   "wrongEmail": {
+    "message": "No se ha introducido ningún correo electrónico",
+    "title": "",
+    "buttonName": ""
+  },
+  "wrongConfirmPassword": {
+    "message": "Las dos contraseñas son diferentes",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyemail": {
+    "message": "Correo no ingresado",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptypassword": {
+    "message": "Contraseña no introducida",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyconfirmPassword": {
+    "message": "Contraseña debe ser confirmada",
+    "title": "",
+    "buttonName": ""
+  },
+  "welcomeToApp": {
+    "message": "¡Bienvenido a Km4city!",
+    "title": "",
+    "buttonName": ""
+  },
+  "unauthorized": {
+    "message": "No está registrado o ha ingresado correos electrónicos y / o contraseñas incorrectas",
+    "title": "",
+    "buttonName": ""
+  },
+  "updateApp": {
+    "message": "Debe actualizar su aplicación para acceder a su perfil",
+    "title": "",
+    "buttonName": [ "Cancelar", "Actualizar" ]
+  },
+  "updateServer": {
+    "message": "Estamos actualizando el servidor",
+    "title": "",
+    "buttonName": ""
+  },
+  "userDuplicate": {
+    "message": "Usuario ya registrado",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecified": {
+    "message": "Por favor, autorice su información de email",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecifiedFB": {
+    "message": "No puede registrarse si no autoriza la información de email",
+    "title": "",
+    "buttonName": [ "Cancelar", "Autorizo el email" ]
   }
 }
 

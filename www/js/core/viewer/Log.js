@@ -28,12 +28,12 @@ var Log = {
         if ($("#log").length == 0) {
             $("#indexPage").append("<div id=\"log\"></div>")
         }
-        if (device.platform != "Android"){
+        if (device.platform != "Android") {
             ViewManager.render(JSON.parse(localStorage.getItem("log")), '#log', 'Log');
         } else {
             ViewManager.render(JSON.parse(localStorage.getItem("logTracker")), '#log', 'Log');
         }
-        
+
         $('#log').show();
         Log.open = true;
         application.addingMenuToCheck("Log");
@@ -58,7 +58,7 @@ var Log = {
         ViewManager.render(JSON.parse(localStorage.getItem("logTracker")), '#log', 'Log');
     },
 
-    hide: function() {
+    hide: function () {
         $('#log').hide(Parameters.hidePanelGeneralDuration);
         Log.open = false;
         application.removingMenuToCheck("Log");
@@ -71,12 +71,10 @@ var Log = {
     },
 
     closeAll: function () {
-        if (Log.open) {
             Log.hide();
-        }
     },
 
-    write: function(textToWrite) {
+    write: function (textToWrite) {
         var currentLog = JSON.parse(localStorage.getItem("log"));
         if (currentLog != null) {
             currentLog.lines.push({
@@ -102,4 +100,5 @@ var Log = {
 
     }
 
-}
+};
+

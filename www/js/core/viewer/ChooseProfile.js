@@ -31,7 +31,7 @@ var ChooseProfile = {
             url: RelativePath.profiles + "profiles." + SettingsManager.language + ".json",
             async: false,
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 ViewManager.render(data, '#chooseProfile', 'ChooseProfile');
             }
         });
@@ -41,7 +41,7 @@ var ChooseProfile = {
         application.addingMenuToCheck("ChooseProfile");
     },
 
-    hide: function() {
+    hide: function () {
         $('#chooseProfile').hide();
         localStorage.setItem("acceptInformation", true);
         localStorage.setItem("appVersion", application.version);
@@ -56,4 +56,4 @@ var ChooseProfile = {
             ChooseLanguage.show();
         }
     }
-}
+};

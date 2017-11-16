@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-calendar",
-  "version": "4.5.1",
+  "version": "4.6.0",
   "description": "This plugin allows you to manipulate the native calendar.",
   "cordova": {
     "id": "cordova-plugin-calendar",
@@ -27,10 +27,42 @@
       "version": ">=3.0.0"
     }
   ],
-  "author": "Eddy Verbruggen <eddyverbruggen@gmail.com> (https://github.com/EddyVerbruggen)",
+  "author": {
+    "name": "Eddy Verbruggen",
+    "email": "eddyverbruggen@gmail.com",
+    "url": "https://github.com/EddyVerbruggen"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin/issues"
   },
-  "homepage": "https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin#readme"
+  "homepage": "https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin#readme",
+  "gitHead": "d894d30f112ff21aae859d669985b5f18c7b7158",
+  "_id": "cordova-plugin-calendar@4.6.0",
+  "scripts": {},
+  "_shasum": "487352ec9f995d21c7ab0976efd8e65e8e5fba3c",
+  "_from": "cordova-plugin-calendar@latest",
+  "_npmVersion": "3.10.10",
+  "_nodeVersion": "6.10.3",
+  "_npmUser": {
+    "name": "eddyverbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "dist": {
+    "shasum": "487352ec9f995d21c7ab0976efd8e65e8e5fba3c",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-calendar/-/cordova-plugin-calendar-4.6.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "eddyverbruggen",
+      "email": "eddyverbruggen@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-calendar-4.6.0.tgz_1498821120284_0.9582400813233107"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-calendar/-/cordova-plugin-calendar-4.6.0.tgz",
+  "readme": "ERROR: No README data found!"
 }

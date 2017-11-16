@@ -42,14 +42,14 @@ var SettingsManager = {
     chronologyMaxSize: null,
     gpsPosition: null,
 
-    initializeSettings: function(settingsOnInit) {
+    initializeSettings: function (settingsOnInit) {
 
         if (SettingsManager.defaultSettings == null) {
             $.ajax({
                 url: SettingsManager.urlDefaultSettings,
                 async: false,
                 dataType: "json",
-                success: function(data) {
+                success: function (data) {
                     SettingsManager.defaultSettings = data
                 }
             });
@@ -83,22 +83,22 @@ var SettingsManager = {
         }
     },
 
-    resetSettings: function() {
+    resetSettings: function () {
         for (var setting in SettingsManager.defaultSettings) {
             SettingsManager[setting] = SettingsManager.defaultSettings[setting];
         }
         SettingsManager.refreshMenu();
     },
 
-    saveSettings: function() {
+    saveSettings: function () {
         for (var setting in SettingsManager.defaultSettings) {
-            SettingsManager[setting] = $("[name='" + setting+"']").val();
+            SettingsManager[setting] = $("[name='" + setting + "']").val();
             localStorage.setItem(setting, SettingsManager[setting]);
         }
         SettingsManager.refreshAll();
     },
 
-    cancelChanges: function() {
+    cancelChanges: function () {
         for (var setting in SettingsManager.defaultSettings) {
             if (localStorage.getItem(setting) === null) {
                 localStorage.setItem(setting, SettingsManager.defaultSettings[setting]);
@@ -107,31 +107,31 @@ var SettingsManager = {
         }
     },
 
-    refreshMenu: function() {
+    refreshMenu: function () {
 
         $.ajax({
             url: RelativePath.jsonFolder + "settingsMenu/settingsMenu." + SettingsManager.language + ".json",
             async: false,
             dataType: "json",
-            success: function(data) {
+            success: function (data) {
                 SettingsManager.menu = data;
             }
         });
 
         for (var i = 0; i < SettingsManager.menu.Settings.groups.length; i++) {
-        	for (var j = 0; j < SettingsManager.menu.Settings.groups[i].items.length; j++) {
-        		var item = SettingsManager.menu.Settings.groups[i].items[j];
-        		if (item.options != null) {
-        			for (var l = 0; l < item.options.length; l++) {
-        				var option = item.options[l];
-        				if (option.key == SettingsManager[item.key]) {
-        					SettingsManager.menu.Settings.groups[i].items[j].options[l].selected = "selected";
-        				}
-        			}
-        		}
-        	}
+            for (var j = 0; j < SettingsManager.menu.Settings.groups[i].items.length; j++) {
+                var item = SettingsManager.menu.Settings.groups[i].items[j];
+                if (item.options != null) {
+                    for (var l = 0; l < item.options.length; l++) {
+                        var option = item.options[l];
+                        if (option.key == SettingsManager[item.key]) {
+                            SettingsManager.menu.Settings.groups[i].items[j].options[l].selected = "selected";
+                        }
+                    }
+                }
+            }
         }
-        
+
         SettingsManager.menu.Settings.platform = device.platform;
         if ($("#settingsMenu").length == 0) {
             $("#indexPage").append("<div id=\"settingsMenu\" class=\"commonMenu\"></div>")
@@ -139,7 +139,7 @@ var SettingsManager = {
         ViewManager.render(SettingsManager.menu, "#settingsMenu", null);
     },
 
-    showSettingsMenu: function() {
+    showSettingsMenu: function () {
         SettingsManager.refreshMenu();
         $('#settingsMenu').show();
         SettingsManager.open = true;
@@ -147,14 +147,28 @@ var SettingsManager = {
         application.setBackButtonListener();
     },
 
-    hideSettingsMenu: function() {
+    checkSaveSettings: function(){
+        navigator.notification.confirm(Globalization.alerts.saveSettings.message, function (indexButton) {
+            if (indexButton == 2) {
+                application.resetInterface(); MapManager.resetMarker(); SettingsManager.saveSettings();
+            }
+            if (indexButton == 1) {
+                SettingsManager.cancelChanges(); SettingsManager.hideSettingsMenu();
+            }
+
+        }, "", Globalization.alerts.saveSettings.buttonName);
+    },
+
+    hideSettingsMenu: function () {
+
         setTimeout(function () {
             $('#settingsMenu').hide(Parameters.hidePanelGeneralDuration);
-            SettingsManager.open = false;
+            
             application.removingMenuToCheck("SettingsManager");
-            if (PrincipalMenu.fromPrincipalMenu) {
+            if (PrincipalMenu.fromPrincipalMenu && SettingsManager.open) {
                 PrincipalMenu.show();
             }
+            SettingsManager.open = false;
         }, 1000);
     },
 
@@ -164,9 +178,10 @@ var SettingsManager = {
         CategorySearcher.refreshCategoryMenu();
         GpsManager.refresh();
         MapManager.initializeAndUpdatePopUpGpsMarker();
-        MapManager.initializeAndUpdatePopUpManualMarker();
+        MapManager.initializeAndUpdatePopUpManualMarker(Globalization.labels.searchPopUp.aroundYou, MapManager.manualMarkerCallback);
         ViewManager.render(null, '#threeVerticalDotMenu', 'ThreeVerticalDotMenu');
         QueryManager.refreshParameters();
+
         if (SettingsManager.profile == "operator") {
             if (SettingsManager.language == "ita") {
                 $("#profileShowerInner").html("Operatore");
@@ -182,19 +197,12 @@ var SettingsManager = {
     },
 
     checkForBackButton: function () {
-        if (SettingsManager.open) {
-            SettingsManager.hideSettingsMenu();
-            if (PrincipalMenu.fromPrincipalMenu) {
-                PrincipalMenu.show();
-            }
-        }
+        SettingsManager.checkSaveSettings();
     },
 
     closeAll: function () {
-        if (SettingsManager.open) {
-            SettingsManager.hideSettingsMenu();
-        }
+       SettingsManager.hideSettingsMenu();
     }
 
 
-}
+};

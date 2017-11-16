@@ -1,8 +1,4 @@
 /*
- * Copyright (c) 2013-2016 by appPlant UG. All rights reserved.
- *
- * @APPPLANT_LICENSE_HEADER_START@
- *
  * This file contains Original Code and/or Modifications of Original Code
  * as defined in and that are subject to the Apache License
  * Version 2.0 (the 'License'). You may not use this file except in
@@ -17,129 +13,133 @@
  * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
  * Please see the License for the specific language governing rights and
  * limitations under the License.
- *
- * @APPPLANT_LICENSE_HEADER_END@
  */
 
 #import "APPBadge.h"
-#import "UIApplication+APPBadge.h"
-#import "AppDelegate+APPAppEvent.h"
 
-@interface APPBadge ()
-
-// Needed when calling `registerPermission`
-@property (nonatomic, retain) CDVInvokedUrlCommand* command;
-
-@end
+@import UserNotifications;
 
 @implementation APPBadge
+
+static NSString * const kAPPBadgeConfigKey = @"APPBadgeConfigKey";
 
 #pragma mark -
 #pragma mark Interface
 
 /**
- * Clears the badge of the app icon.
- *
+ * Load the badge config.
  */
-- (void) clearBadge:(CDVInvokedUrlCommand *)command
+- (void) load:(CDVInvokedUrlCommand *)command
 {
     [self.commandDelegate runInBackground:^{
+        NSDictionary *config = [self.settings objectForKey:kAPPBadgeConfigKey];
+
+        CDVPluginResult* result;
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                   messageAsDictionary:config];
+
+        [self.commandDelegate sendPluginResult:result
+                                    callbackId:command.callbackId];
+    }];
+}
+
+/**
+ * Save the badge config.
+ */
+- (void) save:(CDVInvokedUrlCommand *)command
+{
+    [self.commandDelegate runInBackground:^{
+        [self.settings setObject:[command argumentAtIndex:0]
+                          forKey:kAPPBadgeConfigKey];
+    }];
+}
+
+/**
+ * Clear the badge number.
+ */
+- (void) clear:(CDVInvokedUrlCommand *)command
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.app setApplicationIconBadgeNumber:0];
 
         [self sendPluginResult:CDVCommandStatus_OK
                  messageAsLong:0
                     callbackId:command.callbackId];
-    }];
+    });
 }
 
 /**
- * Sets the badge of the app icon.
- *
- * @param badge
- *      The badge to be set
+ * Set the badge number.
  */
-- (void) setBadge:(CDVInvokedUrlCommand *)command
+- (void) set:(CDVInvokedUrlCommand *)command
 {
     NSArray* args = [command arguments];
     int number    = [[args objectAtIndex:0] intValue];
 
-    [self.commandDelegate runInBackground:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self.app setApplicationIconBadgeNumber:number];
 
         [self sendPluginResult:CDVCommandStatus_OK
                  messageAsLong:number
                     callbackId:command.callbackId];
-    }];
+    });
 }
 
 /**
- * Gets the badge of the app icon.
- *
- * @param callback
- *      The function to be exec as the callback
+ * Get the badge number.
  */
-- (void) getBadge:(CDVInvokedUrlCommand *)command
+- (void) get:(CDVInvokedUrlCommand *)command
 {
-    [self.commandDelegate runInBackground:^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         long badge = [self.app applicationIconBadgeNumber];
 
         [self sendPluginResult:CDVCommandStatus_OK
                  messageAsLong:badge
                     callbackId:command.callbackId];
-    }];
+    });
 }
 
 /**
- * Informs if the app has the permission to show badges.
- *
- * @param callback
- *      The function to be exec as the callback
+ * Check permission to show badges.
  */
-- (void) hasPermission:(CDVInvokedUrlCommand *)command
+- (void) check:(CDVInvokedUrlCommand *)command
 {
     [self.commandDelegate runInBackground:^{
-        BOOL hasPermission = [self.app hasPermissionToDisplayBadges];
+        UNUserNotificationCenter *center =
+        UNUserNotificationCenter.currentNotificationCenter;
 
-        [self sendPluginResult:CDVCommandStatus_OK
-                 messageAsBool:hasPermission
-                    callbackId:command.callbackId];
+        [center getNotificationSettingsWithCompletionHandler:
+         ^(UNNotificationSettings* settings) {
+             BOOL authorized =
+             settings.authorizationStatus == UNAuthorizationStatusAuthorized;
+             BOOL enabled =
+             settings.badgeSetting == UNNotificationSettingEnabled;
+
+             [self sendPluginResult:CDVCommandStatus_OK
+                      messageAsBool:authorized && enabled
+                         callbackId:command.callbackId];
+        }];
     }];
 }
 
 /**
- * Register permission to show badges.
- *
- * @param callback
- *      The function to be exec as the callback
+ * Request permission to show badges.
  */
-- (void) registerPermission:(CDVInvokedUrlCommand *)command
+- (void) request:(CDVInvokedUrlCommand *)command
 {
-    if (![[UIApplication sharedApplication]
-         respondsToSelector:@selector(registerUserNotificationSettings:)])
-    {
-        return [self hasPermission:command];
-    }
-
-    _command = command;
-
     [self.commandDelegate runInBackground:^{
-        [self.app registerPermissionToDisplayBadges];
+        UNUserNotificationCenter *center =
+        UNUserNotificationCenter.currentNotificationCenter;
+
+        UNAuthorizationOptions options = UNAuthorizationOptionBadge;
+
+        [center requestAuthorizationWithOptions:options
+                              completionHandler:^(BOOL granted, NSError* e) {
+                                  [self sendPluginResult:CDVCommandStatus_OK
+                                           messageAsBool:granted
+                                              callbackId:command.callbackId];
+        }];
     }];
-}
-
-#pragma mark -
-#pragma mark Delegates
-
-/**
- * Called on otification settings registration is completed.
- */
-- (void) didRegisterUserNotificationSettings:(UIUserNotificationSettings*)settings
-{
-    if (_command)
-    {
-        [self hasPermission:_command];
-        _command = NULL;
-    }
 }
 
 #pragma mark -
@@ -151,6 +151,14 @@
 - (UIApplication*) app
 {
     return [UIApplication sharedApplication];
+}
+
+/**
+ * Short hand for standard user defaults instance.
+ */
+- (NSUserDefaults*) settings
+{
+    return [NSUserDefaults standardUserDefaults];
 }
 
 /**

@@ -5,18 +5,19 @@
 .principalMenuButton{
     text-align:center; 
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    border-radius: 2px;
-    background-color: white;  
+    border-radius: 15px;
+    background-color: #FAFAFA;  
     position: relative; 
     float: left; 
     width: 30%;
     height: 70px;
     padding-top: 5px; 
-    margin: 3px 1.5% 3px 1.5%
+    margin: 1.5%
 }
 
 .principalMenuButton:active {
     box-shadow: none;
+    background-color: #EEEEEE;  
 }
 
 .principalMenuButtonRemoved{
@@ -53,8 +54,8 @@
 .textCaption {
 	position:absolute;
     bottom: 1px;
-    left:0;
-    right: 0;
+    left:6px;
+    right: 6px;
 }
 
 .ribbon {
@@ -112,37 +113,51 @@
 </style>
 <div class="panel panel-default">
 	<div class="panel-heading" style="height: 55px;padding-left: 7px; padding-top: 1px;">
-        <a id="principalMenuModifyMenuButton" class="pull-right" onclick="PrincipalMenu.modifyPrincipalMenu();">
-            <i class="glyphicon glyphicon-pencil"
-               style="float: right; color: #777; line-height: 52px;"></i>
-        </a>
-        <a id="principalMenuSaveMenuButton" style="display: none" class="pull-right" onclick="PrincipalMenu.savePrincipalMenu();">
-            <i class="glyphicon glyphicon-floppy-disk"
-               style="float: right; padding-left: 15px; color: #777; line-height: 52px;"></i>
-        </a>
-        <a id="principalMenuResetMenuButton" style="display: none" class="pull-right" onclick="PrincipalMenu.resetPrincipalMenu();">
-            <i class="glyphicon glyphicon-repeat"
-               style="float: right; color: #777; line-height: 52px;"></i>
-        </a>
-        <img src="img/km4city.png" width="40" height="40" onclick="PrincipalMenu.clickOnLogo();"/>
-		<b id="principalMenuHeaderTitle" style="line-height: 2.5;margin-left: 10px"><script>
+      
+        <img src="img/km4city.png" width="40" height="40" onclick="PrincipalMenu.fromHomeButton = true; PrincipalMenu.show();"/>
+		<b id="principalMenuHeaderTitle" onclick="PrincipalMenu.fromHomeButton = true; PrincipalMenu.show();" style="line-height: 2.5;margin-left: 10px"><script>
                 $("#principalMenuHeaderTitle").html(
 						Globalization.labels.principalMenu.headerTitle)
 			</script></b>
 	</div>
 </div>
-<div id="principalMenuInner">
+<div id="principalMenuInner" style="bottom:25px;">
             <!--{{#principalMenuButtons}}-->
-            <div class="{{^removed}}principalMenuButton{{/removed}}{{#removed}}principalMenuButtonRemoved{{/removed}}" data-index="{{index}}" {{#callback}} onclick="{{callback}}" {{/callback}}>
+            <div class="{{^removed}}principalMenuButton{{/removed}}{{#removed}}principalMenuButtonRemoved{{/removed}}" data-index="{{index}}" {{#callback}} onclick="{{callback}}; PrincipalMenu.createLastOperationButton({{index}})" {{/callback}}>
                         {{#iconClass}}<i {{#iconId}}id="{{iconId}}"{{/iconId}}  class="{{iconClass}}" style="font-size:{{iconFontSize}};color: {{iconColor}};">{{#step}}<span class="step" id="{{stepId}}"></span>{{/step}}</i>{{/iconClass}}
                         {{#imgSrc}}<img style="height:{{imgHeight}};margin-bottom: 5px;" src="{{imgSrc}}">{{/imgSrc}}
-                        {{#text}}<b style="font-size:{{textFontSize}};color: {{textColor}}">{{{text}}}</b>{{/text}}
+                        {{#text}}<b class="textIcon" style="font-size:{{textFontSize}};color: {{textColor}}">{{{text}}}</b>{{/text}}
                         {{#ribbon}}<div class="ribbon"><span id="{{ribbonId}}" {{#ribbonStyle}}style="{{ribbonStyle}}"{{/ribbonStyle}}>{{#ribbonText}}{{ribbonText}}{{/ribbonText}}</span></div>{{/ribbon}}
                         {{#captionId}}<b class="textCaption" id="{{captionId}}"></b>{{/captionId}}
-                        {{^removed}}<i class="glyphicon glyphicon-move iconModifing" style="display:none;font-size: 25px;position: absolute;left: 0px;top: 0px;z-index: 1;color: darkblue;"></i>
-                        <i class="glyphicon glyphicon-minus-sign iconModifing" onclick="PrincipalMenu.removeButtonFromPrincipalMenu({{index}})"style="display:none; font-size: 25px;position: absolute;right: -6px;top: -2px;z-index: 1; color: darkred"></i>{{/removed}}
-                {{#removed}}<i class="glyphicon glyphicon-plus-sign iconModifing" onclick="PrincipalMenu.addButtonToPrincipalMenu({{index}})" style="display:none; font-size: 25px;position: absolute;right: -6px; top: -2px;z-index: 1; color: darkgreen"></i>{{/removed}}
+                        {{^removed}}<span id="principalMenuMoveButton{{index}}" class="btn btn-primary iconModifing" style="display:none;padding: 0px; position: absolute;left: 0px; right: 0px; top: 0px;z-index: 1;border-radius: 0px"><script>
+                            $("#principalMenuMoveButton{{index}}").html(
+						Globalization.labels.principalMenuModifing.touchAndMove)
+</script></span>
+                        <span id="principalMenuHideButton{{index}}" class="btn btn-danger iconModifing" onclick="PrincipalMenu.removeButtonFromPrincipalMenu({{index}})"style="display:none;padding: 0px; position: absolute;right: 0px;left:0px;bottom: 0px;z-index: 1;border-radius: 0px"><script>
+                            $("#principalMenuHideButton{{index}}").html(
+						Globalization.labels.principalMenuModifing.hide)
+</script></span>{{/removed}}
+                {{#removed}}<span id="principalMenuShowButton{{index}}" class="btn btn-success iconModifing" onclick="PrincipalMenu.addButtonToPrincipalMenu({{index}})" style="display:none;padding: 0px; position: absolute;right: 0px;left: 0px; bottom: 0px;z-index: 1;border-radius: 0px"><script>
+                    $("#principalMenuShowButton{{index}}").html(
+						Globalization.labels.principalMenuModifing.show)
+</script></span>{{/removed}}
                         
             </div>
             <!--{{/principalMenuButtons}}-->
 </div>
+<button id="principalMenuModifyMenuButton" type="button" class="btn btn-default"
+        style="position: absolute; bottom: 0px; left: 0; width: 100%; height: 25px; padding: 0px 0px; text-align: center; font-size: 18px; border-radius: 0px;"
+        onclick="PrincipalMenu.modifyPrincipalMenu();">
+    <i class="glyphicon glyphicon-pencil"></i>
+</button>
+
+<button id="principalMenuResetMenuButton" type="button" class="btn btn-default"
+        style="display:none; position: absolute; bottom: 0px; left: 0%; width: 50%; height: 25px; padding: 0px 0px; text-align: center; font-size: 18px; border-radius: 0px;"
+        onclick="PrincipalMenu.resetPrincipalMenu();">
+    <i class="glyphicon glyphicon-repeat"></i>
+</button>
+<button id="principalMenuSaveMenuButton" type="button" class="btn btn-success"
+        style="display:none; position: absolute; bottom: 0px; left: 50%; width: 50%; height: 25px; padding: 0px 0px; text-align: center; font-size: 18px; border-radius: 0px;"
+        onclick="PrincipalMenu.savePrincipalMenu();">
+    <i class="glyphicon glyphicon-floppy-disk"></i>
+</button>

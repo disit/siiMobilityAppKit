@@ -1,31 +1,18 @@
-/* SII-MOBILITY DEV KIT MOBILE APP KM4CITY.
-   Copyright (C) 2016 DISIT Lab http://www.disit.org/6981 - University of Florence
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Affero General Public License
-   as published by the Free Software Foundation.
-   The interactive user interfaces in modified source and object code versions 
-   of this program must display Appropriate Legal Notices, as required under 
-   Section 5 of the GNU Affero GPL . In accordance with Section 7(b) of the 
-   GNU Affero GPL , these Appropriate Legal Notices must retain the display 
-   of the "Sii-Mobility Dev Kit Mobile App Km4City" logo. The Logo "Sii-Mobility
-  Dev Kit Mobile App Km4City" must be a clickable link that leads directly to the
-  Internet URL http://www.sii-mobility.org oppure a DISIT Lab., using 
-  technology derived from  Http://www.km4city.org.
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU Affero General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
-*/
 var PrincipalMenu = {
 
     open: false,
+    secondaryMenuOpen: false,
     fromPrincipalMenu: false,
+    fromHomeButton: false,
     suggestionsBadge: 0,
     eventsBadge: 0,
+    infoSOCBadge: 0,
+    personalAssistantBadge: 0,
     principalMenuButtons: [],
+    weatherBadge: 0,
+    currentWeatherIcon: "icon ion-ios-partlysunny",
+    weatherInterval: null,
+    gridster: null,
     draggedButton: null,
     droppedButton: null,
     modifing: false,
@@ -34,19 +21,16 @@ var PrincipalMenu = {
 
     createPrincipalMenu: function () {
         if (PrincipalMenu.principalMenuButtons.length == 0) {
-            if (JSON.parse(localStorage.getItem("principalMenuButtons")) != null){
+            if (JSON.parse(localStorage.getItem("principalMenuButtons")) != null) {
                 PrincipalMenu.principalMenuButtons = JSON.parse(localStorage.getItem("principalMenuButtons"));
             }
         }
 
+        PrincipalMenu.refreshMenu();
+
         if (PrincipalMenu.init) {
             PrincipalMenu.checkNewButtons();
-        }
-        PrincipalMenu.refreshMenu();
-        $("#principalMenuInner div.principalMenuButton").on("taphold", function (event) { PrincipalMenu.modifyPrincipalMenu(); })
-        if (PrincipalMenu.modifing == true) {
-            PrincipalMenu.modifyPrincipalMenu();
-        }
+        } 
     },
 
     refreshMenu: function () {
@@ -60,6 +44,12 @@ var PrincipalMenu = {
                            Globalization.labels.principalMenu[PrincipalMenu.principalMenuButtons[i].captionTextId]);
             }
         }
+        if (PrincipalMenu.modifing == true) {
+            PrincipalMenu.modifyPrincipalMenu();
+        } else {
+            PrincipalMenu.refreshingBadge();
+            
+        }
     },
 
     checkNewButtons: function () {
@@ -68,33 +58,12 @@ var PrincipalMenu = {
             async: false,
             dataType: "json",
             success: function (data) {
-                if (PrincipalMenu.principalMenuButtons.length == 0) {
-                    PrincipalMenu.principalMenuButtons = data;
-                } else {
-                    PrincipalMenu.checkButtonsToAdd(data);
-                }
-            }
-        });
-
-        Utility.loadFilesInsideDirectory("www/js/modules/", null, "principalMenu.json", true, PrincipalMenu.loadModulesButton, function (e) {
-            PrincipalMenu.refreshMenu();
-            localStorage.setItem("principalMenuButtons", JSON.stringify(PrincipalMenu.principalMenuButtons));
-            PrincipalMenu.init = false;
-        });
-
-        
-
-        $.ajax({
-            url: application.remoteJsonUrl + "principalMenu.json",
-            cache: false,
-            timeout: Parameters.timeoutGettingMenuCategorySearcher,
-            dataType: "json",
-            success: function (data) {
                 PrincipalMenu.checkButtonsToAdd(data);
                 PrincipalMenu.refreshMenu();
+                localStorage.setItem("principalMenuButtons", JSON.stringify(PrincipalMenu.principalMenuButtons));
+                PrincipalMenu.init = false;
             }
         });
-
     },
 
     loadModulesButton: function (fullPath) {
@@ -108,7 +77,7 @@ var PrincipalMenu = {
         });
     },
 
-    checkButtonsToAdd: function(buttonsToAdd){
+    checkButtonsToAdd: function (buttonsToAdd) {
         for (var i = 0; i < buttonsToAdd.length; i++) {
             var j = 0;
             var buttonAlreadyInserted = false;
@@ -149,7 +118,7 @@ var PrincipalMenu = {
         PrincipalMenu.refreshIndexOfMenuButton();
     },
 
-    resetPrincipalMenu: function(){
+    resetPrincipalMenu: function () {
         $.ajax({
             url: RelativePath.jsonFolder + "principalMenu.json",
             async: false,
@@ -158,34 +127,71 @@ var PrincipalMenu = {
                 PrincipalMenu.principalMenuButtons = data
             }
         });
+        PrincipalMenu.init = true;
         PrincipalMenu.createPrincipalMenu();
     },
 
     show: function () {
-        PrincipalMenu.createPrincipalMenu();
-        $("#splashScreenVideoContainer").remove();
-        $('#principalMenu').show();
-        application.resetInterface();
-        MapManager.resetMarker();
-        PrincipalMenu.open = true;
-        PrincipalMenu.fromPrincipalMenu = false;
-        if (Math.abs(localStorage.getItem("latestEventsClickedTime") - (new Date().getTime())) > Parameters.showBadgeAfterThisTime || localStorage.getItem("latestEventsClickedTime") == null) {
-            var eventsQuery = QueryManager.createEventsQuery("day", "app");
-            APIClient.executeQueryWithoutAlert(eventsQuery, PrincipalMenu.updatingEventsBadge, null);
+        if (!PrincipalMenu.secondaryMenuOpen || PrincipalMenu.fromHomeButton) {
+            PrincipalMenu.createPrincipalMenu();
+            $('#principalMenu').show();
+
+            if (device.platform != "Web") {
+                screen.orientation.unlock();
+                navigator.splashscreen.hide();
+            }
+            application.resetInterface();
+            application.menuToCheckArray = [];
+            MapManager.resetMarker();
+            MapManager.removeVariableButtons();
+            MapManager.addVariableButtons();
+            PrincipalMenu.open = true;
+            PrincipalMenu.fromPrincipalMenu = false;
+            PrincipalMenu.fromHomeButton = false;
+            PrincipalMenu.secondaryMenuOpen = false;
+            PrincipalMenu.resetWeatherBadge();
+            if (Math.abs(localStorage.getItem("latestEventsClickedTime") - (new Date().getTime())) > Parameters.showBadgeAfterThisTime || localStorage.getItem("latestEventsClickedTime") == null) {
+                var eventsQuery = QueryManager.createEventsQuery("day", "app");
+                APIClient.executeQueryWithoutAlert(eventsQuery, PrincipalMenu.updatingEventsBadge, null);
+            }
+            if (PrincipalMenu.weatherInterval != null) {
+                clearInterval(PrincipalMenu.weatherInterval);
+            }
+            if (Math.abs(localStorage.getItem("latestWeatherClickedTime") - (new Date().getTime())) > (Parameters.showBadgeAfterThisTime / 2) || localStorage.getItem("latestWeatherClickedTime") == null) {
+                PrincipalMenu.weatherInterval = setInterval(function () {
+                    if (MapManager.gpsMarkerCoordinates() != null) {
+                        var municipalityQuery = QueryManager.createLocationQuery(MapManager.gpsMarkerCoordinates(), "app");
+                        APIClient.executeQueryWithoutAlert(municipalityQuery, PrincipalMenu.updatingWeatherBadge, PrincipalMenu.updatingWeatherBadge);
+                    }
+                }, 5000);
+            }
+
+            
+            PrincipalMenu.refreshingBadge();
+            $("#coverMap").hide();
+            $("#loadingOverlayPage").hide();
+        } else {
+            $('#principalMenu').show();
+            PrincipalMenu.open = true;
         }
-        if (PrincipalMenu.weatherInterval != null) {
-            clearInterval(PrincipalMenu.weatherInterval);
-        }
-        PrincipalMenu.refreshingBadge();
     },
 
-    hide: function() {
-        $('#principalMenu').hide(Parameters.hidePanelGeneralDuration);
+    hide: function (callback) {
+       
+        $('#principalMenu').hide();
+        if (callback != null) {
+            $("#loadingOverlayPage").show();
+            setTimeout(function () { $("#loadingOverlayPage").hide(); }, 2000);
+        }
         application.setBackButtonListener();
         PrincipalMenu.open = false;
+
+        if (callback != null) {
+            setTimeout(function () { callback(); }, 300);
+        }
     },
 
-    clickOnLogo: function(){
+    clickOnLogo: function () {
         if (PrincipalMenu.open && device.platform != "Web") {
             window.plugins.toast.showWithOptions(
                     {
@@ -203,15 +209,78 @@ var PrincipalMenu = {
     },
 
     updateBadge: function (suggestionsBadge, eventsBadge, weatherBadge, infoSOCBadge, personalAssistantBadge) {
+        if (suggestionsBadge != null && suggestionsBadge != 0) {
+            PrincipalMenu.suggestionsBadge = suggestionsBadge;
+            localStorage.setItem("suggestionsBadge", PrincipalMenu.suggestionsBadge);
+        }
         if (eventsBadge != null && eventsBadge != 0) {
             PrincipalMenu.eventsBadge = eventsBadge;
             localStorage.setItem("eventsBadge", PrincipalMenu.eventsBadge);
         }
+        if (weatherBadge != null && weatherBadge != 0) {
+            PrincipalMenu.weatherBadge = weatherBadge;
+            localStorage.setItem("weatherBadge", PrincipalMenu.weatherBadge);
+        }
+        if (infoSOCBadge != null && infoSOCBadge != 0) {
+            PrincipalMenu.infoSOCBadge = infoSOCBadge;
+            localStorage.setItem("infoSOCBadge", PrincipalMenu.infoSOCBadge);
+        }
+        if (personalAssistantBadge != null && personalAssistantBadge != 0) {
+            PrincipalMenu.personalAssistantBadge = personalAssistantBadge;
+            localStorage.setItem("personalAssistantBadge", PrincipalMenu.personalAssistantBadge);
+        }
         PrincipalMenu.refreshingBadge();
     },
 
-    updatingEventsBadge: function(response){
+    updateProfileIcon: function () {
+       //
+    },
+
+    updatingEventsBadge: function (response) {
         PrincipalMenu.updateBadge(null, response.Event.features.length);
+    },
+
+    updatingWeatherBadge: function (response) {
+        if (PrincipalMenu.weatherInterval != null) {
+            clearInterval(PrincipalMenu.weatherInterval);
+            PrincipalMenu.weatherInterval = null;
+        }
+        if (response.municipalityUri) {
+            var serviceQuery = QueryManager.createServiceQuery(response.municipalityUri, "app");
+            APIClient.executeQueryWithoutAlert(serviceQuery, PrincipalMenu.updatingWeatherBadge, null);
+        } else if (response.results) {
+            PrincipalMenu.updateBadge(null, null, 1);
+            $("#principalMenuWeatherIcon").css("font-size", "38px");
+            if (response.results.bindings[0].description.value == "sereno") {
+                $("#principalMenuWeatherIcon").removeClass().addClass("glyphicon glyphicon-sunglasses");
+            } else if (response.results.bindings[0].description.value.indexOf("pioggia") != -1 || response.results.bindings[0].description.value.indexOf("temporale") != -1) {
+                $("#principalMenuWeatherIcon").removeClass().addClass("glyphicon glyphicon-tint");
+            } else if (response.results.bindings[0].description.value.indexOf("neve") != -1) {
+                $("#principalMenuWeatherIcon").removeClass().addClass("glyphicon glyphicon-asterisk");
+            } else if (response.results.bindings[0].description.value.indexOf("foschia") != -1 || response.results.bindings[0].description.value.indexOf("nebbia") != -1) {
+                $("#principalMenuWeatherIcon").removeClass().addClass("glyphicon glyphicon-align-justify");
+            } else {
+                $("#principalMenuWeatherIcon").removeClass().addClass("glyphicon glyphicon-cloud");
+            }
+            PrincipalMenu.currentWeatherIcon = $("#principalMenuWeatherIcon").attr("class");
+        }
+    },
+
+    resetSuggestionsBadge: function () {
+        if (typeof cordova != "undefined") {
+            cordova.plugins.notification.badge.clear();
+        }
+        PrincipalMenu.suggestionsBadge = 0;
+        localStorage.setItem("suggestionsBadge", PrincipalMenu.suggestionsBadge);
+        PrincipalMenu.refreshingBadge();
+        $('#suggestionsBadge').hide();
+    },
+
+    resetWeatherBadge: function () {
+        PrincipalMenu.weatherBadge = 0;
+        localStorage.setItem("weatherBadge", PrincipalMenu.weatherBadge);
+        PrincipalMenu.refreshingBadge();
+        $('#weatherBadge').hide();
     },
 
     resetEventsBadge: function () {
@@ -221,7 +290,35 @@ var PrincipalMenu = {
         $('#eventsBadge').hide();
     },
 
+    resetInfoSOCBadge: function () {
+        if (typeof cordova != "undefined") {
+            cordova.plugins.notification.badge.clear();
+        }
+        PrincipalMenu.infoSOCBadge = 0;
+        localStorage.setItem("infoSOCBadge", PrincipalMenu.infoSOCBadge);
+        PrincipalMenu.refreshingBadge();
+        $('#infoSOCBadge').hide();
+    },
+
+    resetPersonalAssistantBadge: function () {
+        if (typeof cordova != "undefined") {
+            cordova.plugins.notification.badge.clear();
+        }
+        PrincipalMenu.personalAssistantBadge = 0;
+        localStorage.setItem("personalAssistantBadge", PrincipalMenu.personalAssistantBadge);
+        PrincipalMenu.refreshingBadge();
+        $('#personalAssistantBadge').hide();
+    },
+
     refreshingBadge: function () {
+        PrincipalMenu.suggestionsBadge = localStorage.getItem("suggestionsBadge");
+        if (PrincipalMenu.suggestionsBadge != null) {
+            if (PrincipalMenu.suggestionsBadge != 0) {
+                $('#suggestionsBadge').html(PrincipalMenu.suggestionsBadge);
+                $('#suggestionsBadge').show();
+
+            }
+        }
         PrincipalMenu.eventsBadge = localStorage.getItem("eventsBadge");
         if (PrincipalMenu.eventsBadge != null) {
             if (PrincipalMenu.eventsBadge != 0) {
@@ -229,10 +326,42 @@ var PrincipalMenu = {
                 $('#eventsBadge').show();
             }
         }
+        PrincipalMenu.weatherBadge = localStorage.getItem("weatherBadge");
+        if (PrincipalMenu.weatherBadge != null) {
+            if (PrincipalMenu.weatherBadge != 0) {
+                $("#principalMenuWeatherIcon").attr("class", PrincipalMenu.currentWeatherIcon);
+                $('#weatherBadge').html(PrincipalMenu.weatherBadge);
+                $('#weatherBadge').show();
+            }
+        }
+        PrincipalMenu.infoSOCBadge = localStorage.getItem("infoSOCBadge");
+        if (PrincipalMenu.infoSOCBadge != null) {
+            if (PrincipalMenu.infoSOCBadge != 0) {
+                $('#infoSOCBadge').html(PrincipalMenu.infoSOCBadge);
+                $('#infoSOCBadge').show();
+            }
+        }
+        PrincipalMenu.personalAssistantBadge = localStorage.getItem("personalAssistantBadge");
+        if (PrincipalMenu.personalAssistantBadge != null) {
+            if (PrincipalMenu.personalAssistantBadge != 0) {
+                $('#personalAssistantBadge').html(PrincipalMenu.personalAssistantBadge);
+                $('#personalAssistantBadge').show();
+            } else {
+                $('#personalAssistantBadge').hide();
+            }
+        }
+
+        PrincipalMenu.updateProfileIcon();
+
+        if (device.platform != "Android" && device.platform != "Web") {
+            var currentBadge = parseInt(PrincipalMenu.personalAssistantBadge) + parseInt(PrincipalMenu.infoSOCBadge) + parseInt(PrincipalMenu.suggestionsBadge);
+            cordova.plugins.notification.badge.set(currentBadge);
+        }
+
     },
 
     logPrincipalMenuChoices: function (buttonId) {
-        if (buttonId != null ) {
+        if (buttonId != null) {
             var logPrincipalMenuChoicesQuery = QueryManager.createLogPrincipalMenuChoices(buttonId, "app");
             APIClient.executeQueryWithoutAlert(logPrincipalMenuChoicesQuery, PrincipalMenu.logPrincipalMenuChoicesSuccessQuery, null);
         }
@@ -243,36 +372,45 @@ var PrincipalMenu = {
         console.log("SUCCESS LOG BUTTON");
     },
 
-    modifyPrincipalMenu: function(){
+    modifyPrincipalMenu: function () {
         $("#principalMenuInner div.principalMenuButton").draggable({
-                drag: function (event, ui) {
-                    PrincipalMenu.draggedButton = $(this).data('index');
-                },
-                containment: "#principalMenuInner",
-                revert: "invalid",
-                handle: "i.glyphicon-move",
-                zIndex: 2,
-                opacity: 0.50
-            });
+            drag: function (event, ui) {
+                PrincipalMenu.draggedButton = $(this).data('index');
+            },
+            containment: "#principalMenuInner",
+            revert: "invalid",
+            handle: "span.btn-primary",
+            zIndex: 2,
+            opacity: 0.50
+        });
         $("#principalMenuInner div.principalMenuButton").droppable({
-                drop: function (event, ui) {
-                    PrincipalMenu.droppedButton = $(this).data('index');
-                    PrincipalMenu.swapButtons(PrincipalMenu.draggedButton, PrincipalMenu.droppedButton);
-                },
+            drop: function (event, ui) {
+                PrincipalMenu.droppedButton = $(this).data('index');
+                PrincipalMenu.swapButtons(PrincipalMenu.draggedButton, PrincipalMenu.droppedButton);
+            },
             classes: {
                 "ui-droppable-hover": "ui-state-hover",
                 "ui-droppable-active": "ui-state-default"
-                }
-            });
+            }
+        });
         PrincipalMenu.modifing = true;
         $("#principalMenuInner div.principalMenuButtonRemoved").show();
         $("#principalMenuInner div.ribbon").hide();
         $("#principalMenuInner span.step").hide();
         $('#principalMenuModifyMenuButton').hide();
+        $('#principalMenuChangeButtonsDimension').hide();
         $('#principalMenuResetMenuButton').show();
         $('#principalMenuSaveMenuButton').show();
-        $("#principalMenuInner i.iconModifing").show();
+        $("#principalMenuInner span.iconModifing").show();
         $('#principalMenuInner div').prop('onclick', null).off('click');
+        $('#principalMenuInner div').css({
+            "height": "114px",
+            "padding-top": "25px"
+        });
+        $('#principalMenuInner .textCaption').css({
+            "bottom": "26px"
+        });
+
     },
 
     swapButtons: function (buttonIndex, targetIndex) {
@@ -283,17 +421,25 @@ var PrincipalMenu = {
             PrincipalMenu.principalMenuButtons[buttonIndex] = tempElement;
             PrincipalMenu.principalMenuButtons[buttonIndex].index = buttonIndex;
         }
-            PrincipalMenu.createPrincipalMenu();
+        PrincipalMenu.createPrincipalMenu();
     },
 
-    savePrincipalMenu: function(){
+    savePrincipalMenu: function () {
         localStorage.setItem("principalMenuButtons", JSON.stringify(PrincipalMenu.principalMenuButtons));
         PrincipalMenu.modifing = false;
         $("#principalMenuInner div.principalMenuButtonRemoved").hide();
+        $('#principalMenuChangeButtonsDimension').show();
         $('#principalMenuModifyMenuButton').show();
         $('#principalMenuResetMenuButton').hide();
         $('#principalMenuSaveMenuButton').hide();
-        $("#principalMenuInner i.iconModifing").hide();
+        $("#principalMenuInner span.iconModifing").hide();
+        $('#principalMenuInner div').css({
+            "height": "70px",
+            "padding-top": "5px"
+        });
+        $('#principalMenuInner .textCaption').css({
+            "bottom": "1px"
+        });
         PrincipalMenu.createPrincipalMenu();
     },
 
@@ -327,6 +473,58 @@ var PrincipalMenu = {
                 PrincipalMenu.principalMenuButtons[i].index = i;
             }
         }
+    },
+
+    showSecondaryMenu: function (idMenu) {
+        $.ajax({
+            url: RelativePath.jsonFolder + "secondaryMenu/" + idMenu + ".json",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                ViewManager.render({ "principalMenuButtons": data }, '#principalMenu', 'PrincipalMenu');
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i] != undefined) {
+                        $("#" + data[i].captionId).html(
+                                   Globalization.labels.principalMenu[data[i].captionTextId]);
+                    }
+                }
+                application.addingMenuToCheck("PrincipalMenu");
+                $("#principalMenuModifyMenuButton").hide();
+                $("#principalMenuHeaderTitle").parent().children("img").css({
+                    "float": "left",
+                    "margin-top": "7px"
+                })
+                $("#principalMenuHeaderTitle").html("<i class=\"fa fa-home\" style=\"color:#777;font-size: 35px; margin-top: 9px; margin-left: -2px;\"></i>")
+                PrincipalMenu.secondaryMenuOpen=true;
+            }
+        });
+    },
+
+    checkForBackButton: function () {
+        if (PrincipalMenu.open) {
+            PrincipalMenu.secondaryMenuOpen = false;
+            application.removingMenuToCheck("PrincipalMenu");
+        } else {
+            PrincipalMenu.open = true;
+        }
+        PrincipalMenu.show();
+    },
+
+    createLastOperationButton: function (index) {
+        if ($("#principalMenuInner div.principalMenuButton[data-index='" + index + "'] i").length != 0) {
+            $("#lastOperationInner").html($("#principalMenuInner div.principalMenuButton[data-index='" + index + "'] i").clone());
+            $("#lastOperationInner i").css("font-size", "35px");
+            $("#lastOperationInner i").attr("id", "lastOperationInnerButton");
+        } else if ($("#principalMenuInner div.principalMenuButton[data-index='" + index + "'] img").length != 0) {
+            $("#lastOperationInner").html($("#principalMenuInner div.principalMenuButton[data-index='" + index + "'] img").clone());
+            $("#lastOperationInner img").css("font-size", "35px");
+            $("#lastOperationInner img").attr("id", "lastOperationInnerButton");
+        } else if ($("#principalMenuInner div.principalMenuButton[data-index='" + index + "'] b.textIcon").length != 0) {
+            $("#lastOperationInner").html($("#principalMenuInner div.principalMenuButton[data-index='" + index + "'] b.textIcon").clone());
+            $("#lastOperationInner b").css("font-size", "35px");
+            $("#lastOperationInner b").attr("id", "lastOperationInnerButton");
+        }
+        $("#lastOperationInner").attr("onclick", $("#principalMenuInner div.principalMenuButton[data-index='" + index + "']").attr("onclick"));
     }
 
-}
+};

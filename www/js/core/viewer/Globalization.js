@@ -21,72 +21,87 @@
 */
 var Globalization = {
 
-    labels: null,
-    alerts: null,
+    labels: [],
+    alerts: [],
+    currentLanguage: null,
 
-    refresh: function() {
-        $.ajax({
-            url: RelativePath.labels + "labels." + SettingsManager.language + ".json",
-            async: false,
-            dataType: "json",
-            success: function(data) {
-                Globalization.labels = data;
+    refresh: function () {
+        if (Globalization.labels.length == 0) {
+            if (JSON.parse(localStorage.getItem("globalizationLabels" + SettingsManager.language)) != null) {
+                Globalization.labels = JSON.parse(localStorage.getItem("globalizationLabels" + SettingsManager.language));
             }
-        });
-        $.ajax({
-            url: RelativePath.alerts + "alerts." + SettingsManager.language + ".json",
-            async: false,
-            dataType: "json",
-            success: function (data) {
-                Globalization.alerts = data;
+        }
+        if (Globalization.alerts.length == 0) {
+            if (JSON.parse(localStorage.getItem("globalizationAlerts" + SettingsManager.language)) != null) {
+                Globalization.alerts = JSON.parse(localStorage.getItem("globalizationAlerts" + SettingsManager.language));
             }
-        });
-        $.ajax({
-            url: RelativePath.alerts + "alerts." + device.platform + "." + SettingsManager.language + ".json",
-            async: false,
-            dataType: "json",
-            success: function (data) {
-                $.extend(Globalization.alerts, data);
-            }
-        });
-        Utility.loadFilesInsideDirectory("www/js/modules/", null, "labels." + SettingsManager.language + ".json", true, Globalization.loadAndAddLabels, function (e) {
-            Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts, function (e) {
-                Utility.loadFilesInsideDirectory("www/js/modules/", null, "alerts." + device.platform + "." + SettingsManager.language + ".json", true, Globalization.loadAndAddAlerts, function (e) {
-                    $.ajax({
-                        url: application.remoteJsonUrl + "labels/labels." + SettingsManager.language + ".json",
-                        cache: false,
-                        timeout: Parameters.timeoutGettingMenuCategorySearcher,
-                        dataType: "json",
-                        success: function (data) {
-                            Globalization.modifyLabels(data);
-                            PrincipalMenu.refreshMenu();
-                        }
-                    });
-                    $.ajax({
-                        url: application.remoteJsonUrl + "alerts/alerts." + SettingsManager.language + ".json",
-                        cache: false,
-                        timeout: Parameters.timeoutGettingMenuCategorySearcher,
-                        dataType: "json",
-                        success: function (data) {
-                            Globalization.modifyAlerts(data);
-                            PrincipalMenu.refreshMenu();
-                        }
-                    });
-                    $.ajax({
-                        url: application.remoteJsonUrl + "alerts/alerts." + device.platform + "." + SettingsManager.language + ".json",
-                        cache: false,
-                        timeout: Parameters.timeoutGettingMenuCategorySearcher,
-                        dataType: "json",
-                        success: function (data) {
-                            Globalization.modifyAlerts(data);
-                            PrincipalMenu.refreshMenu();
-                        }
-                    });
-                })
-            })
-        });
-        
-        
+        }
+
+        if (Globalization.currentLanguage != SettingsManager.language) {
+
+            $.ajax({
+                url: RelativePath.build + "labels." + SettingsManager.language + ".json",
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    if (Globalization.labels.length == 0) {
+                        Globalization.labels = data;
+                    } else {
+                        Globalization.modifyLabels(data);
+                    }
+                }
+            });
+            $.ajax({
+                url: RelativePath.alerts + "alerts." + SettingsManager.language + ".json",
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    if (Globalization.alerts.length == 0) {
+                        Globalization.alerts = data;
+                    } else {
+                        Globalization.modifyAlerts(data);
+                    }
+                }
+            });
+
+            $.ajax({
+                url: RelativePath.alerts + "alerts." + device.platform + "." + SettingsManager.language + ".json",
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    if (Globalization.alerts.length == 0) {
+                        Globalization.alerts = data;
+                    } else {
+                        Globalization.modifyAlerts(data);
+                    }
+                }
+            });
+
+            $.ajax({
+                url: RelativePath.build + "alerts." + SettingsManager.language + ".json",
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    Globalization.modifyAlerts(data);
+                }
+            });
+
+            $.ajax({
+                url: RelativePath.build + "alerts." + device.platform + "." + SettingsManager.language + ".json",
+                async: false,
+                dataType: "json",
+                success: function (data) {
+                    Globalization.modifyAlerts(data);
+                }
+            });
+
+            localStorage.setItem("globalizationLabels" + SettingsManager.language, JSON.stringify(Globalization.labels));
+            localStorage.setItem("globalizationAlerts" + SettingsManager.language, JSON.stringify(Globalization.alerts));
+            PrincipalMenu.refreshMenu();
+            //$("#loadingOverlayPage").hide();
+            Globalization.currentLanguage = SettingsManager.language;
+
+        }
     },
 
     loadAndAddLabels: function (fullPath) {
@@ -98,13 +113,12 @@ var Globalization = {
                 Globalization.modifyLabels(data);
             }
         });
-       
+
     },
 
     loadAndAddAlerts: function (fullPath) {
         $.ajax({
             url: fullPath,
-            async: false,
             dataType: "json",
             success: function (data) {
                 Globalization.modifyAlerts(data);
@@ -120,7 +134,7 @@ var Globalization = {
                 } else {
                     var jsonObject = {};
                     jsonObject[fieldName] = labelsToAdd[objectName][fieldName];
-                    Globalization.labels[objectName]= jsonObject;
+                    Globalization.labels[objectName] = jsonObject;
                 }
             }
         }
@@ -140,4 +154,4 @@ var Globalization = {
         }
     }
 
-}
+};

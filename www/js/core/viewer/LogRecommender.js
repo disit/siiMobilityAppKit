@@ -42,7 +42,7 @@ var LogRecommender = {
         ViewManager.render(JSON.parse(localStorage.getItem("logRecommender")), '#logRecommender', 'Log');
     },
 
-    hide: function() {
+    hide: function () {
         $('#logRecommender').hide(Parameters.hidePanelGeneralDuration);
         LogRecommender.open = false;
         application.removingMenuToCheck("LogRecommender");
@@ -55,12 +55,10 @@ var LogRecommender = {
     },
 
     closeAll: function () {
-        if (LogRecommender.open) {
             LogRecommender.hide();
-        }
     },
 
-    write: function(textToWrite) {
+    write: function (textToWrite) {
         var currentLog = JSON.parse(localStorage.getItem("logRecommender"));
         if (currentLog != null) {
             currentLog.lines.push({
@@ -86,4 +84,4 @@ var LogRecommender = {
 
     }
 
-}
+};

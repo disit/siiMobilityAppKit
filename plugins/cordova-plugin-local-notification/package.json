@@ -1,0 +1,81 @@
+{
+  "name": "cordova-plugin-local-notification",
+  "cordova_name": "Cordova LocalNotification Plugin",
+  "version": "0.8.4",
+  "description": "Schedules and queries for local notifications",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katzer/cordova-plugin-local-notifications.git"
+  },
+  "keywords": [
+    "appplant",
+    "notification",
+    "local notification",
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-windows"
+  ],
+  "platforms": [
+    "ios",
+    "android",
+    "windows"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.6.0"
+    },
+    {
+      "name": "cordova-plugman",
+      "version": ">=4.3.0"
+    },
+    {
+      "name": "cordova-windows",
+      "version": ">=4.2.0"
+    }
+  ],
+  "dependencies": {
+    "cordova-plugin-device": "*",
+    "cordova-plugin-app-event": ">=1.1.0"
+  },
+  "author": {
+    "name": "Sebastián Katzer"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/katzer/cordova-plugin-local-notifications/issues"
+  },
+  "homepage": "https://github.com/katzer/cordova-plugin-local-notifications#readme",
+  "_id": "cordova-plugin-local-notification@0.8.4",
+  "_shasum": "95e0baa3fe40178fa10f8c9ab78a6c94b9ca6ccf",
+  "_from": "cordova-plugin-local-notification@latest",
+  "_npmVersion": "4.5.0",
+  "_nodeVersion": "4.4.3",
+  "_npmUser": {
+    "name": "agussaputra",
+    "email": "agus@genesisdigital.asia"
+  },
+  "dist": {
+    "shasum": "95e0baa3fe40178fa10f8c9ab78a6c94b9ca6ccf",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-local-notification/-/cordova-plugin-local-notification-0.8.4.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "agussaputra",
+      "email": "agus@genesisdigital.asia"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-local-notification-0.8.4.tgz_1495768409967_0.7697124173864722"
+  },
+  "deprecated": "this package has been deprecated",
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-local-notification/-/cordova-plugin-local-notification-0.8.4.tgz",
+  "readme": "ERROR: No README data found!"
+}

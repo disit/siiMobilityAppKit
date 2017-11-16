@@ -27,23 +27,23 @@ var ChooseLanguage = {
         if ($("#chooseLanguage").length == 0) {
             $("#indexPage").append("<div id=\"chooseLanguage\"></div>")
         }
-    	$.ajax({
-    	    url: RelativePath.jsonFolder + "languages.json",
+        $.ajax({
+            url: RelativePath.jsonFolder + "languages.json",
             async: false,
             dataType: "json",
-            success: function(data) {
-    			ViewManager.render(data, '#chooseLanguage', 'ChooseLanguage');
+            success: function (data) {
+                ViewManager.render(data, '#chooseLanguage', 'ChooseLanguage');
             }
         });
-		
-    	$('#chooseLanguage').show();
-    	ChooseLanguage.open = true;
+
+        $('#chooseLanguage').show();
+        ChooseLanguage.open = true;
     },
 
-    hide: function() {
+    hide: function () {
         $('#chooseLanguage').hide();
         SettingsManager.initializeSettings("true");
         ChooseLanguage.open = false;
         ChooseProfile.show();
     }
-}
+};

@@ -39,31 +39,36 @@ under the License.
     <link type="text/css" rel="stylesheet" href="css/ui.fancytree.min.css" />
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="css/ionicons.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
+    <!--WEB-->
+    <!--<link type="text/css" rel="stylesheet" href="css/web.css" />-->
+    <!--WEB-->
     <link type="text/css" rel="stylesheet" href="css/star-rating.min.css" />
     <link type="text/css" rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="css/survey.css" />
-    <!-- OPEN LAYERS 3.12-->
+    <link type="text/css" rel="stylesheet" href="css/bootstrap-multiselect.css" />
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,performance.now|always"></script>
     <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/init/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="js/init/Application.js"></script>
-    <script type="text/javascript" src="js/init/Utility.js"></script>
-
+    <script type="text/javascript" src="js/build/production.js"></script>
 
 </head>
-<body id="home" style="background-color: #000">
+<body id="home" style="background-color: white">
+    
     <script type="text/javascript">
         application.initialize();
     </script>
-    <div id="indexPage" data-role="page" role="main" style="background-color:#000">
-        <div id="splashScreenVideoContainer" style="z-index: 10003; position: absolute; left: 0; top:0; bottom:0; right:0; background-image: url(img/km4citySplashPortrait.png); background-size: 100%;">
-            <video id="splashScreenVideoPortrait" autoplay poster="img/km4citySplashPortrait.png" style="width: 100%">
-                <source src="video/km4citySplashPortrait.webm" type="video/webm">
-                <source src="video/km4citySplashPortrait.mp4" type="video/mp4">
-            </video>
-        </div>
+    <div id="loadingOverlayPage" class="loading" style="z-index: 10003;display:none;">Loading&#8230;</div>
+    <div id="coverMap" style="z-index: 10001;position: absolute; top: 55px; left: 0px; right: 0px; bottom: 0px; background: #eee; text-align: center;">
+        <img src="img/progressBar.gif" style="position: absolute;left: 20%;right: auto;top: 50%;width: 60%;">
+    </div>
+    <div id="indexPage" data-role="page" role="main" style="background-color:white">
+        <span id="easterEggReducedMap" style="display: none;">
+            <img src="img/ooops.jpg" style="position: absolute; bottom: 15px; width: 50%; left: 25%;">
+            <button class="btn btn-success" style="position: absolute; bottom: 10px; width: 50%; left: 25%;" onclick="application.resetInterface();">OK</button>
+        </span>
         <nav id="navbar" class="navbar navbar-default navbar-fixed-top" style="z-index: 1000">
-            <a class="navbar-brand ui-link" onclick="PrincipalMenu.show();" href="#" style="padding-right: 5px;"><img src="img/km4city.png" width="40" height="40"></a>
+            <img onclick="PrincipalMenu.fromHomeButton = true; PrincipalMenu.show();" src="img/km4city.png" width="40" height="40" class="pull-left" style="margin-left: 7px;margin-top: 8px;">
+            <a class="navbar-brand ui-link" onclick="PrincipalMenu.fromHomeButton = true; PrincipalMenu.show();" href="#" style="padding-right: 5px;"><i class="fa fa-home" style="color:#777;font-size: 35px; margin-top: 3px;"></i></a>            
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" id="dropdownThreeVertical">
                     <a class="dropdown-toggle navbar-text"
@@ -86,10 +91,21 @@ under the License.
                         <i id="categorySearchMenuImage" class="glyphicon glyphicon-th-list"></i>
                     </a>
                 </li>
+                 <li class="dropdown" id="dropdownUser" style="display:none">
+                    <a class="dropdown-toggle navbar-text"
+                       data-toggle="dropdown" role="button" aria-expanded="false">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </a>
+                    <ul id="dropdownUserMenu" class="dropdown-menu"
+                        style="min-width: 0px; top: 100%; right: 0px; left: auto;"
+                        role="menu"></ul>
+                </li>
             </ul>
         </nav>
         <nav id="navbarNavigation" class="navbar navbar-default navbar-fixed-top" style="z-index: 1001">
-            <a class="navbar-brand ui-link" onclick="PrincipalMenu.show();" href="#" style="padding-right: 5px;"><img src="img/km4city.png" width="40" height="40"></a>
+            <img onclick="PrincipalMenu.show();" src="img/km4city.png" width="40" height="40" class="pull-left" style="margin-left: 7px;margin-top: 8px;">
+            <a class="navbar-brand ui-link" onclick="PrincipalMenu.show();" href="#" style="padding-right: 5px;"><i class="glyphicon glyphicon-home" style="color:#777;font-size: 25px; margin-top: 5px;"></i></a>
+            <!--<a class="navbar-brand ui-link" href="#" style="padding-top: 15px !important;padding-left: 0px;"><img src="img/logo.png" width="90" height="27"></a>-->
             <p id="navigationMode" class="navbar-text" style="font-size: 19px;
 				margin-top: 14px;
 				float: right;
@@ -98,8 +114,9 @@ under the License.
 
         <div id="gpsPopup"></div>
         <div id="manualPopup"></div>
+
         <div id="selectedServicePopup"></div>
-        <div id="content" data-role="content" data-enhance="true" style="padding-top: 55px; background-color: #E4E4E4" >
+        <div id="content" data-role="content" data-enhance="true" style="padding-top: 55px; background-color: #EEEEEE;">
             <div id="map" class="map"></div>
         </div>
         <div id="categorySearchMenu" data-role="panel" data-position="right"
@@ -119,34 +136,42 @@ under the License.
         <div id="servicesFounded">
             <a id="servicesFoundedInner" onclick="InfoManager.openLastSearchPerformed();"></a>
         </div>
-     </div>
- 
+
+        <div id="lastOperation">
+            <div id="lastOperationInner">
+            </div>
+        </div>
+        
+
+    </div>
+
     <div id="testProdAPIAlert" class="testProdAlert" style="left: 10%; width: 15%; height: 32px;">API</div>
     <div id="testProdRecommendAlert" class="testProdAlert" style="left: 25%; width: 15%; height: 32px;">Rec</div>
     <div id="testProdSensorAlert" class="testProdAlert" style="left: 40%; width: 15%; height: 32px;">Sens</div>
     <div id="testProdPhotoAlert" class="testProdAlert" style="left: 55%; width: 15%; height: 32px;">Photo</div>
     <div id="testProdPersAlert" class="testProdAlert" style="left: 70%; width: 15%; height: 32px;">Pers</div>
-        <div id="profileShower">
-            <div id="profileShowerInner"></div>
-        </div>
+    <div id="profileShower">
+        <div id="profileShowerInner"></div>
+    </div>
 
     <div class="modal" id="sendPhotoModal" tabindex="-1"
          role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 95%;">
             <div class="modal-content"
-                  style="text-align: center; margin: 0px 10px">
+                 style="text-align: center; margin: 0px 10px">
                 <div class="modal-body" style="padding-bottom: 0px">
                     <img src="" id="sendPhotoPreview"
-                         style="max-width: 233px; max-height: 60%"
+                         style="max-width: 233px; max-height: 60%; margin-bottom: 15px"
                          class="center-block img-responsive card-2">
-                    <textarea id="textAreaCommentsSendPhotoModal"  style="resize: vertical;width: 233px; height: 50px; margin-top: 20px; border: 1px solid #777;"></textarea>
-                    <input id="inputStarsSendPhotoModal" type="number" class="rating" min=0 max=5 step=1 data-size="xs" data-default-caption="{rating}" data-star-captions="{}">
-                     </div>
-                <div class="modal-footer" style="text-align: center;">
-                    <button id="sendPhotoModalCancelButton" type="button" class="btn btn-default" style="width:75px;" onclick="PictureManager.hideSendPhotoModal();">
-                    </button>
-                    <button id="sendPhotoModalSendButton" type="button" class="btn btn-success card-2" style="color: white;width:75px;" onclick="PictureManager.uploadPhoto(); PictureManager.hideSendPhotoModal();">
-                    </button>
+                    <b id="userStarsLabelSendPhotoModal" style="color: #777"></b>
+                    <input id="inputStarsSendPhotoModal" type="number" class="rating" min=0 max=5 step=1 data-size="sm" data-show-clear="false" data-default-caption="{rating}" data-star-captions="{}">
+                    <b id="commentLabelSendPhotoModal" style="margin-top: 15px;color: #777"></b>
+                    <br />
+                    <textarea id="textAreaCommentsSendPhotoModal" style="resize: vertical;width: 233px; height: 50px; border: 1px solid #777;"></textarea>
+                    </div>
+                <div class="modal-footer" style="text-align: center;border: 0px;">
+                    <button id="sendPhotoModalCancelButton" type="button" class="btn btn-default" style="width:75px;" onclick="PictureManager.hideSendPhotoModal();"></button>
+                    <button id="sendPhotoModalSendButton" type="button" class="btn btn-success card-2" style="color: white;width:75px;" onclick="PictureManager.uploadPhoto(); PictureManager.hideSendPhotoModal();"></button>
                 </div>
             </div>
         </div>
@@ -157,15 +182,16 @@ under the License.
             <div class="modal-content"
                  style="text-align: center; margin: 0px 10px">
                 <div class="modal-body" id="sendPhotoAlbumModalBody" style="padding-bottom: 0px">
-                    <div id="sendPhotoAlbumModalImageList"></div>
-                    <textarea id="textAreaCommentsSendPhotoAlbumModal" style="resize: vertical;width: 233px; height: 50px; margin-top: 20px; border: 1px solid #777;"></textarea>
-                    <input id="inputStarsSendPhotoAlbumModal" type="number" class="rating" min=0 max=5 step=1 data-size="xs" data-default-caption="{rating}" data-star-captions="{}">
+                    <div id="sendPhotoAlbumModalImageList" style="margin-bottom: 15px;"></div>
+                    <b id="userStarsLabelSendPhotoAlbumModal" style="color: #777"> </b>
+                    <input id="inputStarsSendPhotoAlbumModal" type="number" class="rating" min=0 max=5 step=1 data-show-clear="false" data-size="sm" data-default-caption="{rating}" data-star-captions="{}">
+                    <b id="commentLabelSendPhotoAlbumModal" style="margin-top: 15px;color: #777"> </b>
+                    <br />
+                    <textarea id="textAreaCommentsSendPhotoAlbumModal" style="resize: vertical;width: 233px; height: 50px; border: 1px solid #777;"></textarea>
                 </div>
-                <div class="modal-footer" id="sendPhotoAlbumModalFooter" style="text-align: center;">
-                    <button id="sendPhotoAlbumModalCancelButton" type="button" class="btn btn-default" style="width:75px;" onclick="PictureManager.hideSendPhotoAlbumModal();">
-                    </button>
-                    <button id="sendPhotoAlbumModalSendButton" type="button" class="btn btn-success card-2" style="color: white;width:75px;" onclick="PictureManager.uploadPhoto(); PictureManager.hideSendPhotoAlbumModal();">
-                    </button>
+                <div class="modal-footer" id="sendPhotoAlbumModalFooter" style="text-align: center;border: 0px;">
+                    <button id="sendPhotoAlbumModalCancelButton" type="button" class="btn btn-default" style="width:75px;" onclick="PictureManager.hideSendPhotoAlbumModal();"></button>
+                    <button id="sendPhotoAlbumModalSendButton" type="button" class="btn btn-success card-2" style="color: white;width:75px;" onclick="PictureManager.uploadPhoto(); PictureManager.hideSendPhotoAlbumModal();"></button>
                 </div>
             </div>
         </div>
@@ -174,18 +200,21 @@ under the License.
          role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 95%;">
             <div class="modal-content"
-                  style="text-align: center; margin: 0px 10px">
+                 style="text-align: center; margin: 0px 10px">
                 <div class="modal-body" style="display: inline-block;padding-bottom: 0px">
                     <form id="inputForm" enctype="multipart/form-data" method="post">
                         <input id="inputUploadPhotoFeedbackModal" multiple type="file" accept="image/*" class="btn btn-default" style="display: none">
                     </form>
-                    <button id="buttonUploadPhotoFeedbackModal" type="button" class="btn btn-default card-2" onclick="FeedbackManager.pickPhotoFromAlbum();"></button>
-                    <button id="buttonTakePhotoFeedbackModal" type="button" class="btn btn-default card-2" onclick="FeedbackManager.takePhoto();"></button>
-                        <br />
-                    <textarea id="textAreaCommentsFeedbackModal"  style="resize: vertical; width: 233px;height: 50px; margin-top: 20px; border: 1px solid #777;"></textarea>
-                    <input id="inputStarsFeedbackModal" type="number" class="rating" min=0 max=5 step=1 data-size="xs" data-default-caption="{rating}" data-star-captions="{}">
-</div>
-                <div class="modal-footer" style="text-align: center;">
+                    <button id="buttonUploadPhotoFeedbackModal" type="button" class="btn btn-default" onclick="FeedbackManager.pickPhotoFromAlbum();" style="border: 0px;margin-bottom: 15px;"></button>
+                    <button id="buttonTakePhotoFeedbackModal" type="button" class="btn btn-default" onclick="FeedbackManager.takePhoto();" style="border: 0px;margin-bottom: 15px;"></button>
+                    <br />
+                    <b id="userStarsLabelSendFeedbackModal" style="color: #777"></b>
+                    <input id="inputStarsFeedbackModal" type="number" class="rating" min=0 max=5 step=1 data-size="sm" data-show-clear="false" data-default-caption="{rating}" data-star-captions="{}">
+                    <b id="commentLabelSendFeedbackModal" style="margin-top: 15px;color: #777"> </b>
+                    <br />
+                    <textarea id="textAreaCommentsFeedbackModal" style="resize: vertical; width: 233px;height: 50px; border: 1px solid #777;"></textarea>
+                </div>
+                <div class="modal-footer" style="text-align: center;border: 0px;">
                     <button id="starsModalCancelButton" type="button" class="btn btn-default" style="width:90px;" onclick="FeedbackManager.hideModal();"></button>
                     <button id="starsModalSendButton" type="button" class="btn btn-success card-2" style="color: white;width:90px;" onclick="FeedbackManager.sendStars();"></button>
                 </div>
@@ -194,16 +223,30 @@ under the License.
     </div>
     <div class="modal" id="serviceImageModal" tabindex="-1"
          role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="max-width: 95%; max-height: 80%;">
-            <div class="modal-content">
-                <div class="modal-body" id="serviceImageModalBody">
-                    <img src="" id="serviceImagePreview"
-                         style="max-width: 100%; max-height: 100%"
-                         class="imgPreview" >
+    </div>
+    <div class="modal" id="infoSOCModal" tabindex="-1"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 95%;">
+            <div class="modal-content" style="text-align: center; margin: 0px 10px">
+                <div id="infoSOCModalBody" class="modal-body">
                 </div>
                 <div class="modal-footer" style="padding: 0px; border: 0px">
-                    <button id="serviceImageModalFooterButton" type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" style="width:100%;border-top-left-radius:0px; border-top-right-radius:0px; border-left: 0px;border-right: 0px;border-bottom: 0px;" onclick="InfoManager.hideImageModal();">
-                    </button>
+                    <button id="infoSOCModalFooterButton" type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" style="width:100%;border-top-left-radius:0px; border-top-right-radius:0px; border-left: 0px;border-right: 0px;border-bottom: 0px;" onclick="InfoSOCManager.hideInfoSOCModal();"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="instigatorImageModal" tabindex="-1"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 95%; max-height: 80%;">
+            <div class="modal-content">
+                <div class="modal-body" id="instigatorImageModalBody">
+                    <img src="" id="instigatorImagePreview"
+                         style="max-width: 100%; max-height: 100%"
+                         class="imgPreview">
+                </div>
+                <div class="modal-footer" style="padding: 0px; border-bottom: 0px">
+                    <button id="instigatorImageModalFooterButton" type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close" style="width:100%;border-top-left-radius:0px; border-top-right-radius:0px; border-left: 0px;border-right: 0px;border-bottom: 0px;" onclick="Instigator.hideModal();"></button>
                 </div>
             </div>
         </div>
@@ -214,5 +257,6 @@ under the License.
     <div class="modal" id="timetableModal" tabindex="-1"
          role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     </div>
+
 </body>
 </html>

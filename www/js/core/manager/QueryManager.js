@@ -38,9 +38,9 @@ var QueryManager = {
     backupMaxDists: null,
     format: "json",
 
-    refreshParameters: function() {
-	
-		if (SettingsManager.maxDistanceRecommender != null) {
+    refreshParameters: function () {
+
+        if (SettingsManager.maxDistanceRecommender != null) {
             QueryManager.maxDistsRecommender = SettingsManager.maxDistanceRecommender;
         } else {
             QueryManager.maxDistsRecommender = QueryManager.defaultDistsRecommender;
@@ -58,7 +58,7 @@ var QueryManager = {
         }
 
         if (SettingsManager.language != null) {
-            QueryManager.language = SettingsManager.language.substring(0,2);
+            QueryManager.language = SettingsManager.language.substring(0, 2);
         } else {
             QueryManager.language = QueryManager.defaultLanguage;
         }
@@ -68,7 +68,6 @@ var QueryManager = {
         } else {
             QueryManager.profile = QueryManager.defaultProfile;
         }
-        QueryManager.uid = application.uid;
         QueryManager.uid2 = application.uid2
         QueryManager.appID = application.appID;
         QueryManager.version = application.version;
@@ -76,103 +75,124 @@ var QueryManager = {
     },
 
     createRetrieveActionsQuery: function () {
-        return "engager-api/engager?uid=" + QueryManager.uid;
+        return "engager-api/engager?uid=" + application.uid;
     },
+
 
     createBusStopsRoutesQuery: function (line, agencyUri, busStopName, geometry, requestFrom) {
-        return "tpl/bus-routes/?line=" + line + "&agency=" + agencyUri + "&busStopName=" + busStopName + "&geometry=" + geometry + "&requestFrom=" + requestFrom + "&uid=" + QueryManager.uid;
+        return "tpl/bus-routes/?line=" + line + "&agency=" + agencyUri + "&busStopName=" + busStopName + "&geometry=" + geometry + "&requestFrom=" + requestFrom + "&uid=" + application.uid;
     },
+
 
     createRouteQuery: function (route, geometry, requestFrom) {
-        return "tpl/bus-stops/?route=" + route + "&geometry=" + geometry + "&requestFrom=" + requestFrom + "&uid=" + QueryManager.uid;
+        return "tpl/bus-stops/?route=" + route + "&geometry=" + geometry + "&requestFrom=" + requestFrom + "&uid=" + application.uid;
     },
 
-    createLocationQuery: function(queryCoordinates, requestFrom) {
-        return "location/?position=" + queryCoordinates.join(";") + "&requestFrom=" + requestFrom + "&uid=" + QueryManager.uid + "&lang=" + QueryManager.language;
+    createLocationQuery: function (queryCoordinates, requestFrom) {
+        return "location/?position=" + queryCoordinates.join(";") + "&requestFrom=" + requestFrom + "&uid=" + application.uid + "&lang=" + QueryManager.language;
     },
 
     createCategoriesQuery: function (categories, queryCoordinates, requestFrom) {
         if (QueryManager.maxDists === null || QueryManager.maxResults === null) {
             QueryManager.refreshParameters();
         }
-        return "?selection=" + queryCoordinates.join(";") + "&requestFrom=" + requestFrom + "&categories=" + categories.join(";") + "&maxResults=" + QueryManager.maxResults + "&maxDists=" + QueryManager.maxDists + "&format=" + QueryManager.format + "&uid=" + QueryManager.uid + "&lang=" + QueryManager.language + "&geometry=true";
+        return "?selection=" + queryCoordinates.join(";") + "&requestFrom=" + requestFrom + "&categories=" + categories.join(";") + "&maxResults=" + QueryManager.maxResults + "&maxDists=" + QueryManager.maxDists + "&format=" + QueryManager.format + "&uid=" + application.uid + "&lang=" + QueryManager.language + "&geometry=true";
+    },
+
+    createCategoriesOnWKTQuery: function (categories, wktGeometry, requestFrom) {
+        if (QueryManager.maxDists === null || QueryManager.maxResults === null) {
+            QueryManager.refreshParameters();
+        }
+        return "?selection=wkt:" + wktGeometry + "&requestFrom=" + requestFrom + "&categories=" + categories.join(";") + "&maxResults=" + QueryManager.maxResults + "&maxDists=" + QueryManager.maxDists + "&format=" + QueryManager.format + "&uid=" + application.uid + "&lang=" + QueryManager.language + "&geometry=true";
     },
 
     createServiceQuery: function (serviceUri, requestFrom) {
-        return "?serviceUri=" + serviceUri + "&requestFrom=" + requestFrom + "&format=" + QueryManager.format + "&uid=" + QueryManager.uid + "&lang=" + QueryManager.language;
+        return "?serviceUri=" + serviceUri + "&requestFrom=" + requestFrom + "&format=" + QueryManager.format + "&uid=" + application.uid + "&lang=" + QueryManager.language;
     },
 
     createTextQuery: function (text, queryCoordinates, requestFrom) {
-        return "?selection=" + queryCoordinates.join(";") + "&requestFrom=" + requestFrom + "&search=" + encodeURIComponent(text) + "&maxResults=" + QueryManager.maxResults + "&maxDists=" + QueryManager.maxDists + "&format=" + QueryManager.format + "&uid=" + QueryManager.uid + "&lang=" + QueryManager.language + "&geometry=true";
+        return "?selection=" + queryCoordinates.join(";") + "&requestFrom=" + requestFrom + "&search=" + text + "&maxResults=" + QueryManager.maxResults + "&maxDists=" + QueryManager.maxDists + "&format=" + QueryManager.format + "&uid=" + application.uid + "&lang=" + QueryManager.language + "&geometry=true";
     },
 
     createFullTextQuery: function (text, requestFrom) {
-        return "?search=" + encodeURIComponent(text) + "&requestFrom=" + requestFrom + "&maxResults=" + QueryManager.maxResults + "&format=" + QueryManager.format + "&uid=" + QueryManager.uid + "&lang=" + QueryManager.language + "&geometry=true";
+        return "?search=" + text + "&requestFrom=" + requestFrom + "&maxResults=" + QueryManager.maxResults + "&format=" + QueryManager.format + "&uid=" + application.uid + "&lang=" + QueryManager.language + "&geometry=true";
+    },
+
+    createAddressPOISearchQuery: function (text, queryCoordinates, sortByDistance, searchMode, categories, requestFrom) {
+        if (queryCoordinates != null) {
+            return "location/?search=" + text + "&position=" + queryCoordinates.join(";") + "&sortByDistance=" + sortByDistance + "&searchMode=" + searchMode + "&categories=" + categories.join(";") + "&requestFrom=" + requestFrom + "&maxResults=" + QueryManager.maxResults + "&format=" + QueryManager.format + "&uid=" + application.uid + "&lang=" + QueryManager.language + "&geometry=true";
+        } else {
+            return "location/?search=" + text + "&sortByDistance=" + sortByDistance + "&searchMode=" + searchMode + "&categories=" + categories.join(";") + "&requestFrom=" + requestFrom + "&maxResults=" + QueryManager.maxResults + "&format=" + QueryManager.format + "&uid=" + application.uid + "&lang=" + QueryManager.language + "&geometry=true";
+        }
     },
 
     createFeedbackQuery: function (serviceUri, comment, stars, requestFrom) {
         if (stars != null) {
-            return "feedback/?serviceUri=" + serviceUri + "&uid=" + QueryManager.uid + "&stars=" + stars + "&requestFrom=" + requestFrom;
+            return "feedback/?serviceUri=" + serviceUri + "&uid=" + application.uid + "&stars=" + stars + "&requestFrom=" + requestFrom;
         } else if (comment != null) {
-            return "feedback/?serviceUri=" + serviceUri + "&uid=" + QueryManager.uid + "&comment=" + encodeURIComponent(comment) + "&requestFrom=" + requestFrom;
+            return "feedback/?serviceUri=" + serviceUri + "&uid=" + application.uid + "&comment=" + encodeURIComponent(comment) + "&requestFrom=" + requestFrom;
         }
     },
 
     createLastFeedbackQuery: function (requestFrom) {
-        return "feedback/last/?lang=" + QueryManager.language + "&maxResults=" + 8 + "&uid=" + QueryManager.uid + "&requestFrom=" + requestFrom;
+        return "feedback/last/?lang=" + QueryManager.language + "&maxResults=" + 8 + "&uid=" + application.uid + "&requestFrom=" + requestFrom;
     },
-    
-    createEventsQuery: function(time, requestFrom){
-        return "events/?range=" + time + "&requestFrom=" + requestFrom + "&uid=" + QueryManager.uid;
+
+    createEventsQuery: function (time, requestFrom) {
+        return "events/?range=" + time + "&requestFrom=" + requestFrom + "&uid=" + application.uid;
     },
 
     createVoteSuggestion: function (serviceUri, genID, vote, suggType) {
         if (serviceUri != null) {
-            return "?action=assess&uid=" + QueryManager.uid + "&serviceUri=" + serviceUri + "&vote=" + vote + "&suggType=" + suggType;
+            return "?action=assess&uid=" + application.uid + "&serviceUri=" + serviceUri + "&vote=" + vote + "&suggType=" + suggType;
         } else if (genID != null) {
-            return "?action=assess&uid=" + QueryManager.uid + "&genID=" + genID + "&vote=" + vote + "&suggType=" + suggType;
+            return "?action=assess&uid=" + application.uid + "&genID=" + genID + "&vote=" + vote + "&suggType=" + suggType;
         }
     },
 
-    createRecommenderQuery: function(queryCoordinates, mode, aroundMe) {
+    createRecommenderQuery: function (queryCoordinates, mode, aroundMe) {
         LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "getSuggestions " + " latitude=" + queryCoordinates[0] + " longitude=" + queryCoordinates[1] + " mode=" + mode + " distance=" + QueryManager.maxDistsRecommender);
-        return "?action=recommend&uid=" + QueryManager.uid + "&uid2=" + QueryManager.uid2 + "&appID=" + QueryManager.appID + "&profile=" + QueryManager.profile + "&version=" + QueryManager.version + "&latitude=" + queryCoordinates[0] + "&longitude=" + queryCoordinates[1] + "&mode=" + mode + "&aroundme=" + aroundMe + "&distance=" + QueryManager.maxDistsRecommender + "&lang=" + QueryManager.language;
-    },
-    
-    createRecommendAGroupQuery: function(queryCoordinates, groupToRecommend, mode) {
-		LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "getGroupSuggestions " + " group=" + groupToRecommend + " latitude=" + queryCoordinates[0] + " longitude=" + queryCoordinates[1] + " mode=" + mode + " distance=" + QueryManager.maxDistsRecommender);
-		return "?action=recommendForGroup&uid=" + QueryManager.uid + "&uid2=" + QueryManager.uid2 + "&appID=" + QueryManager.appID + "&profile=" + QueryManager.profile + "&version=" + QueryManager.version + "&latitude=" + queryCoordinates[0] + "&longitude=" + queryCoordinates[1] + "&mode=" + mode + "&group=" + groupToRecommend + "&distance=" + QueryManager.maxDistsRecommender + "&lang=" + QueryManager.language;
+        return "?action=recommend&uid=" + application.uid + "&uid2=" + QueryManager.uid2 + "&appID=" + QueryManager.appID + "&profile=" + QueryManager.profile + "&version=" + QueryManager.version + "&latitude=" + queryCoordinates[0] + "&longitude=" + queryCoordinates[1] + "&mode=" + mode + "&aroundme=" + aroundMe + "&distance=" + QueryManager.maxDistsRecommender + "&lang=" + QueryManager.language;
     },
 
-    createDislikeGroupQuery: function(groupToDislike) {
-    	LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "dislikeGroup " + " group=" + groupToDislike);
-    	return "?action=dislike&uid=" + QueryManager.uid + "&group=" + groupToDislike + "&lang=" + QueryManager.language;
-    },
-    
-    createDislikeSubCategoryQuery: function(subCategoryToDislike) {
-    	LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "dislikeSubCategory " + " subcategory=" + subCategoryToDislike);
-    	return "?action=dislikeSubclass&uid=" + QueryManager.uid + "&subclass=" + subCategoryToDislike + "&lang=" + QueryManager.language;
+    createRecommendAGroupQuery: function (queryCoordinates, groupToRecommend, mode) {
+        LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "getGroupSuggestions " + " group=" + groupToRecommend + " latitude=" + queryCoordinates[0] + " longitude=" + queryCoordinates[1] + " mode=" + mode + " distance=" + QueryManager.maxDistsRecommender);
+        return "?action=recommendForGroup&uid=" + application.uid + "&uid2=" + QueryManager.uid2 + "&appID=" + QueryManager.appID + "&profile=" + QueryManager.profile + "&version=" + QueryManager.version + "&latitude=" + queryCoordinates[0] + "&longitude=" + queryCoordinates[1] + "&mode=" + mode + "&group=" + groupToRecommend + "&distance=" + QueryManager.maxDistsRecommender + "&lang=" + QueryManager.language;
     },
 
-    createRemoveDislikeQuery: function() {
-    	LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "removeAllDislike");
-    	return "?action=removeDislike&uid=" + QueryManager.uid + "&lang=" + QueryManager.language;
+    createDislikeGroupQuery: function (groupToDislike) {
+        LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "dislikeGroup " + " group=" + groupToDislike);
+        return "?action=dislike&uid=" + application.uid + "&group=" + groupToDislike + "&lang=" + QueryManager.language;
     },
 
-    createLogViewedTweetQuery: function(tweetID, group){
+    createDislikeSubCategoryQuery: function (subCategoryToDislike) {
+        LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "dislikeSubCategory " + " subcategory=" + subCategoryToDislike);
+        return "?action=dislikeSubclass&uid=" + application.uid + "&subclass=" + subCategoryToDislike + "&lang=" + QueryManager.language;
+    },
+
+    createRemoveDislikeQuery: function () {
+        LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "removeAllDislike");
+        return "?action=removeDislike&uid=" + application.uid + "&lang=" + QueryManager.language;
+    },
+
+    createLogViewedTweetQuery: function (tweetID, group) {
         LogRecommender.write(dateFormat(new Date(), "[yyyy-mm-dd HH:MM:ss]") + "logViewedTweet");
-        return "?action=logViewedTweet&uid=" + QueryManager.uid + "&twitterId=" + tweetID + "&group=" + group + "&lang=" + QueryManager.language;
+        return "?action=logViewedTweet&uid=" + application.uid + "&twitterId=" + tweetID + "&group=" + group + "&lang=" + QueryManager.language;
     },
 
     createLogPrincipalMenuChoices: function (buttonId, requestFrom) {
-        return "notification/?uid=" + QueryManager.uid + "&selection=" + buttonId + "&requestFrom=" + requestFrom;
+        return "notification/?uid=" + application.uid + "&selection=" + buttonId + "&requestFrom=" + requestFrom;
     },
-    
-    createLogRemoveMessagePersonalAssistant: function(messageId){
+
+    createLogRemoveMessagePersonalAssistant: function (messageId) {
         return "cancel-engagement?id=" + messageId;
     },
 
-    increaseMaxDistTemporary: function() {
+    createShortestPathQuery: function (queryCoordinatesSource, queryCoordinatesDestination, routeType, startDatetime, requestFrom) {
+        return "shortestpath/?uid=" + application.uid + "&source=" + queryCoordinatesSource.join(";") + "&destination=" + queryCoordinatesDestination.join(";") + "&routeType=" + routeType + "&startDatetime=" + startDatetime + "&format=" + QueryManager.format + "&requestFrom=" + requestFrom;
+    },
+
+    increaseMaxDistTemporary: function () {
         if (QueryManager.backupMaxDists == null) {
             QueryManager.backupMaxDists = QueryManager.maxDists;
         }
@@ -183,11 +203,12 @@ var QueryManager = {
         return true;
     },
 
-    resetMaxDists: function() {
+    resetMaxDists: function () {
         if (QueryManager.backupMaxDists != null) {
             QueryManager.maxDists = QueryManager.backupMaxDists;
             QueryManager.backupMaxDists = null;
         }
     }
 
-}
+};
+

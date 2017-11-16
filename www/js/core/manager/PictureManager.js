@@ -51,7 +51,7 @@ var PictureManager = {
     pickPhotoFromAlbum: function (serviceUri) {
         PictureManager.currentServiceUri = serviceUri;
         PictureManager.fileArrayToUpload = [];
-        if(device.platform == "Android"){
+        if (device.platform == "Android") {
             plugins.imagePicker.getPictures(PictureManager.successPickArray, PictureManager.errorPick, { maxImages: PictureManager.maxImages, quality: 70 });
         } else {
             var destinationTypeValue = (device.platform == 'windows' || device.platform == 'Win32NT' ? 2 : 1)
@@ -118,7 +118,7 @@ var PictureManager = {
     },
 
     errorUpload: function (error) {
-        
+
         if (device.platform != "Web") {
             console.log("An error has occurred: Code = " + error.code + " upload error source " + error.source + " upload error target " + error.target);
             PictureManager.errorSendedImagesLabels.push(error.source.substring(error.source.lastIndexOf("/") + 1));
@@ -168,13 +168,17 @@ var PictureManager = {
             }, Globalization.alerts.photoUpload.problemTitle, Globalization.alerts.photoUpload.buttonName);
         }
     },
-    
+
     showSendPhotoModal: function () {
-        $("#sendPhotoModalCancelButton").html(Globalization.labels.pictureModal.cancel);
-        $("#sendPhotoModalSendButton").html(Globalization.labels.pictureModal.send);
-        $("#textAreaCommentsSendPhotoModal").attr("placeholder", Globalization.labels.pictureModal.insertComment);
+        $("#sendPhotoModalCancelButton").html(Globalization.labels.commonLabels.cancel);
+        $("#sendPhotoModalSendButton").html(Globalization.labels.commonLabels.send);
+        $("#userStarsLabelSendPhotoModal").html(Globalization.labels.infoMenu.userStars);
+        $("#commentLabelSendPhotoModal").html(Globalization.labels.infoMenu.comment);
+        //$("#textAreaCommentsSendPhotoModal").attr("placeholder", Globalization.labels.pictureModal.insertComment);
         $('#sendPhotoModal').modal('show');
         $('#sendPhotoModal').on('hide.bs.modal', function (e) { PictureManager.sendPhotoModalOpen = false; });
+        $("#inputStarsSendPhotoModal").parent().children("div.rating").children("span.empty-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+        $("#inputStarsSendPhotoModal").parent().children("div.rating").children("span.filled-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
         PictureManager.sendPhotoModalOpen = true;
     },
     hideSendPhotoModal: function () {
@@ -183,11 +187,15 @@ var PictureManager = {
     },
 
     showSendPhotoAlbumModal: function () {
-        $("#sendPhotoAlbumModalCancelButton").html(Globalization.labels.pictureModal.cancel);
-        $("#sendPhotoAlbumModalSendButton").html(Globalization.labels.pictureModal.send);
-        $("#textAreaCommentsSendPhotoAlbumModal").attr("placeholder", Globalization.labels.pictureModal.insertComment);
+        $("#sendPhotoAlbumModalCancelButton").html(Globalization.labels.commonLabels.cancel);
+        $("#sendPhotoAlbumModalSendButton").html(Globalization.labels.commonLabels.send);
+        $("#userStarsLabelSendPhotoAlbumModal").html(Globalization.labels.infoMenu.userStars);
+        $("#commentLabelSendPhotoAlbumModal").html(Globalization.labels.infoMenu.comment);
+        //$("#textAreaCommentsSendPhotoAlbumModal").attr("placeholder", Globalization.labels.pictureModal.insertComment);
         $('#sendPhotoAlbumModal').modal('show');
         $('#sendPhotoAlbumModal').on('hide.bs.modal', function (e) { PictureManager.sendPhotoAlbumModalOpen = false; });
+        $("#inputStarsSendPhotoAlbumModal").parent().children("div.rating").children("span.empty-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+        $("#inputStarsSendPhotoAlbumModal").parent().children("div.rating").children("span.filled-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
         PictureManager.sendPhotoAlbumModalOpen = true;
     },
     hideSendPhotoAlbumModal: function () {
@@ -195,4 +203,5 @@ var PictureManager = {
         PictureManager.sendPhotoAlbumModalOpen = false;
     },
 
-}
+};
+

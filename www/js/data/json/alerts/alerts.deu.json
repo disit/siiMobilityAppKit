@@ -1,6 +1,6 @@
 {
   "connectionError": {
-    "message": "Keine Internetverbindung Stellen Sie sicher, dass Wlan und die Datenverbindung aktiviert sind.",
+     "message": "Die erwünschten Informationen können nicht gefunden werden. Starten Sie die Suchanfrage neu!",
     "title": "Überprüfen Sie Die Verbindung",
     "buttonName": ""
   },
@@ -9,7 +9,12 @@
     "title": "Keine Anfrage Ausgewählt",
     "buttonName": ""
   },
-  "servicesServerError": {
+  "timeoutError": {
+    "message": "Die erwünschten Informationen können nicht gefunden werden. Starten Sie die Suchanfrage neu.",
+    "title": "Überprüfen Sie Die Verbindung",
+    "buttonName": ""
+  },
+"servicesServerError": {
     "message": "Die erwünschten Informationen können nicht gefunden werden. Starten Sie die Suchanfrage neu.",
     "title": "Informationen Nicht Verfügbar",
     "buttonName": ""
@@ -40,18 +45,18 @@
     "buttonName": ""
   },
   "chooseGpsManualSearchCenter": {
-    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
-    "title": "Suche",
+    "message": "Wo möchten sie suchen?",
+    "title": "",
     "buttonName": [ "GPS", "Manuelle Position" ]
   },
   "chooseGpsServiceSearchCenter": {
-    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
-    "title": "Suche",
+    "message": "Wo möchten sie suchen?",
+    "title": "",
     "buttonName": [ "GPS", "Letzte Anfrage" ]
   },
   "chooseManualServiceSearchCenter": {
-    "message": "Wählen Sie das Zentrum des Suchbereichs des Dienstes oder den Standort, von dem Sie das Wetter sehen möchten.",
-    "title": "Suche",
+    "message": "Wo möchten sie suchen?",
+    "title": "",
     "buttonName": [ "Manuelle Position", "Letzte Anfrage" ]
   },
   "addCalendarSuccess": {
@@ -126,6 +131,71 @@
     "message": "Es ist notwendig, die Lokalisierung in den Einstellungen des Browsers zu aktivieren.",
     "title": "Aktivierung Fehlgeschlagen",
     "buttonName": ""
+  },
+  "saveSettings": {
+    "message": "Möchten speichern?",
+    "title": "",
+    "buttonName": [ "Löschen", "Speichern" ]
+  },
+    "wrongEmail": {
+    "message": "Keine E-Mail wurde eingegeben",
+    "title": "",
+    "buttonName": ""
+  },
+  "wrongConfirmPassword": {
+    "message": "Die beiden passwörter sind anders",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyemail": {
+    "message": "E-Mail nicht eingegeben",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptypassword": {
+    "message": "Passwort nicht eingegeben",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyconfirmPassword": {
+    "message": "Passwort muss bestätigt werden",
+    "title": "",
+    "buttonName": ""
+  },
+  "welcomeToApp": {
+    "message": "Willkommen bei Km4city!!!",
+    "title": "",
+    "buttonName": ""
+  },
+  "unauthorized": {
+    "message": "Du bist nicht registriert oder habe falsche E-Mails und / oder passwörter eingegeben",
+    "title": "",
+    "buttonName": ""
+  },
+   "updateApp": {
+    "message": "Du musst deine app aktualisieren, um auf dein profil zuzugreifen",
+    "title": "",
+    "buttonName": [ "Löschen", "Aktualisieren" ]
+  },
+  "updateServer": {
+    "message": "Wir aktualisieren den Server",
+    "title": "",
+    "buttonName": ""
+  },
+  "userDuplicate": {
+    "message": "Bereits registrierter Benutzer",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecified": {
+    "message": "Bitte erlauben Sie Ihre Mail-Informationen",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecifiedFB": {
+    "message": "Sie können sich nicht registrieren, wenn Sie keine E-Mail-Informationen zulassen",
+    "title": "",
+    "buttonName": [ "Löschen", "Ermächtige E-Mail" ]
   }
 }
 

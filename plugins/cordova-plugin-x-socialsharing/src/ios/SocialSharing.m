@@ -1,5 +1,5 @@
 #import "SocialSharing.h"
-#import "NSString+URLEncoding.h"
+#import "NSString+SSURLEncoding.h"
 #import <Cordova/CDV.h>
 #import <Social/Social.h>
 #import <Foundation/NSException.h>
@@ -137,7 +137,7 @@ static NSString *const kShareOptionUrl = @"url";
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
         [activityVC setCompletionHandler:^(NSString *activityType, BOOL completed) {
           [self cleanupStoredFiles];
-          NSDictionary * result = @{@"completed":@(completed), @"app":activityType};
+          NSDictionary * result = @{@"completed":@(completed), @"app":activityType == nil ? @"" : activityType};
           CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:result];
           [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }];
@@ -200,10 +200,11 @@ static NSString *const kShareOptionUrl = @"url";
   NSString *message = [command.arguments objectAtIndex:0];
   if (message != (id)[NSNull null]) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-      BOOL fbAppInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]]; // requires whitelisting on iOS9
+      // since iOS 11 the internal sharing widgets have been removed, so it's safe to assume the app has been installed
+      BOOL fbAppInstalled = IsAtLeastiOSVersion(@"11.0") || [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]]; // requires whitelisting on iOS9
       if (fbAppInstalled) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        [pasteboard setValue:message forPasteboardType:@"public.text"];
+        [pasteboard setValue:message forPasteboardType:@"public.utf8-plain-text"];
         NSString *hint = [command.arguments objectAtIndex:4];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:hint delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
         [alert show];
@@ -256,6 +257,11 @@ static NSString *const kShareOptionUrl = @"url";
 
 - (bool)isAvailableForSharing:(CDVInvokedUrlCommand*)command
                          type:(NSString *) type {
+  // since iOS 11 this will always return false, so assume true
+  if (IsAtLeastiOSVersion(@"11.0")) {
+    return YES;
+  }
+
   // isAvailableForServiceType returns true if you pass it a type that is not
   // in the defined constants, this is probably a bug on apples part
   if(!([type isEqualToString:SLServiceTypeFacebook]
@@ -361,21 +367,43 @@ static NSString *const kShareOptionUrl = @"url";
         NSURL *file = [self getFile:path];
         NSData* data = [fileManager contentsAtPath:file.path];
 
+        if (!data) {
+          CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"invalid attachment"];
+          [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+          return;
+        }
+
         NSString* fileName;
         NSString* mimeType;
         NSString* basename = [self getBasenameFromAttachmentPath:path];
 
-        if ([basename hasPrefix:@"data:"]) {
-          mimeType = (NSString*)[[[basename substringFromIndex:5] componentsSeparatedByString: @";"] objectAtIndex:0];
-          fileName = @"attachment.";
-          fileName = [fileName stringByAppendingString:(NSString*)[[mimeType componentsSeparatedByString: @"/"] lastObject]];
-          NSString *base64content = (NSString*)[[basename componentsSeparatedByString: @","] lastObject];
-          data = [SocialSharing dataFromBase64String:base64content];
-        } else {
-          fileName = [basename pathComponents].lastObject;
-          mimeType = [self getMimeTypeFromFileExtension:[basename pathExtension]];
-        }
-        [self.globalMailComposer addAttachmentData:data mimeType:mimeType fileName:fileName];
+          //Find data anywhere in string
+          NSRange rangeData = [basename rangeOfString:@"data:"];
+          if (rangeData.location == NSNotFound)
+          {
+              fileName = [basename pathComponents].lastObject;
+              mimeType = [self getMimeTypeFromFileExtension:[basename pathExtension]];
+          }
+          else
+          {
+              mimeType = (NSString*)[[[basename substringFromIndex:rangeData.location+rangeData.length] componentsSeparatedByString: @";"] objectAtIndex:0];
+              
+              //Find df anywhere in string
+              NSRange rangeDF = [basename rangeOfString:@"df:"];
+              //If not found fallback to default name
+              if (rangeDF.location == NSNotFound) {
+                  fileName = @"attachment.";
+                  fileName = [fileName stringByAppendingString:(NSString*)[[mimeType componentsSeparatedByString: @"/"] lastObject]];
+              } else {
+                  //Found, apply name
+                  fileName = (NSString*)[[[basename substringFromIndex:rangeDF.location+rangeDF.length] componentsSeparatedByString: @";"] objectAtIndex:0];
+              }
+              
+              
+              NSString *base64content = (NSString*)[[basename componentsSeparatedByString: @","] lastObject];
+              data = [SocialSharing dataFromBase64String:base64content];
+          }
+          [self.globalMailComposer addAttachmentData:data mimeType:mimeType fileName:fileName];
       }
     }
 
@@ -405,7 +433,7 @@ static NSString *const kShareOptionUrl = @"url";
     NSString* pathWithoutPrefix = [path stringByReplacingOccurrencesOfString:@"base64:" withString:@""];
     return [pathWithoutPrefix substringToIndex:[pathWithoutPrefix rangeOfString:@"//"].location];
   }
-  return path;
+  return [path componentsSeparatedByString: @"?"][0];
 }
 
 - (NSString*) getMimeTypeFromFileExtension:(NSString*)extension {
@@ -479,7 +507,7 @@ static NSString *const kShareOptionUrl = @"url";
     _command = command;
     [self.commandDelegate runInBackground:^{
       picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-      [[self getTopMostViewController] presentViewController:picker animated:YES completion:nil];
+      [[self getTopMostViewController] presentViewController:picker animated:NO completion:nil];
     }];
   } else {
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
@@ -555,7 +583,7 @@ static NSString *const kShareOptionUrl = @"url";
 
     // .. we put the message on the clipboard (you app can prompt the user to paste it)
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    [pasteboard setValue:message forPasteboardType:@"public.text"];
+    [pasteboard setValue:message forPasteboardType:@"public.utf8-plain-text"];
   }
 
   // remember the command for the delegate method
@@ -596,7 +624,7 @@ static NSString *const kShareOptionUrl = @"url";
 
   // with WhatsApp, we can share an image OR text+url.. image wins if set
   if (image != nil) {
-    NSString * savePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/whatsAppTmp.wai"];
+    NSString * savePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/whatsAppTmp.jpg"];
     [UIImageJPEGRepresentation(image, 1.0) writeToFile:savePath atomically:YES];
     _documentInteractionController = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:savePath]];
     _documentInteractionController.UTI = @"net.whatsapp.image";
@@ -694,10 +722,12 @@ static NSString *const kShareOptionUrl = @"url";
 -(NSURL*)getFile: (NSString *)fileName {
   NSURL *file = nil;
   if (fileName != (id)[NSNull null]) {
+    NSRange rangeData = [fileName rangeOfString:@"data:"];
     if ([fileName hasPrefix:@"http"]) {
       NSURL *url = [NSURL URLWithString:fileName];
       NSData *fileData = [NSData dataWithContentsOfURL:url];
-      file = [NSURL fileURLWithPath:[self storeInFile:(NSString*)[[fileName componentsSeparatedByString: @"/"] lastObject] fileData:fileData]];
+      NSString *name = (NSString*)[[fileName componentsSeparatedByString: @"/"] lastObject];
+      file = [NSURL fileURLWithPath:[self storeInFile:[name componentsSeparatedByString: @"?"][0] fileData:fileData]];
     } else if ([fileName hasPrefix:@"www/"]) {
       NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
       NSString *fullPath = [NSString stringWithFormat:@"%@/%@", bundlePath, fileName];
@@ -705,14 +735,27 @@ static NSString *const kShareOptionUrl = @"url";
     } else if ([fileName hasPrefix:@"file://"]) {
       // stripping the first 6 chars, because the path should start with / instead of file://
       file = [NSURL fileURLWithPath:[fileName substringFromIndex:6]];
-    } else if ([fileName hasPrefix:@"data:"]) {
-      // using a base64 encoded string
-      // extract some info from the 'fileName', which is for example: data:text/calendar;base64,<encoded stuff here>
-      NSString *fileType = (NSString*)[[[fileName substringFromIndex:5] componentsSeparatedByString: @";"] objectAtIndex:0];
-      fileType = (NSString*)[[fileType componentsSeparatedByString: @"/"] lastObject];
-      NSString *base64content = (NSString*)[[fileName componentsSeparatedByString: @","] lastObject];
-      NSData *fileData = [SocialSharing dataFromBase64String:base64content];
-      file = [NSURL fileURLWithPath:[self storeInFile:[NSString stringWithFormat:@"%@.%@", @"file", fileType] fileData:fileData]];
+     } else if (rangeData.location != NSNotFound ){
+        //If found "data:"
+        NSString *fileType  = (NSString*)[[[fileName substringFromIndex:rangeData.location+rangeData.length] componentsSeparatedByString: @";"] objectAtIndex:0];
+        
+        NSString* attachmentName;
+        //Find df anywhere in string
+        NSRange rangeDF = [fileName rangeOfString:@"df:"];
+        //If not found fallback to default name
+        if (rangeDF.location == NSNotFound) {
+            attachmentName = @"attachment.";
+            attachmentName = [attachmentName stringByAppendingString:(NSString*)[[fileType componentsSeparatedByString: @"/"] lastObject]];
+        } else {
+            //Found, apply name
+            attachmentName = (NSString*)[[[fileName substringFromIndex:rangeDF.location+rangeDF.length] componentsSeparatedByString: @";"] objectAtIndex:0];
+        }
+        
+        
+        NSString *base64content = (NSString*)[[fileName componentsSeparatedByString: @","] lastObject];
+        NSData* data = [SocialSharing dataFromBase64String:base64content];
+        file = [NSURL fileURLWithPath:[self storeInFile:attachmentName fileData:data]];
+
     } else {
       // assume anywhere else, on the local filesystem
       file = [NSURL fileURLWithPath:fileName];

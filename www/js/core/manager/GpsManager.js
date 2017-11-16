@@ -35,7 +35,7 @@ var GpsManager = {
     gpsStarted: false,
     watchID: null,
 
-    refresh: function(){
+    refresh: function () {
         if (SettingsManager.gpsPosition == "true" && GpsManager.gpsStarted == false) {
             GpsManager.initializePosition();
         } else if (SettingsManager.gpsPosition == "false" && GpsManager.gpsStarted == true) {
@@ -48,10 +48,10 @@ var GpsManager = {
     initializePosition: function () {
         if (GpsManager.gpsStarted == false) {
             if (device.platform == "Android" || device.platform == "iOS") {
-                if (device.platform == "iOS"){
-                    setInterval(function(){
-                                CheckGPS.check(function(){GpsManager.status = true}, function(){GpsManager.status = false})
-                                }, 20000);
+                if (device.platform == "iOS") {
+                    setInterval(function () {
+                        CheckGPS.check(function () { GpsManager.status = true }, function () { GpsManager.status = false })
+                    }, 20000);
                 }
                 CheckGPS.check(function () {
                     var options = { timeout: GpsManager.timeout, enableHighAccuracy: true };
@@ -74,7 +74,7 @@ var GpsManager = {
         }
     },
 
-    onSuccessInit: function(position) {
+    onSuccessInit: function (position) {
         if (GpsManager.checkGPS != null) {
             clearInterval(GpsManager.checkGPS);
         }
@@ -99,22 +99,22 @@ var GpsManager = {
         }
     },
 
-    onErrorInit: function(error) {
+    onErrorInit: function (error) {
         if (GpsManager.checkGPS === null) {
-            navigator.notification.alert(Globalization.alerts.positionWarning.message, function() {}, Globalization.alerts.positionWarning.title);
+            //navigator.notification.alert(Globalization.alerts.positionWarning.message, function () { }, Globalization.alerts.positionWarning.title);
             if (error.code != 1)
-                GpsManager.checkGPS = setInterval(function() {
+                GpsManager.checkGPS = setInterval(function () {
                     GpsManager.initializePosition();
                 }, GpsManager.timeout);
         }
     },
 
-    watchingPosition: function() {
-    	var options = { timeout: GpsManager.timeout, enableHighAccuracy: true };
-    	GpsManager.watchID = navigator.geolocation.watchPosition(GpsManager.onSuccessUpdate, GpsManager.onErrorUpdate, options);
+    watchingPosition: function () {
+        var options = { timeout: GpsManager.timeout, enableHighAccuracy: true };
+        GpsManager.watchID = navigator.geolocation.watchPosition(GpsManager.onSuccessUpdate, GpsManager.onErrorUpdate, options);
     },
 
-    stopWatchingPosition: function(){
+    stopWatchingPosition: function () {
         navigator.geolocation.clearWatch(GpsManager.watchID);
         GpsManager.watchID = null;
     },
@@ -139,18 +139,18 @@ var GpsManager = {
         MapManager.updateGpsMarker(GpsManager.latitude, GpsManager.longitude);
     },
 
-    onErrorUpdate: function(error) {
+    onErrorUpdate: function (error) {
         // Nothing To Do
     },
 
-    currentCoordinates: function() {
+    currentCoordinates: function () {
         if (GpsManager.latitude != null && GpsManager.longitude != null) {
             return [GpsManager.latitude, GpsManager.longitude];
         }
         return null;
     },
 
-    getDistanceFromLatLonInM: function(lat1, lon1, lat2, lon2) {
+    getDistanceFromLatLonInM: function (lat1, lon1, lat2, lon2) {
         var R = 6371; // Radius of the earth in km
         var dLat = GpsManager.deg2rad(lat2 - lat1); // deg2rad below
         var dLon = GpsManager.deg2rad(lon2 - lon1);
@@ -163,7 +163,7 @@ var GpsManager = {
         return d * 1000;
     },
 
-    getDistanceFromGPSInM: function(latitude, longitude) {
+    getDistanceFromGPSInM: function (latitude, longitude) {
         if (GpsManager.latitude != null && GpsManager.longitude != null) {
             var R = 6371; // Radius of the earth in km
             var dLat = GpsManager.deg2rad(GpsManager.latitude - latitude); // deg2rad below
@@ -180,9 +180,10 @@ var GpsManager = {
         }
     },
 
-    deg2rad: function(deg) {
+    deg2rad: function (deg) {
         return deg * (Math.PI / 180)
     }
 
 
-}
+};
+

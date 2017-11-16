@@ -1,11 +1,13 @@
 ﻿{
   "principalMenu": {
-    "moduleParkingSearcher": "Liste Parkings"
+    "moduleParkingSearcher": "Parkings"
   },
   "parkingMenu": {
     "title": "Parkings",
     "gpsOrderText": "Plus près <i class=\"glyphicon glyphicon-record\">",
     "searchCenterOrderText": "Plus près <i class=\"glyphicon glyphicon-map-marker\">",
-    "freeParkingOrderText":  "Parking Disponible"
+    "freeParkingOrderText": "Parking Disponible",
+    "freeLotsForecast30": "Entre 30Min",
+    "freeLotsForecast60":  "Entre 60Min"
   }
 }

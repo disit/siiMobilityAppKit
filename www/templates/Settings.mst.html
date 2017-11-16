@@ -1,7 +1,7 @@
 <!-- {{#Settings}} -->
 <div class="panel panel-default">
 	<div class="panel-heading" style="height: 55px;">
-		<a class="pull-right" onclick="SettingsManager.hideSettingsMenu();"><i
+		<a class="pull-right" onclick="SettingsManager.checkSaveSettings();"><i
 			class="glyphicon glyphicon-remove"
 			style="color: #777; float: right; padding-top: 14px;"></i></a> <b
 			id="settingsHeaderTitle" style="float: left; padding-top: 10px;"><script>
@@ -12,7 +12,7 @@
 </div>
 <div id="settingsMenuInner" class="{{platform}}">
 	<!-- {{#groups}} -->
-	<div class="panel panel-default card-2" id="{{key}}" style="margin: 0px 5px 10px 5px;">
+	<div class="panel panel-default card-2" id="{{key}}" style="margin: 0px 5px 20px 5px;">
 		<div class="panel-heading">{{label}}</div>
 		<div class="panel-body">
 		<!-- {{#items}} -->

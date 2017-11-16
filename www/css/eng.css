@@ -157,3 +157,86 @@
 .eng.WineAndFood.icon {
     color: #6600ff;
 }
+
+
+
+
+.eng.Accommodation.border {
+   border-top-color: #330000;
+}
+
+.eng.Advertising.border {
+   border-top-color: #660000;
+}
+
+.eng.AgricultureAndLivestock.border {
+   border-top-color: #990000;
+}
+
+.eng.CivilAndEdilEngineering.border {
+   border-top-color: #cc0000;
+}
+
+.eng.CulturalActivity.border {
+   border-top-color: #ff0000;
+}
+
+.eng.EducationAndResearch.border {
+   border-top-color: #ff6600;
+}
+
+.eng.Emergency.border {
+   border-top-color: #ff9900;
+}
+
+.eng.Entertainment.border {
+   border-top-color: #ffcc00;
+}
+
+.eng.Environment.border {
+   border-top-color: #33ff33;
+}
+
+.eng.FinancialService.border {
+   border-top-color: #33cc33;
+}
+
+.eng.GovernmentOffice.border {
+   border-top-color: #339933;
+}
+
+.eng.HealthCare.border {
+   border-top-color: #336633;
+}
+
+.eng.IndustryAndManufacturing.border {
+   border-top-color: #0000ff;
+}
+
+.eng.MiningAndQuarrying.border {
+   border-top-color: #0066ff;
+}
+
+.eng.ShoppingAndService.border {
+   border-top-color: #0099ff;
+}
+
+.eng.TourismService.border {
+   border-top-color: #00ccff;
+}
+
+.eng.TransferServiceAndRenting.border {
+   border-top-color: #ff00ff;
+}
+
+.eng.UtilitiesAndSupply.border {
+   border-top-color: #cc00ff;
+}
+
+.eng.Wholesale.border {
+   border-top-color: #9900ff;
+}
+
+.eng.WineAndFood.border {
+   border-top-color: #6600ff;
+}

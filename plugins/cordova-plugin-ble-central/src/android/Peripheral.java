@@ -43,6 +43,7 @@ public class Peripheral extends BluetoothGattCallback {
     private byte[] advertisingData;
     private int advertisingRSSI;
     private boolean connected = false;
+    private boolean connecting = false;
     private ConcurrentLinkedQueue<BLECommand> commandQueue = new ConcurrentLinkedQueue<BLECommand>();
     private boolean bleProcessing;
 
@@ -64,6 +65,8 @@ public class Peripheral extends BluetoothGattCallback {
 
     public void connect(CallbackContext callbackContext, Activity activity) {
         BluetoothDevice device = getDevice();
+        connecting = true;
+
         connectCallback = callbackContext;
         if (Build.VERSION.SDK_INT < 23) {
             gatt = device.connectGatt(activity, false, this);
@@ -79,7 +82,10 @@ public class Peripheral extends BluetoothGattCallback {
     public void disconnect() {
         connectCallback = null;
         connected = false;
+        connecting = false;
+
         if (gatt != null) {
+            gatt.disconnect();
             gatt.close();
             gatt = null;
         }
@@ -95,6 +101,21 @@ public class Peripheral extends BluetoothGattCallback {
             json.put("advertising", byteArrayToJSON(advertisingData));
             // TODO real RSSI if we have it, else
             json.put("rssi", advertisingRSSI);
+        } catch (JSONException e) { // this shouldn't happen
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+
+    public JSONObject asJSONObject(String errorMessage)  {
+
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("name", device.getName());
+            json.put("id", device.getAddress()); // mac address
+            json.put("errorMessage", errorMessage);
         } catch (JSONException e) { // this shouldn't happen
             e.printStackTrace();
         }
@@ -169,6 +190,10 @@ public class Peripheral extends BluetoothGattCallback {
         return connected;
     }
 
+    public boolean isConnecting() {
+        return connecting;
+    }
+
     public BluetoothDevice getDevice() {
         return device;
     }
@@ -183,7 +208,7 @@ public class Peripheral extends BluetoothGattCallback {
             connectCallback.sendPluginResult(result);
         } else {
             LOG.e(TAG, "Service discovery failed. status = " + status);
-            connectCallback.error(this.asJSONObject());
+            connectCallback.error(this.asJSONObject("Service discovery failed"));
             disconnect();
         }
     }
@@ -196,12 +221,13 @@ public class Peripheral extends BluetoothGattCallback {
         if (newState == BluetoothGatt.STATE_CONNECTED) {
 
             connected = true;
+            connecting = false;
             gatt.discoverServices();
 
         } else {
 
             if (connectCallback != null) {
-                connectCallback.error(this.asJSONObject());
+                connectCallback.error(this.asJSONObject("Peripheral Disconnected"));
             }
             disconnect();
         }
@@ -367,6 +393,11 @@ public class Peripheral extends BluetoothGattCallback {
             notificationCallbacks.remove(key);
 
             if (gatt.setCharacteristicNotification(characteristic, false)) {
+                BluetoothGattDescriptor descriptor = characteristic.getDescriptor(CLIENT_CHARACTERISTIC_CONFIGURATION_UUID);
+                if (descriptor != null) {
+                    descriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
+                    gatt.writeDescriptor(descriptor);
+                }
                 callbackContext.success();
             } else {
                 // TODO we can probably ignore and return success anyway since we removed the notification callback

@@ -1,10 +1,17 @@
 {
   "name": "cordova-plugin-screen-orientation",
-  "version": "1.4.2",
+  "version": "2.0.2",
   "description": "Adds Screen Orientation API lock and unlock functions to the global screen object in android, iOS, WP8, W8.1, and BB10.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gbenvenuti/cordova-plugin-screen-orientation.git"
+    "url": "git+https://github.com/apache/cordova-plugin-screen-orientation.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
+  },
+  "scripts": {
+    "test": "npm run jshint",
+    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint demo/www"
   },
   "cordova": {
     "id": "cordova-plugin-screen-orientation",
@@ -23,10 +30,68 @@
     "portrait",
     "landscape"
   ],
-  "author": "gbenvenuti",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/gbenvenuti/cordova-plugin-screen-orientation/issues"
+  "author": {
+    "name": "gbenvenuti"
   },
-  "homepage": "https://github.com/gbenvenuti/cordova-plugin-screen-orientation#readme"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "jshint": "^2.9.4"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "3.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-screen-orientation#readme",
+  "_id": "cordova-plugin-screen-orientation@2.0.2",
+  "_shasum": "92333345d13e4fd4e8bd436ca9e7a46c097b1b36",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-2.0.2.tgz",
+  "_from": "cordova-plugin-screen-orientation@latest",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "92333345d13e4fd4e8bd436ca9e7a46c097b1b36",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-2.0.2.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "gbenvenuti",
+      "email": "grant.benvenuti@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    },
+    {
+      "name": "tony--",
+      "email": "tony.homer@intel.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-screen-orientation-2.0.2.tgz_1510361679864_0.3674892543349415"
+  },
+  "directories": {}
 }

@@ -1,11 +1,13 @@
 ﻿{
   "principalMenu": {
-    "moduleParkingSearcher": "Lista Parcheggi"
+    "moduleParkingSearcher": "Parcheggi"
   },
   "parkingMenu": {
     "title": "Parcheggi",
     "gpsOrderText": "Più vicini <i class=\"glyphicon glyphicon-record\">",
     "searchCenterOrderText": "Più vicini <i class=\"glyphicon glyphicon-map-marker\">",
-    "freeParkingOrderText":  "Posti liberi"
+    "freeParkingOrderText": "Posti liberi",
+    "freeLotsForecast30": "Fra 30Min",
+    "freeLotsForecast60": "Fra 60Min"
   }
 }

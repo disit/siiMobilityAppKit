@@ -5,8 +5,8 @@
     "buttonName": [ "Ne Pas Choisir", "Choisir Position" ]
   },
   "chooseThreeSearchCenter": {
-    "message": "Choisissez le centre de la zone de recherche des services ou la position dont on souhaite connaître la météo.",
-    "title": "Recherche",
+    "message": "Où voulez-vous chercher?",
+    "title": "",
     "buttonName": [ "GPS", "Posit. Manuelle", "Dernier Service" ]
   }
 }

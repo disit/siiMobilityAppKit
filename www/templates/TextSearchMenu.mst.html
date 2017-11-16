@@ -1,82 +1,49 @@
-<div id="textSearchMenuHeader"class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
-    <div id="textSearchMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;z-index: 5;height: 15px;">
-        <div class="grippy grippy-horizontal"></div>
-    </div>
-    <div class="panel-heading" style="padding: 0px 10px;height: 52px; border: none;">
+<style>
+    #filterSearchText label{
+        display: inline-block;
+        margin: 2px 0px;
+        width: 50%;
+        height: 25px;
+        padding: 0px;
+    }
+
+    #textSearchMenuHeader .input-group button{
+         height: 55px;
+         font-size: 25px;
+         width: 30px;
+         padding: 0px;
+         padding-top: 8px;
+    }
+
+</style>
+
+<div id="textSearchMenuHeader"class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;" onclick="$('#listPOISearched').dropdown().hide();">
+    <div class="panel-heading" style="padding: 0px;height: 55px; border: none;">
         <a class="pull-right" onclick="TextSearcher.hide();">
             <i class="glyphicon glyphicon-remove"
-               style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
-        </a>
-        <a id="textSearchMenuExpand" class="pull-left" onclick="TextSearcher.expandTextSearchMenu();">
-            <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
-        </a>
-        <a id="textSearchMenuCollapse" class="pull-left" onclick="TextSearcher.collapseTextSearchMenu();">
-            <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+               style="float: right; padding: 0px 10px; color: #777; line-height: 55px;"></i>
         </a>
         <div class="input-group">
-                <input id="textSearchMenuInput" type="text" class="form-control"
-                       style="font-size: 16px; padding: 2px 10px; height: 28px; width: 100%; border-bottom-left-radius: 0px;"
-                       onkeypress="return TextSearcher.onKeyEnter(event);" onfocus="TextSearcher.inputTextOnFocus();">
             <div class="input-group-btn">
-                <button id="buttonCancelText" class="btn btn-default"
-                        style="font-size: 16px; width: 30px; padding: 4px 0px 0px 0px; border-bottom-right-radius: 0px;"
-                        onclick="TextSearcher.resetInputText();">
-                    <i class="glyphicon glyphicon-trash"></i>
+                <button class="btn btn-default" id="buttonManualCoordinates" onclick="TextSearcher.clickOnManualButton = true; TextSearcher.setCoordinatesToManual();"> 
+                    <i class="glyphicon glyphicon-map-marker"></i>
+                </button>
+                <button class="btn btn-primary" id="buttonGPSCoordinates" onclick="TextSearcher.setCoordinatesToGPS();"> 
+                    <i class="glyphicon glyphicon-record"></i>
                 </button>
             </div>
-                
-         </div>
-        <div class="input-group-btn" style="padding-left: 1px">
-            <button class="btn btn-success"
-                    style="width: 50%; height: 23px; padding: 0px;border-bottom-left-radius: 4px; "
-                    onclick="TextSearcher.collapseTextSearchMenu(); TextSearcher.activeFullSearch(); TextSearcher.search();">
-                <img src="img/Toscana.png" height="18"><b style="padding-left: 5px;font-size: 12px" id="textSearchTuscanyButton"><script>
-                    $("#textSearchTuscanyButton").html(Globalization.labels.textSearchMenu.buttonTuscany)
-</script></b>
-            </button>
-            <button class="btn btn-success"
-                    style="width: 50.3%; height: 23px; padding: 0px; border-top-right-radius: 0px; border-left-color: white;"
-                    onclick="TextSearcher.collapseTextSearchMenu(); SearchManager.search('TextSearcher');">
-                <img src="img/circleSearch.png" height="18"><b style="padding-left: 5px;font-size: 12px" id="textSearchAroundButton"><script>
-                    $("#textSearchAroundButton").html(Globalization.labels.textSearchMenu.buttonAround)
-</script></b>
-            </button>
-        </div>
-
-    </div>
-</div>
-<div id="textSearchMenuInner" class="commonHalfMenuInner">
-    <!-- {{#features}} {{#properties}}-->
-    <div class="panel panel-default" style="margin: 0px 5px 10px 5px;color: #000; text-decoration: none;" onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{nameEscaped}}','{{civic}}','{{busLines}}','{{agency}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}}, '{{#properties}}{{alternativeIcon}}{{/properties}}');">
-        <div class="panel-body card-2">
-            {{#properties}}
-            {{#imageThumb}}<img id="textSearchMenuImage{{identifier}}" src="{{imageThumb}}"
-                                style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
-            <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
-            <b style="text-align: center">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
-            {{#civic}}<br>
-            <b id="textSearchCivicNumber{{identifier}}">
-                <script>
-                    $("#textSearchCivicNumber{{identifier}}").html(Globalization.labels.textSearchMenu.civic)
-                </script>
-            </b> {{civic}}{{/civic}}
-            {{#typeLabel}}<br><b id="textSearchTypeLabel{{identifier}}">
-                <script>$("#textSearchTypeLabel{{identifier}}").html(Globalization.labels.infoMenu.type)</script>
-            </b>{{typeLabel}}{{/typeLabel}}
-
-            {{#busLines}}<br>
-            <b id="textSearchBusStopLines{{identifier}}">
-                <script>
-                    $("#textSearchBusStopLines{{identifier}}").html(Globalization.labels.textSearchMenu.lines)
-                </script>
-            </b> {{busLines}}{{/busLines}}
-            {{#distanceFromSearchCenter}}<br><b id="textSearchDistanceFromSearchCenter{{identifier}}">
-                <script>$("#textSearchDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromSearchCenter)</script>
-            </b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
-            {{#distanceFromGPS}}<br><b id="textSearchDistanceFromGPS{{identifier}}">
-                <script>$("#textSearchDistanceFromGPS{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromGPS)</script>
-            </b>{{distanceFromGPS}} m{{/distanceFromGPS}}{{/properties}}
+            <input id="textSearchMenuInput" type="text" class="form-control" style="font-size: 20px;height: 55px;" onkeypress="return TextSearcher.onKeyEnter(event);" onfocus="TextSearcher.inputTextOnFocus();" onkeyup="TextSearcher.searchPOIFast();">
+            <ul id="listPOISearched" class="dropdown-menu list-group" aria-labelledby="dLabel" style="width: 100%; overflow-y: auto; margin-top: -1px; min-height: 75px; display: none;">
+                <b style="position: absolute;left: 35%;top: 25px;">Nessun Risultato</b>
+            </ul>
+            <div class="input-group-btn">
+                <button id="buttonCancelText" class="btn btn-default" onclick="TextSearcher.resetInputText();">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </button>
+                <button class="btn btn-success" style="width: 40px;" onclick="TextSearcher.search();">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
         </div>
     </div>
-    <!-- {{/features}} -->
 </div>

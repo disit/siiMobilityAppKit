@@ -32,3 +32,13 @@ ul.fancytree-container ul {
 ul.fancytree-container {
      border: 0px; 
 }
+
+.fancytree-plain.fancytree-container.fancytree-treefocus span.fancytree-node.fancytree-focused span.fancytree-title {
+    border: 0px;
+}
+
+img.fancytree-icon {
+    margin-top: 4px;
+    margin-left: -6px;
+    margin-right: 0px;
+}

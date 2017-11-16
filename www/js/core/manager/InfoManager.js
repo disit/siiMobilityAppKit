@@ -24,7 +24,6 @@ var InfoManager = {
 
     open: false,
     modalImageOpen: false,
-    modalTimetableOpen: false,
     expanded: false,
     latitude: null,
     longitude: null,
@@ -36,26 +35,28 @@ var InfoManager = {
     idMenu: "infoMenu",
     singleTemplatesList: [],
 
-    showImageModal: function (image) {
+    showImageModal: function () {
         var backupExpanded = InfoManager.expanded;
         if (InfoManager.expanded) {
             InfoManager.collapseInfoAboutOneMarker();
             InfoManager.expanded = backupExpanded;
         }
-        $('#serviceImagePreview').attr('src', image);
-        $("#serviceImagePreview").panzoom("reset");
+
+        ViewManager.render(InfoManager.currentResponse, "#serviceImageModal", "CarouselPhotoModal");
         $('#serviceImageModal').modal('show');
         $('#serviceImageModalBody').css('height', $(window).height() * 0.80 + 'px');
-        $('#serviceImageModalFooterButton').html(Globalization.labels.infoMenu.closeButton);
+        $('#serviceImageModalFooterButton').html(Globalization.labels.commonLabels.close);
+        $("#serviceCarouselPhotosModal").swiperight(function () { $("#serviceCarouselPhotosModal").carousel('prev'); });
+        $("#serviceCarouselPhotosModal").swipeleft(function () { $("#serviceCarouselPhotosModal").carousel('next'); });
         $('#serviceImageModal').on('hide.bs.modal', function (e) {
             InfoManager.modalImageOpen = false;
-            $('#serviceImagePreview').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP//&‌​#47;ywAAAAAAQABAAACA‌​UwAOw==');
             if (InfoManager.expanded) {
                 InfoManager.expandInfoAboutOneMarker();
             }
         });
         InfoManager.modalImageOpen = true;
     },
+
     hideImageModal: function () {
         $('#serviceImageModal').modal('hide');
         $('#serviceImagePreview').attr('src', 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP//&‌​#47;ywAAAAAAQABAAACA‌​UwAOw==');
@@ -75,58 +76,11 @@ var InfoManager = {
         }
     },
 
-    showTimetableModal: function () {
-        var backupExpanded = InfoManager.expanded;
-        if (InfoManager.expanded) {
-            InfoManager.collapseInfoAboutOneMarker();
-            InfoManager.expanded = backupExpanded;
-        }
-
-        ViewManager.render(InfoManager.currentTimetable, '#timetableModal', 'TimetableModal');
-        $("#timetableModal").modal('show');
-        $.fn.dataTable.moment('HH:MM:ss yyyy-mm-dd');
-        $("#timetableModaltimetable").DataTable({
-            "columnDefs": [
-                    { "width": "60px", "targets": 0 },
-                    { "type": "date", "targets": 0 }],
-            "autowidth": true,
-            "order": [[ 0, "asc" ]],
-            "scrollY": $(window).height() - 210 + "px",
-            "scrollCollapse": true,
-            "lengthMenu": [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
-            "pagingType": "numbers",
-            "language": {
-                "search": "",
-                "lengthMenu": Globalization.labels.busStop.datatableLengthMenu,
-                "info": Globalization.labels.busStop.datatableInfo,
-                "infoEmpty": Globalization.labels.busStop.datatableInfoEmpty,
-                "infoFiltered": "",
-                "zeroRecords": Globalization.labels.busStop.datatableZeroRecords
-            }
-        });
-        $("#timetableModaltimetable_filter input").attr("placeholder", Globalization.labels.busStop.datatableSearch).css("width", "100%").css("margin-left", "0px");
-        $('#timetableModal').on('hide.bs.modal', function (e) {
-            InfoManager.modalTimetableOpen = false;
-            if (InfoManager.expanded) {
-                InfoManager.expandInfoAboutOneMarker();
-            }
-        });
-        InfoManager.modalTimetableOpen = true;
-    },
-
-    hideTimetableModal: function () {
-        $("#timetableModal").modal('hide');
-        InfoManager.modalTimetableOpen = false;
-        if (InfoManager.expanded) {
-            InfoManager.expandInfoAboutOneMarker();
-        }
-    },
-
     showInfoAboutOneMarker: function (serviceUri, latitude, longitude) {
         InfoManager.latitude = latitude;
         InfoManager.longitude = longitude;
         PrincipalMenu.hide();
-        var serviceQuery = QueryManager.createServiceQuery(serviceUri,"user");
+        var serviceQuery = QueryManager.createServiceQuery(serviceUri, "user");
         APIClient.executeQuery(serviceQuery, InfoManager.successQuery, InfoManager.errorQuery);
     },
 
@@ -143,6 +97,7 @@ var InfoManager = {
     collapseInfoAboutOneMarker: function () {
         InfoManager.changePhotoOnCarousel(InfoManager.currentResponse.properties.carouselThumbContent);
         Utility.collapseMenu("#infoMenu", "#expandInfoMenu", "#collapseInfoMenu");
+        $('#infoMenu').css({ 'z-index': '1002' });
         $('#serviceCarouselPhotos .carousel-inner .item').css('height', $(window).width() * 0.2 + "px");
         $('#serviceCarouselPhotos .carousel-inner .item img').css('max-height', $(window).width() * 0.2 + "px");
         InfoManager.expanded = false;
@@ -158,29 +113,8 @@ var InfoManager = {
             'z-index': '1002'
         });
         $('#infoMenu').empty();
-        if (InfoManager.menuToManageList.length == 0) {
-            $('#content').css({
-                'height': '100%',
-                'width': '100%'
-            });
-            $('#servicesFounded').css({
-                'left': '20%',
-                'width': '60%',
-
-            });
-            $('#loadingImage').css({
-                'left': '48%',
-            });
-
-            $('#settingsLoadingImage').css({
-                'left': '48%',
-            });
-
-            $('#autoSearchLoadingImage').css({
-                'left': '48%',
-            });
-
-        }
+        InfoManager.open = false;
+        MapManager.reduceMenuShowMap('#infoMenu');
         $('#categorySearchMenu').css('height', $('#content').height() + 'px');
 
         $('#serviceCarouselPhotos .carousel-inner .item').css('height', $(window).width() * 0.2 + "px");
@@ -188,7 +122,17 @@ var InfoManager = {
 
         MapManager.updateMap();
         MapManager.centerMapOnCoordinates(latitude, longitude);
-        InfoManager.open = false;
+        
+        if (InfoManager.menuToManageList.length != 0) {
+            if (window[InfoManager.menuToManageList[0]]["idMenu"] != null) {
+                Utility.checkAxisToDrag("#" + window[InfoManager.menuToManageList[0]]["idMenu"]);
+            }
+        }
+        if (device.platform == "Web") {
+            if (window.location.search != "") {
+                window.location.search = "";
+            }
+        }
         application.removingMenuToCheck("InfoManager");
         InfoManager.expanded = false;
     },
@@ -203,8 +147,6 @@ var InfoManager = {
                 FeedbackManager.hideModal();
             } else if (InfoManager.modalImageOpen) {
                 InfoManager.hideImageModal();
-            } else if (InfoManager.modalTimetableOpen) {
-                InfoManager.hideTimetableModal();
             } else if (BusRoutesSearcher.infoRouteModalOpen) {
                 BusRoutesSearcher.hideInfoRouteModal();
             } else {
@@ -223,17 +165,20 @@ var InfoManager = {
         }
         InfoManager.rescaleCarouselHeight();
         InfoManager.rescaleModalHeight();
+        if (InfoManager.menuToManageList.length != 0) {
+            if (window[InfoManager.menuToManageList[0]]["idMenu"] != null) {
+                Utility.checkAxisToDragReduced("#" + window[InfoManager.menuToManageList[0]]["idMenu"]);
+            }
+        }
     },
 
-    closeAll: function(){
-        if (InfoManager.open) {
-            PictureManager.hideSendPhotoModal();
-            PictureManager.hideSendPhotoAlbumModal();
-            FeedbackManager.hideModal();
-            InfoManager.hideImageModal();
-            BusRoutesSearcher.hideInfoRouteModal();
-            InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
-        }
+    closeAll: function () {
+        PictureManager.hideSendPhotoModal();
+        PictureManager.hideSendPhotoAlbumModal();
+        FeedbackManager.hideModal();
+        InfoManager.hideImageModal();
+        BusRoutesSearcher.hideInfoRouteModal();
+        InfoManager.hideInfoAboutOneMarker.apply(this, MapManager.mapCenterCoordinates());
     },
 
     rescaleCarouselHeight: function () {
@@ -255,9 +200,7 @@ var InfoManager = {
             var wktGeometry = null;
             if (response[category].features != null) {
                 if (response[category].features.length != 0) {
-
                     Utility.enrichService(response[category].features[0]);
-
                     if (response[category].features[0].properties.serviceType != null) {
                         var found = false;
                         for (var i = 0; i < InfoManager.singleTemplatesList.length; i++) {
@@ -267,28 +210,18 @@ var InfoManager = {
                             }
                         }
                         if (!found) {
-                            if (response.busLines != null) {
-                                response.busLines.head.busStopEscaped = Utility.escapeHtml(response.busLines.head.busStop);
-                                if (response.timetable != null) {
-                                    InfoManager.currentTimetable = response
-                                    if (response.timetable.results != null && response.timetable.results.bindings != null) {
-                                        response.timetable.results.bindingsReduced = response.timetable.results.bindings.slice(0, 10);
-                                        response.timetable.results.bindingsReduced.sort(function (a, b) {
-                                            var aDate = new Date(a.date.value + "T" + a.departureTime.value);
-                                            var bDate = new Date(b.date.value + "T" + b.departureTime.value);
-                                            return aDate.getTime() - bDate.getTime();
-                                        });
-                                    }
-                                }
-                                ViewManager.render(response, "#infoMenu", "BusStop");
-                            } else if (response[category].features[0].properties.serviceType == "TransferServiceAndRenting_SensorSite") {
+                            if (response[category].features[0].properties.serviceType == "TransferServiceAndRenting_SensorSite") {
                                 ViewManager.render(response, "#infoMenu", "SensorSite");
+                                ViewManager.render(response[category].features[0], "#infoMenuInnerDetailHeader", "ServiceDetailHeader");
+                                ViewManager.render(response[category].features[0], "#infoMenuInnerDetails", "ServiceDetails");
                             } else {
                                 ViewManager.render(response, "#infoMenu", null);
+                                ViewManager.render(response[category].features[0], "#infoMenuInnerDetail", "ServiceDetailAll");
                             }
                         }
                     } else {
                         ViewManager.render(response, "#infoMenu", null);
+                        ViewManager.render(response[category].features[0], "#infoMenuInnerDetail", "ServiceDetail");
                     }
 
                     if (InfoManager.longitude == null) {
@@ -309,8 +242,9 @@ var InfoManager = {
                     break;
                 }
             } else if (category == "head" || category == "ERROR") {
-                for (var i = 0; i < response.results.bindings.length; i++){
-                    response.results.bindings[i].day.value =  Globalization.labels.weather[response.results.bindings[i].day.value];
+                response.results.bindings[0].changeFormatDateTimeMst = Utility.changeFormatDateTimeMst;
+                for (var i = 0; i < response.results.bindings.length; i++) {
+                    response.results.bindings[i].day.value = Globalization.labels.weather[response.results.bindings[i].day.value];
                 }
                 ViewManager.render(response, "#infoMenu", "Weather");
             }
@@ -380,11 +314,19 @@ var InfoManager = {
             }
             InfoManager.open = true;
             application.addingMenuToCheck("InfoManager");
+            if (InfoManager.menuToManageList.length != 0) {
+                if (window[InfoManager.menuToManageList[0]]["idMenu"] != null) {
+                    Utility.checkAxisToDragReduced("#" + window[InfoManager.menuToManageList[0]]["idMenu"]);
+                }
+            }
             Utility.checkAxisToDrag("#infoMenu");
-            $("#serviceImagePreview").panzoom({ minScale: 1, contain: 'invert' });
             application.setBackButtonListener();
             break;
         }
+    },
+
+    addOrRemoveServiceToFavourites: function () {
+        Favourites.checkService(InfoManager.currentResponse);
     },
 
     //callBack
@@ -404,56 +346,70 @@ var InfoManager = {
     },
 
     share: function (message, title, image, link, divToShare) {
-        if (device.platform != "Win32NT" && device.platform != "windows") {
+         if (device.platform != "Win32NT" && device.platform != "windows") {
             if (!InfoManager.lockSharing) {
                 InfoManager.lockSharing = true;
-                var backupExpanded = InfoManager.expanded;
                 var height = 0;
+                var top = 0;
                 if (divToShare == 'infoMenu') {
-                    InfoManager.expandInfoAboutOneMarker();
-                    InfoManager.expanded = backupExpanded;
+                    $("#loadingOverlayPage").show();
+                    top = $('#infoMenu').css("top");
+                    $('#infoMenu').css({
+                        'height': '100%',
+                        'bottom': '',
+                    });
                     $('#infoMenu').css({
                         'height': 'auto',
-                        'bottom': '',
-                        'overflow': 'visible'
+                        'top': top,
                     });
-                    $('#infoMenuInner').css({
-                        'bottom': '',
-                    });
+                    height = $("#infoMenu").height();
                     $('#indexPage').css({
                         'overflow': 'visible'
                     });
 
-                    height = $("#infoMenu ul").height() + 60;
 
-                } else {
-                    height = $("#" + divToShare).height();
-                    Loading.showSettingsLoading();
-                }
+                    html2canvas(document.getElementById(divToShare), { allowTaint: true, height: height }).then(function (canvas) {
+                        $("#loadingOverlayPage").hide();
 
-                html2canvas(document.getElementById(divToShare), { allowTaint: true, height: height }).then(function (canvas) {
-                    Loading.hideSettingsLoading();
-                    if (divToShare == 'infoMenu') {
-                        if (InfoManager.expanded) {
-                            $('#infoMenu').css({
-                                'height': '100%',
-                                'bottom': '0px',
-                                'overflow': ''
-                            });
-                            $('#infoMenuInner').css({
-                                'bottom': '0px'
-                            });
-
-                        } else {
-                            InfoManager.collapseInfoAboutOneMarker();
-                        }
+                        $('#infoMenu').css({
+                            'height': 'auto',
+                            'bottom': '0px',
+                            'top': top
+                        });
                         $('#indexPage').css({
                             'overflow': 'hidden'
                         });
-                    }
-                    window.plugins.socialsharing.shareWithOptions({ message: Utility.capitalize(Utility.unescapeHtml(Utility.unescapeHtml(message)).replace(/"/g, ""), true), subject: title, files: [canvas.toDataURL()], url: "http://www.km4city.org/app/" }, function () { InfoManager.lockSharing = false; }, function () { InfoManager.lockSharing = false; });
 
-                });
+                        window.plugins.socialsharing.shareWithOptions({ message: Utility.capitalize(Utility.unescapeHtml(Utility.unescapeHtml(message)).replace(/"/g, ""), true), subject: title, files: [canvas.toDataURL()], url: "http://www.km4city.org/app/" }, function () { InfoManager.lockSharing = false; }, function () { InfoManager.lockSharing = false; });
+                    });
+
+                } else if (divToShare == 'indexPage') {
+                    Loading.showSettingsLoading();
+                    var imageMask = document.createElement('img');
+                    $(imageMask).css({
+                        'height': '100%',
+                        'width': '100%'
+                    });
+                    var canvas = $("#content canvas");
+                    canvas.hide();
+                    imageMask.src = canvas[0].toDataURL('png');
+                    $("#content div.ol-viewport").append(imageMask);
+
+
+                    setTimeout(function () {
+                        navigator.screenshot.URI(function (error, res) {
+                            if (error) {
+                                console.error(error);
+                            } else {
+                                window.plugins.socialsharing.shareWithOptions({ message: Utility.capitalize(Utility.unescapeHtml(Utility.unescapeHtml(message)).replace(/"/g, ""), true), subject: title, files: [res.URI], url: "http://www.km4city.org/app/" }, function () { InfoManager.lockSharing = false; }, function () { InfoManager.lockSharing = false; });
+                                canvas.show();
+                                $(imageMask).remove();
+                                Loading.hideSettingsLoading();
+                            }
+                        }, 'jpg', 60);
+                    }, 500);
+
+                }
             } else {
                 InfoManager.showSharedRunning();
             }
@@ -479,7 +435,7 @@ var InfoManager = {
                     );
     },
 
-    changePhotoOnCarousel: function(imagesArray){
+    changePhotoOnCarousel: function (imagesArray) {
         $("#serviceCarouselPhotos .carousel-inner .item").each(function (index) {
             $(this).children("img").attr("src", imagesArray[index].photo);
         });
@@ -496,12 +452,12 @@ var InfoManager = {
             InfoManager.menuToManageList.splice(InfoManager.menuToManageList.indexOf(menuToManage), 1);
         }
     },
-    
+
     openLastSearchPerformed: function () {
         var menuToOpen = null;
         if (InfoManager.menuToManageList.length != 0) {
             menuToOpen = InfoManager.menuToManageList[0];
-        } else{
+        } else {
             menuToOpen = InfoManager.lastRemovedMenu;
         }
         if (menuToOpen != null) {
@@ -514,7 +470,15 @@ var InfoManager = {
     },
 
     checkNewSingleTemplates: function () {
-        Utility.loadFilesInsideDirectory("www/js/modules/", null, "singleTemplate.json", true, InfoManager.loadModulesButton, function (e) {
+        //$.ajax({
+        //    url: RelativePath.build + "singleTemplate.json",
+         //   async: false,
+        //    dataType: "json",
+        //    success: function (data) {
+        //        InfoManager.singleTemplatesList = data;
+        //    }
+        //});
+        Utility.loadFilesInsideDirectory("www/js/modules/", null, "singleTemplate.json", true, InfoManager.loadSingleTemplate, function (e) {
         });
     },
 
@@ -533,4 +497,5 @@ var InfoManager = {
         InfoManager.singleTemplatesList = InfoManager.singleTemplatesList.concat(singleTemplatesToAdd);
     },
 
-}
+};
+

@@ -36,6 +36,7 @@ var MapManager = {
     defaultLatitude: 43.7761,
     defaultLongitude: 11.2484,
     menuToCheckForClick: null,
+    manualMarkerCallback: "CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnManualMarker('CategorySearcher')",
 
 
     createMap: function () {
@@ -43,6 +44,7 @@ var MapManager = {
 
             MapManager.map = new ol.Map({
                 target: 'map',
+                moveTolerance: 5,
                 controls: ol.control.defaults({
                     attributionOptions: {
                         collapsible: false
@@ -59,69 +61,79 @@ var MapManager = {
                 })
             });
 
-            if (MapManager.navigationSearchButton == null) {
-                MapManager.addSingleButton('<i class=\"icon ion-navigate\"></i>', function () { if (NavigatorSearcher.started != true) { NavigatorSearcher.start(); } else { NavigatorSearcher.stop(); } MapManager.centerMapOnGps(); }, 'navigationSearchButton ol-unselectable ol-control', "navigationSearchButton");
-            }
-
             if (MapManager.gpsButton == null) {
                 MapManager.addSingleButton('<i class=\"glyphicon glyphicon-record\"></i>', function () { MapManager.centerMapOnGps(); }, 'gpsButton ol-unselectable ol-control', "gpsButton");
             }
 
             MapManager.addVariableButtons();
 
-
-            MapManager.map.on('singleclick', function (event) {
-                MapManager.removeSearchArea();
-                var feature = MapManager.getFeaturesAtPixel(event.pixel);
-                var manualMarkerCallback = "CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnManualMarker('CategorySearcher')";
-                MapManager.closePopUp();
-                if (feature) {
-                    if (feature.get('name') == "gps") {
-                        if (typeof NavigatorSearcher != "undefined") {
-                            if (NavigatorSearcher.started != true) {
-                                MapManager.initializeAndUpdatePopUpGpsMarker();
-                            }
-                        } else {
-                            MapManager.initializeAndUpdatePopUpGpsMarker();
-                        }
-                    } else if (feature.get('name') == "manual") {
-                        if (MapManager.menuToCheckForClick != null) {
-                            if (window[MapManager.menuToCheckForClick]["clickOnManualMarker"] != null) {
-                                window[MapManager.menuToCheckForClick]["clickOnManualMarker"](event);
-                            }
-                        } else {
-                            MapManager.initializeAndUpdatePopUpManualMarker(Globalization.labels.searchPopUp.aroundYou, manualMarkerCallback);
-                        }
-                    } else if (feature.get('name') != null) {
-                        var lnglat = ol.proj.toLonLat(feature.getGeometry().getCoordinates());
-                        MapManager.addSelectedServiceMarker(feature.get('serviceType'), feature.get('name').replace(/_/g, " ").toLowerCase(), feature.get('civic'), feature.get('busLines'), feature.get('agency'), feature.get('serviceUri'), lnglat[1], lnglat[0], feature.get('alternativeIcon'));
-                        InfoManager.showInfoAboutOneMarker(feature.get('serviceUri'), lnglat[1], lnglat[0]);
-                    }
-                } else if (typeof NavigatorSearcher != "undefined") {
-                    if (NavigatorSearcher.started != true) {
-                        if (MapManager.menuToCheckForClick != null) {
-                            if (window[MapManager.menuToCheckForClick]["clickOnMap"] != null) {
-                                window[MapManager.menuToCheckForClick]["clickOnMap"](event);
-                            }
-                        } else {
-                            MapManager.addManualMarker(event.coordinate, Globalization.labels.searchPopUp.aroundYou, manualMarkerCallback);
-                        }
-                    }
-                } else {
-                    if (MapManager.menuToCheckForClick != null) {
-                        if (window[MapManager.menuToCheckForClick]["clickOnMap"] != null) {
-                            window[MapManager.menuToCheckForClick]["clickOnMap"](event);
-                        }
-                    } else {
-                        MapManager.addManualMarker(event.coordinate, Globalization.labels.searchPopUp.aroundYou, manualMarkerCallback);
-                    }
-                }
+            MapManager.map.on('click', function (event) {
+                MapManager.onClickCallback(event);
             });
         }
     },
 
+    onClickCallback: function(event){
+        MapManager.removeSearchArea();
+        var feature = MapManager.getFeaturesAtPixel(event.pixel);
+
+        MapManager.closePopUp();
+        if (feature) {
+            if (feature.get('name') == "gps") {
+                if (MapManager.menuToCheckForClick == null) {
+                    if (typeof NavigatorSearcher != "undefined") {
+                        if (NavigatorSearcher.started != true) {
+                            MapManager.initializeAndUpdatePopUpGpsMarker();
+                        }
+                    } else {
+                        MapManager.initializeAndUpdatePopUpGpsMarker();
+                    }
+                }
+            } else if (feature.get('name') == "manual") {
+                if (MapManager.menuToCheckForClick != null) {
+                    if (window[MapManager.menuToCheckForClick]["clickOnManualMarker"] != null) {
+                        window[MapManager.menuToCheckForClick]["clickOnManualMarker"](event);
+                    }
+                } else {
+                    MapManager.initializeAndUpdatePopUpManualMarker(Globalization.labels.searchPopUp.aroundYou, MapManager.manualMarkerCallback);
+                }
+            } else if (feature.get('name') != null) {
+                console.log(feature);
+                var lnglat = ol.proj.toLonLat(feature.getGeometry().getCoordinates());
+                MapManager.addSelectedServiceMarker(feature.get('serviceType'), feature.get('name').replace(/_/g, " ").toLowerCase(), feature.get('civic'), feature.get('busLines'), feature.get('agency'), feature.get('serviceUri'), lnglat[1], lnglat[0], feature.get('alternativeIcon'));
+                if (feature.get('type') != "pointerMarker") {
+                    InfoManager.showInfoAboutOneMarker(feature.get('serviceUri'), lnglat[1], lnglat[0]);
+                }
+            }
+        } else if (typeof NavigatorSearcher != "undefined") {
+            if (NavigatorSearcher.started != true) {
+                if (MapManager.menuToCheckForClick != null) {
+                    if (window[MapManager.menuToCheckForClick]["clickOnMap"] != null) {
+                        window[MapManager.menuToCheckForClick]["clickOnMap"](event);
+                    }
+                } else {
+                    MapManager.addManualMarker(event.coordinate, Globalization.labels.searchPopUp.aroundYou, MapManager.manualMarkerCallback);
+                    if (SearchManager.fireLastCallback) {
+                        $("#lastOperationInner").click();
+                    }
+                }
+            }
+        } else {
+            if (MapManager.menuToCheckForClick != null) {
+                if (window[MapManager.menuToCheckForClick]["clickOnMap"] != null) {
+                    window[MapManager.menuToCheckForClick]["clickOnMap"](event);
+                }
+            } else {
+                MapManager.addManualMarker(event.coordinate, Globalization.labels.searchPopUp.aroundYou, MapManager.manualMarkerCallback);
+                if (SearchManager.fireLastCallback) {
+                    $("#lastOperationInner").click();
+                }
+            }
+        }
+    },
+
     activate3d: function () {
-        if (MapManager.map != null && MapManager.map3d == null) {
+        if (MapManager.map != null && MapManager.map3d == null && typeof Cesium != "undefined") {
             try {
                 MapManager.map3d = new olcs.OLCesium({ map: MapManager.map }); // map is the ol.Map instance
                 MapManager.map3d.setEnabled(true);
@@ -205,16 +217,7 @@ var MapManager = {
                 interaction.setActive(true);
             }
         }, this);
-        MapManager.map.unByKey(MapManager.keyOfMoveEndListener);
-    },
-
-    addNavigationButtons: function () {
-        if (MapManager.correctRotationButton == null) {
-            MapManager.addSingleButton('<i class=\"glyphicon glyphicon-repeat\"></i>', function () { MapManager.increaseCorrectRotation(); }, 'manualButton ol-unselectable ol-control', "correctRotationButton");
-        }
-        if (MapManager.activate3dVisualButton == null) {
-            MapManager.addSingleButton('<b>3D</b>', function () { if (MapManager.map3d == null) { MapManager.activate3d(); } else { MapManager.disabling3d(); } }, 'ticketButton ol-unselectable ol-control', "activate3dVisualButton");
-        }
+        ol.Observable.unByKey(MapManager.keyOfMoveEndListener);
     },
 
     addSingleButton: function (innerHTML, callback, className, buttonToAdd) {
@@ -243,87 +246,125 @@ var MapManager = {
 
         ol.inherits(buttonFunction, ol.control.Control);
         MapManager[buttonToAdd] = new buttonFunction();
-        MapManager.map.addControl(MapManager[buttonToAdd]);
+        if (MapManager.map != null) {
+            MapManager.map.addControl(MapManager[buttonToAdd]);
+        }
     },
 
     addVariableButtons: function () {
 
         if (MapManager.manualButton == null) {
-            MapManager.addSingleButton('<i class=\"glyphicon glyphicon-map-marker\"></i>', function () { MapManager.centerMapOnManual(); }, 'manualButton ol-unselectable ol-control', "manualButton");
+            MapManager.addSingleButton('<i class=\"fa fa-map-marker\"></i>', function () { MapManager.centerMapOnManual(); }, 'manualButton ol-unselectable ol-control', "manualButton");
         }
-
         if (MapManager.eventsButton == null) {
-            MapManager.addSingleButton('<i class=\"glyphicon glyphicon-calendar\"></i>', function () { EventsSearcher.search("week"); }, 'eventsButton ol-unselectable ol-control', "eventsButton");
+            MapManager.addSingleButton('<i class=\"fa fa-calendar\"></i>', function () { EventsSearcher.search("week"); }, 'eventsButton ol-unselectable ol-control', "eventsButton");
         }
         if (MapManager.cyclePathsButton == null) {
-            MapManager.addSingleButton('<i class=\"icon ion-android-bicycle\"></i>', function () { CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("CategorySearcher"); }, 'cyclePathsButton ol-unselectable ol-control', "cyclePathsButton");
+            MapManager.addSingleButton('<i class=\"fa fa-bicycle\"></i>', function () { CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("CategorySearcher"); }, 'cyclePathsButton ol-unselectable ol-control', "cyclePathsButton");
         }
 
-
-        if (MapManager.greenAreasButton == null) {
-            MapManager.addSingleButton('<img style="height:23px" src="img/greenAreas.png">', function () { CategorySearcher.forceSelectedKeys = ["Green_areas", "Gardens"]; SearchManager.search("CategorySearcher"); }, 'greenAreasButton ol-unselectable ol-control', "greenAreasButton");
-        } 
         if (MapManager.carParkButton == null) {
             MapManager.addSingleButton('<b>P</b>', function () { SearchManager.search('ParkingSearcher'); }, 'carParkButton ol-unselectable ol-control', "carParkButton");
         }
-
-        if (MapManager.busStopButton == null) {
-            MapManager.addSingleButton('<i class=\"icon ion-android-bus\"></i>', function () { SearchManager.search('TPLSearcher'); }, 'busStopButton ol-unselectable ol-control', "busStopButton");
-        }
-
-    },
-
-    removeNavigationButtons: function () {
-        if (MapManager.correctRotationButton != null) {
-            MapManager.map.removeControl(MapManager.correctRotationButton);
-            MapManager.correctRotationButton = null;
-        }
-        if (MapManager.activate3dVisualButton != null) {
-            MapManager.map.removeControl(MapManager.activate3dVisualButton);
-            MapManager.activate3dVisualButton = null;
+        if (MapManager.sharingButton == null && device.platform != "Win32NT" && device.platform != "windows" && device.platform != "Web") {
+            MapManager.addSingleButton('<i class=\"fa fa-share-alt\"></i>', function () {
+                InfoManager.share(Globalization.labels.infoMenu.sharedFrom + Globalization.labels.utility.appName, Globalization.labels.infoMenu.sharedFrom + Globalization.labels.utility.appName, null, null, "indexPage");
+            }, 'sharingButton ol-unselectable ol-control', "sharingButton");
         }
     },
+
+
 
     removeVariableButtons: function () {
-        if (MapManager.ticketButton != null) {
-            MapManager.map.removeControl(MapManager.ticketButton);
-            MapManager.ticketButton = null;
-        }
-        if (MapManager.manualButton != null) {
-            MapManager.map.removeControl(MapManager.manualButton);
-            MapManager.manualButton = null;
-        }
-        if (MapManager.weatherButton != null) {
+        if (MapManager.weatherButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.weatherButton);
             MapManager.weatherButton = null;
         }
-        if (MapManager.eventsButton != null) {
+        if (MapManager.ticketButton != null && MapManager.map != null) {
+            MapManager.map.removeControl(MapManager.ticketButton);
+            MapManager.ticketButton = null;
+        }
+        if (MapManager.navigationSearchButton != null && MapManager.map != null) {
+            MapManager.map.removeControl(MapManager.navigationSearchButton);
+            MapManager.navigationSearchButton = null;
+        }
+        if (MapManager.manualButton != null && MapManager.map != null) {
+            MapManager.map.removeControl(MapManager.manualButton);
+            MapManager.manualButton = null;
+        }
+        if (MapManager.eventsButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.eventsButton);
             MapManager.eventsButton = null;
         }
-        if (MapManager.cyclePathsButton != null) {
+        if (MapManager.cyclePathsButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.cyclePathsButton);
             MapManager.cyclePathsButton = null;
         }
-        if (MapManager.carParkButton != null) {
+        if (MapManager.carParkButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.carParkButton);
             MapManager.carParkButton = null;
         }
-        if (MapManager.greenAreasButton != null) {
+        if (MapManager.greenAreasButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.greenAreasButton);
             MapManager.greenAreasButton = null;
         }
-        if (MapManager.infoSOCButton != null) {
+        if (MapManager.infoSOCButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.infoSOCButton);
             MapManager.infoSOCButton = null;
         }
-        if (MapManager.busStopButton != null) {
+        if (MapManager.busStopButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.busStopButton);
             MapManager.busStopButton = null;
         }
-        if (MapManager.sharingButton != null) {
+        if (MapManager.sharingButton != null && MapManager.map != null) {
             MapManager.map.removeControl(MapManager.sharingButton);
             MapManager.sharingButton = null;
+        }
+        if (MapManager.fuelStationButton != null && MapManager.map != null) {
+            MapManager.map.removeControl(MapManager.fuelStationButton);
+            MapManager.fuelStationButton = null;
+        }
+    },
+
+    showPublicTransportMap: function(){
+        MapManager.removeVariableButtons();
+
+        if (MapManager.manualButton == null) {
+            MapManager.addSingleButton('<i class=\"fa fa-map-marker\"></i>', function () { MapManager.centerMapOnManual(); }, 'manualButton ol-unselectable ol-control', "manualButton");
+        }
+    },
+
+    showPrivateTransportMap: function () {
+        MapManager.removeVariableButtons();
+        if (MapManager.manualButton == null) {
+            MapManager.addSingleButton('<i class=\"fa fa-map-marker\"></i>', function () { MapManager.centerMapOnManual(); }, 'manualButton ol-unselectable ol-control', "manualButton");
+        }
+
+        if (MapManager.eventsButton == null) {
+            MapManager.addSingleButton('<i class=\"fa fa-calendar\"></i>', function () { EventsSearcher.search("week"); }, 'cyclePathsButton ol-unselectable ol-control', "eventsButton");
+        }
+        if (MapManager.cyclePathsButton == null) {
+            MapManager.addSingleButton('<i class=\"fa fa-bicycle\"></i>', function () { CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("CategorySearcher"); }, 'busStopButton ol-unselectable ol-control', "cyclePathsButton");
+        }
+
+        if (MapManager.carParkButton == null) {
+            MapManager.addSingleButton('<b>P</b>', function () { SearchManager.search('ParkingSearcher'); }, 'infoSOCButton ol-unselectable ol-control', "carParkButton");
+        }
+       
+    },
+
+    showEnvironmentMap: function(){
+        MapManager.removeVariableButtons();
+        if (MapManager.manualButton == null) {
+            MapManager.addSingleButton('<i class=\"fa fa-map-marker\"></i>', function () { MapManager.centerMapOnManual(); }, 'manualButton ol-unselectable ol-control', "manualButton");
+        }
+
+        if (MapManager.cyclePathsButton == null) {
+            MapManager.addSingleButton('<i class=\"fa fa-bicycle\"></i>', function () { CategorySearcher.forceSelectedKeys = ["Cycle_paths"]; SearchManager.search("CategorySearcher"); }, 'carParkButton ol-unselectable ol-control', "cyclePathsButton");
+        }
+
+        if (MapManager.busStopButton == null) {
+            MapManager.addSingleButton('<i class=\"fa fa-bus\"></i>', function () { SearchManager.search('TPLSearcher'); }, 'busStopButton ol-unselectable ol-control', "busStopButton");
         }
 
     },
@@ -489,12 +530,14 @@ var MapManager = {
                     'placement': 'top',
                     'animation': false,
                     'html': true,
-                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnGpsMarker('CategorySearcher');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; \"> " + Globalization.labels.gpsPopUp.aroundYou + " </b></a></h4><h4><a onclick=\"Instigator.show();Instigator.getSuggestions('gps', true);\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: green; \"> " + Globalization.labels.gpsPopUp.suggestions + " </b></a></h4><h4><a onclick=\"Instigator.show(); MapManager.addGeoJSONLayerWithoutArea(Instigator.response);\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: purple; white-space: nowrap;\"> " + Globalization.labels.gpsPopUp.lastSuggestions + " </b></a></h4>"
+                    'content': "<h4><a onclick=\"CategorySearcher.forceSelectedKeys = ['Service']; SearchManager.searchOnGpsMarker('CategorySearcher');\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; \"> " + Globalization.labels.gpsPopUp.aroundYou + " </b></a></h4>"
                 });
-                if (device.platform == "iOS" && initPopUp) {
-                    setTimeout(function () { $(element).popover('show'); }, 800);
-                } else {
-                    $(element).popover('show');
+                if (MapManager.menuToCheckForClick == null) {
+                    if (device.platform == "iOS" && initPopUp) {
+                        setTimeout(function () { $(element).popover('show'); }, 800);
+                    } else {
+                        $(element).popover('show');
+                    }
                 }
             }
         }
@@ -528,7 +571,7 @@ var MapManager = {
                     'placement': 'top',
                     'animation': false,
                     'html': true,
-                    'content': "<h4><a onclick=\"" + callback + "\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; white-space: nowrap;\"> " + label + " </b></a></h4><h4><a onclick=\"Instigator.show();Instigator.getSuggestions('manual', true);\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: green; white-space: nowrap;\"> " + Globalization.labels.searchPopUp.suggestions + " </b></a></h4><h4><a onclick=\"MapManager.removeManualMarker();\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: red\"> " + Globalization.labels.searchPopUp.remove + " </b></a></h4>"
+                    'content': "<h4><a onclick=\"" + callback + "\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: blue; white-space: nowrap;\"> " + label + " </b></a></h4><h4><a onclick=\"MapManager.removeManualMarker();\" style=\"text-decoration: none;cursor: pointer;\"><b style=\"color: red\"> " + Globalization.labels.searchPopUp.remove + " </b></a></h4>"
                 });
                 $(element).popover('show');
             }
@@ -570,6 +613,11 @@ var MapManager = {
         if (MapManager.manualMarker != null) {
             var lnglat = ol.proj.toLonLat(MapManager.manualMarker.getSource().getFeatures()[0].getGeometry().getCoordinates());
             return [lnglat[1], lnglat[0]];
+        } else if (MapManager.menuToCheckForClick != null) {
+            if (window[MapManager.menuToCheckForClick]["manualMarker"] != null) {
+                var lnglat = ol.proj.toLonLat(window[MapManager.menuToCheckForClick]["manualMarker"].getSource().getFeatures()[0].getGeometry().getCoordinates());
+                return [lnglat[1], lnglat[0]];
+            }
         } else {
             return null;
         }
@@ -645,7 +693,11 @@ var MapManager = {
                     }
 
                     if (jsonFile[category].fullCount != null && !isNaN(jsonFile[category].fullCount)) {
-                        $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                        if (jsonFile[category].fullCount > jsonFile[category].features.length) {
+                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                        } else {
+                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].features.length + Globalization.labels.servicesFounded.available);
+                        }
                     } else {
                         $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length);
                     }
@@ -760,9 +812,17 @@ var MapManager = {
 
                     if (jsonFile[category].fullCount != null && !isNaN(jsonFile[category].fullCount)) {
                         if (category == "Event") {
-                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.events + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                            if (jsonFile[category].fullCount > jsonFile[category].features.length) {
+                                $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.events + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                            } else {
+                                $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.events + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].features.length + Globalization.labels.servicesFounded.available);
+                            }
                         } else {
-                            $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                            if (jsonFile[category].fullCount > jsonFile[category].features.length) {
+                                $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].fullCount + Globalization.labels.servicesFounded.available);
+                            } else {
+                                $("#servicesFoundedInner").html(Globalization.labels.servicesFounded.services + jsonFile[category].features.length + Globalization.labels.servicesFounded.on + jsonFile[category].features.length + Globalization.labels.servicesFounded.available);
+                            }
                         }
                     } else {
                         if (category == "Event") {
@@ -951,7 +1011,7 @@ var MapManager = {
             'html': true,
             'content': content
         });
-        setTimeout(function () { $(element).popover('show'); }, 200);
+        setTimeout(function () { $(element).popover('show'); }, 400);
     },
 
     addSelectedGeometry: function (wktGeometry) {
@@ -1080,6 +1140,12 @@ var MapManager = {
                 'height': '65%',
                 'width': '100%'
             });
+            $("#lastOperation").css({
+                'left': '42.5%',
+                'right': '42.5%',
+                'bottom': '35%'
+            });
+
             $(idDivMenu + " div.grippyContainer").removeClass("grippyContainer-vertical").addClass("grippyContainer-horizontal");
             $(idDivMenu + " div.grippy").removeClass("grippy-vertical").addClass("grippy-horizontal");
             $('#categorySearchMenu').css('height', $('#content').height() + 'px');
@@ -1096,16 +1162,21 @@ var MapManager = {
                 'height': '100%',
                 'width': '65%'
             });
+            $("#lastOperation").css({
+                'left': $('#content').width() * 0.425 + 'px',
+                'right': $('#content').width() * 0.425 + $(window).width() * 0.35 + 'px',
+                'bottom': '0px'
+            });
             $(idDivMenu + " div.grippyContainer").removeClass("grippyContainer-horizontal").addClass("grippyContainer-vertical");
             $(idDivMenu + " div.grippy").removeClass("grippy-horizontal").addClass("grippy-vertical");
             $("#dropdownThreeVertical").removeClass('open');
             CategorySearcher.hidePanelMenu();
         }
         $('#servicesFounded').css({
-            'left': $('#content').width() * 0.2 + 'px',
-            'width': $('#content').width() * 0.6 + 'px',
-
+            'left': $('#content').width() * 0.15 + 'px',
+            'width': $('#content').width() * 0.7 + 'px',
         });
+       
         $('#loadingImage').css({
             'left': $('#content').width() * 0.48 + 'px',
         });
@@ -1116,40 +1187,51 @@ var MapManager = {
         $('#autoSearchLoadingImage').css({
             'left': $('#content').width() * 0.48 + 'px',
         });
+
+        $("#easterEggReducedMap").show();
 
         MapManager.updateMap();
 
     },
 
-    reduceMenuShowMap: function (idDivMenu) {
-        $(idDivMenu).css({
-            'bottom': '-100%',
-            'top': 'auto',
-            'right': 'auto',
-            'width': '100%',
-            'height': '35%'
-        });
-        $('#content').css({
-            'height': '100%',
-            'width': '100%'
-        });
-        $('#servicesFounded').css({
-            'left': '20%',
-            'width': '60%',
+    reduceMenuShowMap: function (idDivMenu, force) {
+        if (idDivMenu != null) {
+            $(idDivMenu).css({
+                'bottom': '-100%',
+                'top': 'auto',
+                'right': 'auto',
+                'width': '100%',
+                'height': '35%'
+            });
+        }
+        if (application.menuToCheckArray.length < 3 || (application.menuToCheckArray.length == 3 && (CategorySearcher.openPanelMenu == true || application.menuToCheckArray.indexOf(PathFinder.varName) != -1)) || force) {
+            $('#content').css({
+                'height': '100%',
+                'width': '100%'
+            });
+            $('#servicesFounded').css({
+                'left': '15%',
+                'width': '70%',
+            });
+            $("#lastOperation").css({
+                'left': '42.5%',
+                'right': '42.5%',
+                'bottom': "0px"
+            });
+            $('#loadingImage').css({
+                'left': '48%',
+            });
+            $('#settingsLoadingImage').css({
+                'left': '48%',
+            });
+            $('#autoSearchLoadingImage').css({
+                'left': '48%',
+            });
+            $('#categorySearchMenu').css('height', $('#content').height() + 'px');
+            MapManager.updateMap();
+        }
 
-        });
-        $('#loadingImage').css({
-            'left': '48%',
-        });
-        $('#settingsLoadingImage').css({
-            'left': '48%',
-        });
-        $('#autoSearchLoadingImage').css({
-            'left': '48%',
-        });
-        $('#categorySearchMenu').css('height', $('#content').height() + 'px');
-        MapManager.updateMap();
-
+        $("#easterEggReducedMap").hide();
     },
 
     disableGpsZoom: function () {

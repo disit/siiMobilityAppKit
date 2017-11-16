@@ -11,17 +11,47 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fastrde/cordova-plugin-fastrde-checkgps"
+    "url": "git+https://github.com/fastrde/cordova-plugin-fastrde-checkgps.git"
   },
   "keywords": [
     "cordova",
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios",
-		"gps",
-		"geolocation",
-		"checkgps"
+    "gps",
+    "geolocation",
+    "checkgps"
   ],
-  "author": "Fabian Strachanski",
-  "license": "MIT"
+  "author": {
+    "name": "Fabian Strachanski"
+  },
+  "license": "MIT",
+  "gitHead": "eb91faa98e9f61b4da5affaebc02a50cc8cd1fe9",
+  "bugs": {
+    "url": "https://github.com/fastrde/cordova-plugin-fastrde-checkgps/issues"
+  },
+  "homepage": "https://github.com/fastrde/cordova-plugin-fastrde-checkgps#readme",
+  "_id": "cordova-plugin-fastrde-checkgps@1.0.0",
+  "scripts": {},
+  "_shasum": "a8886972e54c010c45096c06b337ca3e40ec2103",
+  "_from": "cordova-plugin-fastrde-checkgps@>=1.0.0 <2.0.0",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-fastrde-checkgps/-/cordova-plugin-fastrde-checkgps-1.0.0.tgz",
+  "_npmVersion": "2.11.3",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "name": "fastrde",
+    "email": "fabian@fastr.de"
+  },
+  "dist": {
+    "shasum": "a8886972e54c010c45096c06b337ca3e40ec2103",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-fastrde-checkgps/-/cordova-plugin-fastrde-checkgps-1.0.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "fastrde",
+      "email": "fabian@fastr.de"
+    }
+  ],
+  "directories": {},
+  "readme": "ERROR: No README data found!"
 }

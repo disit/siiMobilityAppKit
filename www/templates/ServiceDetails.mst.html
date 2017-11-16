@@ -1,0 +1,259 @@
+<!-- 	{{#properties}} -->
+    <!--{{#typeLabel}}-->
+    <li class="list-group-item"><i class="icon fa fa-arrow-right {{currentLanguage}} {{category}}"></i><span style="padding-left:5px">{{#removeUnderscore}}{{typeLabel}}{{/removeUnderscore}}</span></li>
+    <!--{{/typeLabel}}-->
+    <!--{{#carouselThumb}}-->
+    <li class="list-group-item">
+        <div id="serviceCarouselPhotos" class="carousel slide" style="width:100%; margin-left: auto;margin-right: auto;">
+            <div class="carousel-inner" role="listbox" style="text-align: center;">
+                <!--{{#carouselThumbContent}}-->
+                <div class="item {{active}}" style="left: 15%; width: 70%;height:{{carouselThumbHeight}}px">
+                    <img src="{{photo}}" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; max-height: {{carouselThumbHeight}}px" onclick="InfoManager.showImageModal('{{photoModal}}');">
+                </div>
+                <!--{{/carouselThumbContent}}-->
+            </div>
+            <!-- Controls -->
+            <!--{{^onlyOneThumbImage}}-->
+            <a class="left carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="prev" style="background-image: none; opacity: 1;top:40%;">
+                <span class="fa fa-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="next" style="background-image: none; opacity: 1;top:40%;">
+                <span class="fa fa-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            {{/onlyOneThumbImage}}
+        </div>
+    </li>
+    <!--{{/carouselThumb}}-->
+    <!--{{#description}}-->
+    <li class="list-group-item"><i class="icon fa fa-file-text-o {{currentLanguage}} {{category}}"></i><span style="padding-left:5px">{{#unescapeHtml}}{{description}}{{/unescapeHtml}}</span></li>
+    <!--{{/description}}-->
+    <!--{{#audioMP3}}-->
+    <li class="list-group-item"><audio controls><source src="{{audioMP3}}" type="audio/mpeg"></audio></li>
+    <!--{{/audioMP3}}-->
+    <!--{{#audio}}-->
+    <li class="list-group-item"><audio controls><source src="{{audio}}" type="audio/{{multimediaFormat}}"></audio></li>
+    <!--{{/audio}}-->
+    <!--{{#textPDF}}-->
+    <li class="list-group-item">
+        <b id="serviceDocument">
+            <script>$("#serviceDocument").html(Globalization.labels.infoMenu.document)</script>
+        </b>
+        <!--{{#web}}-->
+        <a href="#" class="extern" onclick="window.open('http://{{textPDF}}', '_blank');"><i class="fa fa-file-pdf-o"></i></a>
+        <!--{{/web}}-->
+        <!--{{^web}}-->
+        <a href="#" class="extern" onclick="window.open('http:{{textPDF}}', '_system');"><i class="fa fa-file-pdf-o"></i></a>
+        <!--{{/web}}-->
+    </li>
+    <!--{{/textPDF}}-->
+    <!--{{#address}}-->
+    <li class="list-group-item">
+        <i class="icon fa fa-map-pin {{currentLanguage}} {{category}}"></i>
+        <!--{{#web}}-->
+        <span style="padding-left: 5px"> {{address}} ,{{civic}} {{cap}} {{city}} {{province}}</span>
+        <!--{{/web}}-->
+        <!--{{#ios}}-->
+        <a style="padding-left: 5px" href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>
+        <!--{{/ios}}-->
+        <!--{{#wp8}}-->
+        <a style="padding-left: 5px" href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>
+        <!--{{/wp8}}-->
+        <!--{{#android}}-->
+        <a style="padding-left: 5px" href="#" class="extern" onclick="window.open('geo:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}', '_system');">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>
+        <!--{{/android}}-->
+    </li>
+    <!--{{/address}}-->
+    <!--{{#phone}}-->
+    <li class="list-group-item">
+        <i class="icon fa fa-phone {{currentLanguage}} {{category}}"></i>
+        <!--{{#web}}-->
+        <a style="padding-left: 5px" onclick="window.open('tel:{{phone}}', '_system');">{{phone}}</a>
+        <!--{{/web}}-->
+        <!--{{^web}}-->
+        <!--{{^wp8}}-->
+        <a style="padding-left: 5px" href="#" class="extern" onclick="window.open('tel:{{phone}}', '_system');">{{phone}}</a>
+        <!--{{/wp8}}-->
+        <!--{{#wp8}}-->
+        <a style="padding-left: 5px" href="tel:{{phone}}" class="extern">{{phone}}</a>
+        <!--{{/wp8}}-->
+        <!--{{/web}}-->
+    </li>
+    <!--{{/phone}}-->
+    <!--{{#fax}}-->
+    <li class="list-group-item">
+        <i class="icon fa fa-fax {{currentLanguage}} {{category}}"></i>
+        <!--{{#web}}-->
+        <span style="padding-left: 5px">{{fax}} </span>
+        <!--{{/web}}-->
+        <!--{{^web}}-->
+        <!--{{^wp8}}-->
+        <a style="padding-left: 5px" href="#" class="extern" onclick="window.open('tel:{{fax}}', '_system');">{{fax}}</a>
+        <!--{{/wp8}}-->
+        <!--{{#wp8}}-->
+        <a style="padding-left: 5px" href="tel:{{fax}}" class="extern">{{fax}}</a>
+        <!--{{/wp8}}-->
+        <!--{{/web}}-->
+    </li>
+    <!--{{/fax}}-->
+    <!--{{#website}}-->
+    <li class="list-group-item">
+        <i class="icon fa fa-globe {{currentLanguage}} {{category}}"></i>
+        <!--{{#web}}-->
+        <a style="padding-left: 5px" href="#" class="extern" onclick="window.open('http://{{website}}', '_system');">{{website}}</a>
+        <!--{{/web}}-->
+        <!--{{^web}}-->
+        <!--{{^wp8}}-->
+        <a style="padding-left: 5px" href="#" class="extern" onclick="cordova.InAppBrowser.open('http:{{website}}', '_blank', 'location=yes');">{{website}}</a>
+        <!--{{/wp8}}-->
+        <!--{{#wp8}}-->
+        <a style="padding-left: 5px" href="#" class="extern" onclick="cordova.InAppBrowser.open('http://{{website}}', '_blank', 'location=yes');">{{website}}</a>
+        <!--{{/wp8}}-->
+        <!--{{/web}}-->
+    </li>
+    <!--{{/website}}-->
+    <!--{{#email}}-->
+    <li class="list-group-item">
+        <i class="icon fa fa-at {{currentLanguage}} {{category}}"></i>
+        {{^wp8}}<a style="padding-left: 5px" href="#" class="extern" onclick="window.open('mailto:{{email}}', '_system');">{{email}}</a>{{/wp8}}
+        {{#wp8}}<a style="padding-left: 5px" href="mailto:{{email}}" class="extern">{{email}}</a>{{/wp8}}
+    </li>
+    <!--{{/email}}-->
+    <!--{{#note}}-->
+    <li class="list-group-item"><i class="icon fa fa-sticky-note-o {{currentLanguage}} {{category}}"></i><span style="padding-left:5px">{{#unescapeHtml}}{{note}}{{/unescapeHtml}}</span></li>{{/note}}
+    <!--{{#dbPedia}}-->
+    <li class="list-group-item">
+        <b id="serviceLinkDBpedia">
+            <script>$("#serviceLinkDBpedia").html(Globalization.labels.infoMenu.linkDBpedia)</script>
+        </b>{{/dbPedia}}
+        <!--{{#linkDBpedia}}-->
+        <a href="#" class="extern" onclick="cordova.InAppBrowser.open('{{.}}', '_blank', 'location=yes');">{{#uriToLabelDBPedia}}{{.}}{{/uriToLabelDBPedia}}</a> -
+        <!--{{/linkDBpedia}}-->
+        <!--{{#dbPedia}}-->
+    </li>
+    <!--{{/dbPedia}}-->
+    <!--{{#carouselComment}}--> <!--{{^avgStars}}--><li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777; font-weight: bold;">
+        <b id="serviceReviews">
+            <script>
+                $("#serviceReviews").html(Globalization.labels.infoMenu.reviews)
+            </script>
+        </b>
+    </li>  <!--{{/avgStars}}--><!--{{/carouselComment}}-->
+    <!--{{^carouselComment}}--> <!--{{#avgStars}}-->
+    <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777; font-weight: bold;">
+        <b id="serviceReviews">
+            <script>
+                $("#serviceReviews").html(Globalization.labels.infoMenu.reviews)
+            </script>
+        </b></li> <!--{{/avgStars}}--> <!--{{/carouselComment}}-->
+    <!--{{#carouselComment}}--> <!--{{#avgStars}}-->
+    <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777; font-weight: bold;">
+        <b id="serviceReviews">
+            <script>
+                $("#serviceReviews").html(Globalization.labels.infoMenu.reviews)
+            </script>
+        </b></li>  <!--{{/avgStars}}--><!--{{/carouselComment}}-->
+    <!--{{#carouselComment}}-->
+    <li class="list-group-item border {{currentLanguage}} {{category}}">
+        <div id="serviceCarouselComments" class="carousel slide" style="width:100%; margin-left: auto;margin-right: auto;">
+            <div class="carousel-inner" role="listbox">
+                <!--{{#carouselCommentContent}}-->
+                <div class="item {{active}}" style="left: 15%; width: 70%;">
+                    <div class="carousel-caption" style="position:static;text-shadow: none; color: black;">
+                        <blockquote class="rectangle-speech-border">
+                            <p>{{comment}}</p>
+                            <p style="font-size: 12px">{{time}}</p>
+                        </blockquote>
+                    </div>
+                </div>
+                <!--{{/carouselCommentContent}}-->
+            </div>
+            <!-- Controls -->
+            <!--{{^onlyOneComment}}-->
+            <a class="left carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselComments" role="button" data-slide="prev" style="background-image: none; background-color: white; opacity: 1;">
+                <span class="fa fa-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselComments" role="button" data-slide="next" style="background-image: none; background-color: white; opacity: 1;">
+                <span class="fa fa-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            <!--{{/onlyOneComment}}-->
+        </div>
+    </li>
+    <!--{{/carouselComment}}-->
+    <!--{{#avgStars}}-->
+       <!--{{^carouselComment}}-->
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center">
+        <!--{{/carouselComment}}-->
+        <!--{{#carouselComment}}-->
+            <li class="list-group-item" style="text-align: center">
+        <!--{{/carouselComment}}-->
+        <input value="{{avgStars}}" id="serviceStarsAverage">
+        <script>
+            $("#serviceStarsAverage").rating({ min: 0, max: 5, step: 1, size: 'sm', showClear: false, defaultCaption: "{rating}", starCaptions: {}, readonly: true, display: 'inline' });
+            $("#serviceStarsAverage").parent().children("div.rating").children("span.empty-stars").children("span.star").css("color", $("#serviceStarsAverage").parent().children("div.caption").children("span").css("background-color"));
+            $("#serviceStarsAverage").parent().children("div.rating").children("span.filled-stars").children("span.star").css("color", $("#serviceStarsAverage").parent().children("div.caption").children("span").css("background-color"));</script>
+            <br />
+            <b id="serviceStarsLabel" style="margin-left: 10px;">
+                       <script>$("#serviceStarsLabel").html(Globalization.labels.infoMenu.starsCount)</script>
+            </b> {{starsCount}}
+        <script>
+            $(".rating-disabled").css("display", "inline");
+        </script>
+            </li>
+
+    <!--{{/avgStars}}-->
+    <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777; font-weight: bold;">
+        <b id="serviceWhatYouThink">
+            <script>
+                $("#serviceWhatYouThink").html(Globalization.labels.infoMenu.whatYouThink)
+            </script>
+        </b>
+    </li>
+    <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center">
+        <button id="buttonUploadPhotoFeedbackModal" type="button" class="btn btn-default icon {{currentLanguage}} {{category}}" style="border: 0px;background-color: white;" onclick="PictureManager.pickPhotoFromAlbum('{{serviceUri}}');">
+            <script>
+                        $("#buttonUploadPhotoFeedbackModal").html(Globalization.labels.feedbackModal.uploadPhoto);
+            </script>
+        </button>
+        <button id="buttonTakePhotoFeedbackModal" type="button" class="btn btn-default icon {{currentLanguage}} {{category}}" style="border: 0px;background-color: white;" onclick="PictureManager.takePhoto('{{serviceUri}}');">
+            <script>
+                        $("#buttonTakePhotoFeedbackModal").html(Globalization.labels.feedbackModal.takePhoto);
+            </script>
+        </button>
+    </li>
+    <li class="list-group-item" style="text-align: center;border:0px;color: #777">
+        <b id="serviceUserStarsLabel">
+            <script>
+                            $("#serviceUserStarsLabel").html(Globalization.labels.infoMenu.userStars)
+            </script>
+        </b>
+        <br />
+        <input id="serviceUserStars" value="{{userStars}}">
+        <script>
+                    $("#serviceUserStars").rating({ min: 0, max: 5, step: 1, size: 'xs', showClear: false, defaultCaption: "{rating}", starCaptions: {} });
+                    $("#serviceUserStars").parent().children("div.rating").children("span.empty-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+                    $("#serviceUserStars").parent().children("div.rating").children("span.filled-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+                         $('#serviceUserStars').on('rating.change', function (event, value, caption) {
+                            FeedbackManager.setServiceUri('{{serviceUri}}');
+                            FeedbackManager.sendDirectStars(value);
+                         });
+                         $(".rating-disabled").css("display", "inline");
+        </script>
+    </li>
+    <li class="list-group-item" style="text-align: center;border: 0px;color: #777">
+        <b id="serviceComment">
+            <script>
+                        $("#serviceComment").html(Globalization.labels.infoMenu.comment)
+            </script>
+        </b>
+        <br />
+        <textarea id="serviceTextAreaComment" style="resize: vertical;width: 70%; height: 50px; border: 1px solid #777;" onfocus="InfoManager.expandInfoAboutOneMarker();"></textarea>
+        <br />
+        <button id="commentButton" type="button" class="btn btn-success btn-sm" style="margin-bottom: 8px;width: 60px;" onclick="FeedbackManager.currentServiceUri = '{{serviceUri}}'; FeedbackManager.sendDirectComment();">
+            <script>$("#commentButton").html(Globalization.labels.commonLabels.send);</script>
+        </button>
+    </li>
+<!-- {{/properties}} -->

@@ -5,8 +5,8 @@
     "buttonName": ["No elegir","Elegir ubicación"]
   },
   "chooseThreeSearchCenter": {
-    "message": "Seleccione el centro del área de búsqueda de servicios o la ubicación donde desea conocer el tiempo.",
-    "title": "Buscar",
+    "message": "¿Dónde quieres buscar?",
+    "title": "",
     "buttonName": ["Ubicación manual","Último servicio"]
   }
 }

@@ -26,11 +26,15 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import nl.xservices.plugins.FileProvider;
 
 public class SocialSharing extends CordovaPlugin {
 
@@ -79,10 +83,10 @@ public class SocialSharing extends CordovaPlugin {
     } else if (ACTION_SHARE_VIA_TWITTER_EVENT.equals(action)) {
       return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), "twitter", null, false, true);
     } else if (ACTION_SHARE_VIA_FACEBOOK_EVENT.equals(action)) {
-      return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), "com.facebook.katana", null, false, true);
+      return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), "com.facebook.katana", null, false, true, "com.facebook.composer.shareintent");
     } else if (ACTION_SHARE_VIA_FACEBOOK_WITH_PASTEMESSAGEHINT.equals(action)) {
       this.pasteMessage = args.getString(4);
-      return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), "com.facebook.katana", null, false, true);
+      return doSendIntent(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), "com.facebook.katana", null, false, true, "com.facebook.composer.shareintent");
     } else if (ACTION_SHARE_VIA_WHATSAPP_EVENT.equals(action)) {
       if (notEmpty(args.getString(4))) {
         return shareViaWhatsAppDirectly(callbackContext, args.getString(0), args.getString(1), args.getJSONArray(2), args.getString(3), args.getString(4));
@@ -167,6 +171,7 @@ public class SocialSharing extends CordovaPlugin {
           }
         } catch (Exception e) {
           callbackContext.error(e.getMessage());
+          return;
         }
 
         // this was added to start the intent in a new window as suggested in #300 to prevent crashes upon return
@@ -213,6 +218,19 @@ public class SocialSharing extends CordovaPlugin {
   }
 
   private boolean doSendIntent(
+          final CallbackContext callbackContext,
+          final String msg,
+          final String subject,
+          final JSONArray files,
+          final String url,
+          final String appPackageName,
+          final String chooserTitle,
+          final boolean peek,
+          final boolean boolResult) {
+    return doSendIntent(callbackContext, msg, subject, files, url, appPackageName, chooserTitle, peek, boolResult, null);
+  }
+
+  private boolean doSendIntent(
       final CallbackContext callbackContext,
       final String msg,
       final String subject,
@@ -221,7 +239,8 @@ public class SocialSharing extends CordovaPlugin {
       final String appPackageName,
       final String chooserTitle,
       final boolean peek,
-      final boolean boolResult) {
+      final boolean boolResult,
+      final String appName) {
 
     final CordovaInterface mycordova = cordova;
     final CordovaPlugin plugin = this;
@@ -241,6 +260,7 @@ public class SocialSharing extends CordovaPlugin {
               Uri fileUri = null;
               for (int i = 0; i < files.length(); i++) {
                 fileUri = getFileUriAndSetType(sendIntent, dir, files.getString(i), subject, i);
+                fileUri = FileProvider.getUriForFile(webView.getContext(), cordova.getActivity().getPackageName()+".sharing.provider", new File(fileUri.getPath()));
                 if (fileUri != null) {
                   fileUris.add(fileUri);
                 }
@@ -293,7 +313,7 @@ public class SocialSharing extends CordovaPlugin {
             packageName = items[0];
             passedActivityName = items[1];
           }
-          final ActivityInfo activity = getActivity(callbackContext, sendIntent, packageName);
+          final ActivityInfo activity = getActivity(callbackContext, sendIntent, packageName, appName);
           if (activity != null) {
             if (peek) {
               callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
@@ -365,12 +385,14 @@ public class SocialSharing extends CordovaPlugin {
   private Uri getFileUriAndSetType(Intent sendIntent, String dir, String image, String subject, int nthFile) throws IOException {
     // we're assuming an image, but this can be any filetype you like
     String localImage = image;
-     if( image.endsWith("mp4") || image.endsWith("mov") || image.endsWith("3gp")  ){
+    if (image.endsWith("mp4") || image.endsWith("mov") || image.endsWith("3gp")){
       sendIntent.setType("video/*");
-    }else {
+    } else if (image.endsWith("mp3")) {
+      sendIntent.setType("audio/x-mpeg");
+    } else {
       sendIntent.setType("image/*");
     }
-    
+
     if (image.startsWith("http") || image.startsWith("www/")) {
       String filename = getFileName(image);
       localImage = "file://" + dir + "/" + filename;
@@ -430,102 +452,98 @@ public class SocialSharing extends CordovaPlugin {
       final String encodedImg = image.substring(image.indexOf(";base64,") + 8);
       sendIntent.setType(fileType);
       saveFile(Base64.decode(encodedImg, Base64.DEFAULT), dir, sanitizeFilename(fileName));
-      localImage = "file://" + dir + "/" + fileName;
+      localImage = "file://" + dir + "/" + sanitizeFilename(fileName);
     } else if (!image.startsWith("file://")) {
       throw new IllegalArgumentException("URL_NOT_SUPPORTED");
     } else {
       //get file MIME type
       String type = getMIMEType(image);
       //set intent data and Type
-      sendIntent.setDataAndType(Uri.fromFile(new File(image)), type);
+      sendIntent.setType(type);
     }
     return Uri.parse(localImage);
   }
 
   private String getMIMEType(String fileName) {
-      String type="*/*";
-      String fName = fileName;
-      int dotIndex = fName.lastIndexOf(".");
-      if(dotIndex < 0){
-          return type;
-      }
-      String end=fName.substring(dotIndex,fName.length()).toLowerCase();
-      if(end=="")return type;
-      for(int i=0;i<MIME_MapTable.length;i++){
-          if(end.equals(MIME_MapTable[i][0]))
-              type = MIME_MapTable[i][1];
-      }
+    String type = "*/*";
+    int dotIndex = fileName.lastIndexOf(".");
+    if (dotIndex == -1) {
       return type;
+    }
+    final String end = fileName.substring(dotIndex+1, fileName.length()).toLowerCase();
+    String fromMap = MIME_Map.get(end);
+    return fromMap == null ? type : fromMap;
   }
 
-  private final String[][] MIME_MapTable={
-      {".3gp",    "video/3gpp"},
-      {".apk",    "application/vnd.android.package-archive"},
-      {".asf",    "video/x-ms-asf"},
-      {".avi",    "video/x-msvideo"},
-      {".bin",    "application/octet-stream"},
-      {".bmp",    "image/bmp"},
-      {".c",  "text/plain"},
-      {".class",  "application/octet-stream"},
-      {".conf",   "text/plain"},
-      {".cpp",    "text/plain"},
-      {".doc",    "application/msword"},
-      {".docx",   "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
-      {".xls",    "application/vnd.ms-excel"},
-      {".xlsx",   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
-      {".exe",    "application/octet-stream"},
-      {".gif",    "image/gif"},
-      {".gtar",   "application/x-gtar"},
-      {".gz", "application/x-gzip"},
-      {".h",  "text/plain"},
-      {".htm",    "text/html"},
-      {".html",   "text/html"},
-      {".jar",    "application/java-archive"},
-      {".java",   "text/plain"},
-      {".jpeg",   "image/jpeg"},
-      {".jpg",    "image/*"},
-      {".js", "application/x-javascript"},
-      {".log",    "text/plain"},
-      {".m3u",    "audio/x-mpegurl"},
-      {".m4a",    "audio/mp4a-latm"},
-      {".m4b",    "audio/mp4a-latm"},
-      {".m4p",    "audio/mp4a-latm"},
-      {".m4u",    "video/vnd.mpegurl"},
-      {".m4v",    "video/x-m4v"},
-      {".mov",    "video/quicktime"},
-      {".mp2",    "audio/x-mpeg"},
-      {".mp3",    "audio/x-mpeg"},
-      {".mp4",    "video/mp4"},
-      {".mpc",    "application/vnd.mpohun.certificate"},
-      {".mpe",    "video/mpeg"},
-      {".mpeg",   "video/mpeg"},
-      {".mpg",    "video/mpeg"},
-      {".mpg4",   "video/mp4"},
-      {".mpga",   "audio/mpeg"},
-      {".msg",    "application/vnd.ms-outlook"},
-      {".ogg",    "audio/ogg"},
-      {".pdf",    "application/pdf"},
-      {".png",    "image/png"},
-      {".pps",    "application/vnd.ms-powerpoint"},
-      {".ppt",    "application/vnd.ms-powerpoint"},
-      {".pptx",   "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
-      {".prop",   "text/plain"},
-      {".rc", "text/plain"},
-      {".rmvb",   "audio/x-pn-realaudio"},
-      {".rtf",    "application/rtf"},
-      {".sh", "text/plain"},
-      {".tar",    "application/x-tar"},
-      {".tgz",    "application/x-compressed"},
-      {".txt",    "text/plain"},
-      {".wav",    "audio/x-wav"},
-      {".wma",    "audio/x-ms-wma"},
-      {".wmv",    "audio/x-ms-wmv"},
-      {".wps",    "application/vnd.ms-works"},
-      {".xml",    "text/plain"},
-      {".z",  "application/x-compress"},
-      {".zip",    "application/x-zip-compressed"},
-      {"",        "*/*"}
-  };
+  private static final Map<String, String> MIME_Map = new HashMap<String, String>();
+  static {
+    MIME_Map.put("3gp",   "video/3gpp");
+    MIME_Map.put("apk",   "application/vnd.android.package-archive");
+    MIME_Map.put("asf",   "video/x-ms-asf");
+    MIME_Map.put("avi",   "video/x-msvideo");
+    MIME_Map.put("bin",   "application/octet-stream");
+    MIME_Map.put("bmp",   "image/bmp");
+    MIME_Map.put("c",     "text/plain");
+    MIME_Map.put("class", "application/octet-stream");
+    MIME_Map.put("conf",  "text/plain");
+    MIME_Map.put("cpp",   "text/plain");
+    MIME_Map.put("doc",   "application/msword");
+    MIME_Map.put("docx",  "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+    MIME_Map.put("xls",   "application/vnd.ms-excel");
+    MIME_Map.put("xlsx",  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    MIME_Map.put("exe",   "application/octet-stream");
+    MIME_Map.put("gif",   "image/gif");
+    MIME_Map.put("gtar",  "application/x-gtar");
+    MIME_Map.put("gz",    "application/x-gzip");
+    MIME_Map.put("h",     "text/plain");
+    MIME_Map.put("htm",   "text/html");
+    MIME_Map.put("html",  "text/html");
+    MIME_Map.put("jar",   "application/java-archive");
+    MIME_Map.put("java",  "text/plain");
+    MIME_Map.put("jpeg",  "image/jpeg");
+    MIME_Map.put("jpg",   "image/*");
+    MIME_Map.put("js",    "application/x-javascript");
+    MIME_Map.put("log",   "text/plain");
+    MIME_Map.put("m3u",   "audio/x-mpegurl");
+    MIME_Map.put("m4a",   "audio/mp4a-latm");
+    MIME_Map.put("m4b",   "audio/mp4a-latm");
+    MIME_Map.put("m4p",   "audio/mp4a-latm");
+    MIME_Map.put("m4u",   "video/vnd.mpegurl");
+    MIME_Map.put("m4v",   "video/x-m4v");
+    MIME_Map.put("mov",   "video/quicktime");
+    MIME_Map.put("mp2",   "audio/x-mpeg");
+    MIME_Map.put("mp3",   "audio/x-mpeg");
+    MIME_Map.put("mp4",   "video/mp4");
+    MIME_Map.put("mpc",   "application/vnd.mpohun.certificate");
+    MIME_Map.put("mpe",   "video/mpeg");
+    MIME_Map.put("mpeg",  "video/mpeg");
+    MIME_Map.put("mpg",   "video/mpeg");
+    MIME_Map.put("mpg4",  "video/mp4");
+    MIME_Map.put("mpga",  "audio/mpeg");
+    MIME_Map.put("msg",   "application/vnd.ms-outlook");
+    MIME_Map.put("ogg",   "audio/ogg");
+    MIME_Map.put("pdf",   "application/pdf");
+    MIME_Map.put("png",   "image/png");
+    MIME_Map.put("pps",   "application/vnd.ms-powerpoint");
+    MIME_Map.put("ppt",   "application/vnd.ms-powerpoint");
+    MIME_Map.put("pptx",  "application/vnd.openxmlformats-officedocument.presentationml.presentation");
+    MIME_Map.put("prop",  "text/plain");
+    MIME_Map.put("rc",    "text/plain");
+    MIME_Map.put("rmvb",  "audio/x-pn-realaudio");
+    MIME_Map.put("rtf",   "application/rtf");
+    MIME_Map.put("sh",    "text/plain");
+    MIME_Map.put("tar",   "application/x-tar");
+    MIME_Map.put("tgz",   "application/x-compressed");
+    MIME_Map.put("txt",   "text/plain");
+    MIME_Map.put("wav",   "audio/x-wav");
+    MIME_Map.put("wma",   "audio/x-ms-wma");
+    MIME_Map.put("wmv",   "audio/x-ms-wmv");
+    MIME_Map.put("wps",   "application/vnd.ms-works");
+    MIME_Map.put("xml",   "text/plain");
+    MIME_Map.put("z",     "application/x-compress");
+    MIME_Map.put("zip",   "application/x-zip-compressed");
+    MIME_Map.put("",       "*/*");
+  }
 
   private boolean shareViaWhatsAppDirectly(final CallbackContext callbackContext, String message, final String subject, final JSONArray files, final String url, final String number) {
     // add the URL to the message, as there seems to be no separate field
@@ -651,12 +669,14 @@ public class SocialSharing extends CordovaPlugin {
     return null;
   }
 
-  private ActivityInfo getActivity(final CallbackContext callbackContext, final Intent shareIntent, final String appPackageName) {
+  private ActivityInfo getActivity(final CallbackContext callbackContext, final Intent shareIntent, final String appPackageName, final String appName) {
     final PackageManager pm = webView.getContext().getPackageManager();
     List<ResolveInfo> activityList = pm.queryIntentActivities(shareIntent, 0);
     for (final ResolveInfo app : activityList) {
       if ((app.activityInfo.packageName).contains(appPackageName)) {
-        return app.activityInfo;
+        if (appName == null || (app.activityInfo.name).contains(appName)) {
+          return app.activityInfo;
+        }
       }
     }
     // no matching app found

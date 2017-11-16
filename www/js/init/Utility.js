@@ -122,9 +122,90 @@ var Utility = {
         return function (text, render) {
             var value = render(text);
             if (SettingsManager.language != "eng") {
-                return dateFormat(value, "dd-mm-yyyy");
+                try {
+                    return dateFormat(value, "dd-mm-yyyy");
+                } catch (e) {
+                    return value;
+                }
+               
             } else {
-                return dateFormat(value, "mm-dd-yyyy");
+                try {
+                    return dateFormat(value, "mm-dd-yyyy");
+                } catch (e) {
+                    return value;
+                }
+               
+            }
+
+        }
+    },
+
+    changeFormatDateTimeMst: function () {
+        return function (text, render) {
+            var value = render(text);
+            console.log(value);
+            if (device.platform == "iOS") {
+                if (value.indexOf("+") != -1) {
+                    console.log("1. " + value.substring(0, value.indexOf("+")).replace("T", " "));
+                    return value.substring(0, value.indexOf("+")).replace("T", " ");
+                } else {
+                    console.log("2. " + value.replace("T", " "));
+                    return value.replace("T", " ");
+                }
+            }
+            if (value.indexOf("+") != -1 && (device.platform == "Win32NT" || device.platform == "windows")) {
+                value = value.substring(0,value.indexOf("+"));
+            }
+            if (value.indexOf(".") != -1) {
+                value = value.substring(0, value.indexOf("."));
+            }
+            if (SettingsManager.language != "eng") {
+                try {
+                    return dateFormat(value.replace("T", " ").replace("Z", ""), "dd-mm-yyyy HH:MM");
+                } catch (e) {
+                    return value;
+                }
+               
+            } else {
+                try {
+                    return dateFormat(value.replace("T", " ").replace("Z", ""), "mm-dd-yyyy HH:MM");
+                } catch (e) {
+                    return value;
+                }
+                
+            }
+
+        }
+    },
+
+    changeFormatDateTimeWOYearMst: function () {
+        return function (text, render) {
+            var value = render(text);
+            if (device.platform == "iOS") {
+                if (value.indexOf("+") != -1) {
+                    return value.substring(4, value.indexOf("+")).replace("T", " ");
+                } else {
+                    return value.replace("T", " ");
+                }
+            }
+            if (value.indexOf("+") != -1 && (device.platform == "Win32NT" || device.platform == "windows")) {
+                value = value.substring(0, value.indexOf("+"));
+            }
+            if (value.indexOf(".") != -1) {
+                value = value.substring(0, value.indexOf("."));
+            }
+            if (SettingsManager.language != "eng") {
+                try{
+                   return dateFormat(value.replace("T", " ").replace("Z", ""), "dd-mm HH:MM");
+                } catch (e) {
+                    return value;
+                }
+            } else {
+                try {
+                    return dateFormat(value.replace("T", " ").replace("Z", ""), "mm-dd HH:MM");
+                } catch (e) {
+                    return value;
+                }
             }
 
         }
@@ -323,14 +404,26 @@ var Utility = {
                 if (serviceToEnrich.properties.category == null) {
                     serviceToEnrich.properties.category = serviceToEnrich.properties.serviceType.substring(0, serviceToEnrich.properties.serviceType.indexOf('_'));
                 }
+                if (serviceToEnrich.properties.category == "") {
+                    serviceToEnrich.properties.category = serviceToEnrich.properties.serviceType;
+                }
                 if (serviceToEnrich.properties.subCategory == null) {
                     serviceToEnrich.properties.subCategory = serviceToEnrich.properties.serviceType.substring(serviceToEnrich.properties.serviceType.indexOf('_') + 1);
                 }
                 if (serviceToEnrich.properties.agency != null) {
-                    var escapedAgency = serviceToEnrich.properties.agency.toLowerCase().replace(/\./g, "").replace(/&/g, "").replace(/ù/g, "u").replace(/à/g, "a").replace(/ /g, "");
                     if (serviceToEnrich.properties.alternativeIcon == null) {
                         var temporaryServiceType = serviceToEnrich.properties.serviceType + "_" + serviceToEnrich.properties.agency.toLowerCase().replace(/\./g, "").replace(/&/g, "").replace(/ù/g, "u").replace(/à/g, "a").replace(/ /g, "");
-                        if (Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + temporaryServiceType + '.png').indexOf("Default") == -1) {
+                        var checkIcon = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + temporaryServiceType + '.png', "classic");
+                        if (checkIcon != null && checkIcon.indexOf("Default") == -1) {
+                            serviceToEnrich.properties.alternativeIcon = temporaryServiceType;
+                        }
+                    }
+                }
+                if (serviceToEnrich.properties.brand != null && serviceToEnrich.properties.brand != "") {
+                    if (serviceToEnrich.properties.alternativeIcon == null) {
+                        var temporaryServiceType = serviceToEnrich.properties.serviceType + "_" + serviceToEnrich.properties.brand.toLowerCase().replace(/\./g, "").replace(/&/g, "").replace(/ù/g, "u").replace(/à/g, "a").replace(/ /g, "");
+                        var checkIcon = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + temporaryServiceType + '.png', "classic");
+                        if (checkIcon != null && checkIcon.indexOf("Default") == -1) {
                             serviceToEnrich.properties.alternativeIcon = temporaryServiceType;
                         }
                     }
@@ -344,8 +437,10 @@ var Utility = {
         serviceToRefresh.properties.unescapeHtml = Utility.unescapeHtmlMst;
         serviceToRefresh.properties.uriToLabelDBPedia = Utility.uriToLabelDBPediaMst;
         serviceToRefresh.properties.uriGlobalizeDBPedia = Utility.uriGlobalizeDBPediaMst;
-        serviceToRefresh.properties.removeUnderscore = Utility.removeUnderscoreMst
+        serviceToRefresh.properties.removeUnderscore = Utility.removeUnderscoreMst;
         serviceToRefresh.properties.changeFormatEventsDate = Utility.changeFormatEventsDateMst;
+        serviceToRefresh.properties.changeFormatDateTime = Utility.changeFormatDateTimeMst;
+        serviceToRefresh.properties.changeFormatDateTimeWOYear = Utility.changeFormatDateTimeWOYearMst;
         serviceToRefresh.properties.currentLanguage = SettingsManager.language;
         if (serviceToRefresh.properties.eventCategory != null) {
             serviceToRefresh.properties.imgsrc = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/Event.png', "classic")
@@ -355,7 +450,7 @@ var Utility = {
             } else {
                 serviceToRefresh.properties.imgsrc = Utility.checkServiceIcon(RelativePath.images + SettingsManager.language + '/' + serviceToRefresh.properties.alternativeIcon + '.png', "classic");
             }
-         }
+        }
 
         if (identifier != null) {
             serviceToRefresh.properties.identifier = identifier;
@@ -370,15 +465,18 @@ var Utility = {
             serviceToRefresh.properties.distanceFromSearchCenter = null;
         }
 
+        if (serviceToRefresh.properties.distanceFromGPS != null || serviceToRefresh.properties.distanceFromSearchCenter != null) {
+            serviceToRefresh.properties.distanceFromSomething = true;
+        }
+
     },
 
-    expandMenu: function(idMenu, idExpandButton, idCollapseButton){
+    expandMenu: function (idMenu, idExpandButton, idCollapseButton) {
         $(idMenu).css({
             'height': '100%',
             'width': '100%',
             'top': '0px',
-            'left': '0px',
-            'z-index': '9999'
+            'left': '0px'
         });
         $(idExpandButton).hide();
         $(idCollapseButton).show();
@@ -415,12 +513,37 @@ var Utility = {
     checkAxisToDrag: function (panelName) {
         if ($(window).height() > $(window).width()) {
             $(panelName).draggable("option", { "axis": "y", "containment": [0, 0, $(window).width(), $(window).height() * 0.65] });
+            $(panelName + " .realTimeInformation").css("position", "absolute").css("margin-bottom", "0px").css("transform", "translateY(-47%)");
+            $(panelName + " .reduceForRealTimeInfo").each(function(){
+                $(this).css("margin-right",  $(this).children(".realTimeInformation").width());
+            });
         } else {
             $(panelName).draggable("option", { "axis": "x", "containment": [0, 0, $(window).width() * 0.65, $(window).height()] });
+            $(panelName + " .realTimeInformation").css("position", "relative").css("margin-bottom", "-10px").css("transform", "none");
+            $(panelName + " .reduceForRealTimeInfo").css("margin-right", "0px");
+        }
+    },
+
+    checkAxisToDragReduced: function (panelName) {
+        if ($(window).height() > $(window).width()) {
+            $(panelName).draggable("option", { "axis": "y", "containment": [0, 0, $(window).width(), $(window).height() * 0.60] });
+            if ($(panelName).css("top").replace("px", "") > $(window).height() * 0.60) {
+                $(panelName).css("top", "60%");
+                $(panelName).css("height", "40%");
+            }
+        } else {
+            $(panelName).draggable("option", { "axis": "x", "containment": [0, 0, $(window).width() * 0.60, $(window).height()] });
+            if ($(panelName).css("left").replace("px", "") > $(window).width() * 0.60) {
+                $(panelName).css("left", "60%");
+                $(panelName).css("width", "40%");
+            }
         }
     },
 
     loadFilesInsideDirectory: function (relativeDirectory, type, substring, recursive, singleFileCallback, finalCallback) {
+        if (device.platform == "Web") {
+            Utility.loadFilesInsideDirectoryWeb(relativeDirectory.replace("www/",""), type, substring, recursive, singleFileCallback, finalCallback)
+        } else {
             window.resolveLocalFileSystemURL(cordova.file.applicationDirectory + relativeDirectory, function (dir) {
                 var reading = 0;
                 function readSome(reader) {
@@ -430,16 +553,14 @@ var Utility = {
                           reading--;
                           if (entries.length > 0) {
                               entries.forEach(function (entry) {
-                                  
+
                                   if (entry.isDirectory && recursive == true) {
                                       readSome(entry.createReader());
                                   } else if (type != null && entry.name.split('.').pop() == type) {
-                                      console.log(entry.fullPath);
                                       if (singleFileCallback != null) {
                                           singleFileCallback(entry.fullPath.substring(5));
                                       }
                                   } else if (substring != null && entry.name.indexOf(substring) != -1) {
-                                      console.log(entry.fullPath);
                                       if (singleFileCallback != null) {
                                           singleFileCallback(entry.fullPath.substring(5));
                                       }
@@ -465,6 +586,61 @@ var Utility = {
                 }
                 readSome(dir.createReader());
             });
+        }
+    },
+
+    loadFilesInsideDirectoryWeb: function (relativeDirectory, type, substring, recursive, singleFileCallback, finalCallback) {
+        var reading = 0;
+        function readSome(reader) {
+                reading++;
+                readEntries($(reader).find("a:not([href^='/']):not([href^='?'])"), $(reader).filter('title').text().substring($(reader).filter('title').text().indexOf("/")));
+                function readEntries(entries, currentDirectory) {
+                      reading--;
+                      if (entries.length > 0) {
+                          entries.each(function () {
+                              if ($(this).attr("href").indexOf("/") != -1 && recursive == true) {
+                                  $.ajax({
+                                      url: currentDirectory + "/" + $(this).attr("href"),
+                                      async: false,
+                                      success: function (data) {
+                                          readSome(data);
+                                      }
+                                  });
+                              } else if (type != null && $(this).attr("href").split('.').pop() == type) {
+                                  if (singleFileCallback != null) {
+                                      singleFileCallback(currentDirectory + "/" + $(this).attr("href"));
+                                  }
+                              } else if (substring != null && $(this).attr("href").indexOf(substring) != -1) {
+                                  if (singleFileCallback != null) {
+                                      singleFileCallback(currentDirectory + "/" + $(this).attr("href"));
+                                  }
+                              }
+                          })
+                      }
+                      if (reading == 0) {
+                          if (type != null) {
+                              if (device.platform != "Web") {
+                                  console.log("DONE LOAD " + type + " ON " + relativeDirectory);
+                              }
+                          }
+                          if (substring != null) {
+                              if (device.platform != "Web") {
+                                  console.log("DONE LOAD " + substring + " ON " + relativeDirectory);
+                              }
+                          }
+                          if (finalCallback != null) {
+                              finalCallback("SUCCESS LOAD OF " + relativeDirectory);
+                          }
+                      }
+                  }
+        }
+            $.ajax({
+                url: relativeDirectory,
+                async: false,
+                success: function (data) {
+                    readSome(data);
+                }
+            });
     },
 
     loadJS: function (fullPath) {
@@ -476,5 +652,5 @@ var Utility = {
     }
 
 
-}
+};
 

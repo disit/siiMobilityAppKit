@@ -21,20 +21,20 @@
 */
 var Loading = {
 
-    show: function() {
+    show: function () {
         $('#loadingImage').show(0);
     },
 
-    hide: function() {
-    	$('#loadingImage').hide(0);
+    hide: function () {
+        $('#loadingImage').hide(0);
     },
-    
-    showSettingsLoading: function() {
+
+    showSettingsLoading: function () {
         $('#settingsLoadingImage').show(0);
     },
 
-    hideSettingsLoading: function() {
-    	$('#settingsLoadingImage').hide(0);
+    hideSettingsLoading: function () {
+        $('#settingsLoadingImage').hide(0);
     },
 
     showAutoSearchLoading: function () {
@@ -43,5 +43,18 @@ var Loading = {
 
     hideAutoSearchLoading: function () {
         $('#autoSearchLoadingImage').hide(0);
+    },
+
+    moveProgressBar: function () {
+        var getPercent = ($('.progress-wrap').data('progress-percent') / 100);
+        var getProgressWrapWidth = $('.progress-wrap').width();
+        var progressTotal = getPercent * getProgressWrapWidth;
+        var animationLength = 6000;
+
+        $('.progress-bar').stop().animate({
+            left: progressTotal
+        }, animationLength);
     }
-}
+
+
+};

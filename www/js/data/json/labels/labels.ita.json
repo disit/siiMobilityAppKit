@@ -1,6 +1,6 @@
 ﻿{
   "utility": {
-    "appName":  "Firenze dove, cosa... Km4city"
+    "appName": "Firenze dove, cosa... Km4city"
   },
   "instigatorMenu": {
     "headerTitle": "Suggerimenti",
@@ -13,22 +13,25 @@
     "noGroupSuggestions": "Al momento non sono disponibili suggerimenti per questa categoria.",
     "suggestions": "Richiedi Suggerimenti",
     "addToCalendar": "Aggiungi Al Calendario",
-    "vote":  "Vota Suggerimento"
+    "vote": "Vota Suggerimento"
   },
   "principalMenu": {
     "headerTitle": "Cosa vuoi fare?",
-    "discoverCity": "Scopri la Città",
+    "discoverCity": "Mappa",
+    "aroundYou": "Intorno a te",
     "poi": "Punti di Interesse",
     "textSearch": "Ricerca",
-    "bus": "Trasporto Pubblico",
+    "publicTransport": "Trasporto Pubblico",
+    "privateTransport": "Trasporto Privato",
     "ticket": "Biglietti Bus",
+    "mobilitySecondaryMenu": "Mobilità",
     "parking": "Parcheggi",
     "events": "Eventi",
     "suggestionsNearYou": "Suggerimenti Vicini a Te",
     "suggestions": "Si Raccomanda",
     "weather": "Meteo",
     "navigator": "Naviga",
-    "favourites":  "Preferiti",
+    "favourites": "Preferiti",
     "chronology": "Cronologia",
     "lastContribution": "Ultime Recensioni",
     "infoSOC": "Allerta Prot. Civile",
@@ -38,7 +41,39 @@
     "aboutUs": "Chi Siamo",
     "returnMenu": "Premi nuovamente indietro per vedere il menù principale",
     "alertLogoMessage": "Clicca qui per tornare a questo menù",
-    "personalAssistant":  "Assistente"
+    "personalAssistant": "Assistente",
+    "other": "Altri",
+    "login": "Accedi",
+    "profile": "Profilo",
+    "accommodation": "Alloggi",
+    "greenAreas": "Aree Verdi",
+    "advertising": "Pubblicità",
+    "agricultureAndLivestock": "Agricoltura e Allevamento",
+    "civilAndEdilEngineering": "Ingegneria Civile ed Edile",
+    "culturalActivity": "Attività Culturali",
+    "educationAndResearch": "Istruzione e Ricerca",
+    "emergency": "Emergenza",
+    "entertainment": "Intrattenimento",
+    "environment": "Ambiente",
+    "financialService": "Servizi Finanziari",
+    "governmentOffice": "Uffici Pubblici",
+    "healthCare": "Assistenza Sanitaria",
+    "industryAndManufacturing": "Industria e Manifattura",
+    "miningAndQuarrying": "Attività estrattive",
+    "shoppingAndService": "Shopping e Servizi",
+    "tourismService": "Servizi Turistici",
+    "transferServiceAndRenting": "Trasferim. e Noleggio",
+    "utilitiesAndSupply": "Utilità e Fornitori",
+    "wholesale": "Vendità all'Ingrosso",
+    "wineAndFood": "Enogastronomia",
+    "cyclePaths": "Piste Ciclabili",
+    "pharmacy": "Farmacie",
+    "tips": "Consigli"
+  },
+  "principalMenuModifing": {
+    "hide": "Nascondi",
+    "show": "Mostra",
+    "touchAndMove":  "Tocca e sposta"
   },
   "settingsMenu": {
     "headerTitle": "<i class=\"glyphicon glyphicon-cog\"></i> Impostazioni",
@@ -48,17 +83,17 @@
   },
   "information": {
     "headerTitle": "<i class=\"glyphicon glyphicon-info-sign\"></i> Informazioni",
-    "acceptButton": "",
-    "firstP": "Termini e modalità di utilizzo del software denominato Sii-Mobility Dev Kit Mobile App Km4City. Che è da intendere come uno strumento di sviluppo per moduli della applicazione mobile <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.sii-mobility.org', '_system');\">Sii-Mobility</a> <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org/app', '_system');\">APPs, denominata \"Firenze dove cosa\", \"Toscana dove cosa\"</a>, e che utilizzano tecnologia <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org', '_system');\">Km4City.org.</a>",
-    "secondP": "Potete utilizzare, distribuire, modificare Sii-Mobility Dev Kit Mobile App Km4City nei termini indicati dalla <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.gnu.org/licenses/agpl-3.0.html', '_system');\"> GNU Affero GPL </a> (AGPL). Solo per lo sviluppo di moduli dell'applicazione mobile <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.sii-mobility.org', '_system');\">Sii-Mobility</a> APPs, denominata \"Firenze dove cosa\", \"Toscana dove cosa\", e che utilizzano tecnologia <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org', '_system');\">Km4City.org</a>, se non altrimenti concordato con <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org', '_system');\">DISIT.org</a>.",
-    "thirdP": "Sii-Mobility Dev Kit Mobile App Km4City copyright ©<a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org', '_system');\"> DISIT lab</a> and <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.sii-mobility.org', '_system');\">Sii-Mobility.org</a>",
-    "fourthP": "Sii-Mobility Dev Kit Mobile App Km4City has been developed and is maintained by <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org', '_system');\">DISIT lab</a> e <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.sii-mobility.org', '_system');\">Sii-Mobility.org</a>",
-    "fifthP": "License: The interactive user interfaces in modified source and object code versions of this program must display Appropriate Legal Notices, as required under Section 5 of the <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.gnu.org/licenses/agpl-3.0.html', '_system');\"> GNU Affero GPL </a> . In accordance with Section 7(b) of the <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.gnu.org/licenses/agpl-3.0.html', '_system');\"> GNU Affero GPL </a>, these Appropriate Legal Notices must retain the display of the \"Sii-Mobility Dev Kit Mobile App Km4City\" logo. The Logo \"Sii-Mobility Dev Kit Mobile App Km4City\" must be a clickable link that leads directly to the Internet URL <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.sii-mobility.org', '_system');\">http://www.sii-mobility.org</a> oppure a <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org', '_system');\">DISIT Lab</a>., using technology derived from&nbsp; <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org', '_system');\">Http://www.km4city.org</a>",
-    "sixthP": "Questa applicazione è stata sviluppata ed è accessibile per permettere lo sviluppo di moduli aggiuntivi sulle App Sii-Mobility e che usano tecnologia Km4City.&nbsp; La stessa applicazione è oggetto di un tutorial dove è stato presentato il codice sorgente e il procedimento per svilupparla in modo rapido. L’applicazione con i suoi sorgenti sono concessi in licenza Open Source, <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.gnu.org/licenses/agpl-3.0.html', '_system');\"> GNU Affero GPL </a> . I dati utilizzati e su cui si basa l’applicazione sono stati forniti dal Comune di Firenze come Open Data e da servizi della Regione Toscana, dalla città Metropolitana di Firenze, e da Lamma. La descrizione di questi dati è accessibile su <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org', '_system');\">DISIT.org</a> e <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.sii-mobility.org', '_system');\">Sii-Mobility.org</a>, ed in particolare i dati fanno riferimento al modello aperto Km4City ed al processo di ingestione, aggregazione, quality improvement e riconciliazione descritto durante l’evento stesso.",
-    "seventhP": "Gli sviluppatori non garantiscono che il servizio oggi attivo sul quale si basa questa applicazione come strumento di sviluppo possa mantenersi nella stessa forma e/o attivo per sempre e/o nelle prossime settimane.&nbsp; Se intendete creare altre applicazioni partendo da questo codice, anche solo in parte, tutto il testo contenuto in questa pagina deve essere riportato in ogni nuova versione di questo software, in una posizione analoga a quella attuale, nel menu principale. Essendo Open Source il codice stesso deve essere ri-pubblicato, a questo fine potete inviarlo a <a class=\"extern\" href=\"#\" onclick=\"window.open('mailto:info@disit.org?subject=APP%20sii-mobility%20licensing', '_system');\">info@disit.org</a> oppure pubblicarlo su altro sito web comunicandolo sempre a <a class=\"extern\" href=\"#\" onclick=\"window.open('mailto:info@disit.org?subject=APP%20sii-mobility%20licensing', '_system');\">info@disit.org</a>, in modo che questo stesso codice possa essere via via migliorato per tutti. La stessa procedura puo' essere seguita per pubblicare nuovi moduli per le applicazioni Sii-mobility.",
-    "firstI": "",
-    "fifthBP": "",
-    "labelLinkLog": ""
+    "acceptButton": "Accetto",
+    "firstP": "Ti mostra tutti i servizi che sono vicini alla tua posizione, o a una posizione da te indicata, puoi trovare ristoranti, bagni, free Wi-Fi, ciclabili, parchi, digital location, ritardi su alcune linee bus, parcheggi, farmacie, bancomat, etc. I servizi geolocalizzati accessibili sono inerenti ai trasporti e mobilità, beni culturali, strutture ospedaliere, meteo, servizi, fermate autobus e tempi di attesa, banche, digital location, energia, e moltissimo altro, etc. con immagini, audio e documenti. I dati accessibili sono elencati in <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org/6726', '_system');\">http://www.disit.org/6726</a> e si hanno circa 100.000 servizi a Firenze, Pisa, Prato, Pistoia, Arezzo, Empoli città, e tutta la toscana. Riguardano tutta la Toscana, con particolare riguardo alla provincia di Firenze, e provengono dal MIIC della regione Toscana, dal LAMMA, dall’osservatorio Trasporti e gestore del traffico, dal Comune di Firenze, etc. ",
+    "secondP": "Su Km4City sono accessibili moltissimi dati aperti su tutti i comuni della Toscana, e moltissimi su Firenze, <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org', '_system');\">http://www.km4city.org</a>, e per gli sviluppatori <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a>.",
+    "thirdP": "Km4City consiste in una soluzione scalabile ed efficace per erogare servizi innovativi in tempi rapidi o nulli (i) fornendo dati integrati/aggregati e (ii) permettendo l’integrazione di dati privati o specifici con dati open; servizi con API semplici ed efficaci per sviluppare applicazioni mobili e web che usano in modo coerente dati, fornendo alle un canale costante di dati aggregati aggiornati. Km4City include strumenti di sviluppo e di produzione e si fonda sul modello Km4City (<a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org/km4city', '_system');\">http://www.disit.org/km4city</a>) e su una serie di strumenti che sono stati sviluppati e sono al momento in uso nell’aggregatore di Firenze sviluppato dal DISIT Lab, accessibile via <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a> (e anche accessibile con API). La soluzione Km4City, è alla base del progetto Sii-Mobility smart city nazionale, e di RESOLUTE H2020.  L’applicazione Km4City misura segnali Wi-Fi e BT nella città e li comunica ad un server centrale in forma assolutamente anonima, che serve solo a mappare le sorgenti sulla citta. L’applicazione fornisce suggerimenti in base al profilo utente scelto (cittadino, pendolare, studente, neutro e turista). Anche in questo caso, l'applicazione non usa i vostri dati personali identificandovi, ma solo tramite il vostro profilo generico senza connessione ai vostri dati personali, cioè nel rispetto della privacy.",
+    "fourthP": "Questa applicazione è stata sviluppata utilizzando i servizi e le API di Km4City (<a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org/km4city', '_system');\">http://www.disit.org/km4city</a>) dal DISIT Lab dell’Università degli Studi di Firenze (<a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.dinfo.unifi.it', '_system');\">http://www.disit.dinfo.unifi.it</a>). Ha l’obiettivo di fornire informazioni aggiornate sulla città. Su Km4City le aziende e le istituzioni possono integrare informazioni open, private, sensibili e/o critiche in modo contestualizzato con quelle accessibili per la città e creare nuovi servizi per il loro personale qualificato e/o per il cittadino. E’ possibile sviluppare App e pagine web che usano tali servizi in modo semplice e veloce. Lo strumento primario su WEB è accessibile da <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a>.",
+    "fifthP": "Una versione WEB app è disponibile direttamente su <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org', '_system');\">http://www.km4city.org</a>.",
+    "sixthP": "Utilizzando questa applicazione implicitamente state confermando il Vostro consenso a queste misurazioni. E’ comunque possibile disabilitare la misura dalle impostazioni. Vi ringraziamo per averci concesso di acquisire questi dati che saranno usati per migliorare i servizi in città e per la ricerca. ",
+    "seventhP": "Le icone che vedrete sulla mappa ad indicare i servizi sono state prese dal sito <a class=\"extern\" hre=\"#\" onclick=\"window.open('https://mapicons.mapsmarker.com', '_system');\"> <b>Maps Icons Collection</b> </a>",
+    "firstI": "DISIT non garantisce che il servizio oggi attivo denominato <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a> , e km4city, possano mantenersi nella stessa forma e/o attivi per sempre. Per informazioni contattare <a href=\"#\" class=\"extern\" onclick=\"window.open('mailto:info@disit.org', '_system');\">info@disit.org</a>.",
+    "fifthBP": "L’utente automaticamente accetta di cedere ogni diritto relativo ad immagini e commenti inviati al sistema e acconsente alla loro pubblicazione se validati dal sistema.",
+    "labelLinkLog": "Vedi log"
   },
   "threeVerticalDotMenu": {
     "chronology": "Cronologia <i class=\"glyphicon glyphicon-time\"></i>",
@@ -70,8 +105,6 @@
     "help": "Aiuto"
   },
   "textSearchMenu": {
-    "distanceFromGPS": "Distanza <i class=\"glyphicon glyphicon-record\">: ",
-    "distanceFromSearchCenter": "Distanza <i class=\"glyphicon glyphicon-map-marker\">: ",
     "inputPlaceholder": "Cerca PDI...",
     "lines": "Linee: ",
     "civic": "Civico: ",
@@ -88,16 +121,13 @@
   "busRoutesMenu": {
     "headerTitle": "Fermate",
     "lines": "Linee: ",
-    "distanceFromGPS": "Distanza <i class=\"glyphicon glyphicon-record\">: ",
-    "distanceFromSearchCenter": "Distanza <i class=\"glyphicon glyphicon-map-marker\">: ",
-    "closeButton": "Chiudi",
     "closerAt": "Più vicino a ",
-    "terminal":  "Capolinea"
+    "terminal": "Capolinea",
+    "servicesOnLine": "Servizi sulla linea"
   },
   "busRoutesInfoModal": {
     "headerTitle": "Linea ",
-    "noBusRoutes": "Percorsi momentaneamente non disponibili",
-    "closeButton": "Chiudi"
+    "noBusRoutes": "Percorsi momentaneamente non disponibili"
   },
   "personalAssistantMenu": {
     "headerTitle": "<i class=\"icon ion-happy-outline\"></i> Assistente",
@@ -107,7 +137,7 @@
     "gpsOrderText": "Più vicini",
     "receivedOrderText": "Più recenti",
     "timeoutOrderText": "In Scadenza",
-    "survey": "Sondaggio"
+    "survey": "Rispondi"
   },
   "lastContributionsMenu": {
     "headerTitle": "<i class=\"icon ion-android-person-add\"></i> Contributi",
@@ -128,7 +158,7 @@
     "empty": "Nessun servizio preferito"
   },
   "ticketingMenu": {
-    "headerTitle": "<i class=\"icon ion-android-bus\"></i> Compra Biglietto Bus",
+    "headerTitle": "<i class=\"fa fa-bus\"></i> Compra Biglietto Bus",
     "minutes": "minuti",
     "urban": "nell'area urbana di ",
     "valid": "Valido ",
@@ -142,10 +172,10 @@
     "goButton": "<i class=\"glyphicon glyphicon-search\"></i> Cerca",
     "lastResultsButton": "Risultati",
     "filter": "Filtra...",
-    "filterLines":  "Filtra linee...",
+    "filterLines": "Filtra linee...",
     "noService": "Nessun Punto di Interesse Trovato",
     "results": "Risultati",
-    "filterButtonTpl":  "Filtra"
+    "filterButtonTpl": "Filtra"
   },
   "infoMenu": {
     "type": "Tipo: ",
@@ -154,8 +184,6 @@
     "fax": "Fax: ",
     "website": "Sito: ",
     "email": "Email: ",
-    "distanceFromGPS": "Distanza <i class=\"glyphicon glyphicon-record\">: ",
-    "distanceFromSearchCenter": "Distanza <i class=\"glyphicon glyphicon-map-marker\">: ",
     "description": "Descrizione: ",
     "note": "Note: ",
     "photo": "Fotografia: ",
@@ -167,30 +195,29 @@
     "endDate": "Data Fine: ",
     "date": "Data: ",
     "avgStars": "Media Voti: ",
-    "userStars": "Il Tuo Voto: ",
-    "starsCount": " Voti: ",
-    "closeButton": "Chiudi",
+    "userStars": "Vota",
+    "comment":  "Commenta",
+    "starsCount": "Numero Voti: ",
     "sharedFrom": "Condiviso da ",
     "sharedRunning": "Sto creando lo screenshot...",
     "updateTimetable": "Aggiorna",
     "seeAllTimetable": "Vedi Tutti",
-    "timeout": "Scadenza: "
+    "timeout": "Scadenza: ",
+    "whatYouThink": "Cosa ne pensi del servizio?",
+    "reviews": "Recensioni",
+    "comment":  "Commenta"
   },
   "pictureModal": {
-    "send": "Invia",
-    "cancel": "Annulla",
     "abort": "Interrompi",
-    "insertComment":  "Inserisci un commento..."
+    "insertComment": "Inserisci un commento..."
   },
   "feedbackModal": {
     "rate": "Vota",
-    "cancel": "Annulla",
     "comment": "Inserisci un commento...",
-    "takePhoto": "Scatta Foto<br><i style=\"font-size:25px;color: black\" class=\"icon ion-camera\"></i>",
-    "uploadPhoto":  "Carica Foto<br><i style=\"font-size:25px;color: black\" class=\"icon ion-images\"></i>"
+    "takePhoto": "Scatta Foto<br><i style=\"font-size:25px;\" class=\"fa fa-camera-retro\"></i>",
+    "uploadPhoto": "Carica Foto<br><i style=\"font-size:25px;\" class=\"fa fa-picture-o\"></i>"
   },
   "newSuggestionsModal": {
-    "closeButton": "Chiudi",
     "headerTitle": "Nuovi Suggerimenti!"
   },
   "busStop": {
@@ -203,7 +230,7 @@
     "datatableInfoEmpty": "Vista da 0 a 0 di 0 elementi",
     "datatableZeroRecords": "Nessun elemento corrisponde alla ricerca",
     "datatableLengthMenu": "Elementi _MENU_ ",
-    "datatableSearch":  "Cerca "
+    "datatableSearch": "Cerca "
   },
   "weather": {
     "noWeatherAvailable": "Meteo Non Disponibile",
@@ -215,6 +242,15 @@
     "Venerdi": "Venerdi",
     "Sabato": "Sabato",
     "Domenica": "Domenica"
+  },
+  "weekDay": {
+     "1": "Lunedi",
+    "2": "Martedi",
+    "3": "Mercoledi",
+    "4": "Giovedi",
+    "5": "Venerdi",
+    "6": "Sabato",
+    "0": "Domenica"
   },
   "roadSensor": {
     "noRealTime": "Dati in tempo reale momentaneamente non forniti dal gestore.",
@@ -229,15 +265,15 @@
   },
   "carPark": {
     "noRealTime": "Dati in tempo reale momentaneamente non forniti dal gestore.",
-    "freeLots": "Posti Liberi",
-    "busyLots": "Posti Occupati",
-    "capacity": "Capacità",
-    "occupancy": "Occupazione (%)"
+    "freeLots": "Tempo reale",
+    "freeLotsPrediction": "Previsione",
+    "freeLotsPredictions": "Previsioni",
+    "dailyTrend": "Andamento Giornaliero"
   },
   "searchPopUp": {
-    "remove": "Rimuovi",
     "suggestions": "Suggerimenti",
-    "aroundYou": "Qui Intorno"
+    "aroundYou": "Qui Intorno",
+    "remove": "Rimuovi"
   },
   "gpsPopUp": {
     "suggestions": "Suggerimenti",
@@ -247,7 +283,7 @@
   "chooseProfile": {
     "welcome": "Benvenuto! Sei un?",
     "disclaimerText": "Cliccando sui pulsanti, accetto i",
-    "disclaimerLink":  "Termini di Uso della App"
+    "disclaimerLink": "Termini di Uso della App"
   },
   "navigatiorSearcherBar": {
     "navigationMode": "Navigazione"
@@ -267,5 +303,31 @@
   },
   "apiclient": {
     "operationRunning": "Operazione in corso..."
+  },
+  "commonLabels": {
+    "distance": "Distanza: ",
+    "close": "Chiudi",
+    "send": "Invia",
+    "cancel": "Rimuovi"
+  },
+  "userProfile": {
+    "headerTitle": "Profilo",
+    "betterService": "Stiamo lavorando per offrirTI un servizio migliore",
+    "logout":  "Disconnetti"
+  },
+  "authentication": {
+    "register": "Registrami",
+    "login": "Accedi",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword":  "Conferma Password",
+    "skip": "Salta",
+    "or": "o",
+    "send": "Invia",
+    "back":  "Indietro"
+  },
+  "tipsMenu": {
+    "notShowAgain": "Non Mostrare Più",
+    "showAtStart":  "Mostra All'Avvio"
   }
 }

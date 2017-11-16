@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-camera",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "Cordova Camera Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-camera",
     "platforms": [
@@ -15,12 +16,16 @@
       "wp8",
       "windows8",
       "browser",
-      "windows"
+      "windows",
+      "osx"
     ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-camera"
+    "url": "git+https://github.com/apache/cordova-plugin-camera.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
   "keywords": [
     "cordova",
@@ -36,27 +41,97 @@
     "cordova-wp8",
     "cordova-windows8",
     "cordova-browser",
-    "cordova-windows"
+    "cordova-windows",
+    "cordova-osx"
   ],
   "scripts": {
     "precommit": "npm run gen-docs && git add README.md",
     "gen-docs": "jsdoc2md --template \"jsdoc2md/TEMPLATE.md\" \"www/**/*.js\" --plugin \"dmd-plugin-cordova-plugin\" > README.md",
-    "test": "npm run jshint",
-    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests"
+    "test": "npm run eslint",
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
   },
-  "author": "Apache Software Foundation",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
       "3.0.0": {
+        "cordova-android": ">=6.3.0"
+      },
+      "4.0.0": {
         "cordova": ">100"
       }
     }
   },
   "devDependencies": {
     "dmd-plugin-cordova-plugin": "^0.1.0",
+    "eslint": "^4.3.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.10.1",
-    "jsdoc-to-markdown": "^1.2.0",
-    "jshint": "^2.6.0"
-  }
+    "jsdoc-to-markdown": "^1.2.0"
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-camera#readme",
+  "_id": "cordova-plugin-camera@3.0.0",
+  "_shasum": "9212ff0e2a211ee840d8a83f051d37d0dec0bd1f",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-camera/-/cordova-plugin-camera-3.0.0.tgz",
+  "_from": "cordova-plugin-camera@3.0.0",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "9212ff0e2a211ee840d8a83f051d37d0dec0bd1f",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-camera/-/cordova-plugin-camera-3.0.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "anis",
+      "email": "anis.kadri@gmail.com"
+    },
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "cordovaowner",
+      "email": "stevengill.97@gmail.com"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    },
+    {
+      "name": "surajpindoria",
+      "email": "suraj.pindoria@yahoo.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-camera-3.0.0.tgz_1510361659722_0.12280122633092105"
+  },
+  "directories": {}
 }

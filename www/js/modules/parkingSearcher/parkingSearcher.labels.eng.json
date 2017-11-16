@@ -1,12 +1,14 @@
 ﻿{
   "principalMenu": {
-    "moduleParkingSearcher": "Car Park List"
+    "moduleParkingSearcher": "Car Park"
   },
   "parkingMenu": {
     "title": "Car Parks",
     "gpsOrderText": "Closer <i class=\"glyphicon glyphicon-record\">",
     "searchCenterOrderText": "Closer <i class=\"glyphicon glyphicon-map-marker\">",
-    "freeParkingOrderText":  "Free Parking Lots"
+    "freeParkingOrderText": "Free Parking Lots",
+    "freeLotsForecast30": "In 30Min",
+    "freeLotsForecast60":  "In 60Min"
   }
 }
 

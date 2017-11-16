@@ -1,40 +1,9 @@
-/**
- * Copyright (c) 2012, Twist and Shout, Inc. http://www.twist.com/
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
- * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-
-/**
- * @author yvonne@twist.com (Yvonne Yip)
- */
-
 package nl.xservices.plugins.accessor;
 
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+
 import org.apache.cordova.CordovaInterface;
 
 import java.util.EnumMap;
@@ -50,6 +19,7 @@ public class LegacyCalendarAccessor extends AbstractCalendarAccessor {
     EnumMap<KeyIndex, String> keys = new EnumMap<KeyIndex, String>(KeyIndex.class);
     keys.put(KeyIndex.CALENDARS_ID, "_id");
     keys.put(KeyIndex.CALENDARS_NAME, "name");
+	keys.put(KeyIndex.CALENDARS_DISPLAY_NAME, "displayname");
     keys.put(KeyIndex.CALENDARS_VISIBLE, "selected");
     keys.put(KeyIndex.EVENTS_ID, "_id");
     keys.put(KeyIndex.EVENTS_CALENDAR_ID, "calendar_id");
@@ -85,7 +55,7 @@ public class LegacyCalendarAccessor extends AbstractCalendarAccessor {
                                   String[] selectionArgs, String sortOrder) {
     String uri = getContentProviderUri(CONTENT_PROVIDER_PATH_ATTENDEES);
     return this.cordova.getActivity().managedQuery(Uri.parse(uri), projection,
-        selection, selectionArgs, sortOrder);
+            selection, selectionArgs, sortOrder);
   }
 
   @Override
@@ -93,7 +63,7 @@ public class LegacyCalendarAccessor extends AbstractCalendarAccessor {
                                   String[] selectionArgs, String sortOrder) {
     String uri = getContentProviderUri(CONTENT_PROVIDER_PATH_CALENDARS);
     return this.cordova.getActivity().managedQuery(Uri.parse(uri), projection,
-        selection, selectionArgs, sortOrder);
+            selection, selectionArgs, sortOrder);
   }
 
   @Override
@@ -101,7 +71,7 @@ public class LegacyCalendarAccessor extends AbstractCalendarAccessor {
                                String[] selectionArgs, String sortOrder) {
     String uri = getContentProviderUri(CONTENT_PROVIDER_PATH_EVENTS);
     return this.cordova.getActivity().managedQuery(Uri.parse(uri), projection,
-        selection, selectionArgs, sortOrder);
+            selection, selectionArgs, sortOrder);
   }
 
   @Override
@@ -109,9 +79,9 @@ public class LegacyCalendarAccessor extends AbstractCalendarAccessor {
                                        String[] projection, String selection, String[] selectionArgs,
                                        String sortOrder) {
     String uri = getContentProviderUri(CONTENT_PROVIDER_PATH_INSTANCES_WHEN) +
-        "/" + Long.toString(startFrom) + "/" + Long.toString(startTo);
+            "/" + Long.toString(startFrom) + "/" + Long.toString(startTo);
     return this.cordova.getActivity().managedQuery(Uri.parse(uri), projection,
-        selection, selectionArgs, sortOrder);
+            selection, selectionArgs, sortOrder);
   }
 
   @Override
@@ -122,12 +92,14 @@ public class LegacyCalendarAccessor extends AbstractCalendarAccessor {
 
   @Override
   public String createEvent(Uri eventsUri, String title, long startTime, long endTime,
-                          String description, String location, Long firstReminderMinutes, Long secondReminderMinutes,
-                          String recurrence, int recurrenceInterval, Long recurrenceEndTime, Integer calendarId,
-                          String url) {
+                            String description, String location, Long firstReminderMinutes, Long secondReminderMinutes,
+                            String recurrence, int recurrenceInterval, String recurrenceWeekstart,
+                            String recurrenceByDay, String recurrenceByMonthDay, Long recurrenceEndTime, Long recurrenceCount,
+                            String allday, Integer calendarId, String url) {
     eventsUri = eventsUri == null ? Uri.parse(CONTENT_PROVIDER_PRE_FROYO + CONTENT_PROVIDER_PATH_EVENTS) : eventsUri;
     return super.createEvent(eventsUri, title, startTime, endTime, description, location,
-        firstReminderMinutes, secondReminderMinutes, recurrence, recurrenceInterval, recurrenceEndTime, calendarId, url);
+            firstReminderMinutes, secondReminderMinutes, recurrence, recurrenceInterval, recurrenceWeekstart,
+            recurrenceByDay, recurrenceByMonthDay, recurrenceEndTime, recurrenceCount, allday, calendarId, url);
   }
 
 }

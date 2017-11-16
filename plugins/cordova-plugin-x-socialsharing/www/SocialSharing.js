@@ -1,6 +1,4 @@
-﻿var cordova = require('cordova');
-
-function SocialSharing() {
+﻿function SocialSharing() {
 }
 
 // Override this method (after deviceready) to set the location where you want the iPad popup arrow to appear.
@@ -28,6 +26,23 @@ SocialSharing.prototype.available = function (callback) {
 // this is the recommended way to share as it is the most feature-rich with respect to what you pass in and get back
 SocialSharing.prototype.shareWithOptions = function (options, successCallback, errorCallback) {
   cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareWithOptions"), "SocialSharing", "shareWithOptions", [options]);
+};
+
+SocialSharing.prototype.shareW3C = function (sharedata) {
+  return new Promise(function(resolve, reject) {
+    var options = {
+      subject: sharedata.title,
+      message: sharedata.text,
+      url: sharedata.url
+    };
+    if(sharedata.hasOwnProperty('title') ||
+        sharedata.hasOwnProperty('text') ||
+        sharedata.hasOwnProperty('url')) {
+          cordova.exec(resolve, reject, "SocialSharing", "shareWithOptions", [options]);
+    } else {
+      reject();
+    }
+  });
 };
 
 SocialSharing.prototype.share = function (message, subject, fileOrFileArray, url, successCallback, errorCallback) {
@@ -118,6 +133,7 @@ SocialSharing.install = function () {
   }
 
   window.plugins.socialsharing = new SocialSharing();
+  navigator.share = window.plugins.socialsharing.shareW3C;
   return window.plugins.socialsharing;
 };
 

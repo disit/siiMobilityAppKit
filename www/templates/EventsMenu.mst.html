@@ -13,12 +13,12 @@
         <a id="eventsMenuCollapse" class="pull-left" onclick="EventsSearcher.collapseEventsMenu();">
             <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
         </a>
-        <b id="eventsHeaderTitle" style="line-height: 52px;color: #333;">
+        <p id="eventsHeaderTitle" style="line-height: 52px;color: #333;font-weight: bold;">
             <script>
             $("#eventsHeaderTitle").html(
                     Globalization.labels.eventsMenu.headerTitle)
             </script>
-        </b>
+        </p>
     </div>
 </div>
 <!-- {{#Event}} -->
@@ -30,19 +30,18 @@
             {{#imageThumb}}<img id="eventsMenuImage{{identifier}}" src="{{imageThumb}}"
                                 style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
             <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
-            <b style="text-align: center;text-transform:capitalize;">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
-            {{#categoryIT}}<br><b id="categoryIT{{identifier}}">
-            <script>$("#categoryIT{{identifier}}").html(Globalization.labels.infoMenu.type)</script></b>{{categoryIT}}{{/categoryIT}}
-            {{#startDate}}<br><b id="serviceStartDate{{identifier}}">
-            <script>$("#serviceStartDate{{identifier}}").html(Globalization.labels.infoMenu.startDate)</script></b>{{#changeFormatEventsDate}}{{startDate}}{{/changeFormatEventsDate}}{{/startDate}}
-            {{#endDate}}<br><b id="serviceEndDate{{identifier}}">
-            <script>$("#serviceEndDate{{identifier}}").html(Globalization.labels.infoMenu.endDate)</script></b>{{#changeFormatEventsDate}}{{endDate}}{{/changeFormatEventsDate}}{{/endDate}}
-            {{#date}}<br><b id="serviceDate{{identifier}}">
-            <script>$("#serviceDate{{identifier}}").html(Globalization.labels.infoMenu.date)</script></b>{{#changeFormatEventsDate}}{{date}}{{/changeFormatEventsDate}}{{/date}}
-            {{#distanceFromSearchCenter}}<br><b id="eventsDistanceFromSearchCenter{{identifier}}">
-            <script>$("#eventsDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromSearchCenter)</script></b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
-            {{#distanceFromGPS}}<br><b id="eventsDistanceFromGPS{{identifier}}">
-            <script>$("#eventsDistanceFromGPS{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromGPS)</script></b>{{distanceFromGPS}} m{{/distanceFromGPS}}{{/properties}}
+            <b style="text-align: center;text-transform:capitalize;"> {{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
+            {{#categoryIT}}<br><i class="fa fa-arrow-right"></i> {{categoryIT}}{{/categoryIT}}
+           {{#startDate}}<br><i  class="fa fa-calendar {{currentLanguage}} {{category}}"></i> {{#changeFormatEventsDate}}{{startDate}}{{/changeFormatEventsDate}}{{#endDate}} |
+    {{#changeFormatEventsDate}}{{endDate}}{{/changeFormatEventsDate}}{{/endDate}}
+{{/startDate}}
+            {{#date}}<br><i class="fa fa-calendar {{currentLanguage}} {{category}}"></i> {{#changeFormatEventsDate}}{{date}}{{/changeFormatEventsDate}}{{/date}}
+            {{#distanceFromSomething}}
+<br>
+{{#distanceFromGPS}} <i class="glyphicon glyphicon-record"></i> {{distanceFromGPS}} m{{/distanceFromGPS}}
+{{#distanceFromSearchCenter}}<i class="glyphicon glyphicon-map-marker"></i> {{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+
+{{/distanceFromSomething}}{{/properties}}
         </div>
     </div>
     <!-- {{/features}} -->

@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-statusbar",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Cordova StatusBar Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-statusbar",
     "platforms": [
@@ -14,7 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-statusbar"
+    "url": "git+https://github.com/apache/cordova-plugin-statusbar.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
   "keywords": [
     "cordova",
@@ -40,9 +44,61 @@
       }
     }
   },
-  "author": "Apache Software Foundation",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
   "license": "Apache-2.0",
   "devDependencies": {
     "jshint": "^2.6.0"
-  }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-statusbar#readme",
+  "_id": "cordova-plugin-statusbar@2.3.0",
+  "_shasum": "314e1d009c65910cdfde034bfca13bd502c9e5e0",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-statusbar/-/cordova-plugin-statusbar-2.3.0.tgz",
+  "_from": "cordova-plugin-statusbar@2.3.0",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "314e1d009c65910cdfde034bfca13bd502c9e5e0",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-statusbar/-/cordova-plugin-statusbar-2.3.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "kotikov.vladimir",
+      "email": "kotikov.vladimir@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-statusbar-2.3.0.tgz_1510361678182_0.03884611721150577"
+  },
+  "directories": {}
 }

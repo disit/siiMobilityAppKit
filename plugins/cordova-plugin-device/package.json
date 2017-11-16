@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-device",
-  "version": "1.1.1",
+  "version": "1.1.7",
   "description": "Cordova Device Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-device",
     "platforms": [
@@ -22,7 +23,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-device"
+    "url": "git+https://github.com/apache/cordova-plugin-device.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
   "keywords": [
     "cordova",
@@ -42,6 +46,74 @@
     "cordova-browser",
     "cordova-osx"
   ],
-  "author": "Apache Software Foundation",
-  "license": "Apache 2.0"
+  "scripts": {
+    "test": "npm run eslint",
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
+  },
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-device#readme",
+  "_id": "cordova-plugin-device@1.1.7",
+  "_shasum": "fc94111be6932628c66868938ddf3dc82c9fbfe6",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-device/-/cordova-plugin-device-1.1.7.tgz",
+  "_from": "cordova-plugin-device@latest",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "fc94111be6932628c66868938ddf3dc82c9fbfe6",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-device/-/cordova-plugin-device-1.1.7.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-device-1.1.7.tgz_1510361662619_0.999291472369805"
+  },
+  "directories": {}
 }

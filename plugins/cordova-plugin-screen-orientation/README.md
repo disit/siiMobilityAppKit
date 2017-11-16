@@ -17,18 +17,22 @@
 #         under the License.
 -->
 
+|AppVeyor|Travis CI|
+|:-:|:-:|
+|[![Build status](https://ci.appveyor.com/api/projects/status/github/apache/cordova-plugin-screen-orientation?branch=master)](https://ci.appveyor.com/project/ApacheSoftwareFoundation/cordova-plugin-screen-orientation)|[![Build Status](https://travis-ci.org/apache/cordova-plugin-screen-orientation.svg?branch=master)](https://travis-ci.org/apache/cordova-plugin-screen-orientation)|
+
 # Cordova Screen Orientation Plugin
 
-Cordova plugin to set/lock the screen orientation in a common way for iOS, Android, WP8 and Blackberry 10.  This plugin is based on an early version of [Screen Orientation API](http://www.w3.org/TR/screen-orientation/) so the api does not currently match the current spec.
+Cordova plugin to set/lock the screen orientation in a common way for iOS, Android, WP8 and Blackberry 10.  This plugin is based on [Screen Orientation API](http://www.w3.org/TR/screen-orientation/) so the api matches the current spec.
 
 The plugin adds the following to the screen object (`window.screen`):
 
 ```js
 // lock the device orientation
-.lockOrientation('portrait')
+.orientation.lock('portrait')
 
 // unlock the orientation
-.unlockOrientation()
+.orientation.unlock()
 
 // current orientation
 .orientation
@@ -36,12 +40,6 @@ The plugin adds the following to the screen object (`window.screen`):
 
 ## Install
 
-_cordova < 4_
-
-```bash
-cordova plugin add net.yoik.cordova.plugins.screenorientation
-```
-_cordova > 4_
 
 ```bash
 cordova plugin add cordova-plugin-screen-orientation
@@ -67,17 +65,20 @@ cordova plugin add cordova-plugin-screen-orientation
 #### landscape
 > The orientation is either landscape-primary or landscape-secondary (sensor).
 
+#### any
+>  orientation is  unlocked - all orientations are supported.
+
 ## Usage
 
 ```js
 // set to either landscape
-screen.lockOrientation('landscape');
+screen.orientation.lock('landscape');
 
 // allow user rotate
-screen.unlockOrientation();
+screen.orientation.unlock();
 
 // access current orientation
-console.log('Orientation is ' + screen.orientation);
+console.log('Orientation is ' + screen.orientation.type);
 ```
 
 ## Events
@@ -85,39 +86,32 @@ console.log('Orientation is ' + screen.orientation);
 Both android and iOS will fire the orientationchange event on the window object.
 For this version of the plugin use the window object if you require notification.
 
-For this plugin to follow the full API events should be fired on the screen object.
-iOS and BB10 do not currently support events on the _screen_ object so custom event
-handling will need to be added (Suggestions welcome!).
 
 ### Example usage
 
 ```js
 window.addEventListener("orientationchange", function(){
-    console.log(screen.orientation); // e.g. portrait
+    console.log(screen.orientation.type); // e.g. portrait
 });
 ```
 
+The 'change' event listener has also been added to the screen.orientation object.
+
+### Example usage
+
+```js
+screen.orientation.addEventListener('change', function(){
+    console.log(screen.orientation.type); // e.g. portrait
+});
+    // OR
+
+screen.orientation.onchange = function(){console.log(screen.orientation.type);
+};
+
+```
 ## Android Notes
 
 The __screen.orientation__ property will not update when the phone is [rotated 180 degrees](http://www.quirksmode.org/dom/events/orientationchange.html).
-
-## iOS Notes
-
-The iOS version is a combination of the cordova JS callback _window.shouldRotateToOrientation_ and the workaround to recheck the orientation as implemented in https://github.com/Adlotto/cordova-plugin-recheck-screen-orientation.
-
-__If you have a custom implementation of the _window.shouldRotateToOrientation_ it will have to be removed for the plugin to function as expected.__
-
-#### iOS6
-
-There has been a few cases where the rotation does not change the width of the viewport
-
-Issue [#1](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/issues/1) @dokterbob
-
->It seems to be related to having width=device-width, height=device-height in the meta viewport (which is part of the boilerplate phonegap/cordova app). It can be solved by updating the viewport with width=device-height, height=device-width or simply removing width and height altogether.
-
-#### iOS8
-
-Versions prior to 1.2.0 will cause an application crash in iOS8 due to a change in presentViewController timing.
 
 ## BB10 Notes
 
@@ -131,7 +125,14 @@ Windows phone does not support specification or primary and secondary orientatio
 
 Windows 8.1 Applicaitons (runtime/metro applications) will only display orientation changes if the device has some sort of accelerometer.  The internal state of the "orientation" will still be kept, but the actual screen won't rotate unless the device supports it.
 
+# Legacy Changelog
+
+See [RELEASENOTES.md](RELEASENOTES.md) for the automated changelog.
+
 # Changelog
+
+## 2.0.0
+* Common javascript for iOS, Android and Windows.
 
 ## 1.4.2
 * [#101](https://github.com/gbenvenuti/cordova-plugin-screen-orientation/pull/101) make iOS rotate as needed when lockOrientation is called

@@ -47,11 +47,13 @@ public class Calendar extends CordovaPlugin {
   private static final String ACTION_LIST_EVENTS_IN_RANGE = "listEventsInRange";
   private static final String ACTION_LIST_CALENDARS = "listCalendars";
   private static final String ACTION_CREATE_CALENDAR = "createCalendar";
+  private static final String ACTION_DELETE_CALENDAR = "deleteCalendar";
 
   // write permissions
   private static final int PERMISSION_REQCODE_CREATE_CALENDAR = 100;
-  private static final int PERMISSION_REQCODE_DELETE_EVENT = 101;
+  private static final int PERMISSION_REQCODE_DELETE_CALENDAR = 101;
   private static final int PERMISSION_REQCODE_CREATE_EVENT = 102;
+  private static final int PERMISSION_REQCODE_DELETE_EVENT = 103;
 
   // read permissions
   private static final int PERMISSION_REQCODE_FIND_EVENTS = 200;
@@ -106,6 +108,9 @@ public class Calendar extends CordovaPlugin {
     } else if (!hasLimitedSupport && ACTION_CREATE_CALENDAR.equals(action)) {
       createCalendar(args);
       return true;
+    } else if (!hasLimitedSupport && ACTION_DELETE_CALENDAR.equals(action)) {
+      deleteCalendar(args);
+      return true;
     } else if (HAS_READ_PERMISSION.equals(action)) {
       hasReadPermission();
       return true;
@@ -130,17 +135,17 @@ public class Calendar extends CordovaPlugin {
 
   private void hasReadPermission() {
     this.callback.sendPluginResult(new PluginResult(PluginResult.Status.OK,
-        calendarPermissionGranted(Manifest.permission.READ_CALENDAR)));
+            calendarPermissionGranted(Manifest.permission.READ_CALENDAR)));
   }
 
   private void hasWritePermission() {
     this.callback.sendPluginResult(new PluginResult(PluginResult.Status.OK,
-        calendarPermissionGranted(Manifest.permission.WRITE_CALENDAR)));
+            calendarPermissionGranted(Manifest.permission.WRITE_CALENDAR)));
   }
 
   private void hasReadWritePermission() {
     this.callback.sendPluginResult(new PluginResult(PluginResult.Status.OK,
-        calendarPermissionGranted(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)));
+            calendarPermissionGranted(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)));
   }
 
   private void requestReadPermission(int requestCode) {
@@ -185,6 +190,8 @@ public class Calendar extends CordovaPlugin {
     // now call the originally requested actions
     if (requestCode == PERMISSION_REQCODE_CREATE_CALENDAR) {
       createCalendar(requestArgs);
+    } else if (requestCode == PERMISSION_REQCODE_DELETE_CALENDAR) {
+      deleteCalendar(requestArgs);
     } else if (requestCode == PERMISSION_REQCODE_CREATE_EVENT) {
       createEvent(requestArgs);
     } else if (requestCode == PERMISSION_REQCODE_DELETE_EVENT) {
@@ -258,8 +265,7 @@ public class Calendar extends CordovaPlugin {
           if (activeCalendars == null) {
             activeCalendars = new JSONArray();
           }
-          PluginResult res = new PluginResult(PluginResult.Status.OK, activeCalendars);
-          callback.sendPluginResult(res);
+          callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, activeCalendars));
         } catch (JSONException e) {
           System.err.println("Exception: " + e.getMessage());
           callback.error(e.getMessage());
@@ -268,17 +274,47 @@ public class Calendar extends CordovaPlugin {
     });
   }
 
-  // note: not quite ready for primetime yet
   private void createCalendar(JSONArray args) {
     if (args.length() == 0) {
       System.err.println("Exception: No Arguments passed");
       return;
     }
 
-    // note that if the dev didn't call requestWritePermission before calling this method and calendarPermissionGranted returns false,
-    // the app will ask permission and this method needs to be invoked again (done for backward compat).
     if (!calendarPermissionGranted(Manifest.permission.WRITE_CALENDAR)) {
       requestWritePermission(PERMISSION_REQCODE_CREATE_CALENDAR);
+      return;
+    }
+
+    try {
+      final JSONObject jsonFilter = args.getJSONObject(0);
+      final String calendarColor = getPossibleNullString("calendarColor", jsonFilter);
+      final String calendarName = getPossibleNullString("calendarName", jsonFilter);
+      if (calendarName == null) {
+        callback.error("calendarName is mandatory");
+        return;
+      }
+
+      cordova.getThreadPool().execute(new Runnable() {
+        @Override
+        public void run() {
+          String createdId = getCalendarAccessor().createCalendar(calendarName, calendarColor);
+          callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, createdId));
+        }
+      });
+    } catch (JSONException e) {
+      System.err.println("Exception: " + e.getMessage());
+      callback.error(e.getMessage());
+    }
+  }
+
+  private void deleteCalendar(JSONArray args) {
+    if (args.length() == 0) {
+      System.err.println("Exception: No Arguments passed");
+      return;
+    }
+
+    if (!calendarPermissionGranted(Manifest.permission.WRITE_CALENDAR)) {
+      requestWritePermission(PERMISSION_REQCODE_DELETE_CALENDAR);
       return;
     }
 
@@ -293,11 +329,8 @@ public class Calendar extends CordovaPlugin {
       cordova.getThreadPool().execute(new Runnable() {
         @Override
         public void run() {
-          getCalendarAccessor().createCalendar(calendarName);
-
-          PluginResult res = new PluginResult(PluginResult.Status.OK, "yes");
-          res.setKeepCallback(true);
-          callback.sendPluginResult(res);
+          getCalendarAccessor().deleteCalendar(calendarName);
+          callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, "yes"));
         }
       });
     } catch (JSONException e) {
@@ -314,13 +347,23 @@ public class Calendar extends CordovaPlugin {
       cordova.getThreadPool().execute(new Runnable() {
         @Override
         public void run() {
+          final boolean isAllDayEvent = AbstractCalendarAccessor.isAllDayEvent(new Date(jsonFilter.optLong("startTime")), new Date(jsonFilter.optLong("endTime")));
           final Intent calIntent = new Intent(Intent.ACTION_EDIT)
-              .setType("vnd.android.cursor.item/event")
-              .putExtra("title", getPossibleNullString("title", jsonFilter))
-              .putExtra("beginTime", jsonFilter.optLong("startTime") + TimeZone.getDefault().getOffset(jsonFilter.optLong("startTime")))
-              .putExtra("endTime", jsonFilter.optLong("endTime") + TimeZone.getDefault().getOffset(jsonFilter.optLong("endTime")))
-              .putExtra("hasAlarm", 1)
-              .putExtra("allDay", AbstractCalendarAccessor.isAllDayEvent(new Date(jsonFilter.optLong("startTime")), new Date(jsonFilter.optLong("endTime"))));
+                  .setType("vnd.android.cursor.item/event")
+                  .putExtra("title", getPossibleNullString("title", jsonFilter))
+                  .putExtra("hasAlarm", 1);
+          if(isAllDayEvent){
+            calIntent
+                    .putExtra("allDay", isAllDayEvent)
+                    .putExtra("beginTime", jsonFilter.optLong("startTime") + TimeZone.getDefault().getOffset(jsonFilter.optLong("startTime")))
+                    .putExtra("endTime", jsonFilter.optLong("endTime") + TimeZone.getDefault().getOffset(jsonFilter.optLong("endTime")))
+                    .putExtra("eventTimezone", "TIMEZONE_UTC");
+          } else {
+            calIntent
+                    .putExtra("beginTime", jsonFilter.optLong("startTime"))
+                    .putExtra("endTime", jsonFilter.optLong("endTime"));
+          }
+
           // TODO can we pass a reminder here?
 
           // optional fields
@@ -401,14 +444,13 @@ public class Calendar extends CordovaPlugin {
         public void run() {
 
           boolean deleteResult = getCalendarAccessor().deleteEvent(
-              null,
-              jsonFilter.optLong("startTime"),
-              jsonFilter.optLong("endTime"),
-              getPossibleNullString("title", jsonFilter),
-              getPossibleNullString("location", jsonFilter));
-          PluginResult res = new PluginResult(PluginResult.Status.OK, deleteResult);
-          res.setKeepCallback(true);
-          callback.sendPluginResult(res);
+                  null,
+                  jsonFilter.optLong("startTime"),
+                  jsonFilter.optLong("endTime"),
+                  getPossibleNullString("title", jsonFilter),
+                  getPossibleNullString("location", jsonFilter));
+
+          callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, deleteResult));
         }
       });
     } catch (JSONException e) {
@@ -432,19 +474,22 @@ public class Calendar extends CordovaPlugin {
 
     try {
       final JSONObject jsonFilter = args.getJSONObject(0);
+      final JSONObject argOptionsObject = jsonFilter.getJSONObject("options");
 
       cordova.getThreadPool().execute(new Runnable() {
         @Override
         public void run() {
           JSONArray jsonEvents = getCalendarAccessor().findEvents(
-              getPossibleNullString("title", jsonFilter),
-              getPossibleNullString("location", jsonFilter),
-              jsonFilter.optLong("startTime"),
-              jsonFilter.optLong("endTime"));
+                  getPossibleNullString("id", argOptionsObject),
+                  getPossibleNullString("title", jsonFilter),
+                  getPossibleNullString("location", jsonFilter),
+                  getPossibleNullString("notes", jsonFilter),
+                  jsonFilter.optLong("startTime"),
+                  jsonFilter.optLong("endTime"),
+                  getPossibleNullString("calendarId", argOptionsObject))
+          ;
 
-          PluginResult res = new PluginResult(PluginResult.Status.OK, jsonEvents);
-          res.setKeepCallback(true);
-          callback.sendPluginResult(res);
+          callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, jsonEvents));
         }
       });
     } catch (JSONException e) {
@@ -470,20 +515,29 @@ public class Calendar extends CordovaPlugin {
         public void run() {
           try {
             final String createdEventID = getCalendarAccessor().createEvent(
-                null,
-                getPossibleNullString("title", argObject),
-                argObject.getLong("startTime"),
-                argObject.getLong("endTime"),
-                getPossibleNullString("notes", argObject),
-                getPossibleNullString("location", argObject),
-                argOptionsObject.optLong("firstReminderMinutes", -1),
-                argOptionsObject.optLong("secondReminderMinutes", -1),
-                getPossibleNullString("recurrence", argOptionsObject),
-                argOptionsObject.optInt("recurrenceInterval"),
-                argOptionsObject.optLong("recurrenceEndTime"),
-                argOptionsObject.optInt("calendarId", 1),
-                getPossibleNullString("url", argOptionsObject));
-            callback.success(createdEventID);
+                    null,
+                    getPossibleNullString("title", argObject),
+                    argObject.getLong("startTime"),
+                    argObject.getLong("endTime"),
+                    getPossibleNullString("notes", argObject),
+                    getPossibleNullString("location", argObject),
+                    argOptionsObject.optLong("firstReminderMinutes", -1),
+                    argOptionsObject.optLong("secondReminderMinutes", -1),
+                    getPossibleNullString("recurrence", argOptionsObject),
+                    argOptionsObject.optInt("recurrenceInterval", -1),
+                    getPossibleNullString("recurrenceWeekstart", argOptionsObject),
+                    getPossibleNullString("recurrenceByDay", argOptionsObject),
+                    getPossibleNullString("recurrenceByMonthDay", argOptionsObject),
+                    argOptionsObject.optLong("recurrenceEndTime", -1),
+                    argOptionsObject.optLong("recurrenceCount", -1),
+                    getPossibleNullString("allday", argOptionsObject),
+                    argOptionsObject.optInt("calendarId", 1),
+                    getPossibleNullString("url", argOptionsObject));
+            if (createdEventID != null) {
+              callback.success(createdEventID);
+            } else {
+              callback.error("Fail to create an event");
+            }
           } catch (JSONException e) {
             e.printStackTrace();
           }
@@ -538,37 +592,41 @@ public class Calendar extends CordovaPlugin {
           calendar_end.setTime(date_end);
 
           //projection of DB columns
-          String[] l_projection = new String[]{"calendar_id", "title", "begin", "end", "eventLocation", "allDay", "_id"};
+          String[] l_projection = new String[]{"calendar_id", "title", "begin", "end", "eventLocation", "allDay", "_id", "rrule", "rdate", "exdate", "event_id"};
 
           //actual query
           Cursor cursor = contentResolver.query(
-              l_eventUri,
-              l_projection,
-              "(deleted = 0 AND" +
-                  "   (" +
-                  // all day events are stored in UTC, others in the user's timezone
-                  "     (eventTimezone  = 'UTC' AND begin >=" + (calendar_start.getTimeInMillis() + TimeZone.getDefault().getOffset(calendar_start.getTimeInMillis())) + " AND end <=" + (calendar_end.getTimeInMillis() + TimeZone.getDefault().getOffset(calendar_end.getTimeInMillis())) + ")" +
-                  "     OR " +
-                  "     (eventTimezone <> 'UTC' AND begin >=" + calendar_start.getTimeInMillis() + " AND end <=" + calendar_end.getTimeInMillis() + ")" +
-                  "   )" +
-                  ")",
-              null,
-              "begin ASC");
+                  l_eventUri,
+                  l_projection,
+                  "(deleted = 0 AND" +
+                          "   (" +
+                          // all day events are stored in UTC, others in the user's timezone
+                          "     (eventTimezone  = 'UTC' AND begin >=" + (calendar_start.getTimeInMillis() + TimeZone.getDefault().getOffset(calendar_start.getTimeInMillis())) + " AND end <=" + (calendar_end.getTimeInMillis() + TimeZone.getDefault().getOffset(calendar_end.getTimeInMillis())) + ")" +
+                          "     OR " +
+                          "     (eventTimezone <> 'UTC' AND begin >=" + calendar_start.getTimeInMillis() + " AND end <=" + calendar_end.getTimeInMillis() + ")" +
+                          "   )" +
+                          ")",
+                  null,
+                  "begin ASC");
 
           int i = 0;
           if (cursor != null) {
             while (cursor.moveToNext()) {
               try {
                 result.put(
-                    i++,
-                    new JSONObject()
-                        .put("calendar_id", cursor.getString(cursor.getColumnIndex("calendar_id")))
-                        .put("event_id", cursor.getString(cursor.getColumnIndex("_id")))
-                        .put("title", cursor.getString(cursor.getColumnIndex("title")))
-                        .put("dtstart", cursor.getLong(cursor.getColumnIndex("begin")))
-                        .put("dtend", cursor.getLong(cursor.getColumnIndex("end")))
-                        .put("eventLocation", cursor.getString(cursor.getColumnIndex("eventLocation")) != null ? cursor.getString(cursor.getColumnIndex("eventLocation")) : "")
-                        .put("allDay", cursor.getInt(cursor.getColumnIndex("allDay")))
+                        i++,
+                        new JSONObject()
+                                .put("calendar_id", cursor.getString(cursor.getColumnIndex("calendar_id")))
+                                .put("id", cursor.getString(cursor.getColumnIndex("_id")))
+                                .put("event_id", cursor.getString(cursor.getColumnIndex("event_id")))
+                                .put("rrule", cursor.getString(cursor.getColumnIndex("rrule")))
+                                .put("rdate", cursor.getString(cursor.getColumnIndex("rdate")))
+                                .put("exdate", cursor.getString(cursor.getColumnIndex("exdate")))
+                                .put("title", cursor.getString(cursor.getColumnIndex("title")))
+                                .put("dtstart", cursor.getLong(cursor.getColumnIndex("begin")))
+                                .put("dtend", cursor.getLong(cursor.getColumnIndex("end")))
+                                .put("eventLocation", cursor.getString(cursor.getColumnIndex("eventLocation")) != null ? cursor.getString(cursor.getColumnIndex("eventLocation")) : "")
+                                .put("allDay", cursor.getInt(cursor.getColumnIndex("allDay")))
                 );
               } catch (JSONException e) {
                 e.printStackTrace();
@@ -577,8 +635,7 @@ public class Calendar extends CordovaPlugin {
             cursor.close();
           }
 
-          PluginResult res = new PluginResult(PluginResult.Status.OK, result);
-          callback.sendPluginResult(res);
+          callback.sendPluginResult(new PluginResult(PluginResult.Status.OK, result));
         }
       });
     } catch (JSONException e) {

@@ -5,8 +5,8 @@
     "buttonName": [ "Close", "Manual Position", "Enable Position" ]
   },
   "chooseThreeSearchCenter": {
-    "message": "Select the center of the search area of services or the location where you want to know the weather.",
-    "title": "Search",
+    "message": "Where do you want to search?",
+    "title": "",
     "buttonName": [ "GPS", "Manual Position", "Last Service" ]
   }
 }

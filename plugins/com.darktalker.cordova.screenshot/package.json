@@ -1,0 +1,67 @@
+{
+  "name": "com.darktalker.cordova.screenshot",
+  "version": "0.1.6",
+  "description": "screenshot PhoneGap Plugin for Android",
+  "cordova": {
+    "id": "com.darktalker.cordova.screenshot",
+    "platforms": [
+      "android",
+      "ios",
+      "osx"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitawego/cordova-screenshot.git"
+  },
+  "keywords": [
+    "cordova",
+    "screenshot",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-osx"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": {
+    "name": "Hongbo LU"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gitawego/cordova-screenshot/issues"
+  },
+  "homepage": "https://github.com/gitawego/cordova-screenshot#readme",
+  "gitHead": "39c46a73e7f71641503de35ff0c6f6100cc4a2c1",
+  "_id": "com.darktalker.cordova.screenshot@0.1.6",
+  "scripts": {},
+  "_shasum": "647a53450f9617219b63283f586685e27cdb96b3",
+  "_from": "com.darktalker.cordova.screenshot@latest",
+  "_npmVersion": "3.10.9",
+  "_nodeVersion": "7.1.0",
+  "_npmUser": {
+    "name": "gitawego",
+    "email": "gitawego@gmail.com"
+  },
+  "dist": {
+    "shasum": "647a53450f9617219b63283f586685e27cdb96b3",
+    "tarball": "https://registry.npmjs.org/com.darktalker.cordova.screenshot/-/com.darktalker.cordova.screenshot-0.1.6.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "gitawego",
+      "email": "gitawego@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/com.darktalker.cordova.screenshot-0.1.6.tgz_1481876927291_0.5939764059148729"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/com.darktalker.cordova.screenshot/-/com.darktalker.cordova.screenshot-0.1.6.tgz",
+  "readme": "ERROR: No README data found!"
+}

@@ -1,0 +1,345 @@
+{
+ "utility": {
+  "appName": "Florence où, que... Km4city"
+ },
+ "instigatorMenu": {
+  "headerTitle": "Empfehlungen",
+  "noThis": "Empfehlungen entfernen",
+  "noForever": "Nicht mehr empfehlen",
+  "noForeverSubCategory": "Diese Art von Elementen nicht mehr empfehlen",
+  "more": "Weitere Empfehlungen",
+  "allCategories": "Alle Kategorien anzeigen",
+  "noSuggestions": "Es wurden keine Empfehlungen angefordert, oder die Einstellungen haben sich geändert.",
+  "noGroupSuggestions": "Momentan sind für diese Kategorie keine Empfehlungen verfügbar.",
+  "suggestions": "Empfehlungen anfordern",
+  "addToCalendar": "Zum Kalender hinzufügen",
+  "vote": "Vote Suggestion"
+ },
+ "principalMenu": {
+  "headerTitle": "Was möchten Sie tun?",
+  "discoverCity": "Karte",
+  "aroundYou": "Nähere Umgebung",
+  "poi": "Interessante Punkte",
+  "textSearch": "Suche Services",
+  "publicTransport": "Öffentliche Verkehrsmittel",
+  "privateTransport": "Privatverkehr",
+  "ticket": "Busfahrkarten",
+  "mobilitySecondaryMenu": "Mobilità",
+  "parking": "Parkplätze",
+  "events": "Veranstaltungen",
+  "suggestionsNearYou": "Empfehlungen in Ihrer Nähe",
+  "suggestions": "Empfehlungen",
+  "weather": "Wetter",
+  "navigator": "Suche",
+  "favourites": "Favoriten",
+  "chronology": "Chronologie Service",
+  "lastContribution": "Neueste Bewertungen",
+  "infoSOC": "Zivilschutz- Alarm",
+  "settings": "Einstellungen",
+  "rating": "Wählen Sie eine APP!",
+  "information": "Informationen",
+  "aboutUs": "Über uns",
+  "returnMenu": "Zurück zum Hauptmenü",
+  "alertLogoMessage": "Hier klicken um zum Menü zurück zu kommen",
+  "personalAssistant": "Assistent",
+  "other": "Andere",
+  "login": "Anmeldung",
+  "profile": "Profil",
+  "greenAreas": "Grünanlagen",
+  "accommodation": "Unterkünfte",
+  "advertising": "Werbung",
+  "agricultureAndLivestock": "Landwirtschaft und Viehzucht",
+  "civilAndEdilEngineering": "Hoch- und Tiefbau",
+  "culturalActivity": "Kulturelle Aktivitäten",
+  "educationAndResearch": "Ausbildung und Forschung",
+  "emergency": "Notaufnahme",
+  "entertainment": "Unterhaltung",
+  "environment": "Umgebung",
+  "financialService": "Finanzdienstleister",
+  "governmentOffice": "Öffentliche Stellen",
+  "healthCare": "Gesundheitswesen",
+  "industryAndManufacturing": "Industrie und Produktion",
+  "miningAndQuarrying": "Bergbau",
+  "shoppingAndService": "Einkaufen und Dienstleistungen",
+  "tourismService": "Fremdenverkehrszentrum",
+  "transferServiceAndRenting": "Umzugs- und Verleihservice",
+  "utilitiesAndSupply": "Dienste und Lieferanten",
+  "wholesale": "Großhandel",
+  "wineAndFood": "Önogastronomie",
+  "cyclePaths": "Fahrradwege",
+  "pharmacy": "Apotheken",
+  "tips": "Tipps",
+  "moduleExampleMenu": "example module",
+  "moduleParkingSearcher": "Parkplätze"
+ },
+ "principalMenuModifing": {
+  "hide": "Verstecken",
+  "show": "Show",
+  "touchAndMove": "Bewegen"
+ },
+ "settingsMenu": {
+  "headerTitle": "<i class=\"glyphicon glyphicon-cog\"></i> Einstellungen",
+  "defaultButton": "Zurück",
+  "cancelButton": "Löschen",
+  "saveButton": "Speichern"
+ },
+ "information": {
+  "headerTitle": "<i class=\"glyphicon glyphicon-info-sign\"></i> Informationen",
+  "acceptButton": "Bestätigen",
+  "firstP": "Es zeigt Ihnen alle Angebote an, die es in Ihrer Nähe oder an einem von Ihnen gewählten Ort gibt. Sie finden Restaurants, Bäder, kostenloses WLAN, Fahrräder, Parkanlagen, digitale Standorte, Verspätungen von Bussen, Parkhäuser, Apotheken, Geldautomaten, usw. Es gibt ortsgebundene Dienste zu Verkehr und Mobilität, Kulturerbe, Krankenhäuser, Wetterdienste, Dienstleistungen, Bushaltestellen und Wartezeiten, Banken, digitale Standorte, Energie und vieles mehr, in Bild, Ton und Dokumenten. Die verfügbaren Daten finden Sie über <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org/6726', '_system');\"    >http://www.disit.org/6726</a> und es gibt ungefähr 100.000 Angebote in Florenz, Pisa, Prato, Pistoia, Arezzo, Empoli und in der gesamten Toskana. Sie beziehen sich auf die gesamte Toskana, insbesondere auf das Umland um Florenz. Sie kommen von der MHC der Region Toskana, von LAMMA, von der Verkehrsbeobachtung und -verwaltung, von der Kommune Florenz usw. ",
+  "secondP": "Auf Km4City sind zahlreiche Informationen über die Kommune Toskana und über Florenz verfügbar, <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org', '_system');\">http://www.km4city.org</a>, und für die Entwickler <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a>.",
+  "thirdP": "Km4City ist eine skalierbare und effiziente Lösung für die Bereitstellung innovativer Dienste in schnellen und unentschlossenen Zeiten (i). Es stellt  integrierte/komplexe Daten bereit und (ii) ermöglicht die Verbindung von privaten oder spezifische Daten mit offenen Daten; Dienste mit einfachen und effektiven API zur Entwicklung von mobilen und Web-Anwendungen, die auf kohärente Weise Daten verwenden und konstant komplexe, aktuelle Daten liefern. Km4City umfasst Entwicklungs- und Herstellungstools und basiert auf dem Km4City-Modell (<a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org/km4city', '_system');\">http://www.disit.org/km4city</a>) sowie auf einer Reihe neu entwickelter Tools, die momentan im Aggregator von Florenz im Gebrauch sind, entwickelt von DISIT Lab, verfügbar über <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a> (auch mit API verfügbar). Die Lösung Km4City basiert auf dem nationalen Projekt Sii-Mobility smart city sowie dem Projekt RESOLUTE H2020.  Die Anwendung Km4City misst in der Stadt Wi-Fi- und BT-Signale und übermittelt diese an einen zentralen Server in vollständig anonymisierter Form, um die Quellen in der Stadt zu abzubilden. Die Anwendung bietet Vorschläge basierend auf dem ausgewählten Benutzerprofil (Bürger, Pendler, Student, Neutral und Tourist). Auch hier greift die Anwendung nicht auf personenbezogene Daten zurück, um Sie zu identifizieren, sondern allein auf Ihr allgemeines Profil, ohne dabei auf Ihre persönlichen Daten zuzugreifen, das heißt also, unter Berücksichtigung der Privatsphäre.",
+  "fourthP": "Diese Anwendung wurde unter Verwendung der Dienste und der API von Km4City (<a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.org/km4city', '_system');\">http://www.disit.org/km4city</a>) durch das DISIT Lab der Universität Università degli Studi di Firenze entwickelt (<a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.disit.dinfo.unifi.it', '_system');\">http://www.disit.dinfo.unifi.it</a>). Es soll aktuelle Informationen über die Stadt zur Verfügung stellen. Auf Km4City können Unternehmen und Institutionen offene, private, sensible und/oder kritische Informationen hoch laden, die mit denen über die Stadt zusammenhängen, sowie neue Dienste für ihr qualifiziertes Personal und/oder für die Bürger kreieren. Dabei ist es möglich, Apps und Internetseiten zu entwickeln, die einfach und schnell auf diese Dienste zurückgreifen können. Das Basisinstrument ist im Internet verfügbar über <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a>.",
+  "fifthP": "Eine Version der Internet-App ist verfügbar über <a class=\"extern\" href=\"#\" onclick=\"window.open('http://www.km4city.org', '_system');\">http://www.km4city.org</a>.",
+  "sixthP": "Durch die Nutzung dieser Anwendung bestätigen Sie automatisch Ihr Einverständnis mit diesem Verfahren. Es ist möglich, diese Einstellungen zu deaktivieren. Wir danken Ihnen für die Erlaubnis, diese Daten zu sammeln, um sie für die Dienstleistungen der Stadt sowie für Forschungszwecke zu verwenden. ",
+  "seventhP": "Die Symbole auf der Karte, die die Dienste anzeigen, sind folgender Seite entnommen: <a class=\"extern\" href=\"#\" onclick=\"window.open('https://mapicons.mapsmarker.com', '_system');\"> <b>Maps Icons Collection</b> </a>",
+  "firstI": "DISIT garantiert nicht, dass die heute aktiven Dienste, die Sie auf der Seite <a class=\"extern\" href=\"#\" onclick=\"window.open('http://servicemap.disit.org', '_system');\">http://servicemap.disit.org</a> finden, sowie km4city, stets in derselben Form erhalten bleiben und/oder aktiv sein werden. Für weitere Informationen kontaktieren Sie bitte <a href=\"#\" class=\"extern\" onclick=\"window.open('mailto:info@disit.org', '_system');\">info@disit.org</a>.",
+  "fifthBP": "Der Nutzer überträgt automatisch alle Rechte auf gesendete Bilder und Kommentare an das System und ist einverstanden, dass diese veröffentlicht werden, insofern sie durch das System bestätigt wurden.",
+  "labelLinkLog": "Vgl. log"
+ },
+ "threeVerticalDotMenu": {
+  "chronology": "Chronologie <i class=\"glyphicon glyphicon-time\"></i>",
+  "instigator": "Abschließende Empfehlungen <i class=\"glyphicon glyphicon-hand-left\"></i>",
+  "contribution": "Neueste Beiträge <i class=\"icon ion-person-add\"></i>",
+  "settings": "Einstellungen <i class=\"glyphicon glyphicon-cog\"></i>",
+  "information": "Informationen <i class=\"glyphicon glyphicon-info-sign\"></i>",
+  "rate": "Tarif <i class=\"glyphicon glyphicon-star\"></i>",
+  "help": "Hilfe"
+ },
+ "textSearchMenu": {
+  "inputPlaceholder": "Suche PDI...",
+  "lines": "Linien: ",
+  "civic": "Hausnummer: ",
+  "buttonTuscany": "Toskana",
+  "buttonAround": "Umgebung",
+  "headerTitle": "Ergebnisse"
+ },
+ "eventsMenu": {
+  "headerTitle": "Veranstaltungen",
+  "dayButton": "Heute",
+  "weekButton": "Woche",
+  "monthButton": "Monat"
+ },
+ "busRoutesMenu": {
+  "headerTitle": "Haltestellen",
+  "lines": "Linien: ",
+  "closerAt": "Am nächsten ",
+  "terminal": "Eindpunt",
+  "servicesOnLine": "Dienstleistungen auf der Strecke"
+ },
+ "busRoutesInfoModal": {
+  "headerTitle": "Linie ",
+  "noBusRoutes": "Momentan nicht verfügbare Strecken"
+ },
+ "personalAssistantMenu": {
+  "headerTitle": "Keine Nachricht verfügbar",
+  "empty": "Keine Nachricht verfügbar",
+  "review": "Bewertung",
+  "seeService": "Siehe Dienst",
+  "gpsOrderText": "Näher",
+  "receivedOrderText": "Neueste",
+  "timeoutOrderText": "Auslaufeden",
+  "survey": "Antworten"
+ },
+ "lastContributionsMenu": {
+  "headerTitle": "<i class=\"icon ion-android-person-add\"></i> Gebühren",
+  "empty": "Einen Augenblick Geduld bitte...",
+  "comment": "Kommentar: ",
+  "commentsHeader": "Neueste Kommentare",
+  "photosHeader": "Neueste Fotos",
+  "starsHeader": "Zuletzt gewählt"
+ },
+ "chronologyMenu": {
+  "headerTitle": "<i class=\"glyphicon glyphicon-time\"></i> Chronologie",
+  "emptyButton": "<i class=\"glyphicon glyphicon-trash\"></i> Leeren",
+  "date": "Angezeigt: ",
+  "empty": "Kein dienst angezeigt.<br>Dienste suchen anklicken"
+ },
+ "favouritesMenu": {
+  "headerTitle": "<i class=\"glyphicon glyphicon-star\"></i> Favoriten",
+  "empty": "Kein dienst favorit"
+ },
+ "ticketingMenu": {
+  "headerTitle": "<i class=\"fa fa-bus\"></i> Busfahrkarte kaufen",
+  "minutes": "Minuten",
+  "urban": "Im Stadtgebiet von ",
+  "valid": "Gültig ",
+  "from": "von ",
+  "to": " bis ",
+  "buy": "SMS senden",
+  "disclaimer": "Dieser Dienst ist für Telefonkunden von TIM, Vodafone Italia, Wind und 3 Italia verfügbar und ermöglicht den Erwerb von Busfahrkarten für Stadtgebiete und/oder bestimmte Strecken. Die Anwendung greift hinsichtlich des Erwerbs per SMS auf die Dienste der örtlichen, öffentlichen Transportunternehmen zurück. Die Bedingungen werden dabei Schritt für Schritt beschrieben und könnten ohne unseres Wissens variieren. Der Kauf erfolgt vor dem Einsteigen und zur Berechnung der Gültigkeitsdauer des Tickets ist die Zeit entscheidend, wann die SMS versendet wurde. Das verspätete oder direkt im Bus durchgeführte Versenden der Nachricht wird wie üblich sanktioniert. Durch Anklicken des Unternehmens ist es möglich, genauere Informationen hinsichtlich der unterschiedlichen Fahrkarten zu erhalten. Die Macher dieser App übernehmen keinerlei Haftung für die Folgen von unsachgemäßem Gebrauch oder bei Fehlfunktionen des Dienstes."
+ },
+ "categorySearchMenu": {
+  "headerTitle": "POI wählen",
+  "goButton": "<i class=\"glyphicon glyphicon-search\"></i> Suche",
+  "lastResultsButton": "Ergebnisse",
+  "filter": "Filter...",
+  "filterLines": "Filter linien...",
+  "noService": "Keinen interessanten Punkt gefunden",
+  "results": "Ergebnisse",
+  "filterButtonTpl": "Filter"
+ },
+ "infoMenu": {
+  "type": "Typ: ",
+  "address": "Adresse: ",
+  "phone": "Telefon: ",
+  "fax": "Fax: ",
+  "website": "Internetseite: ",
+  "email": "Email: ",
+  "description": "Beschreibung: ",
+  "note": "Anmerkungen: ",
+  "photo": "Foto: ",
+  "document": "Dokument: ",
+  "guide": "Guide: ",
+  "linkDBpedia": "DBPedia: ",
+  "startTime": "Startzeit: ",
+  "startDate": "Eröffnungsdatum: ",
+  "endDate": "Enddatum: ",
+  "date": "Datum: ",
+  "avgStars": "Durchschnittliche Bewertungen: ",
+  "userStars": "Stimmen",
+  "starsCount": "Stimmenzahl: ",
+  "sharedFrom": "Shared From ",
+  "sharedRunning": "Creating the screenshot...",
+  "updateTimetable": "Aktualisieren",
+  "seeAllTimetable": "Alle Anzeigen",
+  "timeout": "Ablauf: ",
+  "whatYouThink": "Was denken sie über den service?",
+  "reviews": "Bewertungen",
+  "comment": "Kommentar"
+ },
+ "pictureModal": {
+  "abort": "Abbruch",
+  "insertComment": "Insert comment..."
+ },
+ "feedbackModal": {
+  "rate": "Auswahl",
+  "comment": "Kommentar",
+  "takePhoto": "Foto knipsen<br><i style=\"font-size:25px;\" class=\"fa fa-camera-retro\"></i>",
+  "uploadPhoto": "Foto hochladen<br><i style=\"font-size:25px;\" class=\"fa fa-picture-o\"></i>"
+ },
+ "newSuggestionsModal": {
+  "headerTitle": "New Suggestions!"
+ },
+ "busStop": {
+  "noRealTime": "Echtzeit-Daten vom Betreiber zeitweilig nicht zur Verfügung gestellt.",
+  "time": "Uhrzeit",
+  "number": "Linie",
+  "status": "Status",
+  "direction": "Richtung",
+  "datatableInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
+  "datatableInfoEmpty": "0 bis 0 von 0 Einträgen",
+  "datatableZeroRecords": "Keine Einträge vorhanden",
+  "datatableLengthMenu": "Einträge _MENU_",
+  "datatableSearch": "Suchen"
+ },
+ "weather": {
+  "noWeatherAvailable": "Wettervorhersage nicht verfügbar",
+  "noForecast": "Wetterdaten vom Betreiber zeitweilig nicht zur Verfügung gestellt.",
+  "Lunedi": "Montag",
+  "Martedi": "Dienstag",
+  "Mercoledi": "Mittwoch",
+  "Giovedi": "Donnerstag",
+  "Venerdi": "Freitag",
+  "Sabato": "Samstag",
+  "Domenica": "Sonntag"
+ },
+ "weekDay": {
+  "0": "Sonntag",
+  "1": "Montag",
+  "2": "Dienstag",
+  "3": "Mittwoch",
+  "4": "Donnerstag",
+  "5": "Freitag",
+  "6": "Samstag"
+ },
+ "roadSensor": {
+  "noRealTime": "Echtzeit-Daten vom Betreiber zeitweilig nicht zur Verfügung gestellt.",
+  "avgDistance": "Mittlere Entfernung (m)",
+  "avgTime": "Durchschnittliche Zeit (s)",
+  "occupancy": "Belegung (%)",
+  "concentration": "Konzentration (Auto/km)",
+  "vehicleFlow": "Fahrzeugfluss (Auto/h)",
+  "averageSpeed": "Durchschnittgeschwindigkeit (Km/h)",
+  "thresholdPerc": "Schwelle (%)",
+  "speedPercentile": "Perzentilgeschwindigkeit (%)"
+ },
+ "carPark": {
+  "noRealTime": "Echtzeit-Daten vom Betreiber zeitweilig nicht zur Verfügung gestellt.",
+  "freeLots": "Echtzeit",
+  "freeLotsPrediction": "Prognose",
+  "freeLotsPredictions": "Prognose",
+  "dailyTrend": "Täglichen Trend"
+ },
+ "searchPopUp": {
+  "suggestions": "Empfehlungen",
+  "aroundYou": "Nähere Umgebung",
+  "remove": "Entfernen"
+ },
+ "gpsPopUp": {
+  "suggestions": "Empfehlungen",
+  "aroundYou": "In Ihrer Umgebung",
+  "lastSuggestions": "Jüngste Empfehlungen"
+ },
+ "chooseProfile": {
+  "welcome": "Willkommen! Sind Sie ein?",
+  "disclaimerText": "Mit Klick auf die buttons, akzeptiere ich die",
+  "disclaimerLink": "Nutzungsbedingungen der App"
+ },
+ "navigatiorSearcherBar": {
+  "navigationMode": "Navigation"
+ },
+ "servicesFounded": {
+  "services": "Dienste: ",
+  "events": "Veranstaltungen: ",
+  "on": " auf ",
+  "available": " Verfügbarkeit"
+ },
+ "suggestionsNotify": {
+  "text": "Hier klicken für Empfehlungen.",
+  "title": "Neue Empfehlungen in Ihrer Nähe!"
+ },
+ "shareFacebook": {
+  "paste": "Fügen Sie den Text in den Status ein."
+ },
+ "apiclient": {
+  "operationRunning": "Laufende Operation..."
+ },
+ "commonLabels": {
+  "distance": "Distanz: ",
+  "close": "Schließen",
+  "send": "Senden",
+  "cancel": "Abbrechen"
+ },
+ "userProfile": {
+  "headerTitle": "Profile",
+  "betterService": "Wir arbeiten daran, ihnen einen besseren service zu bieten",
+  "logout": "Ausloggen"
+ },
+ "authentication": {
+  "register": "Registrieren",
+  "login": "Anmeldung",
+  "email": "Email",
+  "password": "Passwort",
+  "confirmPassword": "Bestätige das Passwort",
+  "skip": "Überspringen",
+  "or": "oder",
+  "send": "Senden",
+  "back": "Zurück"
+ },
+ "tipsMenu": {
+  "notShowAgain": "Nicht Wieder Sehen",
+  "showAtStart": "Show Bei Start"
+ },
+ "exampleMenu": {
+  "title": "Esempio"
+ },
+ "parkingMenu": {
+  "title": "Parkplätz",
+  "gpsOrderText": "Näher <i class=\"glyphicon glyphicon-record\">",
+  "searchCenterOrderText": "Näher <i class=\"glyphicon glyphicon-map-marker\">",
+  "freeParkingOrderText": "Parkplätz Vorhanden",
+  "freeLotsForecast30": "Von 30Min",
+  "freeLotsForecast60": "Von 60Min"
+ }
+}

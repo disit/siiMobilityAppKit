@@ -1,7 +1,8 @@
 {
   "name": "cordova-plugin-file",
-  "version": "4.3.0",
+  "version": "5.0.0",
   "description": "Cordova File Plugin",
+  "types": "./types/index.d.ts",
   "cordova": {
     "id": "cordova-plugin-file",
     "platforms": [
@@ -20,7 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-file"
+    "url": "git+https://github.com/apache/cordova-plugin-file.git"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
   },
   "keywords": [
     "cordova",
@@ -39,19 +43,80 @@
     "cordova-firefoxos"
   ],
   "scripts": {
-    "test": "npm run jshint",
-    "jshint": "node node_modules/jshint/bin/jshint www && node node_modules/jshint/bin/jshint src && node node_modules/jshint/bin/jshint tests"
+    "test": "npm run eslint",
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests"
   },
-  "author": "Apache Software Foundation",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
   "license": "Apache-2.0",
   "engines": {
     "cordovaDependencies": {
       "5.0.0": {
+        "cordova-android": ">=6.3.0"
+      },
+      "6.0.0": {
         "cordova": ">100"
       }
     }
   },
   "devDependencies": {
-    "jshint": "^2.6.0"
-  }
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-file#readme",
+  "_id": "cordova-plugin-file@5.0.0",
+  "_shasum": "d397682321669c000be8c71f8ef4438aae8f925d",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-file/-/cordova-plugin-file-5.0.0.tgz",
+  "_from": "cordova-plugin-file@5.0.0",
+  "_npmVersion": "4.6.1",
+  "_nodeVersion": "6.6.0",
+  "_npmUser": {
+    "name": "stevegill",
+    "email": "stevengill97@gmail.com"
+  },
+  "dist": {
+    "shasum": "d397682321669c000be8c71f8ef4438aae8f925d",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-file/-/cordova-plugin-file-5.0.0.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "bowserj",
+      "email": "bowserj@apache.org"
+    },
+    {
+      "name": "csantanapr",
+      "email": "csantana23@gmail.com"
+    },
+    {
+      "name": "filmaj",
+      "email": "maj.fil@gmail.com"
+    },
+    {
+      "name": "kotikov.vladimir",
+      "email": "kotikov.vladimir@gmail.com"
+    },
+    {
+      "name": "purplecabbage",
+      "email": "purplecabbage@gmail.com"
+    },
+    {
+      "name": "shazron",
+      "email": "shazron@gmail.com"
+    },
+    {
+      "name": "stevegill",
+      "email": "stevengill97@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-plugin-file-5.0.0.tgz_1510361700540_0.3414947600103915"
+  },
+  "directories": {}
 }

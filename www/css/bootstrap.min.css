@@ -19,7 +19,7 @@
 
 .navbar-brand, .navbar-nav>li>a {
 	line-height: 200%;
-	height: 200%;
+	/*height: 200%;*/
 	padding-top: 0;
 	padding-bottom: 0;
 }
@@ -52,6 +52,7 @@ color: #555;
 
 .list-group-item {
     padding: 7px 15px;
+    border: 1px solid #eee
 }
 
 .popover {
@@ -86,4 +87,8 @@ border-bottom-left-radius: 0px;
 
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     padding: 6px;
+}
+
+.modal{
+    z-index: 10004
 }

@@ -1,6 +1,6 @@
 {
   "connectionError": {
-    "message": "No active internet connection. Check if the wi-fi connection or the internet data connection are active.",
+    "message": "It is not possible to retrieve requested information. Try again to perform the request!",
     "title": "Check Connection",
     "buttonName": ""
   },
@@ -9,7 +9,12 @@
     "title": "Services Not Selected",
     "buttonName": ""
   },
-  "servicesServerError": {
+  "timeoutError": {
+    "message": "It is not possible to retrieve requested information. Try again to perform the request.",
+    "title": "Check Connection",
+    "buttonName": ""
+  },
+"servicesServerError": {
     "message": "It is not possible to retrieve requested information. Try again to perform the request.",
     "title": "Unavailable Information",
     "buttonName": ""
@@ -40,18 +45,18 @@
     "buttonName": ""
   },
   "chooseGpsManualSearchCenter": {
-    "message": "Select the center of the search area of services or the location where you want to know the weather.",
-    "title": "Search",
+    "message": "Where do you want to search?",
+    "title": "",
     "buttonName": [ "GPS", "Manual Position" ]
   },
   "chooseGpsServiceSearchCenter": {
-    "message": "Select the center of the search area of services or the location where you want to know the weather.",
-    "title": "Search",
+    "message": "Where do you want to search?",
+    "title": "",
     "buttonName": [ "GPS", "Last Service" ]
   },
   "chooseManualServiceSearchCenter": {
-    "message": "Select the center of the search area of services or the location where you want to know the weather.",
-    "title": "Search",
+    "message": "Where do you want to search?",
+    "title": "",
     "buttonName": [ "Manual Position", "Last Service" ]
   },
   "addCalendarSuccess": {
@@ -131,5 +136,70 @@
     "message": "This device does not support the 3D mode of the map.",
     "title": "3D Mode Not Supported",
     "buttonName": ""
+  },
+  "saveSettings": {
+    "message": "Do you want to save?",
+    "title": "",
+    "buttonName": [ "Cancel", "Save" ]
+  },
+   "wrongEmail": {
+    "message": "No email has been entered",
+    "title": "",
+    "buttonName": ""
+  },
+  "wrongConfirmPassword": {
+    "message": "The two passwords are different",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyemail": {
+    "message": "Email not entered",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptypassword": {
+    "message": "Password not entered",
+    "title": "",
+    "buttonName": ""
+  },
+  "emptyconfirmPassword": {
+    "message": "Password must be confirmed",
+    "title": "",
+    "buttonName": ""
+  },
+  "welcomeToApp": {
+    "message": "Welcome to Km4city!!!",
+    "title": "",
+    "buttonName": ""
+  },
+  "unauthorized": {
+    "message": "You are not registered or have entered wrong emails and / or passwords",
+    "title": "",
+    "buttonName": ""
+  },
+  "updateApp": {
+    "message": "You must update your app to access your profile",
+    "title": "",
+    "buttonName": [ "Cancel", "Update" ]
+  },
+  "updateServer": {
+    "message": "We are updating the server",
+    "title": "",
+    "buttonName": ""
+  },
+  "userDuplicate": {
+    "message": "Already registered user",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecified": {
+    "message": "Please authorize your mail information",
+    "title": "",
+    "buttonName": ""
+  },
+  "emailNotSpecifiedFB": {
+    "message": "You can not register if you do not authorize mail information",
+    "title": "",
+    "buttonName": [ "Cancel", "Authorize Email" ]
   }
 }

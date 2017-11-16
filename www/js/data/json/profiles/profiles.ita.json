@@ -4,30 +4,30 @@
       "key": "citizen",
       "label": "Cittadino",
       "icon":  "<i class=\"icon ion-ios-home\"></i>",
-      "backgroundColor":  "#FF6600"
+      "btnClass":  "btn-danger"
     },
     {
       "key": "commuter",
       "label": "Pendolare",
       "icon": "<i class=\"icon ion-android-subway\"></i>",
-      "backgroundColor":  "#FFCC00"
+     "btnClass":  "btn-warning"
     },
     {
       "key": "student",
       "label": "Studente",
       "icon": "<i class=\"icon ion-university\"></i>",
-      "backgroundColor":  "#339933"
+     "btnClass":  "btn-success"
     },
     {
       "key": "tourist",
       "label": "Turista",
-      "icon": "<i class=\"icon ion-earth\"></i>",
-      "backgroundColor":  "#0066FF"
+      "icon": "<i class=\"fa fa-globe\"></i>",
+      "btnClass":  "btn-info"
     },
     {
       "key": "all",
       "label": "Tutti i Servizi",
-      "backgroundColor":  "#CC00FF"
+      "btnClass":  "btn-primary"
     }
   ]
 }

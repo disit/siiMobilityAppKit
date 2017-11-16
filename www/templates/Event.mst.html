@@ -38,15 +38,15 @@
             <!-- 	{{#properties}} -->
 
            
-            <li class="list-group-item" style="padding-top: 8px;padding-bottom: 0px;text-align: center;">
+           <li class="list-group-item" style="padding-top: 8px 0px;text-align: center;">
                 <!-- {{^web}} -->
                 <!-- {{^wp8}} -->
                         <!-- {{^date}} -->
                      
                             <a id="addToCalendar{{identifier}}"
                                onclick="InfoManager.addToCalendar('{{nameEscaped}}','{{addressEscaped}} {{civic}} {{cap}} {{city}}','{{descriptionEscaped}}','{{startDate}}','{{endDate}}');">
-                                <i class="glyphicon glyphicon-calendar"
-                                   style="font-size:25px; color: #b459a9"></i>
+                                <i class="fa fa-calendar-plus-o"
+                                   style="font-size:20px; color: #b459a9"></i>
                             </a>
                         
                         <!-- {{/date}} -->
@@ -54,208 +54,263 @@
                         
                             <a id="addToCalendar{{identifier}}"
                                onclick="InfoManager.addToCalendar('{{nameEscaped}}','{{addressEscaped}} {{civic}} {{cap}} {{city}}','{{descriptionEscaped}}','{{date}}','{{date}}');">
-                                <i class="glyphicon glyphicon-calendar"
-                                   style="font-size:25px; color: #b459a9"></i>
+                                <i class="fa fa-calendar-plus-o"
+                                   style="font-size:20px; color: #b459a9"></i>
                             </a>
                         
                         <!-- {{/date}} -->
                 
-                        <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#eventCategory}}\n\n {{eventCategory}}{{/eventCategory}}{{#eventCategory2}}\n\n {{eventCategory2}}{{/eventCategory2}}{{#startTime}}\n\n{{startTime}}{{/startTime}}{{#startDate}}\n\n{{startDate}}{{/startDate}}{{#endDate}}\n\n{{endDate}}{{/endDate}}{{#date}}\n\n{{date}}{{/date}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n', '{{nameEscaped}}', '{{image}}', 'http://www.km4city.org/', 'infoMenu')"><i style="font-size:25px; padding-left:15px; color: #b459a9" class="icon ion-android-share-alt"></i></a>
+                        <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#eventCategory}}\n\n {{eventCategory}}{{/eventCategory}}{{#eventCategory2}}\n\n {{eventCategory2}}{{/eventCategory2}}{{#startTime}}\n\n{{startTime}}{{/startTime}}{{#startDate}}\n\n{{startDate}}{{/startDate}}{{#endDate}}\n\n{{endDate}}{{/endDate}}{{#date}}\n\n{{date}}{{/date}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n', '{{nameEscaped}}', '{{image}}', 'http://www.km4city.org/', 'infoMenu')"><i style="font-size:25px; padding-left:15px; color: #b459a9" class="fa fa-share-alt"></i></a>
                         <!--{{/wp8}}-->
                         <!--{{#wp8}}-->
-                        <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#eventCategory}}\n\n {{eventCategory}}{{/eventCategory}}{{#eventCategory2}}\n\n {{eventCategory2}}{{/eventCategory2}}{{#startTime}}\n\n{{startTime}}{{/startTime}}{{#startDate}}\n\n{{startDate}}{{/startDate}}{{#endDate}}\n\n{{endDate}}{{/endDate}}{{#date}}\n\n{{date}}{{/date}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n http://www.km4city.org/', '{{nameEscaped}}', null, null, 'infoMenu')"><i style="font-size:25px; padding-left:15px; color: #b459a9" class="icon ion-android-share-alt"></i></a>
+                        <a href="#" onclick="InfoManager.share('{{nameEscaped}}{{#typeLabel}}\n {{typeLabel}}{{/typeLabel}}{{#eventCategory}}\n\n {{eventCategory}}{{/eventCategory}}{{#eventCategory2}}\n\n {{eventCategory2}}{{/eventCategory2}}{{#startTime}}\n\n{{startTime}}{{/startTime}}{{#startDate}}\n\n{{startDate}}{{/startDate}}{{#endDate}}\n\n{{endDate}}{{/endDate}}{{#date}}\n\n{{date}}{{/date}}{{#descriptionEscaped}}\n\n {{descriptionEscaped}}{{/descriptionEscaped}}{{#description2Escaped}}\n\n {{description2Escaped}}{{/description2Escaped}}{{#addressEscaped}}\n\n {{addressEscaped}},{{civic}}\n {{cap}} {{city}} ({{province}}){{/addressEscaped}}{{#phone}}\n\n{{phone}}{{/phone}}{{#website}}\n{{website}}{{/website}}{{#email}}\n{{email}}{{/email}}{{#note}}\n\n {{note}}{{/note}}\n\n http://www.km4city.org/', '{{nameEscaped}}', null, null, 'infoMenu')"><i style="font-size:25px; padding-left:15px; color: #b459a9" class="fa fa-share-alt"></i></a>
                         <!-- {{/wp8}} -->
-                <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();PictureManager.pickPhotoFromAlbum('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;color: #b459a9" class="icon ion-images {{currentLanguage}} {{category}}"></i></a>
-                <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();PictureManager.takePhoto('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;color: #b459a9" class="icon ion-camera {{currentLanguage}} {{category}}"></i></a>
                 <!--{{/web}}-->
                 <!-- {{#web}}-->
-                <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();FeedbackManager.showModal('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;" class="icon ion-images {{currentLanguage}} {{category}}"></i></a>
+                <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();FeedbackManager.showModal('{{serviceUri}}')"><i style="font-size:20px;padding-left:15px;color: #b459a9" class="fa fa-picture-o {{currentLanguage}} {{category}}"></i></a>
                 <!-- {{/web}}-->
-                <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();FeedbackManager.showModal('{{serviceUri}}')"><i style="font-size:25px;padding-left:15px;color: #b459a9" class="icon ion-chatbox"></i></a>
-
+                <a href="#" onclick="InfoManager.collapseInfoAboutOneMarker();InfoManager.addOrRemoveServiceToFavourites();"><i style="font-size:20px;padding-left:12px;color: #b459a9;" class="icon fa fa-heart {{currentLanguage}} {{category}}"></i></a>
+                <a href="#" class="extern" onclick="application.resetInterface();MapManager.resetMarkerExceptSelectedServiceMarker();PathFinder.show(); PathFinder.selectPoint(null, 'text',1,'{{nameEscaped}}',  [{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}]);"><i style="font-size:20px;padding-left:12px;color: #b459a9;" class="icon ion-map {{currentLanguage}} {{category}}"></i></a>
+                {{#android}}
+                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=w', '_system');"><i style="font-size:20px;padding-left:15px;color: #b459a9" class="icon ion-android-walk {{currentLanguage}} {{category}}"></i></a>
+                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=d', '_system');"><i style="font-size:20px;padding-left:15px;color: #b459a9" class="fa fa-car {{currentLanguage}} {{category}}"></i></a>
+                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=r', '_system');"><i style="font-size:20px;padding-left:15px;color: #b459a9" class="fa fa-bus {{currentLanguage}} {{category}}"></i></a>
+                {{/android}}
+                {{#ios}}<a href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:20px;padding-left:15px;color: #b459a9" class="fa fa-location-arrow {{currentLanguage}} {{category}}"></i></a>{{/ios}}
+                {{#wp8}}<a href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:20px;padding-left:15px;color: #b459a9" class="fa fa-location-arrow {{currentLanguage}} {{category}}"></i></a>{{/wp8}}
             </li>
             {{#typeLabel}}
-            <li class="list-group-item"><b id="serviceType">
-            <script>$("#serviceType").html(Globalization.labels.infoMenu.type)</script></b>{{#removeUnderscore}}{{typeLabel}}{{/removeUnderscore}}</li>{{/typeLabel}}
-            {{#carouselThumb}}
-            <li class="list-group-item">
-                <div id="serviceCarouselPhotos" class="carousel slide" style="width:100%; margin-left: auto;margin-right: auto;">
-                    <!-- Indicators -->
-                    <!--{{^onlyOneThumbImage}}<ol class="carousel-indicators">{{#carouselThumbContent}}
-                <li data-target="#serviceCarouselPhotos" data-slide-to="{{index}}" class="{{active}}"></li>
-            {{/carouselThumbContent}}</ol>{{/onlyOneThumbImage}}-->
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner" role="listbox" style="text-align: center;">
-                        {{#carouselThumbContent}}
-                        <div class="item {{active}}" style="left: 15%; width: 70%;height:{{carouselThumbHeight}}px">
-                            <img src="{{photo}}" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; max-height: {{carouselThumbHeight}}px" onclick="InfoManager.showImageModal('{{photoModal}}');">
-                        </div>
-                        {{/carouselThumbContent}}
-                    </div>
-                    <!-- Controls -->
-                    {{^onlyOneThumbImage}}
-                    <a class="left carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="prev" style="background-image: none; background-color: white; opacity: 1;">
-                        <span class="glyphicon glyphicon-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="right carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="next" style="background-image: none; background-color: white; opacity: 1;">
-                        <span class="glyphicon glyphicon-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                    {{/onlyOneThumbImage}}
-                </div>
-            </li>
-            {{/carouselThumb}}
+<li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-arrow-right {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{#removeUnderscore}}{{typeLabel}}{{/removeUnderscore}}</span></li>{{/typeLabel}}
+{{#carouselThumb}}
+<li class="list-group-item">
+    <div id="serviceCarouselPhotos" class="carousel slide" style="width:100%; margin-left: auto;margin-right: auto;">
+        <div class="carousel-inner" role="listbox" style="text-align: center;">
+            {{#carouselThumbContent}}
+            <div class="item {{active}}" style="left: 15%; width: 70%;height:{{carouselThumbHeight}}px">
+                <img src="{{photo}}" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: auto; max-height: {{carouselThumbHeight}}px" onclick="InfoManager.showImageModal('{{photoModal}}');">
+            </div>
+            {{/carouselThumbContent}}
+        </div>
+        <!-- Controls -->
+        {{^onlyOneThumbImage}}
+        <a class="left carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="prev" style="background-image: none; background-color: white; opacity: 1;">
+            <span class="fa fa-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselPhotos" role="button" data-slide="next" style="background-image: none; background-color: white; opacity: 1;">
+            <span class="fa fa-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        {{/onlyOneThumbImage}}
+    </div>
+</li>
+{{/carouselThumb}}
              {{#eventCategory}}
-            <li class="list-group-item"><b id="serviceEventCategory{{identifier}}">
-            <script>$("#serviceEventCategory{{identifier}}").html(Globalization.labels.infoMenu.type)</script></b>{{eventCategory}}</li>{{/eventCategory}}
-            {{#eventCategory2}}
-            <li class="list-group-item"><b id="serviceEventCategory{{identifier}}2">
-            <script>$("#serviceEventCategory{{identifier}}2").html(Globalization.labels.infoMenu.type)</script></b>{{eventCategory2}}</li>{{/eventCategory2}}
+            <li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-arrow-right {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{eventCategory}}</span>{{#eventCategory2}}
+ - {{eventCategory2}}{{/eventCategory2}}</li>{{/eventCategory}}
+            
             {{#startTime}}
-            <li class="list-group-item"><b id="serviceStartTime{{identifier}}">
-            <script>$("#serviceStartTime{{identifier}}").html(Globalization.labels.infoMenu.startTime)</script></b>{{startTime}}</li>{{/startTime}}
+            <li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-clock-o {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{startTime}}</span></li>{{/startTime}}
             {{#startDate}}
-            <li class="list-group-item"><b id="serviceStartDate{{identifier}}">
-            <script>$("#serviceStartDate{{identifier}}").html(Globalization.labels.infoMenu.startDate)</script></b>{{#changeFormatEventsDate}}{{startDate}}{{/changeFormatEventsDate}}</li>{{/startDate}}
-            {{#endDate}}
-            <li class="list-group-item"><b id="serviceEndDate{{identifier}}">
-            <script>$("#serviceEndDate{{identifier}}").html(Globalization.labels.infoMenu.endDate)</script></b>{{#changeFormatEventsDate}}{{endDate}}{{/changeFormatEventsDate}}</li>{{/endDate}}
+            <li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-calendar {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{#changeFormatEventsDate}}{{startDate}}{{/changeFormatEventsDate}}</span>{{#endDate}} |
+{{#changeFormatEventsDate}}{{endDate}}{{/changeFormatEventsDate}}{{/endDate}}</li>{{/startDate}}
             {{#date}}
-            <li class="list-group-item"><b id="serviceDate{{identifier}}">
-            <script>$("#serviceDate{{identifier}}").html(Globalization.labels.infoMenu.date)</script></b>{{#changeFormatEventsDate}}{{date}}{{/changeFormatEventsDate}}</li>{{/date}}
+            <li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-calendar {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{#changeFormatEventsDate}}{{date}}{{/changeFormatEventsDate}}</span></li>{{/date}}
             {{#description}}
-            <li class="list-group-item"><b id="serviceDescription">
-            <script>$("#serviceDescription").html(Globalization.labels.infoMenu.description)</script></b>{{#unescapeHtml}}{{description}}{{/unescapeHtml}}</li>{{/description}}
+            <li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-file-text-o {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{#unescapeHtml}}{{description}}{{/unescapeHtml}}</span></li>{{/description}}
             {{#description2}}
-            <li class="list-group-item"><b id="serviceDescription2">
-            <script>$("#serviceDescription2").html(Globalization.labels.infoMenu.description)</script></b>{{#unescapeHtml}}{{description2}}{{/unescapeHtml}}</li>{{/description2}}
+            <li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-file-text-o {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{#unescapeHtml}}{{description2}}{{/unescapeHtml}}</span></li>{{/description2}}
             {{#audioMP3}}
             <li class="list-group-item"><audio controls><source src="{{audioMP3}}" type="audio/mpeg"></audio></li>{{/audioMP3}}
             {{#audio}}
             <li class="list-group-item"><audio controls><source src="{{audio}}" type="audio/{{multimediaFormat}}"></audio></li>{{/audio}}
             {{#textPDF}}
-            <li class="list-group-item"><b id="serviceDocument">
-            <script>$("#serviceDocument").html(Globalization.labels.infoMenu.document)</script></b><a href="#" class="extern" onclick="window.open('http:{{textPDF}}', '_system');"><img src="img/pdfLogo.png"></a></li>{{/textPDF}}
-            {{#address}}
-            <li class="list-group-item">
-                <b id="serviceStreetAddress">
-                <script>$("#serviceStreetAddress").html(Globalization.labels.infoMenu.address)</script></b>
-                {{#web}}{{address}},{{civic}} {{cap}} {{city}} {{province}}{{/web}}
-                {{#ios}}<a href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>{{/ios}}
-                {{#wp8}}<a href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>{{/wp8}}
-                {{#android}}<a href="#" class="extern" onclick="window.open('geo:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}', '_system');">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>
-                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=w', '_system');"><i style="font-size:18px;padding-left:10px" class="icon ion-android-walk {{currentLanguage}} {{category}}"></i></a>
-                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=d', '_system');"><i style="font-size:18px;padding-left:10px" class="icon ion-android-car {{currentLanguage}} {{category}}"></i></a>
-                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=r', '_system');"><i style="font-size:18px;padding-left:10px" class="icon ion-android-bus {{currentLanguage}} {{category}}"></i></a>{{/android}}
-            </li>{{/address}}
-            {{^address}}
-            <li class="list-group-item">
-                <b id="serviceStreetAddress">
-                <script>$("#serviceStreetAddress").html(Globalization.labels.infoMenu.address)</script></b>
-                {{#ios}}<a href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:18px;padding-left:10px" class="icon ion-navigate {{currentLanguage}} {{category}}"></i></a>{{/ios}}
-                {{#wp8}}<a href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern"><i style="font-size:18px;padding-left:10px" class="icon ion-navigate {{currentLanguage}} {{category}}"></i></a>{{/wp8}}
-                {{#android}}<a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=w', '_system');"><i style="font-size:18px;padding-left:10px" class="icon ion-android-walk {{currentLanguage}} {{category}}"></i></a>
-                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=d', '_system');"><i style="font-size:18px;padding-left:10px" class="icon ion-android-car {{currentLanguage}} {{category}}"></i></a>
-                <a href="#" class="extern" onclick="window.open('google.navigation:q={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}&mode=r', '_system');"><i style="font-size:18px;padding-left:10px" class="icon ion-android-bus {{currentLanguage}} {{category}}"></i></a>{{/android}}
-            </li>{{/address}}
-            {{#phone}}
-            <li class="list-group-item">
-                <b id="servicePhone">
-                <script>$("#servicePhone").html(Globalization.labels.infoMenu.phone)</script></b>
-                {{#web}}{{phone}}{{/web}}
-                {{^web}}{{^wp8}}<a href="#" class="extern" onclick="window.open('tel:{{phone}}', '_system');">{{phone}}</a>{{/wp8}}
-                {{#wp8}}<a href="tel:{{phone}}" class="extern">{{phone}}</a>{{/wp8}}
-                {{/web}}
-            </li>{{/phone}}
-            {{#fax}}
-            <li class="list-group-item">
-                <b id="serviceFax">
-                <script>$("#serviceFax").html(Globalization.labels.infoMenu.fax)</script></b>
-                {{#web}}{{fax}}{{/web}}
-                {{^web}}{{^wp8}}<a href="#" class="extern" onclick="window.open('tel:{{fax}}', '_system');">{{fax}}</a>{{/wp8}}
-                {{#wp8}}<a href="tel:{{fax}}" class="extern">{{fax}}</a>{{/wp8}}{{/web}}
-            </li>{{/fax}}
-            {{#website}}
-            <li class="list-group-item">
-                <b id="serviceWebSite">
-                <script>$("#serviceWebSite").html(Globalization.labels.infoMenu.website)</script></b>
-               {{#web}}<a href="#" class="extern" onclick="window.open('http://{{website}}', '_system');">{{website}}</a>{{/web}}
-{{^web}}{{^wp8}}<a href="#" class="extern" onclick="cordova.InAppBrowser.open('http:{{website}}', '_blank', 'location=yes');">{{website}}</a>{{/wp8}}
-{{#wp8}}<a href="#" class="extern" onclick="cordova.InAppBrowser.open('http://{{website}}', '_blank', 'location=yes');">{{website}}</a>{{/wp8}}{{/web}}
-            </li>{{/website}}
-            {{#email}}
-            <li class="list-group-item">
-                <b id="serviceEmail">
-                <script>$("#serviceEmail").html(Globalization.labels.infoMenu.email)</script></b>
-                {{^wp8}}<a href="#" class="extern" onclick="window.open('mailto:{{email}}', '_system');">{{email}}</a>{{/wp8}}
-                {{#wp8}}<a href="mailto:{{email}}" class="extern">{{email}}</a>{{/wp8}}
-            </li>{{/email}}
-            {{#note}}
-            <li class="list-group-item"><b id="serviceNote">
-            <script>$("#serviceNote").html(Globalization.labels.infoMenu.note)</script></b>{{#unescapeHtml}}{{note}}{{/unescapeHtml}}</li>{{/note}}
-            {{#dbPedia}}
-            <li class="list-group-item">
-                <b id="serviceLinkDBpedia">
-                <script>$("#serviceLinkDBpedia").html(Globalization.labels.infoMenu.linkDBpedia)</script></b>{{/dbPedia}}
-                {{#linkDBpedia}}<a href="#" class="extern" onclick="cordova.InAppBrowser.open('{{.}}', '_blank', 'location=yes');">{{#uriToLabelDBPedia}}{{.}}{{/uriToLabelDBPedia}}</a> - {{/linkDBpedia}}
-                {{#dbPedia}}
-            </li>{{/dbPedia}}
-            
-            {{#carouselComment}}
-            <li class="list-group-item">
+<li class="list-group-item">
+    <b id="serviceDocument" style="color: #b459a9;">
+        <script>$("#serviceDocument").html(Globalization.labels.infoMenu.document)</script>
+    </b>
+    {{#web}}
+    <a href="#" class="extern" onclick="window.open('http://{{textPDF}}', '_blank');"><i style="color: #b459a9;" class="fa fa-file-pdf-o"></i></a>
+    {{/web}}
+    {{^web}}
+    <a href="#" class="extern" onclick="window.open('http:{{textPDF}}', '_system');"><i style="color: #b459a9;" class="fa fa-file-pdf-o"></i></a>
+    {{/web}}
+</li>
+{{/textPDF}}
+{{#address}}
+<li class="list-group-item">
+    <i style="color: #b459a9;" class="icon fa fa-map-pin {{currentLanguage}} {{category}}"></i>
+    {{#web}}<span style="padding-left: 5px"> {{address}} ,{{civic}} {{cap}} {{city}} {{province}}</span> {{/web}}
+    {{#ios}}<a  style="padding-left: 5px"href="maps://?daddr={{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>{{/ios}}
+    {{#wp8}}<a  style="padding-left: 5px"href="maps:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}" class="extern">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>{{/wp8}}
+    {{#android}}<a  style="padding-left: 5px"href="#" class="extern" onclick="window.open('geo:{{#geometry}}{{coordinates.1}},{{coordinates.0}}{{/geometry}}', '_system');">{{address}},{{civic}} {{cap}} {{city}} {{province}}</a>
+    {{/android}}
+</li>
+{{/address}}
+{{#phone}}
+<li class="list-group-item">
+    <i style="color: #b459a9;" class="icon fa fa-phone {{currentLanguage}} {{category}}"></i>
+    {{#web}}<a  style="padding-left: 5px"onclick="window.open('tel:{{phone}}', '_system');">{{phone}}</a>{{/web}}
+    {{^web}}{{^wp8}}<a  style="padding-left: 5px"href="#" class="extern" onclick="window.open('tel:{{phone}}', '_system');">{{phone}}</a>{{/wp8}}
+    {{#wp8}}<a  style="padding-left: 5px"href="tel:{{phone}}" class="extern">{{phone}}</a>{{/wp8}}
+    {{/web}}
+</li>{{/phone}}
+{{#fax}}
+<li class="list-group-item">
+    <i style="color: #b459a9;" class="icon fa fa-fax {{currentLanguage}} {{category}}"></i>
+    {{#web}}<span style="padding-left: 5px">{{fax}} </span>{{/web}}
+    {{^web}} {{^wp8}}<a  style="padding-left: 5px"href="#" class="extern" onclick="window.open('tel:{{fax}}', '_system');">{{fax}}</a>{{/wp8}}
+    {{#wp8}}<a  style="padding-left: 5px"href="tel:{{fax}}" class="extern">{{fax}}</a>{{/wp8}}
+    {{/web}}
+</li>{{/fax}}
+{{#website}}
+<li class="list-group-item">
+    <i style="color: #b459a9;" class="icon fa fa-globe {{currentLanguage}} {{category}}"></i>
+    {{#web}}<a  style="padding-left: 5px"href="#" class="extern" onclick="window.open('http://{{website}}', '_system');">{{website}}</a>{{/web}}
+    {{^web}}{{^wp8}}<a  style="padding-left: 5px"href="#" class="extern" onclick="cordova.InAppBrowser.open('http:{{website}}', '_blank', 'location=yes');">{{website}}</a>{{/wp8}}
+    {{#wp8}}<a  style="padding-left: 5px"href="#" class="extern" onclick="cordova.InAppBrowser.open('http://{{website}}', '_blank', 'location=yes');">{{website}}</a>{{/wp8}}{{/web}}
+</li>{{/website}}
+{{#email}}
+<li class="list-group-item">
+    <i style="color: #b459a9;" class="icon fa fa-at {{currentLanguage}} {{category}}"></i>
+    {{^wp8}}<a  style="padding-left: 5px"href="#" class="extern" onclick="window.open('mailto:{{email}}', '_system');">{{email}}</a>{{/wp8}}
+    {{#wp8}}<a  style="padding-left: 5px"href="mailto:{{email}}" class="extern">{{email}}</a>{{/wp8}}
+</li>{{/email}}
+{{#note}}
+<li class="list-group-item"><i style="color: #b459a9;" class="icon fa fa-sticky-note-o {{currentLanguage}} {{category}}"></i><span style="padding-left: 5px">{{#unescapeHtml}}{{note}}{{/unescapeHtml}}</span></li>{{/note}}
+{{#dbPedia}}
+<li class="list-group-item">
+    <b id="serviceLinkDBpedia">
+    <script>$("#serviceLinkDBpedia").html(Globalization.labels.infoMenu.linkDBpedia)</script></b>{{/dbPedia}}
+    {{#linkDBpedia}}<a href="#" class="extern" onclick="cordova.InAppBrowser.open('{{.}}', '_blank', 'location=yes');">{{#uriToLabelDBPedia}}{{.}}{{/uriToLabelDBPedia}}</a> - {{/linkDBpedia}}
+    {{#dbPedia}}
+</li>{{/dbPedia}}
+            <!--{{#carouselComment}}--> <!--{{^avgStars}}-->
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777;border-color: #b459a9; font-weight: bold;">
+                <b id="serviceReviews">
+                    <script>
+                $("#serviceReviews").html(Globalization.labels.infoMenu.reviews)
+                    </script>
+                </b>
+            </li>  <!--{{/avgStars}}--><!--{{/carouselComment}}-->
+            <!--{{^carouselComment}}--> <!--{{#avgStars}}-->
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777;border-color: #b459a9; font-weight: bold;">
+                <b id="serviceReviews">
+                    <script>
+                $("#serviceReviews").html(Globalization.labels.infoMenu.reviews)
+                    </script>
+                </b>
+            </li> <!--{{/avgStars}}--> <!--{{/carouselComment}}-->
+            <!--{{#carouselComment}}--> <!--{{#avgStars}}-->
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777;border-color: #b459a9; font-weight: bold;">
+                <b id="serviceReviews">
+                    <script>
+                $("#serviceReviews").html(Globalization.labels.infoMenu.reviews)
+                    </script>
+                </b>
+            </li>  <!--{{/avgStars}}--><!--{{/carouselComment}}-->
+            <!--{{#carouselComment}}-->
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="border-color: #b459a9;">
                 <div id="serviceCarouselComments" class="carousel slide" style="width:100%; margin-left: auto;margin-right: auto;">
-                    <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
-                        {{#carouselCommentContent}}
+                        <!--{{#carouselCommentContent}}-->
                         <div class="item {{active}}" style="left: 15%; width: 70%;">
                             <div class="carousel-caption" style="position:static;text-shadow: none; color: black;">
-                                <p>{{comment}}</p>
-                                <p style="font-size: 12px">{{time}}</p>
+                                <blockquote class="rectangle-speech-border">
+                                    <p>{{comment}}</p>
+                                    <p style="font-size: 12px">{{time}}</p>
+                                </blockquote>
                             </div>
                         </div>
-                        {{/carouselCommentContent}}
+                        <!--{{/carouselCommentContent}}-->
                     </div>
                     <!-- Controls -->
-                    {{^onlyOneComment}}
+                    <!--{{^onlyOneComment}}-->
                     <a class="left carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselComments" role="button" data-slide="prev" style="background-image: none; background-color: white; opacity: 1;">
-                        <span class="glyphicon glyphicon-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                        <span class="fa fa-chevron-left icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
                     <a class="right carousel-control icon {{currentLanguage}} {{category}}" href="#serviceCarouselComments" role="button" data-slide="next" style="background-image: none; background-color: white; opacity: 1;">
-                        <span class="glyphicon glyphicon-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
+                        <span class="fa fa-chevron-right icon {{currentLanguage}} {{category}}" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
-                    {{/onlyOneComment}}
+                    <!--{{/onlyOneComment}}-->
                 </div>
             </li>
-            {{/carouselComment}}
-            {{#avgStars}}
-            <li class="list-group-item">
-                <b id="serviceStarsAverageLabel">
-                    <script>$("#serviceStarsAverageLabel").html(Globalization.labels.infoMenu.avgStars)</script>
-                </b>
+            <!--{{/carouselComment}}-->
+            <!--{{#avgStars}}-->
+            <!--{{^carouselComment}}-->
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;border-color: #b459a9;">
+                <!--{{/carouselComment}}-->
+                <!--{{#carouselComment}}-->
+            <li class="list-group-item" style="text-align: center">
+                <!--{{/carouselComment}}-->
                 <input value="{{avgStars}}" id="serviceStarsAverage">
-                <script>$("#serviceStarsAverage").rating({min: 0,max: 5,step: 1,size: 'xs',showClear: false, defaultCaption: "{rating}", starCaptions: {}, readonly: true, display: 'inline'});</script>
+                <script>
+            $("#serviceStarsAverage").rating({ min: 0, max: 5, step: 1, size: 'sm', showClear: false, defaultCaption: "{rating}", starCaptions: {}, readonly: true, display: 'inline' });
+            $("#serviceStarsAverage").parent().children("div.rating").children("span.empty-stars").children("span.star").css("color", $("#serviceStarsAverage").parent().children("div.caption").children("span").css("background-color"));
+            $("#serviceStarsAverage").parent().children("div.rating").children("span.filled-stars").children("span.star").css("color", $("#serviceStarsAverage").parent().children("div.caption").children("span").css("background-color"));</script>
+                <br />
                 <b id="serviceStarsLabel" style="margin-left: 10px;">
                     <script>$("#serviceStarsLabel").html(Globalization.labels.infoMenu.starsCount)</script>
                 </b> {{starsCount}}
-                <script>$(".rating-disabled").css("display", "inline");</script>
+                <script>
+            $(".rating-disabled").css("display", "inline");
+                </script>
             </li>
-            {{/avgStars}}
-            {{#userStars}}
-            <li class="list-group-item">
-                <b id="serviceUserStarsLabel">
-                    <script>$("#serviceUserStarsLabel").html(Globalization.labels.infoMenu.userStars)</script>
+
+            <!--{{/avgStars}}-->
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;color: #777; font-weight: bold;border-color: #b459a9;">
+                <b id="serviceWhatYouThink">
+                    <script>
+                $("#serviceWhatYouThink").html(Globalization.labels.infoMenu.whatYouThink)
+                    </script>
                 </b>
-                <input id="serviceUserStars" value="{{userStars}}">
-                <script>$("#serviceUserStars").rating({min: 0,max: 5,step: 1,size: 'xs',showClear: false,defaultCaption: "{rating}",starCaptions: {},readonly: true});</script>
-                <script>$(".rating-disabled").css("display", "inline");</script>
-                <button id="starsNewVoteButton" type="button" class="btn btn-default btn-sm" style="margin-left: 10px;margin-bottom: 8px;width: 50px;" onclick="InfoManager.collapseInfoAboutOneMarker();FeedbackManager.showModal('{{serviceUri}}');">
-                    <script>$("#starsNewVoteButton").html(Globalization.labels.feedbackModal.rate);</script>
+            </li>
+            <li class="list-group-item border {{currentLanguage}} {{category}}" style="text-align: center;border-color: #b459a9;">
+                <button id="buttonUploadPhotoFeedbackModal" type="button" class="btn btn-default icon {{currentLanguage}} {{category}}" style="color: #b459a9;border: 0px;background-color: white;" onclick="PictureManager.pickPhotoFromAlbum('{{serviceUri}}');">
+                    <script>
+                        $("#buttonUploadPhotoFeedbackModal").html(Globalization.labels.feedbackModal.uploadPhoto);
+                    </script>
+                </button>
+                <button id="buttonTakePhotoFeedbackModal" type="button" class="btn btn-default icon {{currentLanguage}} {{category}}" style="color: #b459a9;border: 0px;background-color: white;" onclick="PictureManager.takePhoto('{{serviceUri}}');">
+                    <script>
+                        $("#buttonTakePhotoFeedbackModal").html(Globalization.labels.feedbackModal.takePhoto);
+                    </script>
                 </button>
             </li>
-            {{/userStars}}
+            <li class="list-group-item" style="text-align: center;border:0px;color: #777">
+                <b id="serviceUserStarsLabel">
+                    <script>
+                            $("#serviceUserStarsLabel").html(Globalization.labels.infoMenu.userStars)
+                    </script>
+                </b>
+                <br />
+                <input id="serviceUserStars" value="{{userStars}}">
+                <script>
+                    $("#serviceUserStars").rating({ min: 0, max: 5, step: 1, size: 'xs', showClear: false, defaultCaption: "{rating}", starCaptions: {} });
+                    $("#serviceUserStars").parent().children("div.rating").children("span.empty-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+                    $("#serviceUserStars").parent().children("div.rating").children("span.filled-stars").children("span.star").css("color", $("#infoMenuHeader").css("background-color"));
+                         $('#serviceUserStars').on('rating.change', function (event, value, caption) {
+                            FeedbackManager.setServiceUri('{{serviceUri}}');
+                            FeedbackManager.sendDirectStars(value);
+                         });
+                         $(".rating-disabled").css("display", "inline");
+                </script>
+            </li>
+            <li class="list-group-item" style="text-align: center;border: 0px;color: #777">
+                <b id="serviceComment">
+                    <script>
+                        $("#serviceComment").html(Globalization.labels.infoMenu.comment)
+                    </script>
+                </b>
+                <br />
+                <textarea id="serviceTextAreaComment" style="resize: vertical;width: 70%; height: 50px; border: 1px solid #777;" onfocus="InfoManager.expandInfoAboutOneMarker();"></textarea>
+                <br />
+                <button id="commentButton" type="button" class="btn btn-success btn-sm" style="margin-bottom: 8px;width: 60px;" onclick="FeedbackManager.currentServiceUri = '{{serviceUri}}'; FeedbackManager.sendDirectComment();">
+                    <script>$("#commentButton").html(Globalization.labels.commonLabels.send);</script>
+                </button>
+            </li>
             
             <!-- {{/properties}} -->
         </ul>

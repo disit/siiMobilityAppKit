@@ -44,4 +44,4 @@ var StartInformation = {
             StartInformation.hide();
         }
     }
-}
+};
