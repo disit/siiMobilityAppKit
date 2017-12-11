@@ -1,0 +1,16 @@
+﻿{
+  "principalMenu": {
+    "moduleEasyParkSearcher": "Lista Easy Park"
+  },
+  "easyParkMenu": {
+    "title": "Easy Park",
+    "gpsOrderText": "Più vicini <i class=\"glyphicon glyphicon-record\">",
+    "searchCenterOrderText": "Più vicini <i class=\"glyphicon glyphicon-map-marker\">",
+    "freeParkingOrderText":  "Posti liberi"
+  },
+  "easyParkLabels": {
+    "freeParkingLots": "Posti liberi: ",
+    "capacity": "Capacità: ",
+    "updating": "Ultimo aggiornamento: "
+  }
+}
