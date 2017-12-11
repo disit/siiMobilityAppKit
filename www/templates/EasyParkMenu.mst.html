@@ -1,0 +1,95 @@
+
+<div id="easyParkMenuHeader" class="panel panel-default" style="position: absolute;right: 0px;left: 0px;border-radius: 0px;">
+    <div id="easyParkMenuExpandHandler" class="grippyContainer grippyContainer-horizontal" style="text-align: center;">
+        <div class="grippy grippy-horizontal"></div>
+    </div>
+    <div class="panel-heading" style="padding: 0px 10px;height: 52px; border: none;">
+        <a class="pull-right" onclick="EasyParkSearcher.hide();">
+            <i class="glyphicon glyphicon-remove"
+               style="float: right; padding-left: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="easyParkMenuExpand" class="pull-left" onclick="EasyParkSearcher.expandEasyParkSearcher();">
+            <i class="glyphicon glyphicon-plus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <a id="easyParkMenuCollapse" class="pull-left" onclick="EasyParkSearcher.collapseEasyParkSearcher();">
+            <i class="glyphicon glyphicon-minus" style="padding-right: 8px; color: #777; line-height: 52px;"></i>
+        </a>
+        <b id="easyParkMenuHeaderTitle" style="line-height: 52px;color: #333;">
+            <script>
+                $("#easyParkMenuHeaderTitle").html(
+                    Globalization.labels.easyParkMenu.title)
+            </script>
+        </b>
+
+    </div>
+</div>
+
+<div id="easyParkMenuInner" class="commonHalfMenuInner">
+ <!-- {{#features.1}} {{#properties}}-->
+    <div style="margin-bottom: 5px; text-align: center; width: 100%">
+        {{#distanceFromGPS}}<a class="btn btn-default sorting" href="#" role="button" onclick="EasyParkSearcher.orderByDistanceFromGPS();" style="color:black; padding: 6px 3px;font-size: 16px"> <span id="easyParkSearcherMenuGpsOrderText"><script>
+            $("#easyParkSearcherMenuGpsOrderText").html(
+						Globalization.labels.easyParkMenu.gpsOrderText)
+</script></span><i id="easyParkSearcherMenuGpsOrderImage" class="glyphicon"></i></a>{{/distanceFromGPS}}
+        {{#distanceFromSearchCenter}}<a class="btn btn-default sorting" href="#" role="button" onclick="EasyParkSearcher.orderByDistanceFromSearchCenter();" style="color:black;padding: 6px 3px;font-size: 16px">
+    <span id="easyParkSearcherMenuSearchCenterOrderText">
+        <script>
+            $("#easyParkSearcherMenuSearchCenterOrderText").html(
+						Globalization.labels.easyParkMenu.searchCenterOrderText)
+        </script>
+    </span><i id="easyParkSearcherMenuSearchCenterOrderImage" class="glyphicon"></i>
+</a>{{/distanceFromSearchCenter}}
+       <a class="btn btn-default sorting" href="#" role="button" onclick="EasyParkSearcher.orderByFreeParkingLots();" style="color:black;padding: 6px 3px;font-size: 16px">
+            <span id="easyParkSearcherMenuFreeParkingOrderText">
+                <script>
+            $("#easyParkSearcherMenuFreeParkingOrderText").html(
+						Globalization.labels.easyParkMenu.freeParkingOrderText)
+                </script>
+            </span><i id="easyParkSearcherMenuFreeParkingOrderImage" class="glyphicon"></i>
+        </a>
+    </div>
+    <!-- {{/properties}}{{/features.1}}-->
+    <!-- {{#features}} {{#properties}}-->
+    <div class="panel panel-default" style="margin: 0px 5px 10px 5px; color: #000; text-decoration: none;" onclick="InfoManager.showInfoAboutOneMarker('{{#properties}}{{serviceUri}}{{/properties}}',{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}});MapManager.addSelectedServiceMarker('{{serviceType}}','{{nameEscaped}}','{{civic}}','{{busLines}}','{{agency}}','{{serviceUri}}'{{/properties}},{{#geometry}}{{coordinates.1}}, {{coordinates.0}}{{/geometry}}, '{{#properties}}{{alternativeIcon}}{{/properties}}');">
+        <div class="panel-body card-2" style="position:relative">
+            {{#properties}}
+            <!--{{#freeParkingLots}}<b style="position: absolute; bottom: 0px; right: 10px; font-size: 24px; color: {{freeParkingLotsColor}}">{{freeParkingLots}}</b>{{/freeParkingLots}}-->
+            {{#imageThumb}}<img id="easyParkMenuImage{{identifier}}" src="{{imageThumb}}"
+                                style="margin-right: 8px; float: left; max-height: 90px; max-width: 90px" class="card-3">{{/imageThumb}}
+            <img src="{{imgsrc}}" style="padding-right: 8px; float: left">
+            <b style="text-align: center">{{#unescapeHtml}}{{name}}{{/unescapeHtml}}</b>
+            {{#typeLabel}}<br><b id="easyParkMenuTypeLabel{{identifier}}">
+                <script>$("#easyParkMenuTypeLabel{{identifier}}").html(Globalization.labels.infoMenu.type)</script>
+            </b>{{typeLabel}}{{/typeLabel}}
+            {{#distanceFromSearchCenter}}<br><b id="easyParkMenuTextSearchDistanceFromSearchCenter{{identifier}}">
+                <script>$("#easyParkMenuTextSearchDistanceFromSearchCenter{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromSearchCenter)</script>
+            </b>{{distanceFromSearchCenter}} m{{/distanceFromSearchCenter}}
+            {{#distanceFromGPS}}<br><b id="easyParkMenuTextSearchDistanceFromGPS{{identifier}}">
+                <script>$("#easyParkMenuTextSearchDistanceFromGPS{{identifier}}").html(Globalization.labels.textSearchMenu.distanceFromGPS)</script>
+            </b>{{distanceFromGPS}} m{{/distanceFromGPS}}
+			<br>
+			<!--<b>
+			<ul>{{#items}}
+				<li> {{capacity.value}}, {{freeParkingLots.value}}, {{occupiedParkingLots.value}} {{occupancy.value}}, {{status.value}}, {{updating.value}})</li>
+			{{/items}}</ul>
+        </b>-->
+
+            {{#freeParkingLots}}<b id="easyParkFreeParkingLotsLabel{{identifier}}">
+                <script>$("#easyParkFreeParkingLotsLabel{{identifier}}").html(Globalization.labels.easyParkLabels.freeParkingLots)</script>
+            </b><b style="color: {{freeParkingLotsColor}}">{{freeParkingLots}}</b><br>{{/freeParkingLots}}
+
+            {{#capacity}}<b id="easyParkCapacityLabel{{identifier}}">
+                <script>$("#easyParkCapacityLabel{{identifier}}").html(Globalization.labels.easyParkLabels.capacity)</script>
+            </b>{{capacity}}<br>{{/capacity}}
+
+            {{#updating}}<b id="easyParkLastUpdateLabel{{identifier}}">
+                <script>$("#easyParkLastUpdateLabel{{identifier}}").html(Globalization.labels.easyParkLabels.updating)</script>
+            </b>{{updating}}{{/updating}}
+
+            {{#marker}}<b style="position: absolute; top: 4px; right: 10px; font-size: 100px; color: {{freeParkingLotsColor}}">{{marker}}</b>{{/marker}}
+
+			{{/properties}}
+        </div>
+    </div>
+    <!-- {{/features}} -->
+</div>
