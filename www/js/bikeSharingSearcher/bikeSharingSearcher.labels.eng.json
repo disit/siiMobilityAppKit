@@ -1,0 +1,13 @@
+﻿{
+  "principalMenu": {
+    "moduleBikeSharingSearcher": "Bike Sharing"
+  },
+  "bikeSharingMenu": {
+    "title": "Bike Sharing",
+    "gpsOrderText": "Closer <i class=\"glyphicon glyphicon-record\">",
+    "searchCenterOrderText": "Closer <i class=\"glyphicon glyphicon-map-marker\">",
+    "freeStallsOrderText": "Free stalls",
+	"availableBikesOrderText": "Available bikes"
+  }
+}
+

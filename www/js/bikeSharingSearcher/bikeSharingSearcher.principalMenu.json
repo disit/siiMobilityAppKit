@@ -1,0 +1,25 @@
+﻿[
+  {
+	"callback": "PrincipalMenu.logPrincipalMenuChoices('bikeSharing');PrincipalMenu.hide();SearchManager.search('BikeSharingSearcher');",
+    "iconId": "",
+    "iconClass": "",
+    "iconFontSize": "",
+    "iconColor": "",
+    "imgSrc": "",
+    "imgHeight": "",
+    "text": "BS",
+    "textFontSize": "38px",
+    "textColor": "#D80076",
+    "captionId": "principalMenuBikeSharing",
+    "captionTextId": "moduleBikeSharingSearcher",
+    "step": "",
+    "stepId": "",
+    "ribbon": true,
+    "ribbonId": "",
+    "ribbonStyle": "background: #D8ff76;background: linear-gradient(#B20061 0%, #D80076 100%);",
+    "ribbonText":  "NEW",
+    "removed": false,
+	"forceRemoved":  false,
+    "index": 0
+  }
+]
